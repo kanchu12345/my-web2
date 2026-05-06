@@ -136,7 +136,7 @@ function makeCard(p){
 function renderFallbackProjects(grid){
   const demos=[
     { title: 'Versells Lanka', category: 'Corporate', url: 'https://versellslanka.com' },
-    { title: 'Centennial Leo Club', category: 'Non-Profit', url: 'https://richmondleos.dpdns.org' },
+    { title: 'Centennial Leo Club', category: 'Non-Profit', url: 'https://richmondleos.org' },
     { title: 'Lanka Sunrays', category: 'E-commerce', url: 'https://lankasunrays.lk' },
     { title: 'Shanthi Weda Madhura', category: 'Healthcare', url: 'https://shanthiwedamadura.com' },
     { title: 'Nations Trust Holdings', category: 'Finance', url: 'https://nationstrustholdingslondon.com' },
@@ -195,3 +195,32 @@ document.addEventListener('DOMContentLoaded',function(){
   lnk.rel='stylesheet';lnk.href='css/additions.css';
   document.head.appendChild(lnk);
 });
+
+/* ── Footer Typing Animation ────────────────────── */
+(function initFooterTyping(){
+  const el = document.getElementById('footerTyping');
+  if(!el) return;
+  const text = '> console.log("Crafted with ♥ in Sri Lanka");';
+  el.innerHTML = '';
+  let i = 0;
+  
+  const cursor = document.createElement('span');
+  cursor.className = 'typing-cursor';
+  
+  function typeWriter() {
+    if (i < text.length) {
+      el.innerHTML = text.substring(0, i+1);
+      el.appendChild(cursor);
+      i++;
+      setTimeout(typeWriter, Math.random() * 50 + 40);
+    }
+  }
+  
+  const io = new IntersectionObserver(function(entries){
+    if(entries[0].isIntersecting){
+      setTimeout(typeWriter, 400);
+      io.disconnect();
+    }
+  });
+  io.observe(el);
+})();

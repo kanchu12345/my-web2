@@ -58,3 +58,18 @@
 }
 .toast.show{transform:none;opacity:1;}
 .toast-dot{width:8px;height:8px;border-radius:50%;background:var(--blue);flex-shrink:0;}
+
+/* Typing Cursor */
+@keyframes blinkCursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.typing-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 14px;
+  background-color: var(--blue);
+  margin-left: 4px;
+  vertical-align: middle;
+  animation: blinkCursor 0.8s step-end infinite;
+}

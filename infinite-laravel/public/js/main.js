@@ -136,7 +136,7 @@ function makeCard(p){
 function renderFallbackProjects(grid){
   const demos=[
     { title: 'Versells Lanka', category: 'Corporate', url: 'https://versellslanka.com' },
-    { title: 'Centennial Leo Club', category: 'Non-Profit', url: 'https://richmondleos.dpdns.org' },
+    { title: 'Centennial Leo Club', category: 'Non-Profit', url: 'https://richmondleos.org' },
     { title: 'Lanka Sunrays', category: 'E-commerce', url: 'https://lankasunrays.lk' },
     { title: 'Shanthi Weda Madhura', category: 'Healthcare', url: 'https://shanthiwedamadura.com' },
     { title: 'Nations Trust Holdings', category: 'Finance', url: 'https://nationstrustholdingslondon.com' },

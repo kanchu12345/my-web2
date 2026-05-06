@@ -8,7 +8,7 @@ export const metadata = {
 
 const projects = [
   { name: "Versells Lanka", url: "https://versellslanka.com", category: "Corporate", desc: "A premium corporate identity and scalable web platform." },
-  { name: "Richmond Leos", url: "https://richmondleos.dpdns.org", category: "Non-Profit", desc: "Dynamic community platform with event management." },
+  { name: "Richmond Leos", url: "https://richmondleos.org", category: "Non-Profit", desc: "Dynamic community platform with event management." },
   { name: "Lanka Sunrays", url: "https://lankasunrays.lk", category: "E-commerce", desc: "High-conversion e-commerce storefront for retail." },
   { name: "Shanthi Wedamadura", url: "https://shanthiwedamadura.com", category: "Healthcare", desc: "Trust-building healthcare clinic website with appointment booking." },
   { name: "Nations Trust Holdings", url: "https://nationstrustholdingslondon.com", category: "Finance", desc: "Secure, professional portal for international finance." },
