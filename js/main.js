@@ -299,3 +299,37 @@ document.addEventListener('DOMContentLoaded',function(){
   
   bgs.forEach(bg => { if(bg) createTyper(bg); });
 })();
+
+/* ── Terminal Mission Typing ────────────────────── */
+(function initMissionTerminal(){
+  const el = document.getElementById('missionTextEl');
+  if(!el) return;
+  
+  const text = "> INITIALIZING CORE VISION...\n\n> Our eyes are fixed on the future, where we aim to stand as the #1 digital partner on the planet.\n> We understand that the road to being a world-first company is paved with challenges and hard work.\n> That is why we fight for excellence in every detail, ensuring our clients receive nothing but the best.\n> We combine a warrior's work ethic with a designer's soul to create truly world-class experiences.\n\n> Partner with us now, and let's ascend to the global stage together through sheer determination.";
+  
+  let idx = 0;
+  let started = false;
+  
+  function typeMission() {
+    if(idx < text.length) {
+      el.textContent = text.substring(0, idx+1) + "█";
+      idx += Math.floor(Math.random() * 3) + 1; // Type 1-3 chars for varied organic speed
+      setTimeout(typeMission, Math.random() * 30 + 10);
+    } else {
+      el.textContent = text;
+      // Blinking cursor at the end
+      setInterval(() => {
+        el.textContent = el.textContent.endsWith("█") ? text : text + "█";
+      }, 500);
+    }
+  }
+  
+  const io = new IntersectionObserver(function(entries){
+    if(entries[0].isIntersecting && !started){
+      started = true;
+      setTimeout(typeMission, 500); // 500ms delay before starting
+      io.disconnect();
+    }
+  }, { threshold: 0.5 });
+  io.observe(el);
+})();
