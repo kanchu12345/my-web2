@@ -144,14 +144,11 @@ Route::<span class="cv">get</span>(<span class="cs">'/'</span>,
     </div>
 
     <!-- Badge cell — Stats Card -->
-    <div class="hero-badge reveal reveal-delay-1" style="background:#04AA6D;border:none;">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
-        <img src="images/logo.png" alt="" width="50" height="50" style="border-radius:8px;">
-        <span style="font-family:var(--font-disp);font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.85);">Infinite Design</span>
-      </div>
-      <div class="hero-badge-num" style="color:#fff;font-size:56px;">12+</div>
-      <div class="hero-badge-label" style="color:rgba(255,255,255,0.8);margin-bottom:16px;">Years of Excellence</div>
-      <div style="display:flex;gap:16px;width:100%;">
+    <div class="hero-badge reveal reveal-delay-1" style="background:#04AA6D;border:none;position:relative;overflow:hidden;">
+      <img src="images/logo.png" alt="" aria-hidden="true" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:70%;opacity:0.08;pointer-events:none;z-index:0;filter:grayscale(100%) contrast(200%);">
+      <div class="hero-badge-num" style="color:#fff;font-size:56px;position:relative;z-index:1;">12+</div>
+      <div class="hero-badge-label" style="color:rgba(255,255,255,0.8);margin-bottom:16px;position:relative;z-index:1;">Years of Excellence</div>
+      <div style="display:flex;gap:16px;width:100%;position:relative;z-index:1;">
         <div style="flex:1;background:rgba(255,255,255,0.15);border-radius:12px;padding:10px 8px;text-align:center;">
           <div style="font-family:var(--font-disp);font-size:22px;font-weight:800;color:#fff;">150+</div>
           <div style="font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.7);">Projects</div>
@@ -247,6 +244,16 @@ Route::<span class="cv">get</span>(<span class="cs">'/'</span>,
             <div style="font-family:var(--font-sans);font-size:44px;font-weight:800;letter-spacing:-1px;color:#282A35;line-height:1;">150+</div>
             <div style="font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:rgba(40,42,53,0.7);margin-top:12px;">Projects Done</div>
           </div>
+        </div>
+        
+        <div style="margin-top: 4.5rem; max-width: 900px; text-align: center; padding: 2rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 20px;">
+          <p style="font-size: 1.15rem; color: rgba(255,255,255,0.8); line-height: 1.8; font-weight: 300; margin-bottom: 0;">
+            Our eyes are fixed on the future, where we aim to stand as the <strong style="color: #04AA6D; font-weight: 600;">#1 digital partner on the planet.</strong><br>
+            We understand that the road to being a world-first company is paved with challenges and hard work.
+            That is why we fight for excellence in every detail, ensuring our clients receive nothing but the best.
+            We combine a warrior’s work ethic with a designer’s soul to create truly world-class experiences.<br><br>
+            <strong style="color: #fff; font-weight: 600; font-size: 1.25rem;">Partner with us now, and let’s ascend to the global stage together through sheer determination.</strong>
+          </p>
         </div>
       </div>
     </div>
