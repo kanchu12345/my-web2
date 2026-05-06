@@ -1,0 +1,44 @@
+name: 🤖 AI Blog Agent — Daily Tech News Fetch
+
+on:
+  schedule:
+    # Runs every day at midnight UTC
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+    # Allows manual trigger from GitHub Actions tab
+
+jobs:
+  fetch-and-publish:
+    name: Fetch, Validate & Publish Articles
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🐍 Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 📦 Install dependencies
+        run: pip install requests feedparser beautifulsoup4 lxml
+
+      - name: 🤖 Run AI Blog Agent
+        run: python .github/scripts/fetch_blogs.py
+
+      - name: 📝 Check for changes
+        id: changes
+        run: |
+          git diff --quiet data/blogs.json || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: 💾 Commit and push updated blogs
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "Infinite Blog Agent"
+          git add data/blogs.json
+          git commit -m "🤖 Auto-update: Fresh tech articles [$(date +'%Y-%m-%d')]"
+          git push

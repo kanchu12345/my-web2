@@ -1,0 +1,39 @@
+{
+  "updated_at": "2026-05-06T00:00:00+00:00",
+  "count": 3,
+  "articles": [
+    {
+      "id": "fallback_1",
+      "title": "The Future of Corporate Web Design in 2026",
+      "category": "Web Design",
+      "date": "May 6, 2026",
+      "description": "Explore the latest trends in enterprise web development, focusing on performance, glassmorphism, and user experience. Learn how top agencies are building future-ready digital products.",
+      "image": "images/blog_1.png",
+      "body_html": "<h2 style='color:#fff; margin-bottom:16px;'>The Evolution of Corporate Web Design</h2><p style='font-size:18px; line-height:1.8; color:rgba(255,255,255,0.8);'>In 2026, the world of corporate web design has transformed dramatically. Gone are the days of flat, static pages. Today, enterprise clients demand dynamic, immersive experiences that combine glassmorphism aesthetics with lightning-fast performance.</p><h3 style='color:#04AA6D; margin: 30px 0 16px;'>Key Trends Shaping 2026</h3><ul style='color:rgba(255,255,255,0.8); line-height:2; font-size:16px;'><li><strong style='color:#fff;'>Glassmorphism 2.0</strong> — Frosted glass effects with depth and motion</li><li><strong style='color:#fff;'>AI-Driven Personalization</strong> — Websites that adapt to individual users</li><li><strong style='color:#fff;'>Motion Design</strong> — Micro-animations that guide user attention</li><li><strong style='color:#fff;'>Performance-First</strong> — Core Web Vitals as a competitive advantage</li></ul><p style='font-size:18px; line-height:1.8; color:rgba(255,255,255,0.8); margin-top:20px;'>At Infinite Creative Web Design, we stay ahead of every trend to ensure our clients in Sri Lanka and internationally receive experiences that put them ahead of the competition.</p>",
+      "source": "Infinite Design",
+      "fetched_at": "2026-05-06T00:00:00+00:00"
+    },
+    {
+      "id": "fallback_2",
+      "title": "How to Rebrand Without Losing Your Audience",
+      "category": "Brand Strategy",
+      "date": "May 2, 2026",
+      "description": "A step-by-step guide to successfully launching a new brand identity while maintaining customer loyalty and trust throughout the transition.",
+      "image": "images/blog_2.png",
+      "body_html": "<h2 style='color:#fff; margin-bottom:16px;'>Rebranding: A Strategic Guide</h2><p style='font-size:18px; line-height:1.8; color:rgba(255,255,255,0.8);'>Rebranding is one of the most high-stakes moves a company can make. Done correctly, it can propel a business to new heights. Done poorly, it can alienate your most loyal customers.</p><h3 style='color:#04AA6D; margin: 30px 0 16px;'>The 5-Step Rebrand Framework</h3><ol style='color:rgba(255,255,255,0.8); line-height:2.2; font-size:16px;'><li><strong style='color:#fff;'>Audit your current identity</strong> — Understand what's working and why</li><li><strong style='color:#fff;'>Define your new core values</strong> — Brand first, visuals second</li><li><strong style='color:#fff;'>Test with your existing audience</strong> — Soft-launch before committing</li><li><strong style='color:#fff;'>Communicate the why</strong> — Tell your story publicly</li><li><strong style='color:#fff;'>Roll out in phases</strong> — Never change everything overnight</li></ol><p style='font-size:18px; line-height:1.8; color:rgba(255,255,255,0.8); margin-top:20px;'>Infinite Design has successfully guided over 40 international brands through major identity transformations with zero audience loss.</p>",
+      "source": "Infinite Design",
+      "fetched_at": "2026-05-06T00:00:00+00:00"
+    },
+    {
+      "id": "fallback_3",
+      "title": "Why We Choose Laravel for Enterprise Apps",
+      "category": "Technology",
+      "date": "Apr 28, 2026",
+      "description": "Discover the security, scalability, and performance benefits of using the Laravel ecosystem for large-scale projects and enterprise-grade applications.",
+      "image": "images/blog_3.png",
+      "body_html": "<h2 style='color:#fff; margin-bottom:16px;'>Laravel: The Enterprise Standard</h2><p style='font-size:18px; line-height:1.8; color:rgba(255,255,255,0.8);'>When building applications for enterprise clients, the choice of framework is never trivial. After testing every major PHP and Node framework over the past decade, Infinite Design consistently returns to Laravel for our enterprise projects — and for very good reasons.</p><h3 style='color:#04AA6D; margin: 30px 0 16px;'>Why Laravel Wins</h3><ul style='color:rgba(255,255,255,0.8); line-height:2; font-size:16px;'><li><strong style='color:#fff;'>Security</strong> — Built-in protection against SQL injection, XSS, and CSRF</li><li><strong style='color:#fff;'>Eloquent ORM</strong> — Elegant, powerful database management</li><li><strong style='color:#fff;'>Queues & Jobs</strong> — Background processing for heavy workloads</li><li><strong style='color:#fff;'>Sanctum & Passport</strong> — Enterprise API authentication built-in</li><li><strong style='color:#fff;'>Scalability</strong> — Horizontally scalable with Redis and cloud infrastructure</li></ul><p style='font-size:18px; line-height:1.8; color:rgba(255,255,255,0.8); margin-top:20px;'>For projects requiring maximum reliability, security, and developer velocity, Laravel remains our framework of choice at Infinite Creative Web Design.</p>",
+      "source": "Infinite Design",
+      "fetched_at": "2026-05-06T00:00:00+00:00"
+    }
+  ]
+}

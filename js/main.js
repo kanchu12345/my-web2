@@ -172,182 +172,139 @@ function renderFallbackProjects(grid){
   });
 }
 
-/* ── Load Blogs (Automated Native Aggregation) ──── */
-function isUnder30Days(dateStr) {
-  const published = new Date(dateStr);
-  const now = new Date();
-  const diffDays = Math.floor((now - published) / (1000 * 60 * 60 * 24));
-  return diffDays <= 30;
+/* ── Blog System: Reads from data/blogs.json (auto-updated by GitHub Actions) */
+
+// Cache blogs.json for the session
+let _blogsCache = null;
+
+async function getBlogsData() {
+  if (_blogsCache) return _blogsCache;
+  try {
+    // Determine root path dynamically (works from any page depth)
+    const depth = window.location.pathname.split('/').length - 2;
+    const prefix = depth > 0 ? '../'.repeat(depth) : '';
+    const res = await fetch(prefix + 'data/blogs.json?v=' + Date.now());
+    if (!res.ok) throw new Error('blogs.json not available');
+    _blogsCache = await res.json();
+    return _blogsCache;
+  } catch(e) {
+    // If blogs.json not found, return hardcoded fallback
+    return {
+      articles: [
+        { id:'fb1', title:'The Future of Corporate Web Design in 2026', category:'Web Design', date:'May 2026', description:'Explore the latest trends in enterprise web development, focusing on performance, glassmorphism, and user experience.', image:'images/blog_1.png', body_html:'<p style="font-size:18px;line-height:1.8;color:rgba(255,255,255,0.8);">In 2026, enterprise web design is all about performance-first glassmorphism, AI-driven personalization, and immersive motion design. Infinite Creative Web Design leads the way in delivering these cutting-edge experiences to clients across Sri Lanka and internationally.</p>' },
+        { id:'fb2', title:'How to Rebrand Without Losing Your Audience', category:'Brand Strategy', date:'Apr 2026', description:'A step-by-step guide to launching a new brand identity while maintaining customer loyalty and trust.', image:'images/blog_2.png', body_html:'<p style="font-size:18px;line-height:1.8;color:rgba(255,255,255,0.8);">Rebranding is one of the most high-stakes moves a company can make. Our 5-step framework — audit, define values, test, communicate, and phase rollout — has helped over 40 international brands rebrand successfully without losing a single loyal client.</p>' },
+        { id:'fb3', title:'Why We Choose Laravel for Enterprise Apps', category:'Technology', date:'Mar 2026', description:'Discover the security, scalability, and performance benefits of using Laravel for large-scale enterprise applications.', image:'images/blog_3.png', body_html:'<p style="font-size:18px;line-height:1.8;color:rgba(255,255,255,0.8);">Laravel stands out for enterprise projects due to its built-in security (CSRF, XSS, SQL injection protection), Eloquent ORM, robust queue system, and Sanctum API authentication. At Infinite Creative Web Design, it is our framework of choice for all enterprise-grade backends.</p>' }
+      ]
+    };
+  }
 }
 
-const fallbackBlogs = [
-  {
-    id: "fallback_1",
-    title: "The Future of Corporate Web Design in 2026",
-    category: "Web Design",
-    image: "images/blog_1.png",
-    date: "May 2026",
-    description: "Explore the latest trends in enterprise web development, focusing on performance, glassmorphism, and user experience...",
-    url: "article.html?id=fallback_1"
-  },
-  {
-    id: "fallback_2",
-    title: "How to Rebrand Without Losing Your Audience",
-    category: "Brand Strategy",
-    image: "images/blog_2.png",
-    date: "Apr 2026",
-    description: "A step-by-step guide to successfully launching a new brand identity while maintaining customer loyalty...",
-    url: "article.html?id=fallback_2"
-  },
-  {
-    id: "fallback_3",
-    title: "Why We Choose Laravel for Enterprise Apps",
-    category: "Technology",
-    image: "images/blog_3.png",
-    date: "Mar 2026",
-    description: "Discover the security, scalability, and performance benefits of using the Laravel ecosystem for large-scale projects...",
-    url: "article.html?id=fallback_3"
-  }
-];
+/* Helper: get relative path to root */
+function rootPath() {
+  const depth = window.location.pathname.split('/').length - 2;
+  return depth > 0 ? '../'.repeat(depth) : '';
+}
+
+/* Helper: get relative path to article.html */
+function articlePath(id) {
+  return rootPath() + 'article.html?id=' + id;
+}
 
 async function loadBlogs() {
   const grid = document.getElementById('blogGrid');
-  if(!grid) return;
+  if (!grid) return;
+  grid.innerHTML = '<div style="color:rgba(255,255,255,0.4);text-align:center;padding:40px;grid-column:1/-1;">Loading articles...</div>';
   try {
-    const res = await fetch('https://dev.to/api/articles?tag=webdev&top=1&per_page=10');
-    if(!res.ok) throw new Error('API error');
-    const data = await res.json();
-    
-    // Filter articles under 30 days and take top 3
-    const filtered = data.filter(a => isUnder30Days(a.published_at)).slice(0, 3);
-    
-    if(filtered.length === 0) throw new Error('No recent articles');
-    
-    const blogs = filtered.map(article => {
-      const image = article.cover_image || article.social_image || "images/blog_1.png";
-      const date = new Date(article.published_at).toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
-      const category = article.tag_list && article.tag_list.length > 0 ? article.tag_list[0] : 'Technology';
-      return {
-        id: article.id,
-        title: article.title,
-        category: category,
-        image: image,
-        date: date,
-        description: article.description || "Read more about this latest technology update...",
-        url: 'article.html?id=' + article.id
-      };
-    });
-    
-    renderBlogs(blogs, grid);
+    const data = await getBlogsData();
+    const articles = (data.articles || []).slice(0, 3);
+    if (articles.length === 0) throw new Error('empty');
+    renderBlogs(articles.map(a => ({...a, url: articlePath(a.id)})), grid);
   } catch(e) {
-    renderBlogs(fallbackBlogs.slice(0, 3), grid);
+    grid.innerHTML = '<div style="color:rgba(255,255,255,0.4);text-align:center;padding:40px;grid-column:1/-1;">Articles loading soon...</div>';
   }
 }
 
 async function loadAllBlogs() {
   const grid = document.getElementById('blogGridAll');
-  if(!grid) return;
+  if (!grid) return;
+  grid.innerHTML = '<div style="color:rgba(255,255,255,0.4);text-align:center;padding:40px;grid-column:1/-1;">Loading articles...</div>';
   try {
-    const res = await fetch('https://dev.to/api/articles?tag=programming&top=1&per_page=30');
-    if(!res.ok) throw new Error('API error');
-    const data = await res.json();
-    
-    const filtered = data.filter(a => isUnder30Days(a.published_at));
-    if(filtered.length === 0) throw new Error('No recent articles');
-    
-    const blogs = filtered.map(article => {
-      const image = article.cover_image || article.social_image || "images/blog_2.png";
-      const date = new Date(article.published_at).toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
-      const category = article.tag_list && article.tag_list.length > 0 ? article.tag_list[0] : 'Technology';
-      return {
-        id: article.id,
-        title: article.title,
-        category: category,
-        image: image,
-        date: date,
-        description: article.description || "Read more about this...",
-        url: 'article.html?id=' + article.id
-      };
-    });
-    
-    renderBlogs(blogs, grid);
+    const data = await getBlogsData();
+    const articles = data.articles || [];
+    if (articles.length === 0) throw new Error('empty');
+    renderBlogs(articles.map(a => ({...a, url: articlePath(a.id)})), grid);
   } catch(e) {
-    renderBlogs(fallbackBlogs, grid);
+    grid.innerHTML = '<div style="color:rgba(255,255,255,0.4);text-align:center;padding:60px;grid-column:1/-1;">No articles available yet. Check back soon.</div>';
   }
 }
 
 function renderBlogs(blogs, grid) {
   grid.innerHTML = '';
   blogs.forEach(b => {
+    const imgSrc = b.image && b.image.startsWith('http') ? b.image : (rootPath() + b.image);
     grid.innerHTML += `
-      <a href="${b.url}" class="blog-card glass-hover" style="display:flex; flex-direction:column; background:#282A35; border-radius:16px; overflow:hidden; text-decoration:none; border:1px solid rgba(255,255,255,0.05);">
-        <div style="height:200px; background:#1e1f26; position:relative; overflow:hidden;">
-          <img src="${b.image}" alt="" style="width:100%; height:100%; object-fit:cover;">
+      <a href="${b.url}" class="blog-card glass-hover" style="display:flex;flex-direction:column;background:#282A35;border-radius:16px;overflow:hidden;text-decoration:none;border:1px solid rgba(255,255,255,0.05);transition:transform 0.3s,box-shadow 0.3s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 20px 40px rgba(0,0,0,0.4)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <div style="height:200px;background:#1e1f26;position:relative;overflow:hidden;">
+          <img src="${imgSrc}" alt="${b.title}" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'">
+          <div style="position:absolute;top:12px;right:12px;background:rgba(4,170,109,0.9);color:#fff;font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:4px 10px;border-radius:20px;">${b.source || 'Curated'}</div>
         </div>
-        <div style="padding:24px; flex: 1; display:flex; flex-direction:column;">
-          <div style="font-size:10px; color:#04AA6D; letter-spacing:0.15em; text-transform:uppercase; font-weight:700; margin-bottom:10px;">${b.category} • ${b.date}</div>
-          <h3 style="font-family:var(--font-disp); font-size:18px; font-weight:700; color:#fff; margin-bottom:12px; line-height:1.4;">${b.title}</h3>
-          <p style="font-size:13px; color:rgba(255,255,255,0.6); line-height:1.6; margin-bottom:0;">${b.description}</p>
+        <div style="padding:24px;flex:1;display:flex;flex-direction:column;">
+          <div style="font-size:10px;color:#04AA6D;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;margin-bottom:10px;">${b.category} • ${b.date}</div>
+          <h3 style="font-family:var(--font-disp);font-size:18px;font-weight:700;color:#fff;margin-bottom:12px;line-height:1.4;flex:1;">${b.title}</h3>
+          <p style="font-size:13px;color:rgba(255,255,255,0.6);line-height:1.6;margin-bottom:16px;">${(b.description||'').slice(0,160)}...</p>
+          <div style="font-size:11px;color:#04AA6D;font-weight:600;letter-spacing:0.05em;">Read Article →</div>
         </div>
       </a>
     `;
   });
 }
 
-/* ── Render Native Article ──────────────────────── */
+/* ── Native Article Reader ───────────────────────── */
 async function loadArticle() {
   const container = document.getElementById('articleContent');
-  if(!container) return;
-  
+  if (!container) return;
+
   const params = new URLSearchParams(window.location.search);
   const id = params.get('id');
-  if(!id) {
-    container.innerHTML = '<div style="color:#fff;">Article not found.</div>';
+  if (!id) {
+    container.innerHTML = '<div style="color:rgba(255,255,255,0.5);text-align:center;padding:60px;">No article specified.</div>';
     return;
   }
-  
-  if(id.startsWith('fallback_')) {
-    const fallback = fallbackBlogs.find(b => b.id === id);
-    if(fallback) {
-      document.title = fallback.title + ' | Infinite Web Design';
-      container.innerHTML = `
-        <div style="margin-bottom:30px;">
-          <h1 style="font-family:var(--font-disp); font-size:36px; font-weight:700; color:#fff; margin-bottom:15px;">${fallback.title}</h1>
-          <div style="color:#04AA6D; font-size:14px; font-weight:600; text-transform:uppercase; letter-spacing:0.1em;">${fallback.category} • ${fallback.date}</div>
-        </div>
-        <img src="${fallback.image}" style="width:100%; max-height:400px; object-fit:cover; border-radius:16px; margin-bottom:30px;">
-        <div style="color:rgba(255,255,255,0.8); line-height:1.8; font-size:18px;">
-          <p>${fallback.description}</p>
-          <p>This is a generated premium article. Please configure the Developer API or add real articles to view full content.</p>
-        </div>
-      `;
-    }
-    return;
-  }
-  
+
+  container.innerHTML = '<div style="color:rgba(255,255,255,0.4);text-align:center;padding:60px;">Loading article...</div>';
+
   try {
-    const res = await fetch('https://dev.to/api/articles/' + id);
-    if(!res.ok) throw new Error('API error');
-    const article = await res.json();
-    
-    document.title = article.title + ' | Infinite Web Design';
-    
-    const image = article.cover_image || article.social_image || "";
-    const date = new Date(article.published_at).toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
-    const category = article.tags && article.tags.length > 0 ? article.tags[0] : 'Technology';
-    
+    const data = await getBlogsData();
+    const article = (data.articles || []).find(a => String(a.id) === String(id));
+
+    if (!article) {
+      container.innerHTML = '<div style="color:rgba(255,255,255,0.5);text-align:center;padding:60px;">Article not found or has expired (articles are auto-removed after 30 days).</div>';
+      return;
+    }
+
+    document.title = article.title + ' | Infinite Creative Web Design';
+
+    const imgSrc = article.image && article.image.startsWith('http') ? article.image : (rootPath() + article.image);
+
     container.innerHTML = `
-      <div style="margin-bottom:30px;">
-        <h1 style="font-family:var(--font-disp); font-size:36px; font-weight:700; color:#fff; margin-bottom:15px; line-height: 1.3;">${article.title}</h1>
-        <div style="color:#04AA6D; font-size:14px; font-weight:600; text-transform:uppercase; letter-spacing:0.1em;">${category} • ${date} • <span style="color:var(--grey)">${article.user.name}</span></div>
+      <a href="blogs.html" style="display:inline-flex;align-items:center;gap:8px;color:#04AA6D;font-size:14px;font-weight:600;text-decoration:none;margin-bottom:32px;letter-spacing:0.05em;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">
+        ← Back to all articles
+      </a>
+      <div style="margin-bottom:36px;">
+        <div style="font-size:11px;color:#04AA6D;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;margin-bottom:14px;">${article.category} • ${article.date} ${article.source ? '• <span style="color:rgba(255,255,255,0.4);">via ' + article.source + '</span>' : ''}</div>
+        <h1 style="font-family:var(--font-disp);font-size:clamp(24px,4vw,40px);font-weight:700;color:#fff;line-height:1.25;margin-bottom:0;">${article.title}</h1>
       </div>
-      ${image ? `<img src="${image}" style="width:100%; max-height:400px; object-fit:cover; border-radius:16px; margin-bottom:40px;">` : ''}
-      <div class="article-body" style="color:rgba(255,255,255,0.8); line-height:1.8; font-size:18px; overflow-wrap: break-word;">
-        ${article.body_html}
+      ${article.image ? `<img src="${imgSrc}" alt="${article.title}" style="width:100%;max-height:420px;object-fit:cover;border-radius:16px;margin-bottom:40px;" onerror="this.style.display='none'">` : ''}
+      <div class="article-body" style="color:rgba(255,255,255,0.85);line-height:1.9;font-size:17px;overflow-wrap:break-word;">
+        ${article.body_html || '<p>' + (article.description || '') + '</p>'}
+      </div>
+      <div style="margin-top:48px;padding-top:32px;border-top:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;align-items:center;flex-wrap:gap;">
+        <a href="blogs.html" style="display:inline-flex;align-items:center;gap:8px;color:#04AA6D;font-size:14px;font-weight:600;text-decoration:none;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">← More Articles</a>
+        <a href="contact.html" style="display:inline-flex;align-items:center;gap:8px;background:#04AA6D;color:#fff;font-size:13px;font-weight:700;text-decoration:none;padding:10px 22px;border-radius:30px;letter-spacing:0.05em;" onmouseover="this.style.background='#038a57'" onmouseout="this.style.background='#04AA6D'">Work With Us →</a>
       </div>
     `;
   } catch(e) {
-    container.innerHTML = '<div style="color:#fff;">Error loading the article. Please try again later.</div>';
+    container.innerHTML = '<div style="color:rgba(255,255,255,0.5);text-align:center;padding:60px;">Error loading article. Please try again.</div>';
   }
 }
 
@@ -374,9 +331,10 @@ document.addEventListener('DOMContentLoaded',function(){
   loadSettings();
   // link CSS additions
   const lnk=document.createElement('link');
-  lnk.rel='stylesheet';lnk.href='css/additions.css';
+  lnk.rel='stylesheet';lnk.href=rootPath()+'css/additions.css';
   document.head.appendChild(lnk);
 });
+
 
 /* ── Footer Background Typing ───────────────────── */
 (function initFooterBgTyping(){
