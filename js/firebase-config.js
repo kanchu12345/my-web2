@@ -3,7 +3,7 @@
    Replace with your actual Firebase project values
 ═══════════════════════════════════════ */
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
-import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, onSnapshot, serverTimestamp }
+import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, onSnapshot, serverTimestamp, query, orderBy, limit }
   from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged }
   from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
@@ -30,6 +30,6 @@ const analytics = getAnalytics(app);
 
 export { app, db, auth, storage, analytics, logEvent,
   collection, getDocs, addDoc, updateDoc, deleteDoc, doc,
-  onSnapshot, serverTimestamp,
+  onSnapshot, serverTimestamp, query, orderBy, limit,
   signInWithEmailAndPassword, signOut, onAuthStateChanged,
   ref, uploadBytes, getDownloadURL };

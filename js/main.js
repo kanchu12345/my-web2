@@ -172,6 +172,87 @@ function renderFallbackProjects(grid){
   });
 }
 
+/* ── Load Blogs (Automated Dev.to API) ──────────── */
+async function loadBlogs() {
+  const grid = document.getElementById('blogGrid');
+  if(!grid) return;
+  try {
+    // Fetch top 3 latest articles for webdev and programming
+    const res = await fetch('https://dev.to/api/articles?tag=webdev&top=1&per_page=3');
+    if(!res.ok) throw new Error('API error');
+    const data = await res.json();
+    
+    if(!data || data.length === 0) {
+      throw new Error('No articles');
+    }
+    
+    const blogs = data.map(article => {
+      // Dev.to API sometimes misses cover_image, fallback to a local image or social image
+      const image = article.cover_image || article.social_image || "images/blog_1.png";
+      const date = new Date(article.published_at).toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
+      const category = article.tag_list && article.tag_list.length > 0 ? article.tag_list[0] : 'Technology';
+      
+      return {
+        title: article.title,
+        category: category,
+        image: image,
+        date: date,
+        description: article.description || "Read more about this latest technology update...",
+        url: article.url
+      };
+    });
+    
+    renderBlogs(blogs, grid);
+  } catch(e) {
+    // Fallback if API fails
+    const seeded = [
+      {
+        title: "The Future of Corporate Web Design in 2026",
+        category: "Web Design",
+        image: "images/blog_1.png",
+        date: "May 2026",
+        description: "Explore the latest trends in enterprise web development, focusing on performance, glassmorphism, and user experience...",
+        url: "#"
+      },
+      {
+        title: "How to Rebrand Without Losing Your Audience",
+        category: "Brand Strategy",
+        image: "images/blog_2.png",
+        date: "Apr 2026",
+        description: "A step-by-step guide to successfully launching a new brand identity while maintaining customer loyalty...",
+        url: "#"
+      },
+      {
+        title: "Why We Choose Laravel for Enterprise Apps",
+        category: "Technology",
+        image: "images/blog_3.png",
+        date: "Mar 2026",
+        description: "Discover the security, scalability, and performance benefits of using the Laravel ecosystem for large-scale projects...",
+        url: "#"
+      }
+    ];
+    renderBlogs(seeded, grid);
+  }
+}
+
+function renderBlogs(blogs, grid) {
+  grid.innerHTML = '';
+  blogs.forEach(b => {
+    grid.innerHTML += `
+      <a href="${b.url}" target="_blank" class="blog-card glass-hover" style="display:flex; flex-direction:column; background:#282A35; border-radius:16px; overflow:hidden; text-decoration:none; border:1px solid rgba(255,255,255,0.05);">
+        <div style="height:200px; background:#1e1f26; position:relative; overflow:hidden;">
+          <img src="${b.image}" alt="" style="width:100%; height:100%; object-fit:cover;">
+        </div>
+        <div style="padding:24px; flex: 1; display:flex; flex-direction:column;">
+          <div style="font-size:10px; color:#04AA6D; letter-spacing:0.15em; text-transform:uppercase; font-weight:700; margin-bottom:10px;">${b.category} • ${b.date}</div>
+          <h3 style="font-family:var(--font-disp); font-size:18px; font-weight:700; color:#fff; margin-bottom:12px; line-height:1.4;">${b.title}</h3>
+          <p style="font-size:13px; color:rgba(255,255,255,0.6); line-height:1.6; margin-bottom:0;">${b.description}</p>
+        </div>
+      </a>
+    `;
+  });
+}
+
 /* ── Load About/Contact from Firebase settings ──── */
 async function loadSettings(){
   try{
@@ -189,6 +270,7 @@ async function loadSettings(){
 /* ── Init ───────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded',function(){
   loadProjects();
+  loadBlogs();
   loadSettings();
   // link CSS additions
   const lnk=document.createElement('link');
