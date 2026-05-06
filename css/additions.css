@@ -1,0 +1,60 @@
+/* ═══════════════════════════════════════════
+   MOBILE MENU + SHARED ADDITIONS
+═══════════════════════════════════════════ */
+.mobile-menu{
+  position:fixed;top:80px;left:16px;right:16px;z-index:999;
+  border-radius:var(--r-xl);padding:20px;
+  display:flex;flex-direction:column;gap:4px;
+  transform:translateY(-20px) scale(.97);opacity:0;pointer-events:none;
+  transition:all .35s var(--ease);
+}
+.mobile-menu.open{transform:none;opacity:1;pointer-events:all;}
+.mm-link{
+  padding:13px 18px;border-radius:var(--r-md);
+  font-size:14px;font-weight:500;color:var(--grey-light);
+  transition:all .3s;letter-spacing:.04em;
+}
+.mm-link:hover{background:var(--blue-dim);color:var(--white);}
+.mm-cta{background:var(--blue);color:var(--bg)!important;font-weight:600;text-align:center;margin-top:4px;}
+.mm-cta:hover{background:#33bbff;box-shadow:0 0 20px var(--blue-glow);}
+
+/* proj placeholder shimmer */
+.proj-placeholder{
+  display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:10px;
+  background:var(--bg-2);border:1px dashed var(--glass-b);
+}
+.proj-placeholder svg{opacity:.25;}
+.proj-placeholder span{font-size:11px;color:var(--grey);letter-spacing:.08em;}
+@keyframes shimmer{
+  0%{background-position:-400px 0}
+  100%{background-position:400px 0}
+}
+.skeleton{
+  background:linear-gradient(90deg,var(--bg-2) 25%,var(--bg-card) 50%,var(--bg-2) 75%);
+  background-size:800px 100%;
+  animation:shimmer 1.6s infinite linear;
+  border-radius:var(--r-md);
+}
+
+/* hero-cell glass hover */
+.glass-hover{transition:all .4s var(--ease);}
+.glass-hover:hover{
+  background:rgba(0,170,255,0.06);
+  border-color:var(--blue-border);
+  box-shadow:var(--glow);
+}
+
+/* Notification toast */
+.toast{
+  position:fixed;bottom:28px;right:28px;z-index:3000;
+  background:var(--bg-card);border:1px solid var(--glass-b);
+  border-radius:var(--r-md);padding:14px 20px;
+  font-size:13px;color:var(--white);
+  display:flex;align-items:center;gap:10px;
+  transform:translateY(80px);opacity:0;
+  transition:all .4s var(--ease);
+  box-shadow:var(--shadow);
+}
+.toast.show{transform:none;opacity:1;}
+.toast-dot{width:8px;height:8px;border-radius:50%;background:var(--blue);flex-shrink:0;}

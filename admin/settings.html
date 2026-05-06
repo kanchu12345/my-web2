@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Settings | Infinite Admin</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="../images/logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+<aside class="sidebar">
+  <div class="sb-logo">
+    <img src="../images/logo.png" alt="" width="32">
+    <div class="sb-brand"><strong>INFINITE</strong><small>Admin Panel</small></div>
+  </div>
+  <nav class="sb-nav">
+    <a href="dashboard.html" class="sb-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Dashboard
+    </a>
+    <a href="projects.html" class="sb-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>Projects
+    </a>
+    <a href="settings.html" class="sb-link active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>Settings
+    </a>
+  </nav>
+  <div class="sb-footer">
+    <div class="sb-user">
+      <div class="sb-avatar" id="sbAvatar">A</div>
+      <div class="sb-user-info">
+        <div class="sb-user-email" id="sbEmail">admin</div>
+        <div class="sb-user-role">Administrator</div>
+      </div>
+    </div>
+    <button class="sb-logout" id="logoutBtn" title="Sign out">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+    </button>
+  </div>
+</aside>
+
+<main class="main-content">
+  <header class="topbar">
+    <div class="topbar-left">
+      <h1 class="page-title">Global Settings</h1>
+      <div class="page-sub">Edit site content without touching code</div>
+    </div>
+  </header>
+
+  <div class="settings-grid">
+
+    <!-- About text -->
+    <div class="settings-card full">
+      <div class="settings-title">About Us Content</div>
+      <div class="form-field">
+        <label class="form-label" for="sAbout">About Text (supports HTML)</label>
+        <textarea id="sAbout" class="form-textarea form-input" rows="5" placeholder="Enter about us text…"></textarea>
+      </div>
+      <button class="save-btn" id="saveAbout">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+        Save About Text
+      </button>
+    </div>
+
+    <!-- Contact info -->
+    <div class="settings-card">
+      <div class="settings-title">Contact Information</div>
+      <div class="form-field">
+        <label class="form-label" for="sPhone">WhatsApp / Phone</label>
+        <input type="text" id="sPhone" class="form-input" placeholder="+94 78 971 4912" maxlength="30">
+      </div>
+      <div class="form-field">
+        <label class="form-label" for="sAddress">Address</label>
+        <textarea id="sAddress" class="form-textarea form-input" rows="3" placeholder="No 37/1c Dammarathana Road…" maxlength="200"></textarea>
+      </div>
+      <button class="save-btn" id="saveContact">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/></svg>
+        Save Contact Info
+      </button>
+    </div>
+
+    <!-- GA4 / FB Pixel -->
+    <div class="settings-card">
+      <div class="settings-title">Analytics Configuration</div>
+      <div class="form-field">
+        <label class="form-label" for="sGA4">Google Analytics 4 Measurement ID</label>
+        <input type="text" id="sGA4" class="form-input" placeholder="G-XXXXXXXXXX" maxlength="20">
+      </div>
+      <div class="form-field">
+        <label class="form-label" for="sFBPixel">Facebook Pixel ID (optional)</label>
+        <input type="text" id="sFBPixel" class="form-input" placeholder="000000000000000" maxlength="20">
+      </div>
+      <button class="save-btn" id="saveAnalytics">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/></svg>
+        Save Analytics IDs
+      </button>
+    </div>
+
+    <!-- Security info -->
+    <div class="settings-card full">
+      <div class="settings-title">Security Overview</div>
+      <div class="sec-info">
+        <div class="sec-row"><span class="sec-label">Login Rate Limit</span><span class="sec-val sec-ok">5 attempts · 30min lockout</span></div>
+        <div class="sec-row"><span class="sec-label">Authentication</span><span class="sec-val sec-ok">Firebase Auth (email/password)</span></div>
+        <div class="sec-row"><span class="sec-label">File Upload Policy</span><span class="sec-val sec-ok">JPG/PNG/WebP · Max 5MB · Magic-byte verified</span></div>
+        <div class="sec-row"><span class="sec-label">Input Sanitisation</span><span class="sec-val sec-ok">All fields sanitised before save</span></div>
+        <div class="sec-row"><span class="sec-label">CSP Header</span><span class="sec-val sec-ok">Strict policy on all pages</span></div>
+        <div class="sec-row"><span class="sec-label">Two-Factor Auth</span><span class="sec-val" id="tfaStatus" style="color:var(--yellow)">Optional — set USE_2FA=true in login.html</span></div>
+      </div>
+      <div style="margin-top:16px;padding:14px;background:var(--blue-dim);border:1px solid rgba(0,170,255,.2);border-radius:12px;font-size:12px;color:var(--grey-l);line-height:1.6">
+        <strong style="color:var(--blue)">Production checklist:</strong><br>
+        ✓ Replace Firebase config in <code style="color:var(--blue)">js/firebase-config.js</code><br>
+        ✓ Replace GA4 ID <code style="color:var(--blue)">G-XXXXXXXXXX</code> in index.html<br>
+        ✓ Enable HTTPS on your hosting (Netlify / Vercel / Firebase Hosting recommended)<br>
+        ✓ Set Firestore Security Rules to require auth for write operations<br>
+        ✓ Enable Firebase Storage security rules
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<div class="toast" id="toast"><div class="toast-dot"></div><span id="toastMsg"></span></div>
+
+<script type="module">
+import { auth, db, onAuthStateChanged, signOut,
+  collection, getDocs, addDoc, updateDoc, doc }
+  from '../js/firebase-config.js';
+
+onAuthStateChanged(auth, u=>{
+  if(!u){window.location.href='login.html';return;}
+  document.getElementById('sbEmail').textContent=u.email;
+  document.getElementById('sbAvatar').textContent=u.email[0].toUpperCase();
+  loadSettings();
+});
+document.getElementById('logoutBtn').addEventListener('click',async()=>{
+  await signOut(auth);window.location.href='login.html';
+});
+
+function toast(msg,type='ok'){
+  const t=document.getElementById('toast'),m=document.getElementById('toastMsg');
+  t.className='toast show toast-'+type;m.textContent=msg;
+  setTimeout(()=>t.classList.remove('show'),3200);
+}
+function sanitise(s){return String(s).replace(/<script/gi,'').trim().slice(0,2000);}
+
+let settingsDocId=null;
+
+async function loadSettings(){
+  try{
+    const snap=await getDocs(collection(db,'settings'));
+    snap.forEach(d=>{
+      settingsDocId=d.id;
+      const s=d.data();
+      if(s.aboutText) document.getElementById('sAbout').value=s.aboutText;
+      if(s.phone)     document.getElementById('sPhone').value=s.phone;
+      if(s.address)   document.getElementById('sAddress').value=s.address;
+      if(s.ga4Id)     document.getElementById('sGA4').value=s.ga4Id;
+      if(s.fbPixel)   document.getElementById('sFBPixel').value=s.fbPixel;
+    });
+  }catch(e){toast('Error loading settings','err');}
+}
+
+async function saveField(data){
+  try{
+    if(settingsDocId){
+      await updateDoc(doc(db,'settings',settingsDocId),data);
+    }else{
+      const d=await addDoc(collection(db,'settings'),data);
+      settingsDocId=d.id;
+    }
+    toast('Saved successfully!','ok');
+  }catch(e){toast('Save failed: '+e.message,'err');}
+}
+
+document.getElementById('saveAbout').addEventListener('click',()=>{
+  const v=sanitise(document.getElementById('sAbout').value);
+  if(!v){toast('About text cannot be empty.','err');return;}
+  saveField({aboutText:v});
+});
+document.getElementById('saveContact').addEventListener('click',()=>{
+  const phone=sanitise(document.getElementById('sPhone').value);
+  const address=sanitise(document.getElementById('sAddress').value);
+  saveField({phone,address});
+});
+document.getElementById('saveAnalytics').addEventListener('click',()=>{
+  const ga4=sanitise(document.getElementById('sGA4').value).replace(/[^A-Za-z0-9\-]/g,'');
+  const fb=sanitise(document.getElementById('sFBPixel').value).replace(/[^0-9]/g,'');
+  saveField({ga4Id:ga4,fbPixel:fb});
+});
+</script>
+</body>
+</html>

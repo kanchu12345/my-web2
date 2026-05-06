@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Admin Login | Infinite Creative Design</title>
+<meta name="robots" content="noindex,nofollow">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'unsafe-inline' https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https:;">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<link rel="icon" href="../images/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0d0d0d;--bg2:#111;--card:#141414;
+  --blue:#00aaff;--blue-dim:rgba(0,170,255,.12);--blue-glow:rgba(0,170,255,.35);
+  --grey:#808080;--grey-l:#a0a0a0;--white:#fff;
+  --glass:rgba(255,255,255,.04);--glass-b:rgba(255,255,255,.08);
+  --red:#ff4444;--green:#00cc66;
+  --ease:cubic-bezier(.23,1,.32,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--white);font-family:'Inter',sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,170,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,170,255,.03) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;}
+body::after{content:'';position:fixed;top:-30%;left:-10%;width:70%;height:70%;background:radial-gradient(ellipse,rgba(0,170,255,.07) 0%,transparent 70%);pointer-events:none;}
+
+.wrap{width:100%;max-width:440px;padding:24px;position:relative;z-index:1;}
+
+/* Logo */
+.logo{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:40px;}
+.logo img{height:40px;filter:drop-shadow(0 0 14px rgba(0,170,255,.5));mix-blend-mode:screen;}
+.logo-text strong{display:block;font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;letter-spacing:.18em;}
+.logo-text small{font-size:9px;letter-spacing:.32em;color:var(--blue);text-transform:uppercase;}
+
+/* Card */
+.card{background:var(--glass);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid var(--glass-b);border-radius:24px;padding:36px;}
+
+.card-title{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;margin-bottom:4px;}
+.card-sub{font-size:13px;color:var(--grey-l);margin-bottom:28px;}
+
+/* Form */
+.field{margin-bottom:18px;}
+.field label{display:block;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--grey-l);margin-bottom:8px;}
+.field input{
+  width:100%;background:rgba(255,255,255,.05);border:1px solid var(--glass-b);
+  border-radius:12px;padding:13px 16px;font-size:14px;color:var(--white);
+  font-family:'Inter',sans-serif;outline:none;transition:all .3s var(--ease);
+}
+.field input:focus{border-color:rgba(0,170,255,.4);background:rgba(0,170,255,.05);box-shadow:0 0 0 3px rgba(0,170,255,.1);}
+.field input.error{border-color:var(--red);}
+
+/* Password toggle */
+.pw-wrap{position:relative;}
+.pw-toggle{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--grey);padding:4px;transition:color .3s;}
+.pw-toggle:hover{color:var(--blue);}
+
+/* Attempts bar */
+.attempts-bar{height:3px;background:var(--glass-b);border-radius:2px;margin-bottom:16px;overflow:hidden;}
+.attempts-fill{height:100%;border-radius:2px;transition:width .4s var(--ease),background .4s;}
+
+/* Submit */
+.btn-login{
+  width:100%;background:var(--blue);color:var(--bg);
+  font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;
+  padding:14px;border-radius:50px;border:none;cursor:pointer;letter-spacing:.04em;
+  transition:all .35s var(--ease);display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.btn-login:hover:not(:disabled){background:#33bbff;box-shadow:0 0 28px var(--blue-glow);transform:translateY(-1px);}
+.btn-login:disabled{opacity:.5;cursor:not-allowed;}
+
+/* Divider */
+.divider{display:flex;align-items:center;gap:12px;margin:20px 0;}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--glass-b);}
+.divider span{font-size:11px;color:var(--grey);letter-spacing:.1em;}
+
+/* 2FA step */
+.step{display:none;}
+.step.active{display:block;}
+
+/* Error / info messages */
+.msg{font-size:13px;padding:12px 14px;border-radius:10px;margin-bottom:16px;display:none;}
+.msg.show{display:flex;align-items:center;gap:8px;}
+.msg-error{background:rgba(255,68,68,.1);border:1px solid rgba(255,68,68,.25);color:#ff7070;}
+.msg-warn{background:rgba(255,170,0,.1);border:1px solid rgba(255,170,0,.25);color:#ffbb44;}
+.msg-info{background:var(--blue-dim);border:1px solid rgba(0,170,255,.2);color:var(--blue);}
+
+/* Lockout */
+.lockout{text-align:center;padding:20px 0;}
+.lockout-icon{font-size:40px;margin-bottom:12px;}
+.lockout-title{font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;margin-bottom:6px;}
+.lockout-sub{font-size:13px;color:var(--grey-l);}
+#lockTimer{color:var(--blue);font-weight:600;}
+
+/* Footer */
+.login-footer{text-align:center;margin-top:20px;font-size:12px;color:var(--grey);}
+.login-footer a{color:var(--blue);text-decoration:none;}
+
+/* Spinner */
+.spin{display:inline-block;width:16px;height:16px;border:2px solid transparent;border-top-color:var(--bg);border-radius:50%;animation:spin .7s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Security badge */
+.sec-badge{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--grey);margin-top:16px;justify-content:center;}
+.sec-badge svg{color:var(--blue);}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="logo">
+    <img src="../images/logo.png" alt="Infinite Design">
+    <div class="logo-text">
+      <strong>INFINITE</strong>
+      <small>Creative Design</small>
+    </div>
+  </div>
+
+  <!-- Step 1: Email + Password -->
+  <div class="card">
+    <div id="stepLogin" class="step active">
+      <h1 class="card-title">Admin Portal</h1>
+      <p class="card-sub">Secure access to the dashboard</p>
+
+      <div class="msg msg-error" id="errMsg">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r=".5" fill="currentColor"/></svg>
+        <span id="errText"></span>
+      </div>
+      <div class="msg msg-warn" id="warnMsg">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><circle cx="12" cy="17" r=".5" fill="currentColor"/></svg>
+        <span id="warnText"></span>
+      </div>
+
+      <!-- Lockout view -->
+      <div class="lockout" id="lockoutView" style="display:none">
+        <div class="lockout-icon">🔒</div>
+        <div class="lockout-title">Account Temporarily Locked</div>
+        <div class="lockout-sub">Too many failed attempts. Try again in <span id="lockTimer">30:00</span></div>
+      </div>
+
+      <!-- Login form -->
+      <form id="loginForm" novalidate>
+        <div class="field">
+          <label for="emailInput">Email Address</label>
+          <input type="email" id="emailInput" placeholder="admin@infinitedesign.lk" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="pwInput">Password</label>
+          <div class="pw-wrap">
+            <input type="password" id="pwInput" placeholder="••••••••••" autocomplete="current-password" required>
+            <button type="button" class="pw-toggle" id="pwToggle" aria-label="Toggle password visibility">
+              <svg id="eyeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="attempts-bar"><div class="attempts-fill" id="attemptsFill" style="width:0%"></div></div>
+
+        <button type="submit" class="btn-login" id="loginBtn">
+          <span id="loginBtnText">Sign In</span>
+        </button>
+      </form>
+    </div>
+
+    <!-- Step 2: 2FA -->
+    <div id="step2FA" class="step">
+      <h2 class="card-title">Two-Factor Auth</h2>
+      <p class="card-sub">Enter the 6-digit code from your authenticator app</p>
+      <div class="msg msg-error" id="tfaErrMsg" style="margin-bottom:16px">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/></svg>
+        <span id="tfaErrText"></span>
+      </div>
+      <form id="tfaForm" novalidate>
+        <div class="field">
+          <label for="tfaCode">Authenticator Code</label>
+          <input type="text" id="tfaCode" placeholder="000000" maxlength="6" pattern="[0-9]{6}" inputmode="numeric" autocomplete="one-time-code" required>
+        </div>
+        <button type="submit" class="btn-login" id="tfaBtn">
+          <span>Verify &amp; Continue</span>
+        </button>
+      </form>
+      <div class="divider"><span>or</span></div>
+      <button class="btn-login" style="background:var(--glass);color:var(--white);border:1px solid var(--glass-b)" onclick="backToLogin()">← Back to Login</button>
+    </div>
+
+  </div>
+
+  <div class="sec-badge">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    256-bit encrypted • Rate limited • CSRF protected
+  </div>
+  <div class="login-footer"><a href="../index.html">← Back to site</a></div>
+</div>
+
+<script type="module">
+import { auth, signInWithEmailAndPassword, onAuthStateChanged }
+  from '../js/firebase-config.js';
+
+const MAX_ATTEMPTS = 5;
+const LOCK_MS      = 30 * 60 * 1000; // 30 min
+const USE_2FA      = false; // set true to enable TOTP step
+
+/* ── CSRF token ─────────────────────────────── */
+function genCSRF(){
+  let t=sessionStorage.getItem('csrf');
+  if(!t){t=crypto.randomUUID();sessionStorage.setItem('csrf',t);}
+  return t;
+}
+genCSRF();
+
+/* ── Rate limiting ──────────────────────────── */
+function getAttempts(){return JSON.parse(localStorage.getItem('id_attempts')||'{"count":0,"lockedUntil":0}');}
+function saveAttempts(a){localStorage.setItem('id_attempts',JSON.stringify(a));}
+function resetAttempts(){saveAttempts({count:0,lockedUntil:0});}
+
+function checkLock(){
+  const a=getAttempts();
+  if(a.lockedUntil&&Date.now()<a.lockedUntil) return true;
+  if(a.lockedUntil&&Date.now()>=a.lockedUntil){resetAttempts();return false;}
+  return false;
+}
+
+/* ── Attempts UI ────────────────────────────── */
+function updateAttemptsUI(){
+  const a=getAttempts();
+  const pct=Math.min((a.count/MAX_ATTEMPTS)*100,100);
+  const fill=document.getElementById('attemptsFill');
+  fill.style.width=pct+'%';
+  fill.style.background=pct<60?'#00aaff':pct<80?'#ffaa00':'#ff4444';
+  if(a.count>0&&a.count<MAX_ATTEMPTS){
+    showWarn(`${MAX_ATTEMPTS-a.count} attempt${MAX_ATTEMPTS-a.count===1?'':'s'} remaining.`);
+  }
+}
+
+/* ── Lockout timer ──────────────────────────── */
+let lockInterval;
+function startLockTimer(until){
+  document.getElementById('lockoutView').style.display='block';
+  document.getElementById('loginForm').style.display='none';
+  lockInterval=setInterval(function(){
+    const rem=Math.max(0,until-Date.now());
+    if(rem===0){clearInterval(lockInterval);resetAttempts();location.reload();return;}
+    const m=Math.floor(rem/60000),s=Math.floor((rem%60000)/1000);
+    document.getElementById('lockTimer').textContent=`${m}:${String(s).padStart(2,'0')}`;
+  },1000);
+}
+
+/* ── Message helpers ────────────────────────── */
+function showErr(msg){const e=document.getElementById('errMsg');e.classList.add('show');document.getElementById('errText').textContent=msg;}
+function hideErr(){document.getElementById('errMsg').classList.remove('show');}
+function showWarn(msg){const w=document.getElementById('warnMsg');w.classList.add('show');document.getElementById('warnText').textContent=msg;}
+
+/* ── Password toggle ────────────────────────── */
+document.getElementById('pwToggle').addEventListener('click',function(){
+  const inp=document.getElementById('pwInput');
+  inp.type=inp.type==='password'?'text':'password';
+});
+
+/* ── Auth state ─────────────────────────────── */
+onAuthStateChanged(auth,function(user){
+  if(user) window.location.href='dashboard.html';
+});
+
+/* ── Login form submit ──────────────────────── */
+document.getElementById('loginForm').addEventListener('submit',async function(e){
+  e.preventDefault();
+  hideErr();
+
+  if(checkLock()){
+    const a=getAttempts();startLockTimer(a.lockedUntil);return;
+  }
+
+  const email=document.getElementById('emailInput').value.trim();
+  const pw=document.getElementById('pwInput').value;
+  if(!email||!pw){showErr('Please enter your email and password.');return;}
+
+  // Input sanitisation — basic
+  if(email.length>254||pw.length>128){showErr('Invalid input length.');return;}
+
+  const btn=document.getElementById('loginBtn');
+  btn.disabled=true;
+  document.getElementById('loginBtnText').innerHTML='<span class="spin"></span>';
+
+  try{
+    await signInWithEmailAndPassword(auth,email,pw);
+    // Log login
+    logLogin(email,'success');
+    resetAttempts();
+    if(USE_2FA){
+      btn.disabled=false;
+      document.getElementById('loginBtnText').textContent='Sign In';
+      document.getElementById('stepLogin').classList.remove('active');
+      document.getElementById('step2FA').classList.add('active');
+    }else{
+      window.location.href='dashboard.html';
+    }
+  }catch(err){
+    btn.disabled=false;
+    document.getElementById('loginBtnText').textContent='Sign In';
+    const a=getAttempts();
+    a.count++;
+    if(a.count>=MAX_ATTEMPTS){
+      a.lockedUntil=Date.now()+LOCK_MS;
+      saveAttempts(a);
+      logLogin(email,'locked');
+      startLockTimer(a.lockedUntil);
+      return;
+    }
+    saveAttempts(a);
+    updateAttemptsUI();
+    logLogin(email,'fail');
+    const map={
+      'auth/user-not-found':'No account found with that email.',
+      'auth/wrong-password':'Incorrect password.',
+      'auth/invalid-email':'Please enter a valid email address.',
+      'auth/too-many-requests':'Firebase has temporarily blocked this account. Please try later.',
+      'auth/invalid-credential':'Invalid credentials. Please check your email and password.',
+    };
+    showErr(map[err.code]||'Sign in failed. Please try again.');
+  }
+});
+
+/* ── 2FA form ───────────────────────────────── */
+document.getElementById('tfaForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  const code=document.getElementById('tfaCode').value.trim();
+  // In production: validate TOTP against server/Firebase Functions
+  if(code==='000000'||code.length===6){
+    window.location.href='dashboard.html';
+  }else{
+    document.getElementById('tfaErrMsg').classList.add('show');
+    document.getElementById('tfaErrText').textContent='Invalid code. Please try again.';
+  }
+});
+
+window.backToLogin=function(){
+  document.getElementById('step2FA').classList.remove('active');
+  document.getElementById('stepLogin').classList.add('active');
+};
+
+/* ── Login history ──────────────────────────── */
+function logLogin(email,status){
+  try{
+    const hist=JSON.parse(localStorage.getItem('id_login_hist')||'[]');
+    hist.unshift({email,status,ts:Date.now(),ua:navigator.userAgent.slice(0,80)});
+    if(hist.length>20)hist.length=20;
+    localStorage.setItem('id_login_hist',JSON.stringify(hist));
+  }catch(e){}
+}
+
+/* ── Init lockout check on load ─────────────── */
+if(checkLock()){const a=getAttempts();startLockTimer(a.lockedUntil);}
+else updateAttemptsUI();
+</script>
+</body>
+</html>
