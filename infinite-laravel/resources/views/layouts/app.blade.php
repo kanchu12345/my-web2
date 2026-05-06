@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>@yield('title', 'Infinite Creative Design | Web Design')</title>
-<meta name="description" content="Infinite Creative Design — 12+ years of premium branding and creative web solutions.">
+<title>@yield('title', 'Infinite Creative Web Design | Web Design')</title>
+<meta name="description" content="Infinite Creative Web Design — 12+ years of premium branding and creative web solutions.">
 <link rel="stylesheet" href="{{ asset('css/main.css') }}">
 <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
 <style>
@@ -23,7 +23,7 @@
     <img src="{{ asset('images/logo.png') }}" alt="Infinite Design Logo" width="34" height="34">
     <div class="nav-brand">
       <strong>INFINITE</strong>
-      <small>Creative Design</small>
+      <small>Creative Web Design</small>
     </div>
   </a>
   <ul class="nav-links">
@@ -56,7 +56,7 @@
       <img src="{{ asset('images/logo.png') }}" alt="Infinite Design" width="30" height="30">
       <span style="font-family:var(--font-disp);font-size:13px;font-weight:600;letter-spacing:.15em">INFINITE</span>
     </div>
-    <span class="footer-copy">© {{ date('Y') }} Infinite Creative Design. All rights reserved.</span>
+    <span class="footer-copy">© {{ date('Y') }} Infinite Creative Web Design. All rights reserved.</span>
     <div class="footer-links">
       <a href="{{ url('/portfolio') }}">Work</a>
       <a href="{{ url('/about') }}">About</a>

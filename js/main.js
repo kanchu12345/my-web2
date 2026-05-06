@@ -196,31 +196,106 @@ document.addEventListener('DOMContentLoaded',function(){
   document.head.appendChild(lnk);
 });
 
-/* ── Footer Typing Animation ────────────────────── */
-(function initFooterTyping(){
-  const el = document.getElementById('footerTyping');
-  if(!el) return;
-  const text = '> console.log("Crafted with ♥ in Sri Lanka");';
-  el.innerHTML = '';
-  let i = 0;
-  
-  const cursor = document.createElement('span');
-  cursor.className = 'typing-cursor';
-  
-  function typeWriter() {
-    if (i < text.length) {
-      el.innerHTML = text.substring(0, i+1);
-      el.appendChild(cursor);
-      i++;
-      setTimeout(typeWriter, Math.random() * 50 + 40);
+/* ── Footer Background Typing ───────────────────── */
+(function initFooterBgTyping(){
+  const footer = document.querySelector('.footer');
+  if(!footer) return;
+
+  footer.style.position = 'relative';
+  footer.style.overflow = 'hidden';
+
+  const footerMain = footer.querySelector('.footer-main');
+  if(footerMain) {
+    footerMain.style.position = 'relative';
+    footerMain.style.zIndex = '1';
+  }
+  const footerBottom = footer.querySelector('.footer-bottom');
+  if(footerBottom) {
+    footerBottom.style.position = 'relative';
+    footerBottom.style.zIndex = '1';
+  }
+
+  let bgContainer = document.getElementById('footerCodeBgContainer');
+  if(!bgContainer) {
+    bgContainer = document.createElement('div');
+    bgContainer.id = 'footerCodeBgContainer';
+    bgContainer.style.position = 'absolute';
+    bgContainer.style.inset = '0';
+    bgContainer.style.opacity = '0.12';
+    bgContainer.style.fontFamily = "'Courier New', monospace";
+    bgContainer.style.fontSize = '13px';
+    bgContainer.style.lineHeight = '1.6';
+    bgContainer.style.color = '#04AA6D';
+    bgContainer.style.overflow = 'hidden';
+    bgContainer.style.pointerEvents = 'none';
+    bgContainer.style.zIndex = '0';
+    bgContainer.style.padding = '30px';
+    bgContainer.style.display = 'flex';
+    bgContainer.style.gap = '40px';
+    
+    for(let i=1; i<=3; i++) {
+      let col = document.createElement('div');
+      col.id = 'footerCodeBg' + i;
+      col.style.flex = '1';
+      col.style.whiteSpace = 'pre-wrap';
+      col.style.wordBreak = 'break-word';
+      bgContainer.appendChild(col);
     }
+    footer.insertBefore(bgContainer, footer.firstChild);
+  }
+
+  const bgs = [
+    document.getElementById('footerCodeBg1'),
+    document.getElementById('footerCodeBg2'),
+    document.getElementById('footerCodeBg3')
+  ];
+  if(!bgs[0]) return;
+  
+  const snippets = [
+    "function initSys() {\n  console.log('Booting Infinity Engine...');\n  return loadModules();\n}",
+    "const db = connect(process.env.DB_URL);\nawait db.sync();",
+    "class InfiniteDesign extends CreativeAgency {\n  constructor() {\n    super({ premium: true, talent: 'top-3%' });\n  }\n}",
+    "SELECT id, project_name FROM portfolio WHERE status = 'published' ORDER BY date DESC;",
+    "import { useState, useEffect } from 'react';\nexport default function App() {\n  return <MainLayout />;\n}",
+    "Route::get('/api/v1/projects', [ProjectController::class, 'index'])->middleware('api');",
+    "if (quality >= 100) {\n  deployToProduction();\n} else {\n  refactor();\n}",
+    "body {\n  margin: 0;\n  padding: 0;\n  background: #282A35;\n  font-family: var(--font-sans);\n}"
+  ];
+  
+  function createTyper(bgEl) {
+    let fullText = '';
+    let idx = 0;
+    let timer = null;
+    
+    function typeWriter() {
+      // Always keep generating new code — never run out
+      if (idx >= fullText.length - 100) {
+        fullText += snippets[Math.floor(Math.random() * snippets.length)] + "\n\n";
+      }
+      
+      bgEl.textContent = fullText.substring(0, idx+1) + "_";
+      idx += Math.floor(Math.random() * 8) + 2; 
+      
+      // Scroll old lines out so text doesn't grow forever
+      if (fullText.length > 2500 && idx > 2000) {
+        let cutIndex = fullText.indexOf('\n\n', 250);
+        if (cutIndex !== -1) {
+          fullText = fullText.substring(cutIndex + 2);
+          idx -= (cutIndex + 2);
+        }
+      }
+      timer = setTimeout(typeWriter, Math.random() * 50 + 10);
+    }
+    
+    function start() { if(!timer) typeWriter(); }
+    function stop()  { clearTimeout(timer); timer = null; }
+    
+    // Start when footer scrolls into view, stop when it leaves, restart when it comes back
+    const io = new IntersectionObserver(function(entries){
+      entries[0].isIntersecting ? start() : stop();
+    }, { threshold: 0.05 });
+    io.observe(bgEl);
   }
   
-  const io = new IntersectionObserver(function(entries){
-    if(entries[0].isIntersecting){
-      setTimeout(typeWriter, 400);
-      io.disconnect();
-    }
-  });
-  io.observe(el);
+  bgs.forEach(bg => { if(bg) createTyper(bg); });
 })();

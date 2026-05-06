@@ -36,7 +36,7 @@ export default function Navbar() {
           
           <Link href="/" className="flex items-center space-x-2">
             <span className="text-2xl font-bold tracking-tighter text-glow">INFINITE</span>
-            <span className="text-xs text-gray-400 hidden sm:block">Creative Design</span>
+            <span className="text-xs text-gray-400 hidden sm:block">Creative Web Design</span>
           </Link>
 
           {/* Desktop Nav */}

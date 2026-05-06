@@ -1,4 +1,4 @@
-# Infinite Creative Design — Setup Guide
+# Infinite Creative Web Design — Setup Guide
 
 ## 1. Add Your Logo
 Copy your `image_0.png` (the Infinite Design logo) into:

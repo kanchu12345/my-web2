@@ -51,7 +51,7 @@ export default function Contact() {
               <div className="p-3 bg-white/5 rounded-lg text-accent-blue"><MapPin size={24} /></div>
               <div>
                 <h4 className="text-sm text-gray-400 mb-1">Address</h4>
-                <p className="font-medium text-lg">No 37/1c Dammarathana Road,<br/>Dankatiya, Tangalle, Sri Lanka</p>
+                <p className="font-medium text-lg">Sri Lanka</p>
               </div>
             </div>
             
