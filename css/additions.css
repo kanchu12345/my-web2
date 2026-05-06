@@ -73,3 +73,11 @@
   vertical-align: middle;
   animation: blinkCursor 0.8s step-end infinite;
 }
+
+/* Native Article Styling */
+.article-body a { color: #04AA6D; text-decoration: underline; }
+.article-body img { max-width: 100%; height: auto; border-radius: 8px; margin: 20px 0; }
+.article-body pre { background: #1e1f26; padding: 15px; border-radius: 8px; overflow-x: auto; margin: 20px 0; border: 1px solid rgba(255,255,255,0.05); }
+.article-body code { font-family: 'Courier New', monospace; font-size: 14px; color: #04AA6D; }
+.article-body h2, .article-body h3 { color: #fff; margin-top: 30px; margin-bottom: 15px; }
+

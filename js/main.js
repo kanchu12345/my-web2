@@ -172,66 +172,107 @@ function renderFallbackProjects(grid){
   });
 }
 
-/* ── Load Blogs (Automated Dev.to API) ──────────── */
+/* ── Load Blogs (Automated Native Aggregation) ──── */
+function isUnder30Days(dateStr) {
+  const published = new Date(dateStr);
+  const now = new Date();
+  const diffDays = Math.floor((now - published) / (1000 * 60 * 60 * 24));
+  return diffDays <= 30;
+}
+
+const fallbackBlogs = [
+  {
+    id: "fallback_1",
+    title: "The Future of Corporate Web Design in 2026",
+    category: "Web Design",
+    image: "images/blog_1.png",
+    date: "May 2026",
+    description: "Explore the latest trends in enterprise web development, focusing on performance, glassmorphism, and user experience...",
+    url: "article.html?id=fallback_1"
+  },
+  {
+    id: "fallback_2",
+    title: "How to Rebrand Without Losing Your Audience",
+    category: "Brand Strategy",
+    image: "images/blog_2.png",
+    date: "Apr 2026",
+    description: "A step-by-step guide to successfully launching a new brand identity while maintaining customer loyalty...",
+    url: "article.html?id=fallback_2"
+  },
+  {
+    id: "fallback_3",
+    title: "Why We Choose Laravel for Enterprise Apps",
+    category: "Technology",
+    image: "images/blog_3.png",
+    date: "Mar 2026",
+    description: "Discover the security, scalability, and performance benefits of using the Laravel ecosystem for large-scale projects...",
+    url: "article.html?id=fallback_3"
+  }
+];
+
 async function loadBlogs() {
   const grid = document.getElementById('blogGrid');
   if(!grid) return;
   try {
-    // Fetch top 3 latest articles for webdev and programming
-    const res = await fetch('https://dev.to/api/articles?tag=webdev&top=1&per_page=3');
+    const res = await fetch('https://dev.to/api/articles?tag=webdev&top=1&per_page=10');
     if(!res.ok) throw new Error('API error');
     const data = await res.json();
     
-    if(!data || data.length === 0) {
-      throw new Error('No articles');
-    }
+    // Filter articles under 30 days and take top 3
+    const filtered = data.filter(a => isUnder30Days(a.published_at)).slice(0, 3);
     
-    const blogs = data.map(article => {
-      // Dev.to API sometimes misses cover_image, fallback to a local image or social image
+    if(filtered.length === 0) throw new Error('No recent articles');
+    
+    const blogs = filtered.map(article => {
       const image = article.cover_image || article.social_image || "images/blog_1.png";
       const date = new Date(article.published_at).toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
       const category = article.tag_list && article.tag_list.length > 0 ? article.tag_list[0] : 'Technology';
-      
       return {
+        id: article.id,
         title: article.title,
         category: category,
         image: image,
         date: date,
         description: article.description || "Read more about this latest technology update...",
-        url: article.url
+        url: 'article.html?id=' + article.id
       };
     });
     
     renderBlogs(blogs, grid);
   } catch(e) {
-    // Fallback if API fails
-    const seeded = [
-      {
-        title: "The Future of Corporate Web Design in 2026",
-        category: "Web Design",
-        image: "images/blog_1.png",
-        date: "May 2026",
-        description: "Explore the latest trends in enterprise web development, focusing on performance, glassmorphism, and user experience...",
-        url: "#"
-      },
-      {
-        title: "How to Rebrand Without Losing Your Audience",
-        category: "Brand Strategy",
-        image: "images/blog_2.png",
-        date: "Apr 2026",
-        description: "A step-by-step guide to successfully launching a new brand identity while maintaining customer loyalty...",
-        url: "#"
-      },
-      {
-        title: "Why We Choose Laravel for Enterprise Apps",
-        category: "Technology",
-        image: "images/blog_3.png",
-        date: "Mar 2026",
-        description: "Discover the security, scalability, and performance benefits of using the Laravel ecosystem for large-scale projects...",
-        url: "#"
-      }
-    ];
-    renderBlogs(seeded, grid);
+    renderBlogs(fallbackBlogs.slice(0, 3), grid);
+  }
+}
+
+async function loadAllBlogs() {
+  const grid = document.getElementById('blogGridAll');
+  if(!grid) return;
+  try {
+    const res = await fetch('https://dev.to/api/articles?tag=programming&top=1&per_page=30');
+    if(!res.ok) throw new Error('API error');
+    const data = await res.json();
+    
+    const filtered = data.filter(a => isUnder30Days(a.published_at));
+    if(filtered.length === 0) throw new Error('No recent articles');
+    
+    const blogs = filtered.map(article => {
+      const image = article.cover_image || article.social_image || "images/blog_2.png";
+      const date = new Date(article.published_at).toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
+      const category = article.tag_list && article.tag_list.length > 0 ? article.tag_list[0] : 'Technology';
+      return {
+        id: article.id,
+        title: article.title,
+        category: category,
+        image: image,
+        date: date,
+        description: article.description || "Read more about this...",
+        url: 'article.html?id=' + article.id
+      };
+    });
+    
+    renderBlogs(blogs, grid);
+  } catch(e) {
+    renderBlogs(fallbackBlogs, grid);
   }
 }
 
@@ -239,7 +280,7 @@ function renderBlogs(blogs, grid) {
   grid.innerHTML = '';
   blogs.forEach(b => {
     grid.innerHTML += `
-      <a href="${b.url}" target="_blank" class="blog-card glass-hover" style="display:flex; flex-direction:column; background:#282A35; border-radius:16px; overflow:hidden; text-decoration:none; border:1px solid rgba(255,255,255,0.05);">
+      <a href="${b.url}" class="blog-card glass-hover" style="display:flex; flex-direction:column; background:#282A35; border-radius:16px; overflow:hidden; text-decoration:none; border:1px solid rgba(255,255,255,0.05);">
         <div style="height:200px; background:#1e1f26; position:relative; overflow:hidden;">
           <img src="${b.image}" alt="" style="width:100%; height:100%; object-fit:cover;">
         </div>
@@ -251,6 +292,63 @@ function renderBlogs(blogs, grid) {
       </a>
     `;
   });
+}
+
+/* ── Render Native Article ──────────────────────── */
+async function loadArticle() {
+  const container = document.getElementById('articleContent');
+  if(!container) return;
+  
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id');
+  if(!id) {
+    container.innerHTML = '<div style="color:#fff;">Article not found.</div>';
+    return;
+  }
+  
+  if(id.startsWith('fallback_')) {
+    const fallback = fallbackBlogs.find(b => b.id === id);
+    if(fallback) {
+      document.title = fallback.title + ' | Infinite Web Design';
+      container.innerHTML = `
+        <div style="margin-bottom:30px;">
+          <h1 style="font-family:var(--font-disp); font-size:36px; font-weight:700; color:#fff; margin-bottom:15px;">${fallback.title}</h1>
+          <div style="color:#04AA6D; font-size:14px; font-weight:600; text-transform:uppercase; letter-spacing:0.1em;">${fallback.category} • ${fallback.date}</div>
+        </div>
+        <img src="${fallback.image}" style="width:100%; max-height:400px; object-fit:cover; border-radius:16px; margin-bottom:30px;">
+        <div style="color:rgba(255,255,255,0.8); line-height:1.8; font-size:18px;">
+          <p>${fallback.description}</p>
+          <p>This is a generated premium article. Please configure the Developer API or add real articles to view full content.</p>
+        </div>
+      `;
+    }
+    return;
+  }
+  
+  try {
+    const res = await fetch('https://dev.to/api/articles/' + id);
+    if(!res.ok) throw new Error('API error');
+    const article = await res.json();
+    
+    document.title = article.title + ' | Infinite Web Design';
+    
+    const image = article.cover_image || article.social_image || "";
+    const date = new Date(article.published_at).toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
+    const category = article.tags && article.tags.length > 0 ? article.tags[0] : 'Technology';
+    
+    container.innerHTML = `
+      <div style="margin-bottom:30px;">
+        <h1 style="font-family:var(--font-disp); font-size:36px; font-weight:700; color:#fff; margin-bottom:15px; line-height: 1.3;">${article.title}</h1>
+        <div style="color:#04AA6D; font-size:14px; font-weight:600; text-transform:uppercase; letter-spacing:0.1em;">${category} • ${date} • <span style="color:var(--grey)">${article.user.name}</span></div>
+      </div>
+      ${image ? `<img src="${image}" style="width:100%; max-height:400px; object-fit:cover; border-radius:16px; margin-bottom:40px;">` : ''}
+      <div class="article-body" style="color:rgba(255,255,255,0.8); line-height:1.8; font-size:18px; overflow-wrap: break-word;">
+        ${article.body_html}
+      </div>
+    `;
+  } catch(e) {
+    container.innerHTML = '<div style="color:#fff;">Error loading the article. Please try again later.</div>';
+  }
 }
 
 /* ── Load About/Contact from Firebase settings ──── */
@@ -271,6 +369,8 @@ async function loadSettings(){
 document.addEventListener('DOMContentLoaded',function(){
   loadProjects();
   loadBlogs();
+  loadAllBlogs();
+  loadArticle();
   loadSettings();
   // link CSS additions
   const lnk=document.createElement('link');
