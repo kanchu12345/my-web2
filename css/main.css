@@ -589,7 +589,7 @@ body::after{
 }
 .blog-category-header {
   font-family: var(--font-disp);
-  font-size: 20px;
+  font-size: 30px;
   font-weight: 700;
   color: #fff;
   margin-bottom: 24px;

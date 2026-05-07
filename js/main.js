@@ -243,6 +243,9 @@ async function loadAllBlogs() {
     container.className = '';
     container.innerHTML = '';
 
+    const themeColors = ['#04AA6D', '#f39c12', '#9b59b6', '#e74c3c', '#3498db', '#1abc9c', '#e67e22', '#FAD0C4'];
+    let colorIndex = 0;
+
     for (const cat in categorized) {
       const catBlock = document.createElement('div');
       catBlock.className = 'blog-category-block';
@@ -250,6 +253,11 @@ async function loadAllBlogs() {
       const catHeader = document.createElement('h2');
       catHeader.className = 'blog-category-header';
       catHeader.textContent = cat;
+      
+      const themeColor = themeColors[colorIndex % themeColors.length];
+      catHeader.style.color = themeColor;
+      catHeader.style.borderBottomColor = themeColor;
+      colorIndex++;
 
       const catGrid = document.createElement('div');
       catGrid.className = 'blog-grid-all';
