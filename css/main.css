@@ -591,7 +591,7 @@ body::after{
   font-family: var(--font-disp);
   font-size: 30px;
   font-weight: 700;
-  color: #fff;
+  color: var(--white);
   margin-bottom: 24px;
   border-bottom: 2px solid var(--blue);
   padding-bottom: 8px;
@@ -615,7 +615,7 @@ body::after{
 }
 .blog-cell-title {
   font-size: 2.5rem;
-  color: #fff;
+  color: var(--white);
   line-height: 1.2;
 }
 .blog-cell-subtitle {

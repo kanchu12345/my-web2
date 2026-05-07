@@ -255,7 +255,6 @@ async function loadAllBlogs() {
       catHeader.textContent = cat;
       
       const themeColor = themeColors[colorIndex % themeColors.length];
-      catHeader.style.color = themeColor;
       catHeader.style.borderBottomColor = themeColor;
       colorIndex++;
 
