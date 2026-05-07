@@ -239,6 +239,44 @@ async function loadAllBlogs() {
       categorized[cat].push({...a, url: articlePath(a.id)});
     });
 
+    const filterBar = document.getElementById('topicFilterBar');
+    if (filterBar) {
+      filterBar.innerHTML = '';
+      
+      const allBtn = document.createElement('button');
+      allBtn.className = 'topic-filter-btn active';
+      allBtn.textContent = 'All Topics';
+      allBtn.onclick = () => filterTopics('All Topics');
+      filterBar.appendChild(allBtn);
+
+      for (const cat in categorized) {
+        const btn = document.createElement('button');
+        btn.className = 'topic-filter-btn';
+        btn.textContent = cat;
+        btn.onclick = () => filterTopics(cat);
+        filterBar.appendChild(btn);
+      }
+    }
+
+    function filterTopics(selectedCat) {
+      if (filterBar) {
+        Array.from(filterBar.children).forEach(btn => {
+          if (btn.textContent === selectedCat) {
+            btn.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+          }
+        });
+      }
+      Array.from(container.children).forEach(block => {
+        if (selectedCat === 'All Topics' || block.dataset.category === selectedCat) {
+          block.style.display = 'block';
+        } else {
+          block.style.display = 'none';
+        }
+      });
+    }
+
     // Remove the global grid class from the main wrapper to stack categories vertically
     container.className = '';
     container.innerHTML = '';
@@ -249,6 +287,7 @@ async function loadAllBlogs() {
     for (const cat in categorized) {
       const catBlock = document.createElement('div');
       catBlock.className = 'blog-category-block';
+      catBlock.dataset.category = cat;
 
       const catHeader = document.createElement('h2');
       catHeader.className = 'blog-category-header';
@@ -325,17 +364,17 @@ async function loadArticle() {
       <a href="blogs.html" style="display:inline-flex;align-items:center;gap:8px;color:#04AA6D;font-size:14px;font-weight:600;text-decoration:none;margin-bottom:32px;letter-spacing:0.05em;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">
         ← Back to all articles
       </a>
-      <div style="margin-bottom:36px;">
-        <div style="font-size:11px;color:#04AA6D;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;margin-bottom:14px;">${article.category} • ${article.date} ${article.source ? '• <span style="color:var(--grey);">via ' + article.source + '</span>' : ''}</div>
-        <h1 style="font-family:var(--font-disp);font-size:clamp(24px,4vw,40px);font-weight:700;color:var(--white);line-height:1.25;margin-bottom:0;">${article.title}</h1>
+      <div style="margin-bottom:40px;">
+        <div style="font-size:12px;color:#04AA6D;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;margin-bottom:16px;">${article.category} • ${article.date} ${article.source ? '• <span style="color:var(--grey);">via ' + article.source + '</span>' : ''}</div>
+        <h1 style="font-family:var(--font-disp);font-size:clamp(32px,5vw,48px);font-weight:800;color:var(--white);line-height:1.2;margin-bottom:0;letter-spacing:-0.02em;">${article.title}</h1>
       </div>
-      ${article.image ? `<img src="${imgSrc}" alt="${article.title}" style="width:100%;max-height:420px;object-fit:cover;border-radius:16px;margin-bottom:40px;" onerror="this.style.display='none'">` : ''}
-      <div class="article-body" style="color:var(--grey-light);line-height:1.9;font-size:17px;overflow-wrap:break-word;">
+      ${article.image ? `<img src="${imgSrc}" alt="${article.title}" style="width:100%;max-height:500px;object-fit:cover;border-radius:16px;margin-bottom:48px;box-shadow:0 12px 30px rgba(0,0,0,0.08);" onerror="this.style.display='none'">` : ''}
+      <div class="article-body">
         ${article.body_html || '<p>' + (article.description || '') + '</p>'}
       </div>
-      <div style="margin-top:48px;padding-top:32px;border-top:1px solid rgba(0,0,0,0.1);display:flex;justify-content:space-between;align-items:center;flex-wrap:gap;">
+      <div style="margin-top:56px;padding-top:40px;border-top:1px solid rgba(0,0,0,0.08);display:flex;justify-content:space-between;align-items:center;flex-wrap:gap;">
         <a href="blogs.html" style="display:inline-flex;align-items:center;gap:8px;color:#04AA6D;font-size:14px;font-weight:600;text-decoration:none;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">← More Articles</a>
-        <a href="contact.html" style="display:inline-flex;align-items:center;gap:8px;background:#04AA6D;color:#fff;font-size:13px;font-weight:700;text-decoration:none;padding:10px 22px;border-radius:30px;letter-spacing:0.05em;" onmouseover="this.style.background='#038a57'" onmouseout="this.style.background='#04AA6D'">Work With Us →</a>
+        <a href="contact.html" style="display:inline-flex;align-items:center;gap:8px;background:#04AA6D;color:#fff;font-size:13px;font-weight:700;text-decoration:none;padding:12px 24px;border-radius:30px;letter-spacing:0.05em;box-shadow:0 8px 20px rgba(4,170,109,0.2);" onmouseover="this.style.background='#038a57'" onmouseout="this.style.background='#04AA6D'">Work With Us →</a>
       </div>
     `;
   } catch(e) {
