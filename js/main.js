@@ -326,14 +326,14 @@ async function loadArticle() {
         ← Back to all articles
       </a>
       <div style="margin-bottom:36px;">
-        <div style="font-size:11px;color:#04AA6D;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;margin-bottom:14px;">${article.category} • ${article.date} ${article.source ? '• <span style="color:rgba(255,255,255,0.4);">via ' + article.source + '</span>' : ''}</div>
-        <h1 style="font-family:var(--font-disp);font-size:clamp(24px,4vw,40px);font-weight:700;color:#fff;line-height:1.25;margin-bottom:0;">${article.title}</h1>
+        <div style="font-size:11px;color:#04AA6D;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;margin-bottom:14px;">${article.category} • ${article.date} ${article.source ? '• <span style="color:var(--grey);">via ' + article.source + '</span>' : ''}</div>
+        <h1 style="font-family:var(--font-disp);font-size:clamp(24px,4vw,40px);font-weight:700;color:var(--white);line-height:1.25;margin-bottom:0;">${article.title}</h1>
       </div>
       ${article.image ? `<img src="${imgSrc}" alt="${article.title}" style="width:100%;max-height:420px;object-fit:cover;border-radius:16px;margin-bottom:40px;" onerror="this.style.display='none'">` : ''}
-      <div class="article-body" style="color:rgba(255,255,255,0.85);line-height:1.9;font-size:17px;overflow-wrap:break-word;">
+      <div class="article-body" style="color:var(--grey-light);line-height:1.9;font-size:17px;overflow-wrap:break-word;">
         ${article.body_html || '<p>' + (article.description || '') + '</p>'}
       </div>
-      <div style="margin-top:48px;padding-top:32px;border-top:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;align-items:center;flex-wrap:gap;">
+      <div style="margin-top:48px;padding-top:32px;border-top:1px solid rgba(0,0,0,0.1);display:flex;justify-content:space-between;align-items:center;flex-wrap:gap;">
         <a href="blogs.html" style="display:inline-flex;align-items:center;gap:8px;color:#04AA6D;font-size:14px;font-weight:600;text-decoration:none;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">← More Articles</a>
         <a href="contact.html" style="display:inline-flex;align-items:center;gap:8px;background:#04AA6D;color:#fff;font-size:13px;font-weight:700;text-decoration:none;padding:10px 22px;border-radius:30px;letter-spacing:0.05em;" onmouseover="this.style.background='#038a57'" onmouseout="this.style.background='#04AA6D'">Work With Us →</a>
       </div>

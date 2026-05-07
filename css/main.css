@@ -672,3 +672,31 @@ body::after{
     margin-bottom: 1.5rem;
   }
 }
+
+/* ═══════════════════════════════════════
+   ARTICLE CONTENT OVERRIDES
+═══════════════════════════════════════ */
+/* Force AI-generated inline white text to be dark readable grey on our light background */
+.article-body,
+.article-body p, 
+.article-body span, 
+.article-body div, 
+.article-body h1, 
+.article-body h2, 
+.article-body h3, 
+.article-body h4, 
+.article-body h5, 
+.article-body h6, 
+.article-body li,
+.article-body blockquote {
+  color: var(--white) !important;
+}
+.article-body a {
+  color: var(--blue) !important;
+  text-decoration: underline;
+}
+.article-body pre, 
+.article-body code {
+  color: #333 !important;
+  background: rgba(0,0,0,0.05) !important;
+}
