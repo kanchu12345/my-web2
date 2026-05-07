@@ -2,9 +2,45 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Latest Articles | Infinite Creative Web Design</title>
-<meta name="description" content="Explore our selected projects — web design, branding, and digital solutions by Infinite Creative Web Design.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Web Design & Tech Blog | Insights by Infinite Creative</title>
+<meta name="description" content="Explore the latest insights, web design trends, and tech articles automatically curated from top sources daily by Infinite Creative Web Design.">
+<meta name="keywords" content="web design blog, tech articles, digital solutions, branding insights, frontend development, Infinite Creative Web Design, UI/UX trends">
+<link rel="canonical" href="https://infinitedesign.com/blogs.html">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://infinitedesign.com/blogs.html">
+<meta property="og:title" content="Web Design & Tech Blog | Insights by Infinite Creative">
+<meta property="og:description" content="Explore the latest insights, web design trends, and tech articles automatically curated from top sources daily.">
+<meta property="og:image" content="https://infinitedesign.com/images/logo.png">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://infinitedesign.com/blogs.html">
+<meta name="twitter:title" content="Web Design & Tech Blog | Insights by Infinite Creative">
+<meta name="twitter:description" content="Explore the latest insights, web design trends, and tech articles automatically curated from top sources daily.">
+<meta name="twitter:image" content="https://infinitedesign.com/images/logo.png">
+
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "name": "Infinite Creative Web Design Blog",
+  "description": "Explore the latest insights, web design trends, and tech articles automatically curated from top sources daily by Infinite Creative Web Design.",
+  "url": "https://infinitedesign.com/blogs.html",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Infinite Creative Web Design",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://infinitedesign.com/images/logo.png"
+    }
+  }
+}
+</script>
+
 <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.gstatic.com https://cdn.jsdelivr.net https://unpkg.com https://www.google.com https://maps.googleapis.com https://apis.google.com https://firebasestorage.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https: blob:; frame-src https://www.google.com https://maps.google.com; connect-src 'self' https:;">
 <link rel="stylesheet" href="css/main.css?v=10">
 <link rel="icon" type="image/png" href="images/logo.png">
@@ -64,13 +100,13 @@
   <div class="section-inner">
     <div class="section-eyebrow reveal">Insights</div>
     <div class="bento">
-      <div class="b-cell reveal" style="grid-column: 1 / -1; padding: 40px; background: rgba(255,255,255,0.02); border: 1px solid var(--glass-b); border-radius: var(--r-xl);">
-        <div class="cell-head" style="margin-bottom: 2rem;">
-          <h1 class="cell-title" style="font-size: 2.5rem; color:#fff;">Latest News & Articles</h1>
-          <span style="font-size:13px;color:var(--grey);letter-spacing:0.05em;">Auto-curated from top tech sources daily</span>
+      <div class="b-cell reveal b-blogs-container">
+        <div class="cell-head blog-cell-head">
+          <h1 class="cell-title blog-cell-title">Latest News & Articles</h1>
+          <span class="blog-cell-subtitle">Auto-curated from top tech sources daily</span>
         </div>
-        <div id="blogGridAll" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;">
-          <div style="color:rgba(255,255,255,0.5); font-size:14px; text-align:center; padding:40px; grid-column: 1/-1;">Loading articles...</div>
+        <div id="blogGridAll" class="blog-grid-all">
+          <div class="blog-loading-msg">Loading articles...</div>
         </div>
       </div>
     </div>
