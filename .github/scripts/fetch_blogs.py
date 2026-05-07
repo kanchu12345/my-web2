@@ -28,7 +28,7 @@ from bs4 import BeautifulSoup
 # ── Config ────────────────────────────────────────────────────────────────────
 OUTPUT_FILE   = os.path.join(os.path.dirname(__file__), '../../data/blogs.json')
 MAX_AGE_DAYS  = 30
-MAX_ARTICLES  = 20       # Maximum articles to store in blogs.json
+MAX_ARTICLES  = 30       # Maximum articles to store in blogs.json
 MIN_DESC_LEN  = 60       # Minimum characters for a valid description
 FALLBACK_IMG  = "images/blog_1.png"
 
@@ -111,6 +111,35 @@ def is_relevant(tags_list):
         return True  # Accept if no tags
     normalized = {t.lower().replace(' ', '') for t in tags_list}
     return bool(normalized & RELEVANT_TAGS)
+
+def extract_image_from_entry(entry):
+    """Attempt to extract an image URL from an RSS entry."""
+    media_content = entry.get('media_content', [])
+    for media in media_content:
+        if media.get('medium') == 'image' or 'url' in media:
+            return media.get('url')
+            
+    media_thumbnail = entry.get('media_thumbnail', [])
+    if media_thumbnail:
+        return media_thumbnail[0].get('url')
+        
+    enclosures = entry.get('enclosures', [])
+    for enc in enclosures:
+        if enc.get('type', '').startswith('image/'):
+            return enc.get('href')
+            
+    html_content = ""
+    content_list = entry.get('content', [])
+    if content_list:
+        html_content += content_list[0].get('value', '')
+    html_content += entry.get('summary', '')
+        
+    if html_content:
+        match = re.search(r'<img[^>]+src=["\'](https?://[^"\']+)["\']', html_content, re.IGNORECASE)
+        if match:
+            return match.group(1)
+            
+    return FALLBACK_IMG
 
 # ── Source 1: Dev.to API ──────────────────────────────────────────────────────
 def fetch_devto(tags=None, per_page=15):
@@ -256,7 +285,7 @@ def fetch_techcrunch(limit=8):
                 'category': 'Tech News',
                 'date': format_date(pub_date),
                 'description': clean_summary[:250],
-                'image': FALLBACK_IMG,
+                'image': extract_image_from_entry(entry),
                 'body_html': body_html,
                 'source': 'TechCrunch',
                 'fetched_at': datetime.now(timezone.utc).isoformat()
@@ -264,6 +293,90 @@ def fetch_techcrunch(limit=8):
 
     except Exception as e:
         print(f"  TechCrunch fetch error: {e}")
+
+    return articles
+
+# ── Source 4: FreeCodeCamp RSS ────────────────────────────────────────────────
+def fetch_freecodecamp(limit=6):
+    """Fetch articles from FreeCodeCamp RSS feed."""
+    articles = []
+    try:
+        feed = feedparser.parse('https://www.freecodecamp.org/news/rss/')
+        for entry in feed.entries[:limit * 2]:
+            if len(articles) >= limit:
+                break
+
+            pub_date = entry.get('published', '')
+            if not is_within_30_days(pub_date):
+                continue
+
+            summary = entry.get('summary', '')
+            clean_summary = re.sub(r'<[^>]+>', '', summary).strip()
+            if len(clean_summary) < MIN_DESC_LEN:
+                clean_summary = entry.get('title', '')
+
+            body_html = f'''
+<p style="font-size:18px; line-height:1.8; color:rgba(255,255,255,0.8);">{clean_summary}</p>
+<p style="margin-top:30px; color:rgba(255,255,255,0.5); font-style:italic;">
+  Originally published by FreeCodeCamp. Curated and validated by Infinite Design's automated blog agent.
+</p>
+'''
+            articles.append({
+                'id': f"fcc_{abs(hash(entry.get('link', entry.get('title', ''))))}",
+                'title': entry.get('title', '').strip(),
+                'category': 'Programming',
+                'date': format_date(pub_date),
+                'description': clean_summary[:250],
+                'image': extract_image_from_entry(entry),
+                'body_html': body_html,
+                'source': 'FreeCodeCamp',
+                'fetched_at': datetime.now(timezone.utc).isoformat()
+            })
+
+    except Exception as e:
+        print(f"  FreeCodeCamp fetch error: {e}")
+
+    return articles
+
+# ── Source 5: Smashing Magazine RSS ───────────────────────────────────────────
+def fetch_smashingmagazine(limit=6):
+    """Fetch articles from Smashing Magazine RSS feed."""
+    articles = []
+    try:
+        feed = feedparser.parse('https://www.smashingmagazine.com/feed/')
+        for entry in feed.entries[:limit * 2]:
+            if len(articles) >= limit:
+                break
+
+            pub_date = entry.get('published', '')
+            if not is_within_30_days(pub_date):
+                continue
+
+            summary = entry.get('summary', '')
+            clean_summary = re.sub(r'<[^>]+>', '', summary).strip()
+            if len(clean_summary) < MIN_DESC_LEN:
+                clean_summary = entry.get('title', '')
+
+            body_html = f'''
+<p style="font-size:18px; line-height:1.8; color:rgba(255,255,255,0.8);">{clean_summary}</p>
+<p style="margin-top:30px; color:rgba(255,255,255,0.5); font-style:italic;">
+  Originally published by Smashing Magazine. Curated and validated by Infinite Design's automated blog agent.
+</p>
+'''
+            articles.append({
+                'id': f"sm_{abs(hash(entry.get('link', entry.get('title', ''))))}",
+                'title': entry.get('title', '').strip(),
+                'category': 'Web Design',
+                'date': format_date(pub_date),
+                'description': clean_summary[:250],
+                'image': extract_image_from_entry(entry),
+                'body_html': body_html,
+                'source': 'Smashing Magazine',
+                'fetched_at': datetime.now(timezone.utc).isoformat()
+            })
+
+    except Exception as e:
+        print(f"  Smashing Magazine fetch error: {e}")
 
     return articles
 
@@ -298,6 +411,16 @@ def main():
     tc = fetch_techcrunch(limit=6)
     print(f"  ✅ Got {len(tc)} articles from TechCrunch")
     all_articles.extend(tc)
+
+    print("📡 Fetching from FreeCodeCamp RSS...")
+    fcc = fetch_freecodecamp(limit=6)
+    print(f"  ✅ Got {len(fcc)} articles from FreeCodeCamp")
+    all_articles.extend(fcc)
+
+    print("📡 Fetching from Smashing Magazine RSS...")
+    sm = fetch_smashingmagazine(limit=6)
+    print(f"  ✅ Got {len(sm)} articles from Smashing Magazine")
+    all_articles.extend(sm)
 
     # Deduplicate
     all_articles = deduplicate(all_articles)
