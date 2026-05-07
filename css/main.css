@@ -580,6 +580,25 @@ body::after{
 /* ═══════════════════════════════════════
    BLOGS & ARTICLES RESPONSIVE CLASSES
 ═══════════════════════════════════════ */
+.blog-category-block {
+  margin-bottom: 48px;
+  width: 100%;
+}
+.blog-category-block:last-child {
+  margin-bottom: 0;
+}
+.blog-category-header {
+  font-family: var(--font-disp);
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 24px;
+  border-bottom: 2px solid var(--blue);
+  padding-bottom: 8px;
+  display: inline-block;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
 .b-blogs-container {
   grid-column: 1 / -1;
   padding: 40px;

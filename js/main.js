@@ -222,16 +222,47 @@ async function loadBlogs() {
 }
 
 async function loadAllBlogs() {
-  const grid = document.getElementById('blogGridAll');
-  if (!grid) return;
-  grid.innerHTML = '<div style="color:rgba(255,255,255,0.4);text-align:center;padding:40px;grid-column:1/-1;">Loading articles...</div>';
+  const container = document.getElementById('blogGridAll');
+  if (!container) return;
+  container.innerHTML = '<div class="blog-loading-msg">Loading articles...</div>';
+  
   try {
     const data = await getBlogsData();
     const articles = data.articles || [];
     if (articles.length === 0) throw new Error('empty');
-    renderBlogs(articles.map(a => ({...a, url: articlePath(a.id)})), grid);
+
+    // Group articles by category
+    const categorized = {};
+    articles.forEach(a => {
+      const cat = a.category || 'Uncategorized';
+      if (!categorized[cat]) categorized[cat] = [];
+      categorized[cat].push({...a, url: articlePath(a.id)});
+    });
+
+    // Remove the global grid class from the main wrapper to stack categories vertically
+    container.className = '';
+    container.innerHTML = '';
+
+    for (const cat in categorized) {
+      const catBlock = document.createElement('div');
+      catBlock.className = 'blog-category-block';
+
+      const catHeader = document.createElement('h2');
+      catHeader.className = 'blog-category-header';
+      catHeader.textContent = cat;
+
+      const catGrid = document.createElement('div');
+      catGrid.className = 'blog-grid-all';
+
+      catBlock.appendChild(catHeader);
+      catBlock.appendChild(catGrid);
+
+      renderBlogs(categorized[cat], catGrid);
+      container.appendChild(catBlock);
+    }
   } catch(e) {
-    grid.innerHTML = '<div style="color:rgba(255,255,255,0.4);text-align:center;padding:60px;grid-column:1/-1;">No articles available yet. Check back soon.</div>';
+    container.innerHTML = '<div class="blog-loading-msg">No articles available yet. Check back soon.</div>';
+    container.className = 'blog-grid-all';
   }
 }
 
