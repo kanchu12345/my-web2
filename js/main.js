@@ -177,12 +177,15 @@ function renderFallbackProjects(grid){
 // Cache blogs.json for the session
 let _blogsCache = null;
 
+/* Helper: get relative path to root */
+function rootPath() {
+  return window.location.pathname.includes('/admin/') ? '../' : '';
+}
+
 async function getBlogsData() {
   if (_blogsCache) return _blogsCache;
   try {
-    // Determine root path dynamically (works from any page depth)
-    const depth = window.location.pathname.split('/').length - 2;
-    const prefix = depth > 0 ? '../'.repeat(depth) : '';
+    const prefix = rootPath();
     const res = await fetch(prefix + 'data/blogs.json?v=' + Date.now());
     if (!res.ok) throw new Error('blogs.json not available');
     _blogsCache = await res.json();
@@ -197,12 +200,6 @@ async function getBlogsData() {
       ]
     };
   }
-}
-
-/* Helper: get relative path to root */
-function rootPath() {
-  const depth = window.location.pathname.split('/').length - 2;
-  return depth > 0 ? '../'.repeat(depth) : '';
 }
 
 /* Helper: get relative path to article.html */
