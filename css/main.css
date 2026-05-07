@@ -796,3 +796,50 @@ body::after{
   margin: 32px 0;
   box-shadow: 0 10px 30px rgba(0,0,0,0.05);
 }
+
+/* ═══════════════════════════════════════
+   GOOGLE TRANSLATE CUSTOM STYLES
+═══════════════════════════════════════ */
+/* Hide the Google Translate top banner that shifts the body */
+.goog-te-banner-frame.skiptranslate {
+  display: none !important;
+}
+body {
+  top: 0px !important;
+}
+/* Style the translate widget container */
+#google_translate_element {
+  background: var(--bg-2);
+  padding: 6px 12px;
+  border-radius: 30px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  border: 1px solid var(--glass-b);
+  transition: transform 0.3s var(--ease);
+}
+#google_translate_element:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+}
+/* Hide the 'Powered by Google' text */
+.goog-te-gadget {
+  font-family: var(--font-sans) !important;
+  color: transparent !important;
+  font-size: 0px !important;
+}
+/* Style the dropdown selector */
+.goog-te-gadget .goog-te-combo {
+  margin: 0 !important;
+  padding: 6px 10px;
+  border-radius: 20px;
+  border: 1px solid var(--blue-border);
+  color: var(--white);
+  font-family: var(--font-sans);
+  background: transparent;
+  font-size: 13px;
+  font-weight: 600;
+  outline: none;
+  cursor: pointer;
+}
+.goog-te-gadget .goog-te-combo:focus {
+  border-color: var(--blue);
+}
