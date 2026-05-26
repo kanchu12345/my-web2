@@ -315,7 +315,7 @@ document.getElementById('loginForm').addEventListener('submit',async function(e)
       'auth/too-many-requests':'Firebase has temporarily blocked this account. Please try later.',
       'auth/invalid-credential':'Invalid credentials. Please check your email and password.',
     };
-    showErr(map[err.code] || `Sign in failed: ${err.message} (${err.code})`);
+    showErr(map[err.code]||'Sign in failed. Please try again.');
   }
 });
 
