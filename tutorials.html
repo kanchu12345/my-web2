@@ -207,7 +207,7 @@
 
       try {
         // Fetch data dynamically from JSON file
-        const response = await fetch('data/courses.json');
+        const response = await fetch('data/courses.json?v=' + new Date().getTime());
         if (!response.ok) throw new Error('Failed to load courses');
         const courses = await response.json();
         
