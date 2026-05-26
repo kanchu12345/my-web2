@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS3 Styling | Infinite Academy</title>
+  <link rel="stylesheet" href="css/main.css?v=10">
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <style>
+    body { background: #fdfdfd; color: #333; }
+    .course-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 40px;
+      margin-top: 100px;
+      padding-bottom: 80px;
+    }
+    @media (max-width: 900px) {
+      .course-layout { grid-template-columns: 1fr; }
+    }
+    .course-sidebar {
+      background: #fff;
+      border-right: 1px solid #e0e0e0;
+      padding-right: 24px;
+    }
+    .sidebar-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: #1a1a1a;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .chapter-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .chapter-item { margin-bottom: 8px; }
+    .chapter-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 16px;
+      border-radius: 8px;
+      color: #555;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+    }
+    .chapter-link:hover {
+      background: #f0f0f0;
+      color: #1a1a1a;
+    }
+    .chapter-link.active {
+      background: rgba(4, 170, 109, 0.1);
+      color: #04AA6D;
+      font-weight: 600;
+    }
+    .course-content { max-width: 800px; }
+    .lesson-header {
+      margin-bottom: 40px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .lesson-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #1a1a1a;
+      margin-bottom: 16px;
+    }
+    .lesson-meta {
+      display: flex;
+      gap: 16px;
+      color: #777;
+      font-size: 0.9rem;
+    }
+    .lesson-body h2 {
+      font-size: 1.8rem;
+      color: #1a1a1a;
+      margin: 40px 0 16px;
+    }
+    .lesson-body p {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: #444;
+      margin-bottom: 20px;
+    }
+    .code-block {
+      background: #282A35;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 24px 0;
+      overflow-x: auto;
+    }
+    .code-block code {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.95rem;
+      color: #f8f8f2;
+    }
+    .code-selector { color: #50fa7b; }
+    .code-prop { color: #8be9fd; }
+    .code-val { color: #ffb86c; }
+    
+    .callout {
+      background: #e8f5e9;
+      border-left: 4px solid #04AA6D;
+      padding: 20px;
+      border-radius: 0 8px 8px 0;
+      margin: 24px 0;
+    }
+    .callout-title {
+      font-weight: 700;
+      color: #04AA6D;
+      margin-bottom: 8px;
+    }
+    
+    .nav { background: #282A35; } 
+  </style>
+</head>
+<body>
+  <!-- NAVIGATION -->
+  <nav class="nav" id="mainNav" role="navigation">
+    <a href="index.html" class="nav-logo">
+      <img src="images/logo.png" alt="Infinite Design Logo" width="48" height="48">
+      <div class="nav-brand">
+        <strong>INFINITE</strong>
+        <small>Creative Web Design</small>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="blogs.html">Blogs</a></li>
+      <li><a href="tutorials.html" class="active" style="color:#04AA6D;">Tutorials</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="https://wa.me/94771234567" class="nav-cta" target="_blank">Let's Talk</a>
+    </div>
+  </nav>
+
+  <div class="section-inner course-layout">
+    <!-- SIDEBAR -->
+    <aside class="course-sidebar">
+      <h3 class="sidebar-title">CSS3 Styling</h3>
+      <ul class="chapter-list">
+        <li class="chapter-item"><a href="#" class="chapter-link active">1. Intro to Flexbox</a></li>
+        <li class="chapter-item"><a href="#" class="chapter-link">2. CSS Grid Architecture</a></li>
+        <li class="chapter-item"><a href="#" class="chapter-link">3. Responsive Design</a></li>
+        <li class="chapter-item"><a href="#" class="chapter-link">4. Animations & Keyframes</a></li>
+        <li class="chapter-item"><a href="#" class="chapter-link">5. Variables & Theming</a></li>
+      </ul>
+      <div style="margin-top: 40px;">
+        <a href="tutorials.html" style="color: #04AA6D; text-decoration: none; font-weight: 600;">← Back to Courses</a>
+      </div>
+    </aside>
+
+    <!-- CONTENT -->
+    <main class="course-content">
+      <header class="lesson-header">
+        <h1 class="lesson-title">1. Introduction to Flexbox</h1>
+        <div class="lesson-meta">
+          <span>Module 1 of 5</span>
+          <span>•</span>
+          <span>20 min read</span>
+        </div>
+      </header>
+      
+      <div class="lesson-body">
+        <p>The Flexible Box Layout Module, makes it easier to design flexible responsive layout structure without using float or positioning. It aims at providing a more efficient way to lay out, align and distribute space among items in a container, even when their size is unknown and/or dynamic.</p>
+        
+        <h2>The Flex Container</h2>
+        <p>To start using the Flexbox model, you need to first define a flex container.</p>
+
+        <div class="code-block">
+<pre><code><span class="code-selector">.flex-container</span> {
+  <span class="code-prop">display</span>: <span class="code-val">flex</span>;
+  <span class="code-prop">justify-content</span>: <span class="code-val">center</span>;
+  <span class="code-prop">align-items</span>: <span class="code-val">center</span>;
+}</code></pre>
+        </div>
+
+        <div class="callout">
+          <div class="callout-title">Pro Tip: Flex Direction</div>
+          By default, flex items are laid out horizontally. You can change this using <code>flex-direction: column</code> to stack items vertically.
+        </div>
+
+        <h2>Flex Properties</h2>
+        <p>The following properties are used on the parent flex container:</p>
+        <ul style="margin-bottom: 24px; padding-left: 20px; line-height: 1.8; color: #444;">
+          <li><strong>flex-direction:</strong> row | row-reverse | column | column-reverse</li>
+          <li><strong>flex-wrap:</strong> nowrap | wrap | wrap-reverse</li>
+          <li><strong>justify-content:</strong> flex-start | flex-end | center | space-between | space-around</li>
+          <li><strong>align-items:</strong> stretch | flex-start | flex-end | center | baseline</li>
+        </ul>
+
+        <h2>Summary</h2>
+        <p>Flexbox is a powerful one-dimensional layout system. In the next chapter, we will introduce CSS Grid, which brings a two-dimensional grid-based layout system to the web.</p>
+        
+        <div style="margin-top: 60px; display: flex; justify-content: space-between;">
+          <a href="#" style="color: #888; text-decoration: none;">&larr; Previous</a>
+          <a href="#" style="background: #04AA6D; color: #fff; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600;">Next Chapter &rarr;</a>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/main.js" defer></script>
+</body>
+</html>

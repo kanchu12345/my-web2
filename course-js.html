@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modern JavaScript | Infinite Academy</title>
+  <link rel="stylesheet" href="css/main.css?v=10">
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <style>
+    body { background: #fdfdfd; color: #333; }
+    .course-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 40px;
+      margin-top: 100px;
+      padding-bottom: 80px;
+    }
+    @media (max-width: 900px) {
+      .course-layout { grid-template-columns: 1fr; }
+    }
+    .course-sidebar {
+      background: #fff;
+      border-right: 1px solid #e0e0e0;
+      padding-right: 24px;
+    }
+    .sidebar-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: #1a1a1a;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .chapter-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .chapter-item { margin-bottom: 8px; }
+    .chapter-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 16px;
+      border-radius: 8px;
+      color: #555;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+    }
+    .chapter-link:hover {
+      background: #f0f0f0;
+      color: #1a1a1a;
+    }
+    .chapter-link.active {
+      background: rgba(4, 170, 109, 0.1);
+      color: #04AA6D;
+      font-weight: 600;
+    }
+    .course-content { max-width: 800px; }
+    .lesson-header {
+      margin-bottom: 40px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .lesson-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #1a1a1a;
+      margin-bottom: 16px;
+    }
+    .lesson-meta {
+      display: flex;
+      gap: 16px;
+      color: #777;
+      font-size: 0.9rem;
+    }
+    .lesson-body h2 {
+      font-size: 1.8rem;
+      color: #1a1a1a;
+      margin: 40px 0 16px;
+    }
+    .lesson-body p {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: #444;
+      margin-bottom: 20px;
+    }
+    .code-block {
+      background: #282A35;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 24px 0;
+      overflow-x: auto;
+    }
+    .code-block code {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.95rem;
+      color: #f8f8f2;
+    }
+    .code-keyword { color: #ff79c6; }
+    .code-func { color: #50fa7b; }
+    .code-string { color: #f1fa8c; }
+    
+    .callout {
+      background: #e8f5e9;
+      border-left: 4px solid #04AA6D;
+      padding: 20px;
+      border-radius: 0 8px 8px 0;
+      margin: 24px 0;
+    }
+    .callout-title {
+      font-weight: 700;
+      color: #04AA6D;
+      margin-bottom: 8px;
+    }
+    
+    .nav { background: #282A35; } 
+  </style>
+</head>
+<body>
+  <!-- NAVIGATION -->
+  <nav class="nav" id="mainNav" role="navigation">
+    <a href="index.html" class="nav-logo">
+      <img src="images/logo.png" alt="Infinite Design Logo" width="48" height="48">
+      <div class="nav-brand">
+        <strong>INFINITE</strong>
+        <small>Creative Web Design</small>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="blogs.html">Blogs</a></li>
+      <li><a href="tutorials.html" class="active" style="color:#04AA6D;">Tutorials</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="https://wa.me/94771234567" class="nav-cta" target="_blank">Let's Talk</a>
+    </div>
+  </nav>
+
+  <div class="section-inner course-layout">
+    <!-- SIDEBAR -->
+    <aside class="course-sidebar">
+      <h3 class="sidebar-title">Modern JavaScript</h3>
+      <ul class="chapter-list">
+        <li class="chapter-item"><a href="#" class="chapter-link active">1. Intro to ES6+ Variables</a></li>
+        <li class="chapter-item"><a href="#" class="chapter-link">2. Arrow Functions</a></li>
+        <li class="chapter-item"><a href="#" class="chapter-link">3. DOM Manipulation</a></li>
+        <li class="chapter-item"><a href="#" class="chapter-link">4. Fetch API & Async/Await</a></li>
+        <li class="chapter-item"><a href="#" class="chapter-link">5. Array Methods (map, filter)</a></li>
+      </ul>
+      <div style="margin-top: 40px;">
+        <a href="tutorials.html" style="color: #04AA6D; text-decoration: none; font-weight: 600;">← Back to Courses</a>
+      </div>
+    </aside>
+
+    <!-- CONTENT -->
+    <main class="course-content">
+      <header class="lesson-header">
+        <h1 class="lesson-title">1. Introduction to ES6+ Variables</h1>
+        <div class="lesson-meta">
+          <span>Module 1 of 5</span>
+          <span>•</span>
+          <span>25 min read</span>
+        </div>
+      </header>
+      
+      <div class="lesson-body">
+        <p>JavaScript is a scripting language that enables you to create dynamically updating content, control multimedia, animate images, and pretty much everything else. ES6 (ECMAScript 2015) introduced major new features to the language.</p>
+        
+        <h2>Let and Const</h2>
+        <p>Prior to ES6, variables were declared using the <code>var</code> keyword. Today, it is highly recommended to use <code>let</code> and <code>const</code> for variable declaration due to their block-scoping rules.</p>
+
+        <div class="code-block">
+<pre><code><span class="code-keyword">const</span> name = <span class="code-string">"Alice"</span>;
+<span class="code-keyword">let</span> age = <span class="code-string">25</span>;
+
+<span class="code-keyword">if</span> (age > <span class="code-string">18</span>) {
+  <span class="code-keyword">let</span> isAdult = <span class="code-keyword">true</span>;
+  <span class="code-func">console.log</span>(name + <span class="code-string">" is an adult."</span>);
+}
+<span class="code-comment">// console.log(isAdult); // Error! Block-scoped</span></code></pre>
+        </div>
+
+        <div class="callout">
+          <div class="callout-title">Pro Tip: Default to Const</div>
+          Always use <code>const</code> by default. Only change it to <code>let</code> if you know the variable's value needs to be reassigned later (like in a loop).
+        </div>
+
+        <h2>Template Literals</h2>
+        <p>Template literals provide an easy way to interpolate variables and expressions into strings. You use backticks (<code>` `</code>) instead of quotes.</p>
+
+        <div class="code-block">
+<pre><code><span class="code-keyword">const</span> greeting = <span class="code-string">`Hello, my name is ${name} and I am ${age} years old.`</span>;
+<span class="code-func">console.log</span>(greeting);</code></pre>
+        </div>
+
+        <h2>Summary</h2>
+        <p>Modern JavaScript has made writing code more predictable and clean. In the next chapter, we will learn about Arrow Functions and how they handle the <code>this</code> keyword context.</p>
+        
+        <div style="margin-top: 60px; display: flex; justify-content: space-between;">
+          <a href="#" style="color: #888; text-decoration: none;">&larr; Previous</a>
+          <a href="#" style="background: #04AA6D; color: #fff; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600;">Next Chapter &rarr;</a>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/main.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML5 Basics | Infinite Academy</title>
+  <link rel="stylesheet" href="css/main.css?v=10">
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <style>
+    body { background: #fdfdfd; color: #333; }
+    .course-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 40px;
+      margin-top: 100px;
+      padding-bottom: 80px;
+    }
+    @media (max-width: 900px) {
+      .course-layout { grid-template-columns: 1fr; }
+    }
+    .course-sidebar {
+      background: #fff;
+      border-right: 1px solid #e0e0e0;
+      padding-right: 24px;
+    }
+    .sidebar-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: #1a1a1a;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .chapter-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .chapter-item {
+      margin-bottom: 8px;
+    }
+    .chapter-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 16px;
+      border-radius: 8px;
+      color: #555;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+    }
+    .chapter-link:hover {
+      background: #f0f0f0;
+      color: #1a1a1a;
+    }
+    .chapter-link.active {
+      background: rgba(4, 170, 109, 0.1);
+      color: #04AA6D;
+      font-weight: 600;
+    }
+    .course-content {
+      max-width: 800px;
+    }
+    .lesson-header {
+      margin-bottom: 40px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .lesson-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #1a1a1a;
+      margin-bottom: 16px;
+    }
+    .lesson-meta {
+      display: flex;
+      gap: 16px;
+      color: #777;
+      font-size: 0.9rem;
+    }
+    .lesson-body h2 {
+      font-size: 1.8rem;
+      color: #1a1a1a;
+      margin: 40px 0 16px;
+    }
+    .lesson-body p {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: #444;
+      margin-bottom: 20px;
+    }
+    .code-block {
+      background: #282A35;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 24px 0;
+      overflow-x: auto;
+    }
+    .code-block code {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.95rem;
+      color: #f8f8f2;
+    }
+    .code-tag { color: #ff79c6; }
+    .code-attr { color: #50fa7b; }
+    .code-val { color: #f1fa8c; }
+    
+    .callout {
+      background: #e8f5e9;
+      border-left: 4px solid #04AA6D;
+      padding: 20px;
+      border-radius: 0 8px 8px 0;
+      margin: 24px 0;
+    }
+    .callout-title {
+      font-weight: 700;
+      color: #04AA6D;
+      margin-bottom: 8px;
+    }
+    
+    .nav { background: #282A35; } /* Make nav solid dark for contrast */
+  </style>
+</head>
+<body>
+  <!-- NAVIGATION -->
+  <nav class="nav" id="mainNav" role="navigation">
+    <a href="index.html" class="nav-logo">
+      <img src="images/logo.png" alt="Infinite Design Logo" width="48" height="48">
+      <div class="nav-brand">
+        <strong>INFINITE</strong>
+        <small>Creative Web Design</small>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="blogs.html">Blogs</a></li>
+      <li><a href="tutorials.html" class="active" style="color:#04AA6D;">Tutorials</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="https://wa.me/94771234567" class="nav-cta" target="_blank">Let's Talk</a>
+    </div>
+  </nav>
+
+  <div class="section-inner course-layout">
+    <!-- SIDEBAR -->
+    <aside class="course-sidebar">
+      <h3 class="sidebar-title">HTML5 Basics</h3>
+      <ul class="chapter-list">
+        <li class="chapter-item"><a href="#" class="chapter-link active">1. Introduction to HTML5</a></li>
+        <li class="chapter-item"><a href="#" class="chapter-link">2. Document Structure</a></li>
+        <li class="chapter-item"><a href="#" class="chapter-link">3. Semantic Elements</a></li>
+        <li class="chapter-item"><a href="#" class="chapter-link">4. Forms & Inputs</a></li>
+        <li class="chapter-item"><a href="#" class="chapter-link">5. Multimedia (Audio/Video)</a></li>
+        <li class="chapter-item"><a href="#" class="chapter-link">6. HTML5 Canvas API</a></li>
+      </ul>
+      <div style="margin-top: 40px;">
+        <a href="tutorials.html" style="color: #04AA6D; text-decoration: none; font-weight: 600;">← Back to Courses</a>
+      </div>
+    </aside>
+
+    <!-- CONTENT -->
+    <main class="course-content">
+      <header class="lesson-header">
+        <h1 class="lesson-title">1. Introduction to HTML5</h1>
+        <div class="lesson-meta">
+          <span>Module 1 of 6</span>
+          <span>•</span>
+          <span>15 min read</span>
+        </div>
+      </header>
+      
+      <div class="lesson-body">
+        <p>HTML (HyperText Markup Language) is the most basic building block of the Web. It defines the meaning and structure of web content. Other technologies besides HTML are generally used to describe a web page's appearance/presentation (CSS) or functionality/behavior (JavaScript).</p>
+        
+        <h2>The Boilerplate Structure</h2>
+        <p>Every HTML5 document requires a standard "boilerplate" structure. This ensures the browser understands what version of HTML you are using and sets up the metadata for the page.</p>
+
+        <div class="code-block">
+<pre><code><span class="code-tag">&lt;!DOCTYPE</span> <span class="code-attr">html</span><span class="code-tag">&gt;</span>
+<span class="code-tag">&lt;html</span> <span class="code-attr">lang=</span><span class="code-val">"en"</span><span class="code-tag">&gt;</span>
+  <span class="code-tag">&lt;head&gt;</span>
+    <span class="code-tag">&lt;meta</span> <span class="code-attr">charset=</span><span class="code-val">"UTF-8"</span><span class="code-tag">&gt;</span>
+    <span class="code-tag">&lt;meta</span> <span class="code-attr">name=</span><span class="code-val">"viewport"</span> <span class="code-attr">content=</span><span class="code-val">"width=device-width, initial-scale=1.0"</span><span class="code-tag">&gt;</span>
+    <span class="code-tag">&lt;title&gt;</span>My First Webpage<span class="code-tag">&lt;/title&gt;</span>
+  <span class="code-tag">&lt;/head&gt;</span>
+  <span class="code-tag">&lt;body&gt;</span>
+    <span class="code-tag">&lt;h1&gt;</span>Hello, World!<span class="code-tag">&lt;/h1&gt;</span>
+    <span class="code-tag">&lt;p&gt;</span>This is my first paragraph.<span class="code-tag">&lt;/p&gt;</span>
+  <span class="code-tag">&lt;/body&gt;</span>
+<span class="code-tag">&lt;/html&gt;</span></code></pre>
+        </div>
+
+        <div class="callout">
+          <div class="callout-title">Pro Tip: Viewport Meta Tag</div>
+          The <code>viewport</code> meta tag is essential for responsive web design. It tells the browser how to control the page's dimensions and scaling on mobile devices.
+        </div>
+
+        <h2>Elements and Tags</h2>
+        <p>HTML uses "markup" to annotate text, images, and other content for display in a Web browser. HTML markup includes special "elements" such as <code>&lt;head&gt;</code>, <code>&lt;title&gt;</code>, <code>&lt;body&gt;</code>, <code>&lt;header&gt;</code>, <code>&lt;footer&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;div&gt;</code>, <code>&lt;span&gt;</code>, <code>&lt;img&gt;</code>, <code>&lt;aside&gt;</code>, <code>&lt;audio&gt;</code>, <code>&lt;canvas&gt;</code>, <code>&lt;datalist&gt;</code>, <code>&lt;details&gt;</code>, <code>&lt;embed&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;search&gt;</code>, <code>&lt;output&gt;</code>, <code>&lt;progress&gt;</code>, <code>&lt;video&gt;</code>, <code>&lt;ul&gt;</code>, <code>&lt;ol&gt;</code>, <code>&lt;li&gt;</code> and many others.</p>
+
+        <p>An HTML element is usually set off from other text in a document by "tags", which consist of the element name surrounded by "&lt;" and "&gt;". The name of an element inside a tag is case insensitive. That is, it can be written in uppercase, lowercase, or a mixture. For example, the <code>&lt;title&gt;</code> tag can be written as <code>&lt;Title&gt;</code>, <code>&lt;TITLE&gt;</code>, or in any other way. However, the convention and recommended practice is to write tags in lowercase.</p>
+
+        <h2>Summary</h2>
+        <p>In this lesson, you learned what HTML is, how an HTML5 document is structured, and the role of basic tags. In the next chapter, we'll dive deeper into Document Structure and how to properly outline your web pages using headings and sections.</p>
+        
+        <div style="margin-top: 60px; display: flex; justify-content: space-between;">
+          <a href="#" style="color: #888; text-decoration: none;">&larr; Previous</a>
+          <a href="#" style="background: #04AA6D; color: #fff; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600;">Next Chapter &rarr;</a>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/main.js" defer></script>
+</body>
+</html>
