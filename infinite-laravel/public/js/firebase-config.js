@@ -13,13 +13,13 @@ import { getAnalytics, logEvent }
   from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js';
 
 const firebaseConfig = {
-  apiKey:            "YOUR_API_KEY",
-  authDomain:        "YOUR_PROJECT.firebaseapp.com",
-  projectId:         "YOUR_PROJECT_ID",
-  storageBucket:     "YOUR_PROJECT.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId:             "YOUR_APP_ID",
-  measurementId:     "G-XXXXXXXXXX"
+  apiKey:            "AIzaSyAHCTeebz4pYAVnL1EsGcIjBrg44WLxELo",
+  authDomain:        "myweb-66fc2.firebaseapp.com",
+  projectId:         "myweb-66fc2",
+  storageBucket:     "myweb-66fc2.firebasestorage.app",
+  messagingSenderId: "910047422435",
+  appId:             "1:910047422435:web:61e4fb5909304e3c2d22d6",
+  measurementId:     "G-9ZTSL7DBJN"
 };
 
 const app       = initializeApp(firebaseConfig);
