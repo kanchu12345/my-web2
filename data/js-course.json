@@ -1,0 +1,30 @@
+{
+  "title": "Modern JavaScript",
+  "chapters": [
+    {
+      "title": "1. Intro to ES6+ Variables",
+      "readTime": "25 min read",
+      "content": "<p>JavaScript is a scripting language that enables you to create dynamically updating content. ES6 (ECMAScript 2015) introduced major new features.</p><h2>Let and Const</h2><div class=\"code-block\"><pre><code><span class=\"code-keyword\">const</span> name = <span class=\"code-string\">\"Alice\"</span>;\n<span class=\"code-keyword\">let</span> age = <span class=\"code-string\">25</span>;\n\n<span class=\"code-keyword\">if</span> (age > <span class=\"code-string\">18</span>) {\n  <span class=\"code-keyword\">let</span> isAdult = <span class=\"code-keyword\">true</span>;\n  <span class=\"code-func\">console</span>.log(name + <span class=\"code-string\">\" is an adult.\"</span>);\n}</code></pre></div><div class=\"callout\"><div class=\"callout-title\">Pro Tip: Default to Const</div>Always use <code>const</code> by default. Only change it to <code>let</code> if you know the variable's value needs to be reassigned later.</div>"
+    },
+    {
+      "title": "2. Arrow Functions",
+      "readTime": "15 min read",
+      "content": "<p>Arrow functions provide a more concise syntax for writing function expressions. They also lexically bind the <code>this</code> value.</p><h2>Syntax</h2><div class=\"code-block\"><pre><code><span class=\"code-comment\">// Traditional Function</span>\n<span class=\"code-keyword\">function</span> <span class=\"code-func\">add</span>(a, b) {\n  <span class=\"code-keyword\">return</span> a + b;\n}\n\n<span class=\"code-comment\">// Arrow Function</span>\n<span class=\"code-keyword\">const</span> <span class=\"code-func\">addArrow</span> = (a, b) =&gt; a + b;</code></pre></div><p>If the function has only one parameter, you can omit the parentheses around the parameter list.</p>"
+    },
+    {
+      "title": "3. DOM Manipulation",
+      "readTime": "30 min read",
+      "content": "<p>The Document Object Model (DOM) connects web pages to scripts. You can use JavaScript to modify the HTML document in real-time.</p><h2>Selecting Elements</h2><div class=\"code-block\"><pre><code><span class=\"code-keyword\">const</span> title = <span class=\"code-func\">document.querySelector</span>(<span class=\"code-string\">'#main-title'</span>);\ntitle.textContent = <span class=\"code-string\">'Updated Title'</span>;\ntitle.style.color = <span class=\"code-string\">'red'</span>;</code></pre></div><p>We use <code>querySelector</code> or <code>getElementById</code> to grab elements, then modify their properties.</p>"
+    },
+    {
+      "title": "4. Fetch API & Async/Await",
+      "readTime": "20 min read",
+      "content": "<p>The Fetch API provides an interface for fetching resources (including across the network).</p><h2>Using Async/Await</h2><div class=\"code-block\"><pre><code><span class=\"code-keyword\">async</span> <span class=\"code-keyword\">function</span> <span class=\"code-func\">getUser</span>() {\n  <span class=\"code-keyword\">try</span> {\n    <span class=\"code-keyword\">const</span> response = <span class=\"code-keyword\">await</span> <span class=\"code-func\">fetch</span>(<span class=\"code-string\">'https://api.example.com/user'</span>);\n    <span class=\"code-keyword\">const</span> data = <span class=\"code-keyword\">await</span> response.json();\n    <span class=\"code-func\">console</span>.log(data);\n  } <span class=\"code-keyword\">catch</span> (error) {\n    <span class=\"code-func\">console</span>.error(<span class=\"code-string\">'Error fetching data:'</span>, error);\n  }\n}</code></pre></div><div class=\"callout\"><div class=\"callout-title\">Always Handle Errors</div>Network requests can fail. Always wrap your <code>await</code> calls in a <code>try/catch</code> block.</div>"
+    },
+    {
+      "title": "5. Array Methods (map, filter)",
+      "readTime": "18 min read",
+      "content": "<p>JavaScript arrays have powerful built-in methods for data transformation without mutating the original array.</p><h2>Map and Filter</h2><div class=\"code-block\"><pre><code><span class=\"code-keyword\">const</span> numbers = [<span class=\"code-string\">1, 2, 3, 4, 5</span>];\n\n<span class=\"code-comment\">// Filter even numbers</span>\n<span class=\"code-keyword\">const</span> evens = numbers.<span class=\"code-func\">filter</span>(num =&gt; num % <span class=\"code-string\">2</span> === <span class=\"code-string\">0</span>);\n\n<span class=\"code-comment\">// Map to square values</span>\n<span class=\"code-keyword\">const</span> squares = numbers.<span class=\"code-func\">map</span>(num =&gt; num * num);</code></pre></div><p>These methods make data processing highly readable and concise!</p>"
+    }
+  ]
+}

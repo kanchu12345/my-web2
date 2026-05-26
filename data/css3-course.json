@@ -1,0 +1,30 @@
+{
+  "title": "CSS3 Styling",
+  "chapters": [
+    {
+      "title": "1. Intro to Flexbox",
+      "readTime": "20 min read",
+      "content": "<p>The Flexible Box Layout Module makes it easier to design flexible responsive layout structures without using floats.</p><h2>The Flex Container</h2><div class=\"code-block\"><pre><code><span class=\"code-selector\">.flex-container</span> {\n  <span class=\"code-prop\">display</span>: <span class=\"code-val\">flex</span>;\n  <span class=\"code-prop\">justify-content</span>: <span class=\"code-val\">center</span>;\n  <span class=\"code-prop\">align-items</span>: <span class=\"code-val\">center</span>;\n}</code></pre></div><div class=\"callout\"><div class=\"callout-title\">Pro Tip: Flex Direction</div>By default, flex items are laid out horizontally. Use <code>flex-direction: column</code> to stack items vertically.</div>"
+    },
+    {
+      "title": "2. CSS Grid Architecture",
+      "readTime": "25 min read",
+      "content": "<p>CSS Grid Layout excels at dividing a page into major regions, or defining the relationship in terms of size, position, and layer.</p><h2>Defining a Grid</h2><div class=\"code-block\"><pre><code><span class=\"code-selector\">.grid-container</span> {\n  <span class=\"code-prop\">display</span>: <span class=\"code-val\">grid</span>;\n  <span class=\"code-prop\">grid-template-columns</span>: <span class=\"code-val\">repeat(3, 1fr)</span>;\n  <span class=\"code-prop\">gap</span>: <span class=\"code-val\">20px</span>;\n}</code></pre></div><p>This creates a 3-column grid where each column takes up an equal fraction (<code>1fr</code>) of the available space, with a 20px gap between items.</p>"
+    },
+    {
+      "title": "3. Responsive Design",
+      "readTime": "15 min read",
+      "content": "<p>Responsive web design makes your web page look good on all devices (desktops, tablets, and phones).</p><h2>Media Queries</h2><p>Media queries allow you to apply CSS properties only when a specific condition is true.</p><div class=\"code-block\"><pre><code><span class=\"code-selector\">@media</span> (<span class=\"code-prop\">max-width</span>: <span class=\"code-val\">768px</span>) {\n  <span class=\"code-selector\">.grid-container</span> {\n    <span class=\"code-prop\">grid-template-columns</span>: <span class=\"code-val\">1fr</span>;\n  }\n}</code></pre></div><div class=\"callout\"><div class=\"callout-title\">Mobile-First Approach</div>It is often best practice to write your base CSS for mobile devices first, and then use <code>min-width</code> media queries to add styles for larger screens.</div>"
+    },
+    {
+      "title": "4. Animations & Keyframes",
+      "readTime": "18 min read",
+      "content": "<p>CSS animations make it possible to animate transitions from one CSS style configuration to another.</p><h2>@keyframes Rule</h2><div class=\"code-block\"><pre><code><span class=\"code-selector\">@keyframes</span> slideIn {\n  from {\n    <span class=\"code-prop\">transform</span>: <span class=\"code-val\">translateX(-100%)</span>;\n  }\n  to {\n    <span class=\"code-prop\">transform</span>: <span class=\"code-val\">translateX(0)</span>;\n  }\n}\n\n<span class=\"code-selector\">.box</span> {\n  <span class=\"code-prop\">animation</span>: <span class=\"code-val\">slideIn 0.5s ease-out</span>;\n}</code></pre></div>"
+    },
+    {
+      "title": "5. Variables & Theming",
+      "readTime": "12 min read",
+      "content": "<p>CSS Variables (Custom Properties) allow you to store specific values for reuse throughout your stylesheet.</p><h2>Declaring Variables</h2><div class=\"code-block\"><pre><code><span class=\"code-selector\">:root</span> {\n  <span class=\"code-prop\">--primary-color</span>: <span class=\"code-val\">#04AA6D</span>;\n  <span class=\"code-prop\">--text-color</span>: <span class=\"code-val\">#333333</span>;\n}\n\n<span class=\"code-selector\">body</span> {\n  <span class=\"code-prop\">color</span>: <span class=\"code-val\">var(--text-color)</span>;\n}\n\n<span class=\"code-selector\">.btn</span> {\n  <span class=\"code-prop\">background-color</span>: <span class=\"code-val\">var(--primary-color)</span>;\n}</code></pre></div><p>This is extremely useful for maintaining consistent spacing, typography scales, and creating dark/light themes!</p>"
+    }
+  ]
+}
