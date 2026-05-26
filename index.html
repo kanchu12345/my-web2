@@ -31,8 +31,10 @@
 </head>
 
 <body>
-
-  <!-- ══ FLOATING CODE DECORATIONS ═══════════════ -->
+  <div id="notificationBanner" style="display: none; background: linear-gradient(90deg, #04AA6D, #038c59); color: white; padding: 14px 24px; text-align: center; position: relative; z-index: 9999; font-weight: 500; font-size: 0.95rem; box-shadow: 0 4px 12px rgba(4, 170, 109, 0.2);">
+    <span id="notificationText"></span>
+    <button onclick="dismissNotification()" aria-label="Close notification" style="position: absolute; right: 20px; top: 12px; background: transparent; border: none; color: rgba(255,255,255,0.8); font-size: 18px; cursor: pointer; transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.8)'">&#10005;</button>
+  </div>  <!-- ══ FLOATING CODE DECORATIONS ═══════════════ -->
   <div class="code-bg" aria-hidden="true">
     <pre class="code-float code-float-1"><code><span class="ck">&lt;div</span> <span class="ca">class</span>=<span class="cs">"hero"</span><span class="ck">&gt;</span>
   <span class="ck">&lt;h1&gt;</span>Infinite Design<span class="ck">&lt;/h1&gt;</span>
@@ -535,6 +537,33 @@ Route::<span class="cv">get</span>(<span class="cs">'/'</span>,
   <script type="module" src="js/firebase-config.js"></script>
   <script src="js/analytics.js"></script>
   <script src="js/main.js?v=2" defer></script>
+  <script>
+    async function loadNotification() {
+      try {
+        const res = await fetch('data/notifications.json?v=' + new Date().getTime());
+        if (!res.ok) return;
+        const data = await res.json();
+        if (data && data.active) {
+          const dismissed = localStorage.getItem('dismissedNotif');
+          if (dismissed !== data.id) {
+            const banner = document.getElementById('notificationBanner');
+            const text = document.getElementById('notificationText');
+            if (data.link) {
+              text.innerHTML = `<a href="${data.link}" style="color: white; text-decoration: underline; font-weight: 600;">${data.message}</a>`;
+            } else {
+              text.textContent = data.message;
+            }
+            banner.style.display = 'block';
+            
+            window.dismissNotification = function() {
+              banner.style.display = 'none';
+              localStorage.setItem('dismissedNotif', data.id);
+            };
+          }
+        }
+      } catch(e) { console.error('Notification error:', e); }
+    }
+    document.addEventListener('DOMContentLoaded', loadNotification);
+  </script>
 </body>
-
 </html>
