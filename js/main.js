@@ -396,9 +396,233 @@ async function loadSettings(){
   }catch(e){}
 }
 
+/* ── Packages & Pricing System ─────────────────── */
+const DEFAULT_PACKAGES = [
+  {
+    id: "pkg-starter",
+    name: "Starter",
+    price: "Rs. 5,000/-",
+    tag: "Essential",
+    featured: false,
+    description: "Essential package perfect for personal websites & simple business presence.",
+    features: [
+      "3 Pages Included",
+      "Mobile Friendly Design",
+      "WhatsApp & Social Media Integration",
+      "Clean & Modern Layout",
+      "Fast Loading Speed"
+    ],
+    addon: "📄 Need more pages? Add extra pages for just Rs. 1,500/- per page!",
+    cta: "Choose Starter",
+    order: 1
+  },
+  {
+    id: "pkg-standard",
+    name: "Standard",
+    price: "Rs. 10,000/-",
+    tag: "Standard",
+    featured: false,
+    description: "Solid multi-page website with self-manageable admin panel.",
+    features: [
+      "5 Pages Included",
+      "Admin Panel Access",
+      "Contact Form Integration",
+      "Basic SEO Setup",
+      "1 Month Free Support",
+      "Social Media & Chat Integration"
+    ],
+    addon: "Add extra pages for Rs. 1,500/- per page",
+    cta: "Choose Standard",
+    order: 2
+  },
+  {
+    id: "pkg-advanced",
+    name: "Advanced",
+    price: "Rs. 15,000/-",
+    tag: "Growth",
+    featured: false,
+    description: "Custom UI design built for high conversions and marketing campaigns.",
+    features: [
+      "Custom UI Design",
+      "Full Control Admin Panel",
+      "Speed Optimization",
+      "Meta Pixel Tracking Setup",
+      "Advanced Contact & Lead Forms",
+      "Standard SEO & Analytics"
+    ],
+    addon: "Priority 2-Month Support included",
+    cta: "Choose Advanced",
+    order: 3
+  },
+  {
+    id: "pkg-professional",
+    name: "Professional",
+    price: "Rs. 20,000/-",
+    tag: "Most Popular",
+    featured: true,
+    description: "Corporate-level web presence with advanced security and analytics.",
+    features: [
+      "Premium Corporate Design",
+      "Google Analytics Setup",
+      "Advanced Security Layer",
+      "Full SEO Optimization",
+      "Full Control Admin Panel",
+      "High Speed Performance Optimization",
+      "3 Months Priority Support"
+    ],
+    addon: "Complete Brand & Digital Asset Alignment",
+    cta: "Choose Professional",
+    order: 4
+  },
+  {
+    id: "pkg-business-pro",
+    name: "Business Pro",
+    price: "Rs. 40,000/-",
+    tag: "Enterprise",
+    featured: false,
+    description: "Top-tier custom engineering tailored specifically for market leaders.",
+    features: [
+      "Bespoke Custom UI/UX Engineering",
+      "Core Web Vitals Optimization",
+      "6 Months Extended Support",
+      "Custom Micro-Interactions & Animations",
+      "Full SEO & Conversion Suite",
+      "Advanced Role-Based Admin Panel",
+      "Automated Daily Cloud Backups"
+    ],
+    addon: "Free Minor Updates for 6 Months",
+    cta: "Choose Business Pro",
+    order: 5
+  },
+  {
+    id: "pkg-ecommerce",
+    name: "E-Commerce Online Stores",
+    price: "Start from Rs. 60,000/-",
+    tag: "Full Store",
+    featured: false,
+    description: "Full-featured online store ready to sell products and receive payments.",
+    features: [
+      "Complete E-Commerce Online Store",
+      "Payment Gateway Integration (Card, Bank, COD)",
+      "Product Catalog & Category Filtering",
+      "Shopping Cart & Multi-Step Checkout",
+      "Customer Accounts & Order Tracking",
+      "Admin Inventory & Sales Dashboard",
+      "Full SEO + Speed Optimization"
+    ],
+    addon: "Includes product upload training & store setup guide",
+    cta: "Start E-Commerce Store",
+    order: 6
+  }
+];
+
+async function loadPackages() {
+  const grid = document.getElementById('packagesGrid');
+  if (!grid) return;
+
+  let pkgs = [];
+  try {
+    const { db, collection, getDocs } = await import('./firebase-config.js');
+    const snap = await getDocs(collection(db, 'packages'));
+    if (!snap.empty) {
+      snap.forEach(d => pkgs.push({ id: d.id, ...d.data() }));
+      pkgs.sort((a, b) => (Number(a.order) || 99) - (Number(b.order) || 99));
+    }
+  } catch (e) {
+    console.log('Using local package data');
+  }
+
+  if (!pkgs || pkgs.length === 0) {
+    const saved = localStorage.getItem('infinite_packages');
+    if (saved) {
+      try { pkgs = JSON.parse(saved); } catch(err) {}
+    }
+  }
+
+  if (!pkgs || pkgs.length === 0) {
+    try {
+      const res = await fetch(rootPath() + 'data/packages.json?v=' + Date.now());
+      if (res.ok) {
+        pkgs = await res.json();
+      }
+    } catch(err) {}
+  }
+
+  if (!pkgs || pkgs.length === 0) {
+    pkgs = DEFAULT_PACKAGES;
+  }
+
+  renderPackages(pkgs, grid);
+}
+
+function renderPackages(list, container) {
+  container.innerHTML = '';
+  list.forEach((pkg, index) => {
+    const card = document.createElement('div');
+    card.className = `pkg-card ${pkg.featured ? 'featured' : ''} reveal reveal-delay-${(index % 4) + 1}`;
+
+    const featuresHtml = (pkg.features || []).map(feat => `
+      <li class="pkg-feature-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        <span>${feat}</span>
+      </li>
+    `).join('');
+
+    const addonHtml = pkg.addon ? `
+      <div class="pkg-addon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        <span>${pkg.addon}</span>
+      </div>
+    ` : '';
+
+    const waText = encodeURIComponent(`Hi Infinite Creative Web Design! I'm interested in the "${pkg.name}" (${pkg.price}) Web Design Package. Please provide more information.`);
+    const waUrl = `https://wa.me/94771234567?text=${waText}`;
+
+    card.innerHTML = `
+      <div class="pkg-badge-wrap">
+        <span class="pkg-badge ${pkg.featured ? 'featured-badge' : ''}">${pkg.tag || 'Package'}</span>
+        <div class="pkg-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            ${pkg.name.toLowerCase().includes('commerce') ? '<circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>' : '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>'}
+          </svg>
+        </div>
+      </div>
+      <h3 class="pkg-name">${pkg.name}</h3>
+      <p class="pkg-desc">${pkg.description || ''}</p>
+      <div class="pkg-price-wrap">
+        <div class="pkg-price">${pkg.price}</div>
+      </div>
+      <ul class="pkg-features">
+        ${featuresHtml}
+      </ul>
+      ${addonHtml}
+      <a href="${waUrl}" target="_blank" rel="noopener" class="pkg-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
+        ${pkg.cta || 'Get Started'}
+      </a>
+    `;
+
+    container.appendChild(card);
+  });
+
+  // Trigger reveal observer for newly created elements
+  if (typeof IntersectionObserver !== 'undefined') {
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(en => {
+        if (en.isIntersecting) {
+          en.target.classList.add('visible');
+          io.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    container.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  }
+}
+
 /* ── Init ───────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded',function(){
   loadProjects();
+  loadPackages();
   loadBlogs();
   loadAllBlogs();
   loadArticle();

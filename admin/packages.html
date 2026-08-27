@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Packages & Pricing | Infinite Admin</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="../images/logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/admin.css">
+<style>
+  .badge-tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background: rgba(0,170,255,0.12);
+    color: var(--blue);
+  }
+  .badge-tag.featured {
+    background: #04AA6D;
+    color: #fff;
+  }
+  .pkg-item-price {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: #04AA6D;
+    margin-top: 4px;
+  }
+  .pkg-item-features {
+    font-size: 11px;
+    color: var(--grey);
+    margin-top: 6px;
+    line-height: 1.4;
+  }
+  .reset-defaults-btn {
+    background: rgba(255,255,255,0.05);
+    color: var(--grey-l);
+    border: 1px dashed var(--glass-b);
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 12px;
+  }
+  .reset-defaults-btn:hover {
+    background: rgba(255,170,0,0.1);
+    color: #ffaa00;
+    border-color: #ffaa00;
+  }
+  .form-checkbox-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+    padding: 10px 14px;
+    background: var(--card2);
+    border: 1px solid var(--glass-b);
+    border-radius: 10px;
+  }
+  .form-checkbox-wrap input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #04AA6D;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+<aside class="sidebar">
+  <div class="sb-logo">
+    <img src="../images/logo.png" alt="" width="32">
+    <div class="sb-brand"><strong>INFINITE</strong><small>Admin Panel</small></div>
+  </div>
+  <nav class="sb-nav">
+    <a href="dashboard.html" class="sb-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Dashboard
+    </a>
+    <a href="projects.html" class="sb-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>Projects & Designs
+    </a>
+    <a href="packages.html" class="sb-link active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>Packages & Pricing
+    </a>
+    <a href="blogs.html" class="sb-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>Blogs
+    </a>
+    <a href="settings.html" class="sb-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010 2.83l-.06.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>Settings
+    </a>
+  </nav>
+  <div class="sb-footer">
+    <div class="sb-user">
+      <div class="sb-avatar" id="sbAvatar">A</div>
+      <div class="sb-user-info">
+        <div class="sb-user-email" id="sbEmail">admin</div>
+        <div class="sb-user-role">Administrator</div>
+      </div>
+    </div>
+    <button class="sb-logout" id="logoutBtn" title="Sign out">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+    </button>
+  </div>
+</aside>
+
+<main class="main-content">
+  <header class="topbar">
+    <div class="topbar-left">
+      <h1 class="page-title">Packages & Pricing Manager</h1>
+      <div class="page-sub">Add, edit pricing, update features, and manage website packages</div>
+    </div>
+    <div class="topbar-right">
+      <a href="../index.html#packages" target="_blank" class="btn-form" style="background:var(--blue-dim);color:var(--blue);border:1px solid var(--blue-b);padding:8px 16px;text-decoration:none;font-size:12px;display:inline-flex;align-items:center;gap:6px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        View on Website
+      </a>
+    </div>
+  </header>
+
+  <div class="proj-manager">
+    <!-- List of packages -->
+    <div class="proj-list-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+        <div class="form-title" style="margin:0;">All Packages <span id="pkgCount" style="font-size:12px;color:var(--grey);font-weight:400"></span></div>
+      </div>
+      <div id="pkgList"><div class="no-projects">Loading packages…</div></div>
+      <button type="button" class="reset-defaults-btn" id="resetDefaultsBtn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2.5 2v6h6M21.5 22v-6h-6"/><path d="M22 11.5A10 10 0 0 0 3.2 7.2L2.5 8M2 12.5a10 10 0 0 0 18.8 4.3l.7.7"/></svg>
+        Reset to Default 6 Packages
+      </button>
+    </div>
+
+    <!-- Add / Edit Form -->
+    <div class="proj-form-card">
+      <div class="form-title" id="formTitle">Add New Package</div>
+      <input type="hidden" id="editId">
+      <form id="pkgForm" novalidate>
+        <div class="form-field">
+          <label class="form-label" for="pName">Package Name *</label>
+          <input type="text" id="pName" class="form-input" placeholder="e.g. Starter, Standard, Professional" maxlength="80" required>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div class="form-field">
+            <label class="form-label" for="pPrice">Price Display *</label>
+            <input type="text" id="pPrice" class="form-input" placeholder="e.g. Rs. 5,000/-" maxlength="50" required>
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="pTag">Badge / Tag</label>
+            <input type="text" id="pTag" class="form-input" placeholder="e.g. Essential, Most Popular" maxlength="30">
+          </div>
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="pDesc">Short Description</label>
+          <input type="text" id="pDesc" class="form-input" placeholder="Brief summary of target client or package value" maxlength="200">
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="pFeatures">Features (One per line) *</label>
+          <textarea id="pFeatures" class="form-textarea form-input" rows="6" placeholder="3 Pages Included&#10;Mobile Friendly Design&#10;WhatsApp & Social Media Integration" required></textarea>
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="pAddon">Extra Pages / Add-on Note</label>
+          <input type="text" id="pAddon" class="form-input" placeholder="e.g. 📄 Need more pages? Add extra pages for just Rs. 1,500/- per page!" maxlength="200">
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div class="form-field">
+            <label class="form-label" for="pCta">Button Text</label>
+            <input type="text" id="pCta" class="form-input" placeholder="e.g. Choose Starter" maxlength="40">
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="pOrder">Sort Order</label>
+            <input type="number" id="pOrder" class="form-input" placeholder="1, 2, 3..." min="1" max="99" value="1">
+          </div>
+        </div>
+        <div class="form-field">
+          <div class="form-checkbox-wrap">
+            <input type="checkbox" id="pFeatured">
+            <label for="pFeatured" style="font-size:13px;font-weight:600;color:var(--white);cursor:pointer;">
+              Highlight as "Most Popular / Featured" Package
+            </label>
+          </div>
+        </div>
+        <div style="display:flex;gap:10px;margin-top:16px;">
+          <button type="submit" class="btn-form" id="submitBtn">Add Package</button>
+          <button type="button" class="btn-form" id="cancelEdit" style="display:none;background:var(--glass);color:var(--white);border:1px solid var(--glass-b)">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>
+
+<div class="toast" id="toast"><div class="toast-dot"></div><span id="toastMsg"></span></div>
+
+<script type="module">
+import { auth, db, onAuthStateChanged, signOut,
+  collection, getDocs, addDoc, updateDoc, deleteDoc, doc, setDoc }
+  from '../js/firebase-config.js';
+
+const DEFAULT_PACKAGES = [
+  {
+    id: "pkg-starter",
+    name: "Starter",
+    price: "Rs. 5,000/-",
+    tag: "Essential",
+    featured: false,
+    description: "Essential package perfect for personal websites & simple business presence.",
+    features: [
+      "3 Pages Included",
+      "Mobile Friendly Design",
+      "WhatsApp & Social Media Integration",
+      "Clean & Modern Layout",
+      "Fast Loading Speed"
+    ],
+    addon: "📄 Need more pages? Add extra pages for just Rs. 1,500/- per page!",
+    cta: "Choose Starter",
+    order: 1
+  },
+  {
+    id: "pkg-standard",
+    name: "Standard",
+    price: "Rs. 10,000/-",
+    tag: "Standard",
+    featured: false,
+    description: "Solid multi-page website with self-manageable admin panel.",
+    features: [
+      "5 Pages Included",
+      "Admin Panel Access",
+      "Contact Form Integration",
+      "Basic SEO Setup",
+      "1 Month Free Support",
+      "Social Media & Chat Integration"
+    ],
+    addon: "Add extra pages for Rs. 1,500/- per page",
+    cta: "Choose Standard",
+    order: 2
+  },
+  {
+    id: "pkg-advanced",
+    name: "Advanced",
+    price: "Rs. 15,000/-",
+    tag: "Growth",
+    featured: false,
+    description: "Custom UI design built for high conversions and marketing campaigns.",
+    features: [
+      "Custom UI Design",
+      "Full Control Admin Panel",
+      "Speed Optimization",
+      "Meta Pixel Tracking Setup",
+      "Advanced Contact & Lead Forms",
+      "Standard SEO & Analytics"
+    ],
+    addon: "Priority 2-Month Support included",
+    cta: "Choose Advanced",
+    order: 3
+  },
+  {
+    id: "pkg-professional",
+    name: "Professional",
+    price: "Rs. 20,000/-",
+    tag: "Most Popular",
+    featured: true,
+    description: "Corporate-level web presence with advanced security and analytics.",
+    features: [
+      "Premium Corporate Design",
+      "Google Analytics Setup",
+      "Advanced Security Layer",
+      "Full SEO Optimization",
+      "Full Control Admin Panel",
+      "High Speed Performance Optimization",
+      "3 Months Priority Support"
+    ],
+    addon: "Complete Brand & Digital Asset Alignment",
+    cta: "Choose Professional",
+    order: 4
+  },
+  {
+    id: "pkg-business-pro",
+    name: "Business Pro",
+    price: "Rs. 40,000/-",
+    tag: "Enterprise",
+    featured: false,
+    description: "Top-tier custom engineering tailored specifically for market leaders.",
+    features: [
+      "Bespoke Custom UI/UX Engineering",
+      "Core Web Vitals Optimization",
+      "6 Months Extended Support",
+      "Custom Micro-Interactions & Animations",
+      "Full SEO & Conversion Suite",
+      "Advanced Role-Based Admin Panel",
+      "Automated Daily Cloud Backups"
+    ],
+    addon: "Free Minor Updates for 6 Months",
+    cta: "Choose Business Pro",
+    order: 5
+  },
+  {
+    id: "pkg-ecommerce",
+    name: "E-Commerce Online Stores",
+    price: "Start from Rs. 60,000/-",
+    tag: "Full Store",
+    featured: false,
+    description: "Full-featured online store ready to sell products and receive payments.",
+    features: [
+      "Complete E-Commerce Online Store",
+      "Payment Gateway Integration (Card, Bank, COD)",
+      "Product Catalog & Category Filtering",
+      "Shopping Cart & Multi-Step Checkout",
+      "Customer Accounts & Order Tracking",
+      "Admin Inventory & Sales Dashboard",
+      "Full SEO + Speed Optimization"
+    ],
+    addon: "Includes product upload training & store setup guide",
+    cta: "Start E-Commerce Store",
+    order: 6
+  }
+];
+
+let currentPackages = [];
+
+/* ── Auth guard ── */
+onAuthStateChanged(auth, u => {
+  if(!u){window.location.href='login.html';return;}
+  document.getElementById('sbEmail').textContent=u.email;
+  document.getElementById('sbAvatar').textContent=u.email[0].toUpperCase();
+  loadPackages();
+});
+document.getElementById('logoutBtn').addEventListener('click', async () => {
+  await signOut(auth);window.location.href='login.html';
+});
+
+/* ── Toast ── */
+function toast(msg, type='ok'){
+  const t=document.getElementById('toast'), m=document.getElementById('toastMsg');
+  t.className='toast show toast-'+type; m.textContent=msg;
+  setTimeout(()=>t.classList.remove('show'),3200);
+}
+
+function sanitise(str){
+  return String(str || '').replace(/[<>&"']/g,'').trim();
+}
+
+/* ── Load Packages ── */
+async function loadPackages(){
+  const list = document.getElementById('pkgList');
+  const cnt = document.getElementById('pkgCount');
+  list.innerHTML = '<div class="no-projects">Loading packages…</div>';
+
+  currentPackages = [];
+  try {
+    const snap = await getDocs(collection(db, 'packages'));
+    if (!snap.empty) {
+      snap.forEach(d => currentPackages.push({ id: d.id, ...d.data() }));
+    }
+  } catch (e) {
+    console.log('Firebase fetch failed, checking local backup', e);
+  }
+
+  if (currentPackages.length === 0) {
+    const local = localStorage.getItem('infinite_packages');
+    if (local) {
+      try { currentPackages = JSON.parse(local); } catch(e){}
+    }
+  }
+
+  if (currentPackages.length === 0) {
+    currentPackages = [...DEFAULT_PACKAGES];
+    localStorage.setItem('infinite_packages', JSON.stringify(currentPackages));
+  }
+
+  currentPackages.sort((a, b) => (Number(a.order) || 99) - (Number(b.order) || 99));
+  cnt.textContent = '(' + currentPackages.length + ')';
+  renderPackageList();
+}
+
+function renderPackageList(){
+  const list = document.getElementById('pkgList');
+  list.innerHTML = '';
+  if (currentPackages.length === 0) {
+    list.innerHTML = '<div class="no-projects">No packages found. Click "Reset to Default 6 Packages" below.</div>';
+    return;
+  }
+
+  currentPackages.forEach(p => {
+    const div = document.createElement('div');
+    div.className = 'proj-list-item';
+    div.style.alignItems = 'flex-start';
+    div.style.padding = '14px 16px';
+
+    const featCount = Array.isArray(p.features) ? p.features.length : 0;
+    const featSnippet = Array.isArray(p.features) ? p.features.slice(0, 2).join(' • ') : '';
+
+    div.innerHTML = `
+      <div style="flex:1;min-width:0;">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px;">
+          <strong style="font-size:15px;color:var(--white);">${sanitise(p.name)}</strong>
+          <span class="badge-tag ${p.featured ? 'featured' : ''}">${sanitise(p.tag || 'Standard')}</span>
+          ${p.featured ? '<span style="font-size:10px;background:#04AA6D;color:#fff;padding:2px 6px;border-radius:4px;font-weight:700;">FEATURED</span>' : ''}
+        </div>
+        <div class="pkg-item-price">${sanitise(p.price)}</div>
+        <div class="pkg-item-features">${featCount} Features: ${sanitise(featSnippet)}...</div>
+        ${p.addon ? '<div style="font-size:11px;color:#04AA6D;margin-top:4px;font-weight:500;">' + sanitise(p.addon) + '</div>' : ''}
+      </div>
+      <div class="proj-actions" style="margin-left:12px;flex-shrink:0;">
+        <button class="btn-edit" data-id="${p.id}">Edit</button>
+        <button class="btn-del" data-id="${p.id}">Delete</button>
+      </div>
+    `;
+
+    div.querySelector('.btn-edit').addEventListener('click', () => editPackage(p));
+    div.querySelector('.btn-del').addEventListener('click', () => deletePackage(p.id));
+    list.appendChild(div);
+  });
+}
+
+/* ── Form Submit (Add / Update) ── */
+document.getElementById('pkgForm').addEventListener('submit', async function(e){
+  e.preventDefault();
+  const name = sanitise(document.getElementById('pName').value);
+  const price = sanitise(document.getElementById('pPrice').value);
+  const tag = sanitise(document.getElementById('pTag').value);
+  const desc = sanitise(document.getElementById('pDesc').value);
+  const featuresRaw = document.getElementById('pFeatures').value;
+  const addon = sanitise(document.getElementById('pAddon').value);
+  const cta = sanitise(document.getElementById('pCta').value) || 'Get Started';
+  const order = parseInt(document.getElementById('pOrder').value) || 1;
+  const featured = document.getElementById('pFeatured').checked;
+  const editId = document.getElementById('editId').value;
+
+  if(!name || !price || !featuresRaw.trim()){
+    toast('Please fill all required fields.', 'err');
+    return;
+  }
+
+  const features = featuresRaw.split('\n')
+    .map(f => sanitise(f))
+    .filter(f => f.length > 0);
+
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true; btn.textContent = 'Saving…';
+
+  const pkgData = {
+    name, price, tag: tag || 'Package',
+    description: desc, features, addon,
+    cta, order, featured
+  };
+
+  try {
+    if(editId){
+      // Update
+      try {
+        await updateDoc(doc(db, 'packages', editId), pkgData);
+      } catch(err){
+        console.log('Firebase update failed, updating local state', err);
+      }
+      const idx = currentPackages.findIndex(p => p.id === editId);
+      if(idx !== -1){
+        currentPackages[idx] = { id: editId, ...pkgData };
+      }
+      toast('Package updated successfully!', 'ok');
+    } else {
+      // Add
+      let newId = 'pkg-' + Date.now();
+      try {
+        const docRef = await addDoc(collection(db, 'packages'), pkgData);
+        newId = docRef.id;
+      } catch(err){
+        console.log('Firebase add failed, adding to local state', err);
+      }
+      currentPackages.push({ id: newId, ...pkgData });
+      toast('New package added!', 'ok');
+    }
+
+    localStorage.setItem('infinite_packages', JSON.stringify(currentPackages));
+    resetForm();
+    loadPackages();
+  } catch(err) {
+    toast('Error: ' + err.message, 'err');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = editId ? 'Update Package' : 'Add Package';
+  }
+});
+
+function editPackage(p){
+  document.getElementById('editId').value = p.id;
+  document.getElementById('pName').value = p.name || '';
+  document.getElementById('pPrice').value = p.price || '';
+  document.getElementById('pTag').value = p.tag || '';
+  document.getElementById('pDesc').value = p.description || '';
+  document.getElementById('pFeatures').value = Array.isArray(p.features) ? p.features.join('\n') : '';
+  document.getElementById('pAddon').value = p.addon || '';
+  document.getElementById('pCta').value = p.cta || '';
+  document.getElementById('pOrder').value = p.order || 1;
+  document.getElementById('pFeatured').checked = Boolean(p.featured);
+
+  document.getElementById('formTitle').textContent = 'Edit Package: ' + p.name;
+  document.getElementById('submitBtn').textContent = 'Update Package';
+  document.getElementById('cancelEdit').style.display = 'block';
+  document.getElementById('pkgForm').scrollIntoView({ behavior: 'smooth' });
+}
+
+function resetForm(){
+  document.getElementById('pkgForm').reset();
+  document.getElementById('editId').value = '';
+  document.getElementById('formTitle').textContent = 'Add New Package';
+  document.getElementById('submitBtn').textContent = 'Add Package';
+  document.getElementById('cancelEdit').style.display = 'none';
+  document.getElementById('pFeatured').checked = false;
+}
+document.getElementById('cancelEdit').addEventListener('click', resetForm);
+
+async function deletePackage(id){
+  if(!confirm('Are you sure you want to delete this package?')) return;
+  try {
+    try {
+      await deleteDoc(doc(db, 'packages', id));
+    } catch(e){}
+    currentPackages = currentPackages.filter(p => p.id !== id);
+    localStorage.setItem('infinite_packages', JSON.stringify(currentPackages));
+    toast('Package deleted.', 'ok');
+    loadPackages();
+  } catch(e){
+    toast('Delete failed: ' + e.message, 'err');
+  }
+}
+
+/* ── Reset to Defaults ── */
+document.getElementById('resetDefaultsBtn').addEventListener('click', async () => {
+  if(!confirm('Reset all packages to the default 6 packages breakdown? Any custom edits will be replaced.')) return;
+  try {
+    const snap = await getDocs(collection(db, 'packages')).catch(()=>({empty:true}));
+    if(!snap.empty){
+      for(const d of snap.docs){
+        await deleteDoc(doc(db, 'packages', d.id)).catch(()=>{});
+      }
+    }
+    for(const pkg of DEFAULT_PACKAGES){
+      await setDoc(doc(db, 'packages', pkg.id), pkg).catch(()=>{});
+    }
+    currentPackages = [...DEFAULT_PACKAGES];
+    localStorage.setItem('infinite_packages', JSON.stringify(currentPackages));
+    toast('Default packages restored & synced!', 'ok');
+    loadPackages();
+  } catch(e){
+    currentPackages = [...DEFAULT_PACKAGES];
+    localStorage.setItem('infinite_packages', JSON.stringify(currentPackages));
+    toast('Local default packages restored!', 'ok');
+    loadPackages();
+  }
+});
+</script>
+</body>
+</html>

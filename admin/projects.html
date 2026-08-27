@@ -19,7 +19,13 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Dashboard
     </a>
     <a href="projects.html" class="sb-link active">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>Projects
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>Projects & Designs
+    </a>
+    <a href="packages.html" class="sb-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>Packages & Pricing
+    </a>
+    <a href="blogs.html" class="sb-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>Blogs
     </a>
     <a href="settings.html" class="sb-link">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>Settings
@@ -42,8 +48,8 @@
 <main class="main-content">
   <header class="topbar">
     <div class="topbar-left">
-      <h1 class="page-title">Project Manager</h1>
-      <div class="page-sub">Add, edit and delete portfolio projects</div>
+      <h1 class="page-title">Project & Design Manager</h1>
+      <div class="page-sub">Add, edit and manage portfolio designs and web projects</div>
     </div>
   </header>
 
@@ -56,31 +62,42 @@
 
     <!-- Form -->
     <div class="proj-form-card">
-      <div class="form-title" id="formTitle">Add New Project</div>
+      <div class="form-title" id="formTitle">Add New Design / Project</div>
       <input type="hidden" id="editId">
       <form id="projForm" novalidate>
         <div class="form-field">
-          <label class="form-label" for="pTitle">Project Title *</label>
-          <input type="text" id="pTitle" class="form-input" placeholder="e.g. Brand Identity — Logistics Co." maxlength="100" required>
+          <label class="form-label" for="pTitle">Design / Project Title *</label>
+          <input type="text" id="pTitle" class="form-input" placeholder="e.g. Modern E-Commerce Platform" maxlength="100" required>
         </div>
         <div class="form-field">
           <label class="form-label" for="pCategory">Category *</label>
           <select id="pCategory" class="form-select form-input" required>
             <option value="">Select category…</option>
-            <option>Branding</option>
             <option>Web Design</option>
+            <option>E-Commerce</option>
             <option>UI / UX</option>
+            <option>Branding</option>
+            <option>Corporate</option>
             <option>Graphic Design</option>
             <option>Logistics Branding</option>
             <option>Motion Graphics</option>
+            <option>Web App</option>
           </select>
         </div>
         <div class="form-field">
-          <label class="form-label" for="pDesc">Description</label>
-          <textarea id="pDesc" class="form-textarea form-input" placeholder="Describe the project…" maxlength="500"></textarea>
+          <label class="form-label" for="pUrl">Live Website or Demo Link (Optional)</label>
+          <input type="url" id="pUrl" class="form-input" placeholder="https://example.com">
         </div>
         <div class="form-field">
-          <label class="form-label">Project Image</label>
+          <label class="form-label" for="pDesc">Description</label>
+          <textarea id="pDesc" class="form-textarea form-input" placeholder="Describe the design features, tech stack, and goals…" maxlength="500"></textarea>
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="pImgUrl">Image URL (Direct link or upload below)</label>
+          <input type="url" id="pImgUrl" class="form-input" placeholder="https://images.unsplash.com/... or uploaded URL">
+        </div>
+        <div class="form-field">
+          <label class="form-label">Or Upload Project Mockup / Screenshot</label>
           <div class="upload-area" id="uploadArea">
             <input type="file" id="imgFile" accept="image/jpeg,image/png,image/webp,image/gif" aria-label="Upload project image">
             <svg class="upload-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
@@ -90,7 +107,7 @@
           </div>
         </div>
         <div style="display:flex;gap:10px">
-          <button type="submit" class="btn-form" id="submitBtn">Add Project</button>
+          <button type="submit" class="btn-form" id="submitBtn">Add Design Project</button>
           <button type="button" class="btn-form" id="cancelEdit" style="display:none;background:var(--glass);color:var(--white);border:1px solid var(--glass-b)">Cancel</button>
         </div>
       </form>
@@ -216,23 +233,25 @@ document.getElementById('projForm').addEventListener('submit',async function(e){
   const title=sanitise(document.getElementById('pTitle').value);
   const cat=sanitise(document.getElementById('pCategory').value);
   const desc=sanitise(document.getElementById('pDesc').value);
+  const url=sanitise(document.getElementById('pUrl').value);
+  const directImg=sanitise(document.getElementById('pImgUrl').value);
   const editId=document.getElementById('editId').value;
   if(!title||!cat){toast('Please fill required fields.','err');return;}
   const btn=document.getElementById('submitBtn');btn.disabled=true;btn.textContent='Saving…';
   try{
-    let imageUrl='';
+    let imageUrl=directImg || '';
     if(selectedFile){
       const storageRef=ref(storage,`projects/${Date.now()}_${selectedFile.name}`);
       await uploadBytes(storageRef,selectedFile);
       imageUrl=await getDownloadURL(storageRef);
     }
     if(editId){
-      const data={title,category:cat,description:desc,updatedAt:serverTimestamp()};
+      const data={title,category:cat,description:desc,url:url||'',updatedAt:serverTimestamp()};
       if(imageUrl) data.image=imageUrl;
       await updateDoc(doc(db,'projects',editId),data);
       toast('Project updated!','ok');
     }else{
-      await addDoc(collection(db,'projects'),{title,category:cat,description:desc,image:imageUrl,createdAt:serverTimestamp()});
+      await addDoc(collection(db,'projects'),{title,category:cat,description:desc,url:url||'',image:imageUrl,createdAt:serverTimestamp()});
       toast('Project added!','ok');
     }
     resetForm();
@@ -240,15 +259,15 @@ document.getElementById('projForm').addEventListener('submit',async function(e){
   }catch(err){
     toast('Error: '+err.message,'err');
   }finally{
-    btn.disabled=false;btn.textContent=editId?'Update Project':'Add Project';
+    btn.disabled=false;btn.textContent=editId?'Update Project':'Add Design Project';
   }
 });
 
 function resetForm(){
   document.getElementById('projForm').reset();
   document.getElementById('editId').value='';
-  document.getElementById('formTitle').textContent='Add New Project';
-  document.getElementById('submitBtn').textContent='Add Project';
+  document.getElementById('formTitle').textContent='Add New Design / Project';
+  document.getElementById('submitBtn').textContent='Add Design Project';
   document.getElementById('cancelEdit').style.display='none';
   document.getElementById('imgPreview').style.display='none';
   selectedFile=null;
@@ -258,9 +277,11 @@ function editProject(p){
   document.getElementById('editId').value=p.id;
   document.getElementById('pTitle').value=p.title||'';
   document.getElementById('pCategory').value=p.category||'';
+  document.getElementById('pUrl').value=p.url||'';
   document.getElementById('pDesc').value=p.description||'';
+  document.getElementById('pImgUrl').value=p.image||'';
   if(p.image){const prev=document.getElementById('imgPreview');prev.src=p.image;prev.style.display='block';}
-  document.getElementById('formTitle').textContent='Edit Project';
+  document.getElementById('formTitle').textContent='Edit Design / Project';
   document.getElementById('submitBtn').textContent='Update Project';
   document.getElementById('cancelEdit').style.display='block';
   document.getElementById('projForm').scrollIntoView({behavior:'smooth'});

@@ -843,3 +843,209 @@ body {
 .goog-te-gadget .goog-te-combo:focus {
   border-color: var(--blue);
 }
+
+/* ═══════════════════════════════════════
+   PACKAGES & PRICING SECTION
+═══════════════════════════════════════ */
+.pricing-header {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto 3.5rem;
+}
+.pricing-title {
+  font-size: 2.75rem;
+  font-weight: 800;
+  color: var(--white);
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+.pricing-subtitle {
+  font-size: 1.1rem;
+  color: var(--white-70);
+  line-height: 1.6;
+}
+.packages-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+  align-items: stretch;
+}
+@media (min-width: 1100px) {
+  .packages-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+.pkg-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: var(--r-xl);
+  padding: 36px 28px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease), border-color 0.4s var(--ease);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+}
+.pkg-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 45px rgba(4, 170, 109, 0.12);
+  border-color: var(--blue);
+}
+.pkg-card.featured {
+  background: #ffffff;
+  border: 2px solid var(--blue);
+  box-shadow: 0 16px 40px rgba(4, 170, 109, 0.18);
+  position: relative;
+}
+.pkg-card.featured::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, #04AA6D, #00d688);
+  border-radius: var(--r-xl) var(--r-xl) 0 0;
+}
+.pkg-badge-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+.pkg-badge {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 4px 12px;
+  border-radius: 20px;
+  background: rgba(4, 170, 109, 0.1);
+  color: var(--blue);
+}
+.pkg-badge.featured-badge {
+  background: #04AA6D;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(4, 170, 109, 0.3);
+}
+.pkg-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: rgba(4, 170, 109, 0.08);
+  color: var(--blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pkg-name {
+  font-family: var(--font-disp);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 6px;
+}
+.pkg-desc {
+  font-size: 0.9rem;
+  color: var(--white-70);
+  margin-bottom: 20px;
+  min-height: 42px;
+  line-height: 1.5;
+}
+.pkg-price-wrap {
+  padding: 16px 0;
+  border-top: 1px dashed rgba(0, 0, 0, 0.08);
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.08);
+  margin-bottom: 24px;
+}
+.pkg-price {
+  font-family: var(--font-disp);
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: var(--white);
+  line-height: 1.1;
+  letter-spacing: -0.5px;
+}
+.pkg-price-prefix {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--blue);
+  margin-right: 4px;
+}
+.pkg-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px 0;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.pkg-feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.92rem;
+  color: var(--white);
+  line-height: 1.4;
+}
+.pkg-feature-item svg {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  color: var(--blue);
+  margin-top: 2px;
+}
+.pkg-addon {
+  background: rgba(4, 170, 109, 0.06);
+  border: 1px dashed rgba(4, 170, 109, 0.35);
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 0.84rem;
+  color: #037a4e;
+  font-weight: 600;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.pkg-addon svg {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  color: var(--blue);
+}
+.pkg-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 14px 20px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: all 0.3s var(--ease);
+  background: rgba(4, 170, 109, 0.1);
+  color: var(--blue);
+  border: 1px solid rgba(4, 170, 109, 0.25);
+  cursor: pointer;
+}
+.pkg-btn:hover {
+  background: var(--blue);
+  color: #ffffff;
+  box-shadow: 0 8px 24px rgba(4, 170, 109, 0.3);
+  transform: translateY(-2px);
+}
+.pkg-card.featured .pkg-btn {
+  background: #04AA6D;
+  color: #ffffff;
+  border: none;
+  box-shadow: 0 8px 24px rgba(4, 170, 109, 0.3);
+}
+.pkg-card.featured .pkg-btn:hover {
+  background: #038c59;
+  box-shadow: 0 12px 28px rgba(4, 170, 109, 0.4);
+}
+

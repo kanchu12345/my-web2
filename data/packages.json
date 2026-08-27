@@ -1,0 +1,130 @@
+[
+  {
+    "id": "pkg-starter",
+    "name": "Starter",
+    "price": "Rs. 5,000/-",
+    "priceNum": 5000,
+    "tag": "Essential",
+    "featured": false,
+    "popular": false,
+    "description": "Essential package perfect for personal websites & simple business presence.",
+    "features": [
+      "3 Pages Included",
+      "Mobile Friendly Design",
+      "WhatsApp & Social Media Integration",
+      "Clean & Modern Layout",
+      "Fast Loading Speed"
+    ],
+    "addon": "📄 Need more pages? Add extra pages for just Rs. 1,500/- per page!",
+    "cta": "Choose Starter",
+    "order": 1
+  },
+  {
+    "id": "pkg-standard",
+    "name": "Standard",
+    "price": "Rs. 10,000/-",
+    "priceNum": 10000,
+    "tag": "Standard",
+    "featured": false,
+    "popular": false,
+    "description": "Solid multi-page website with self-manageable admin panel.",
+    "features": [
+      "5 Pages Included",
+      "Admin Panel Access",
+      "Contact Form Integration",
+      "Basic SEO Setup",
+      "1 Month Free Support",
+      "Social Media & Chat Integration"
+    ],
+    "addon": "Add extra pages for Rs. 1,500/- per page",
+    "cta": "Choose Standard",
+    "order": 2
+  },
+  {
+    "id": "pkg-advanced",
+    "name": "Advanced",
+    "price": "Rs. 15,000/-",
+    "priceNum": 15000,
+    "tag": "Growth",
+    "featured": false,
+    "popular": false,
+    "description": "Custom UI design built for high conversions and marketing campaigns.",
+    "features": [
+      "Custom UI Design",
+      "Full Control Admin Panel",
+      "Speed Optimization",
+      "Meta Pixel Tracking Setup",
+      "Advanced Contact & Lead Forms",
+      "Standard SEO & Analytics"
+    ],
+    "addon": "Priority 2-Month Support included",
+    "cta": "Choose Advanced",
+    "order": 3
+  },
+  {
+    "id": "pkg-professional",
+    "name": "Professional",
+    "price": "Rs. 20,000/-",
+    "priceNum": 20000,
+    "tag": "Most Popular",
+    "featured": true,
+    "popular": true,
+    "description": "Corporate-level web presence with advanced security and analytics.",
+    "features": [
+      "Premium Corporate Design",
+      "Google Analytics Setup",
+      "Advanced Security Layer",
+      "Full SEO Optimization",
+      "Full Control Admin Panel",
+      "High Speed Performance Optimization",
+      "3 Months Priority Support"
+    ],
+    "addon": "Complete Brand & Digital Asset Alignment",
+    "cta": "Choose Professional",
+    "order": 4
+  },
+  {
+    "id": "pkg-business-pro",
+    "name": "Business Pro",
+    "price": "Rs. 40,000/-",
+    "priceNum": 40000,
+    "tag": "Enterprise",
+    "featured": false,
+    "popular": false,
+    "description": "Top-tier custom engineering tailored specifically for market leaders.",
+    "features": [
+      "Bespoke Custom UI/UX Engineering",
+      "Core Web Vitals Optimization",
+      "6 Months Extended Support",
+      "Custom Micro-Interactions & Animations",
+      "Full SEO & Conversion Suite",
+      "Advanced Role-Based Admin Panel",
+      "Automated Daily Cloud Backups"
+    ],
+    "addon": "Free Minor Updates for 6 Months",
+    "cta": "Choose Business Pro",
+    "order": 5
+  },
+  {
+    "id": "pkg-ecommerce",
+    "name": "E-Commerce Online Stores",
+    "price": "Start from Rs. 60,000/-",
+    "priceNum": 60000,
+    "tag": "Full Store",
+    "featured": false,
+    "popular": false,
+    "description": "Full-featured online store ready to sell products and receive payments.",
+    "features": [
+      "Complete E-Commerce Online Store",
+      "Payment Gateway Integration (Card, Bank, COD)",
+      "Product Catalog & Category Filtering",
+      "Shopping Cart & Multi-Step Checkout",
+      "Customer Accounts & Order Tracking",
+      "Admin Inventory & Sales Dashboard",
+      "Full SEO + Speed Optimization"
+    ],
+    "addon": "Includes product upload training & store setup guide",
+    "cta": "Start E-Commerce Store",
+    "order": 6
+  }
+]

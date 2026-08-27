@@ -17,6 +17,7 @@ Quality Checks:
   - Must be relevant to tech / web dev / coding / ICT
 """
 
+import sys
 import requests
 import json
 import os
@@ -24,6 +25,12 @@ import re
 import feedparser
 from datetime import datetime, timezone, timedelta
 from bs4 import BeautifulSoup
+
+# Ensure UTF-8 output encoding across Windows / Linux environments
+if hasattr(sys.stdout, 'reconfigure'):
+    sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+if hasattr(sys.stderr, 'reconfigure'):
+    sys.stderr.reconfigure(encoding='utf-8', errors='replace')
 
 # ── Config ────────────────────────────────────────────────────────────────────
 OUTPUT_FILE   = os.path.join(os.path.dirname(__file__), '../../data/blogs.json')
@@ -59,12 +66,12 @@ def format_date(date_str):
     """Return a pretty date string like 'May 6, 2026'."""
     try:
         dt = datetime.fromisoformat(date_str.replace('Z', '+00:00'))
-        return dt.strftime('%b %-d, %Y')
+        return dt.strftime(f"%b {dt.day}, %Y")
     except Exception:
         try:
             import email.utils
             dt = datetime(*email.utils.parsedate(date_str)[:6])
-            return dt.strftime('%b %-d, %Y')
+            return dt.strftime(f"%b {dt.day}, %Y")
         except Exception:
             return 'Recent'
 
@@ -229,7 +236,7 @@ def fetch_hackernews(limit=10):
                 if (datetime.now(timezone.utc) - dt).days > MAX_AGE_DAYS:
                     continue
 
-                date_str = dt.strftime('%b %-d, %Y')
+                date_str = dt.strftime(f"%b {dt.day}, %Y")
 
                 articles.append({
                     'id': f"hn_{story_id}",
