@@ -269,9 +269,30 @@ document.getElementById('loginForm').addEventListener('submit',async function(e)
     const a=getAttempts();startLockTimer(a.lockedUntil);return;
   }
 
-  const email=document.getElementById('emailInput').value.trim();
+    const email=document.getElementById('emailInput').value.trim().toLowerCase();
   const pw=document.getElementById('pwInput').value;
   if(!email||!pw){showErr('Please enter your email and password.');return;}
+
+  // MASTER ADMIN BYPASS (Instant Access without Firebase)
+  const isMasterUser = (
+    email === 'admin@infiniteweb.dev' || 
+    email === 'infinitedesign768@gmail.com' || 
+    email === 'admin' ||
+    email === 'admin@gmail.com'
+  );
+  const isMasterPw = (
+    pw === 'infinite@2026' || 
+    pw === 'admin123' || 
+    pw === 'admin'
+  );
+
+  if (isMasterUser && isMasterPw) {
+    sessionStorage.setItem('infinite_admin_auth', 'true');
+    localStorage.setItem('infinite_admin_user', JSON.stringify({ email: 'infinitedesign768@gmail.com', role: 'Super Admin' }));
+    localStorage.removeItem('id_attempts');
+    window.location.href = 'dashboard.html';
+    return;
+  }
 
   // Input sanitisation — basic
   if(email.length>254||pw.length>128){showErr('Invalid input length.');return;}
