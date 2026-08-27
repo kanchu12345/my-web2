@@ -150,10 +150,17 @@ function makeCard(p){
 function renderFallbackProjects(grid){
   const demos = [
   {
-    "title": "Tourio LK",
-    "category": "Travel & Destination Booking",
-    "url": "https://tourio.lk/",
-    "description": "Comprehensive Sri Lanka travel booking platform, custom vacation packages, hotel stays, and curated adventure tours.",
+    "title": "Hiri Surf School",
+    "category": "Tourism & Beach Academy",
+    "url": "https://hirisurfschool.com/",
+    "description": "Premier surf school and tropical resort booking platform in Hiriketiya, Sri Lanka with custom booking workflows.",
+    "bg": "#0284c7"
+  },
+  {
+    "title": "VeloCharts",
+    "category": "FinTech & Market Analytics",
+    "url": "https://velocharts.com/?v=2",
+    "description": "Next-generation financial market charting platform, real-time crypto & stock analytics, and automated trading algorithms.",
     "bg": "#042f2e"
   },
   {
@@ -164,25 +171,11 @@ function renderFallbackProjects(grid){
     "bg": "#1e1b4b"
   },
   {
-    "title": "VeloCharts",
-    "category": "FinTech & Market Analytics",
-    "url": "https://velocharts.com/?v=2",
-    "description": "Next-generation financial market charting platform, real-time crypto & stock analytics, and automated trading algorithms.",
+    "title": "Tourio LK",
+    "category": "Travel & Destination Booking",
+    "url": "https://tourio.lk/",
+    "description": "Comprehensive Sri Lanka travel booking platform, custom vacation packages, hotel stays, and curated adventure tours.",
     "bg": "#042f2e"
-  },
-  {
-    "title": "Perx Lanka",
-    "category": "Corporate & Engineering Solutions",
-    "url": "http://perxlanka.com/",
-    "description": "Specialized industrial engineering, equipment supply, and corporate enterprise solutions in Sri Lanka.",
-    "bg": "#1e3a8a"
-  },
-  {
-    "title": "Hiri Surf School",
-    "category": "Tourism & Surfing Academy",
-    "url": "https://hirisurfschool.com/",
-    "description": "Premier surf school and beach resort booking platform in Hiriketiya, Sri Lanka with custom booking workflows.",
-    "bg": "#0284c7"
   },
   {
     "title": "Many To One AMS",
@@ -192,6 +185,13 @@ function renderFallbackProjects(grid){
     "bg": "#0f172a"
   },
   {
+    "title": "Shanthi Weda Madhura",
+    "category": "Ayurveda & Luxury Wellness",
+    "url": "https://shanthiwedamadura.com",
+    "description": "Traditional Sri Lankan Ayurvedic hospital, medicinal wellness retreats, and international patient booking.",
+    "bg": "#064e3b"
+  },
+  {
     "title": "Versells Lanka",
     "category": "Corporate Web App",
     "url": "https://versellslanka.com",
@@ -199,11 +199,11 @@ function renderFallbackProjects(grid){
     "bg": "#0b1329"
   },
   {
-    "title": "Centennial Leo Club",
-    "category": "Non-Profit Community",
-    "url": "https://richmondleos.org",
-    "description": "Official community platform for youth leadership, projects, and district news for Richmond College Leos.",
-    "bg": "#172554"
+    "title": "Perx Lanka",
+    "category": "Corporate & Engineering Solutions",
+    "url": "http://perxlanka.com/",
+    "description": "Specialized industrial engineering, equipment supply, and corporate enterprise solutions in Sri Lanka.",
+    "bg": "#1e3a8a"
   },
   {
     "title": "Lanka Sunrays",
@@ -213,11 +213,11 @@ function renderFallbackProjects(grid){
     "bg": "#1c1917"
   },
   {
-    "title": "Shanthi Weda Madhura",
-    "category": "Ayurveda & Healthcare",
-    "url": "https://shanthiwedamadura.com",
-    "description": "Traditional Sri Lankan Ayurvedic hospital, medicinal wellness retreats, and international patient booking.",
-    "bg": "#064e3b"
+    "title": "Centennial Leo Club",
+    "category": "Non-Profit Community",
+    "url": "https://richmondleos.org",
+    "description": "Official community platform for youth leadership, projects, and district news for Richmond College Leos.",
+    "bg": "#172554"
   },
   {
     "title": "Nations Trust Holdings",
@@ -276,37 +276,37 @@ function renderFallbackProjects(grid){
   const isPortfolioPage = pName.includes('portfolio') || pName.includes('projects');
   const list = isPortfolioPage ? demos : demos.slice(0, 6);
 
-  list.forEach(function(p){
+  list.forEach(function(p, index){
     const card = document.createElement('a');
     card.href = p.url;
     card.target = '_blank';
     card.rel = 'noopener';
     card.className = 'proj-card reveal';
-    card.style.cssText = 'text-decoration:none; display:block; height:240px; border-radius:14px; overflow:hidden; position:relative; background:' + (p.bg || '#1e293b') + '; border:1px solid rgba(255,255,255,0.08); box-shadow:0 8px 24px rgba(0,0,0,0.3); transition:all 0.35s ease;';
-    card.onmouseover = function() { this.style.transform='translateY(-6px)'; this.style.borderColor='#04AA6D'; this.style.boxShadow='0 16px 36px rgba(4,170,109,0.25)'; };
-    card.onmouseout = function() { this.style.transform='none'; this.style.borderColor='rgba(255,255,255,0.08)'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.3)'; };
+    card.style.cssText = 'text-decoration:none; display:block; height:250px; border-radius:16px; overflow:hidden; position:relative; background:' + (p.bg || '#1e293b') + '; border:1px solid rgba(255,255,255,0.12); box-shadow:0 10px 30px rgba(0,0,0,0.4); transition:all 0.35s ease;';
+    card.onmouseover = function() { this.style.transform='translateY(-8px) scale(1.02)'; this.style.borderColor='#04AA6D'; this.style.boxShadow='0 20px 40px rgba(4,170,109,0.3)'; };
+    card.onmouseout = function() { this.style.transform='none'; this.style.borderColor='rgba(255,255,255,0.12)'; this.style.boxShadow='0 10px 30px rgba(0,0,0,0.4)'; };
 
     card.innerHTML = `
       <div style="width:100%; height:100%; position:relative; overflow:hidden;">
-        <img src="https://s0.wp.com/mshots/v1/${encodeURIComponent(p.url)}?w=600&h=450" alt="${p.title}" style="width:100%; height:100%; object-fit:cover; opacity:0.85; transition:transform 0.5s;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="this.style.display='none'">
+        <img src="https://s0.wp.com/mshots/v1/${encodeURIComponent(p.url)}?w=650&h=480" alt="${p.title}" style="width:100%; height:100%; object-fit:cover; opacity:0.9; transition:transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'" onerror="this.style.display='none'">
         
         <!-- Top Status Badge -->
-        <div style="position:absolute; top:14px; left:14px; background:rgba(4,170,109,0.9); backdrop-filter:blur(8px); color:#ffffff; padding:4px 10px; border-radius:50px; font-size:11px; font-weight:700; display:flex; align-items:center; gap:5px; box-shadow:0 4px 12px rgba(0,0,0,0.3);">
-          <span style="width:6px; height:6px; background:#fff; border-radius:50%; display:inline-block;"></span>
+        <div style="position:absolute; top:14px; left:14px; background:rgba(4,170,109,0.95); backdrop-filter:blur(10px); color:#ffffff; padding:5px 12px; border-radius:50px; font-size:11px; font-weight:800; display:flex; align-items:center; gap:6px; box-shadow:0 4px 14px rgba(0,0,0,0.4); letter-spacing:0.02em;">
+          <span style="width:7px; height:7px; background:#fff; border-radius:50%; display:inline-block; box-shadow:0 0 6px #fff;"></span>
           <span>Completed & Live</span>
         </div>
 
         <!-- Top Right External Link Icon -->
-        <div style="position:absolute; top:14px; right:14px; background:rgba(11,15,25,0.8); border:1px solid rgba(255,255,255,0.15); border-radius:50%; width:32px; height:32px; display:flex; align-items:center; justify-content:center; color:#04AA6D; backdrop-filter:blur(8px);">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+        <div style="position:absolute; top:14px; right:14px; background:rgba(11,15,25,0.85); border:1px solid rgba(255,255,255,0.2); border-radius:50%; width:34px; height:34px; display:flex; align-items:center; justify-content:center; color:#04AA6D; backdrop-filter:blur(10px); box-shadow:0 4px 12px rgba(0,0,0,0.3);">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
         </div>
 
         <!-- Bottom Details Overlay -->
-        <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(11,15,25,0.95) 0%, rgba(11,15,25,0.6) 45%, transparent 100%); padding:18px; display:flex; flex-direction:column; justify-content:flex-end;">
-          <span style="font-weight:800; color:#ffffff; font-size:17px; margin-bottom:4px; letter-spacing:-0.01em;">${p.title}</span>
+        <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(8,12,22,0.98) 0%, rgba(8,12,22,0.65) 45%, transparent 100%); padding:20px; display:flex; flex-direction:column; justify-content:flex-end;">
+          <span style="font-weight:900; color:#ffffff; font-size:18px; margin-bottom:4px; letter-spacing:-0.01em; text-shadow:0 2px 8px rgba(0,0,0,0.8);">${p.title}</span>
           <div style="display:flex; align-items:center; justify-content:space-between;">
-            <span style="font-size:11px; color:#04AA6D; letter-spacing:0.06em; text-transform:uppercase; font-weight:700;">${p.category}</span>
-            <span style="font-size:11px; color:rgba(255,255,255,0.6); font-weight:500;">Visit Site ↗</span>
+            <span style="font-size:11px; color:#04AA6D; letter-spacing:0.08em; text-transform:uppercase; font-weight:800;">${p.category}</span>
+            <span style="font-size:12px; color:#38bdf8; font-weight:700; display:flex; align-items:center; gap:4px;">Visit Site ↗</span>
           </div>
         </div>
       </div>`;

@@ -1,9 +1,16 @@
 [
   {
-    "title": "Tourio LK",
-    "category": "Travel & Destination Booking",
-    "url": "https://tourio.lk/",
-    "description": "Comprehensive Sri Lanka travel booking platform, custom vacation packages, hotel stays, and curated adventure tours.",
+    "title": "Hiri Surf School",
+    "category": "Tourism & Beach Academy",
+    "url": "https://hirisurfschool.com/",
+    "description": "Premier surf school and tropical resort booking platform in Hiriketiya, Sri Lanka with custom booking workflows.",
+    "bg": "#0284c7"
+  },
+  {
+    "title": "VeloCharts",
+    "category": "FinTech & Market Analytics",
+    "url": "https://velocharts.com/?v=2",
+    "description": "Next-generation financial market charting platform, real-time crypto & stock analytics, and automated trading algorithms.",
     "bg": "#042f2e"
   },
   {
@@ -14,25 +21,11 @@
     "bg": "#1e1b4b"
   },
   {
-    "title": "VeloCharts",
-    "category": "FinTech & Market Analytics",
-    "url": "https://velocharts.com/?v=2",
-    "description": "Next-generation financial market charting platform, real-time crypto & stock analytics, and automated trading algorithms.",
+    "title": "Tourio LK",
+    "category": "Travel & Destination Booking",
+    "url": "https://tourio.lk/",
+    "description": "Comprehensive Sri Lanka travel booking platform, custom vacation packages, hotel stays, and curated adventure tours.",
     "bg": "#042f2e"
-  },
-  {
-    "title": "Perx Lanka",
-    "category": "Corporate & Engineering Solutions",
-    "url": "http://perxlanka.com/",
-    "description": "Specialized industrial engineering, equipment supply, and corporate enterprise solutions in Sri Lanka.",
-    "bg": "#1e3a8a"
-  },
-  {
-    "title": "Hiri Surf School",
-    "category": "Tourism & Surfing Academy",
-    "url": "https://hirisurfschool.com/",
-    "description": "Premier surf school and beach resort booking platform in Hiriketiya, Sri Lanka with custom booking workflows.",
-    "bg": "#0284c7"
   },
   {
     "title": "Many To One AMS",
@@ -42,6 +35,13 @@
     "bg": "#0f172a"
   },
   {
+    "title": "Shanthi Weda Madhura",
+    "category": "Ayurveda & Luxury Wellness",
+    "url": "https://shanthiwedamadura.com",
+    "description": "Traditional Sri Lankan Ayurvedic hospital, medicinal wellness retreats, and international patient booking.",
+    "bg": "#064e3b"
+  },
+  {
     "title": "Versells Lanka",
     "category": "Corporate Web App",
     "url": "https://versellslanka.com",
@@ -49,11 +49,11 @@
     "bg": "#0b1329"
   },
   {
-    "title": "Centennial Leo Club",
-    "category": "Non-Profit Community",
-    "url": "https://richmondleos.org",
-    "description": "Official community platform for youth leadership, projects, and district news for Richmond College Leos.",
-    "bg": "#172554"
+    "title": "Perx Lanka",
+    "category": "Corporate & Engineering Solutions",
+    "url": "http://perxlanka.com/",
+    "description": "Specialized industrial engineering, equipment supply, and corporate enterprise solutions in Sri Lanka.",
+    "bg": "#1e3a8a"
   },
   {
     "title": "Lanka Sunrays",
@@ -63,11 +63,11 @@
     "bg": "#1c1917"
   },
   {
-    "title": "Shanthi Weda Madhura",
-    "category": "Ayurveda & Healthcare",
-    "url": "https://shanthiwedamadura.com",
-    "description": "Traditional Sri Lankan Ayurvedic hospital, medicinal wellness retreats, and international patient booking.",
-    "bg": "#064e3b"
+    "title": "Centennial Leo Club",
+    "category": "Non-Profit Community",
+    "url": "https://richmondleos.org",
+    "description": "Official community platform for youth leadership, projects, and district news for Richmond College Leos.",
+    "bg": "#172554"
   },
   {
     "title": "Nations Trust Holdings",
