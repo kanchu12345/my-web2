@@ -593,7 +593,7 @@ function renderPackages(list, container) {
     ` : '';
 
     const waText = encodeURIComponent(`Hi Infinite Creative Web Design! I'm interested in the "${pkg.name}" (${pkg.price}) Web Design Package. Please provide more information.`);
-    const waUrl = `https://wa.me/94771234567?text=${waText}`;
+    const waUrl = `https://wa.me/94789714912?text=${waText}`;
 
     card.innerHTML = `
       <div class="pkg-badge-wrap">
