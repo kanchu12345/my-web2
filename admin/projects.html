@@ -244,14 +244,27 @@ async function loadProjects(){
   const list=document.getElementById('projList');
   const cnt=document.getElementById('projCount');
   
-  // 1. Immediately fetch and display existing data/projects.json
+  // 1. Immediately fetch and display existing data/projects.json + localStorage
   try {
     const res = await fetch('../data/projects.json');
-    const localItems = await res.json();
-    if (localItems && localItems.length > 0) {
-      cnt.textContent = `(${localItems.length})`;
+    let localItems = await res.json();
+    const customItems = JSON.parse(localStorage.getItem('infinite_custom_projects') || '[]');
+    
+    // Combine and deduplicate
+    const combined = [...customItems, ...localItems];
+    const unique = [];
+    const seen = new Set();
+    combined.forEach(p => {
+      if (!seen.has(p.url)) {
+        seen.add(p.url);
+        unique.push(p);
+      }
+    });
+
+    if (unique.length > 0) {
+      cnt.textContent = `(${unique.length})`;
       list.innerHTML = '';
-      localItems.forEach(p => {
+      unique.forEach(p => {
         list.appendChild(makeListItem(p));
       });
     }

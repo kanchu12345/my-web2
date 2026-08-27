@@ -148,34 +148,117 @@ function makeCard(p){
 }
 
 function renderFallbackProjects(grid){
-  const demos=[
-    { title: 'Versells Lanka', category: 'Corporate Web App', url: 'https://versellslanka.com', bg: '#0b1329' },
-    { title: 'Centennial Leo Club', category: 'Non-Profit Community', url: 'https://richmondleos.org', bg: '#172554' },
-    { title: 'Lanka Sunrays', category: 'E-commerce & Export', url: 'https://lankasunrays.lk', bg: '#1c1917' },
-    { title: 'Shanthi Weda Madhura', category: 'Ayurveda & Healthcare', url: 'https://shanthiwedamadura.com', bg: '#064e3b' },
-    { title: 'Nations Trust Holdings', category: 'Finance & UK Investment', url: 'https://nationstrustholdingslondon.com', bg: '#1e1b4b' },
-    { title: 'Enlyt Partners', category: 'Strategic Consulting', url: 'https://enlytpartners.com', bg: '#0f172a' },
-    { title: 'GPS Lanka Travels', category: 'Travel & Tourism', url: 'https://gpslankatravels.com', bg: '#042f2e' },
-    { title: 'Tropica Flavours', category: 'FMCG & Brand', url: 'https://tropicaflavours.com', bg: '#312e81' },
-    { title: 'DD Lanka Tours', category: 'Destination Travel', url: 'https://ddlankatours.lk/', bg: '#14532d' },
-    { title: 'VITES Secure Auth 2026', category: 'Cybersecurity Web App', url: 'https://kanchu12345.github.io/VITES/vites-secure-auth-2026.html', bg: '#1e293b' },
-    { title: 'VITES Cloud Platform', category: 'Cloud Infrastructure', url: 'https://kanchu12345.github.io/VITES/', bg: '#0f172a' }
-  ];
-  grid.innerHTML='';
-  // Show 6 on home page, all on portfolio page
-  var isHome = window.location.pathname.endsWith('index.html') || window.location.pathname.endsWith('/') || window.location.pathname.endsWith('my-web2/');
-  var list = isHome ? demos.slice(0, 6) : demos;
+  const demos = [
+  {
+    "title": "Hiri Surf School",
+    "category": "Tourism & Surfing Academy",
+    "url": "https://hirisurfschool.com/",
+    "description": "Premier surf school and beach resort booking platform in Hiriketiya, Sri Lanka with custom booking workflows.",
+    "bg": "#0284c7"
+  },
+  {
+    "title": "Many To One AMS",
+    "category": "Corporate Association Platform",
+    "url": "https://manytooneams.com/",
+    "description": "Enterprise Association Management Software (AMS) platform engineered for non-profit organizations and member institutions.",
+    "bg": "#0f172a"
+  },
+  {
+    "title": "Versells Lanka",
+    "category": "Corporate Web App",
+    "url": "https://versellslanka.com",
+    "description": "Enterprise agricultural technology & electric fencing engineering portal with interactive quote generator.",
+    "bg": "#0b1329"
+  },
+  {
+    "title": "Centennial Leo Club",
+    "category": "Non-Profit Community",
+    "url": "https://richmondleos.org",
+    "description": "Official community platform for youth leadership, projects, and district news for Richmond College Leos.",
+    "bg": "#172554"
+  },
+  {
+    "title": "Lanka Sunrays",
+    "category": "E-commerce & Export",
+    "url": "https://lankasunrays.lk",
+    "description": "Solar water pumping solutions & solar engineering store with PayHere checkout and export catalog.",
+    "bg": "#1c1917"
+  },
+  {
+    "title": "Shanthi Weda Madhura",
+    "category": "Ayurveda & Healthcare",
+    "url": "https://shanthiwedamadura.com",
+    "description": "Traditional Sri Lankan Ayurvedic hospital, medicinal wellness retreats, and international patient booking.",
+    "bg": "#064e3b"
+  },
+  {
+    "title": "Nations Trust Holdings",
+    "category": "Finance & UK Investment",
+    "url": "https://nationstrustholdingslondon.com",
+    "description": "Global migration consultancy, UK wealth management, and overseas education advisory portal.",
+    "bg": "#1e1b4b"
+  },
+  {
+    "title": "Enlyt Partners",
+    "category": "Strategic Consulting",
+    "url": "https://enlytpartners.com",
+    "description": "Executive leadership consulting, organizational excellence, and business transformation architecture.",
+    "bg": "#0f172a"
+  },
+  {
+    "title": "GPS Lanka Travels",
+    "category": "Travel & Tourism",
+    "url": "https://gpslankatravels.com",
+    "description": "Bespoke Sri Lanka island tours, wildlife safari itineraries, and instant private chauffeur booking.",
+    "bg": "#042f2e"
+  },
+  {
+    "title": "Tropica Flavours",
+    "category": "FMCG & Brand",
+    "url": "https://tropicaflavours.com",
+    "description": "Pure Ceylon spice exports, certified organic vanilla, and worldwide wholesale distributor network.",
+    "bg": "#312e81"
+  },
+  {
+    "title": "DD Lanka Tours",
+    "category": "Destination Travel",
+    "url": "https://ddlankatours.lk/",
+    "description": "Cultural heritage round-tours, luxury hotel reservations, and custom Sri Lanka vacation packages.",
+    "bg": "#14532d"
+  },
+  {
+    "title": "VITES Secure Auth 2026",
+    "category": "Cybersecurity Web App",
+    "url": "https://kanchu12345.github.io/VITES/vites-secure-auth-2026.html",
+    "description": "Advanced cryptographic biometric and OTP authentication portal with 256-bit security.",
+    "bg": "#1e293b"
+  },
+  {
+    "title": "VITES Cloud Platform",
+    "category": "Cloud Infrastructure",
+    "url": "https://kanchu12345.github.io/VITES/",
+    "description": "High-availability cloud computing and microservices management console.",
+    "bg": "#0f172a"
+  }
+];
+  grid.innerHTML = '';
+  
+  // Check if we are on projects/portfolio page vs homepage
+  const pName = window.location.pathname.toLowerCase();
+  const isPortfolioPage = pName.includes('portfolio') || pName.includes('projects');
+  const list = isPortfolioPage ? demos : demos.slice(0, 6);
+
   list.forEach(function(p){
-    const card=document.createElement('a');
-    card.href=p.url;
-    card.target='_blank';
-    card.rel='noopener';
-    card.className='proj-card';
-    card.style.cssText='text-decoration:none; display:block; height:240px; border-radius:14px; overflow:hidden; position:relative; background:' + (p.bg || '#1e293b') + '; border:1px solid rgba(255,255,255,0.08); box-shadow:0 8px 24px rgba(0,0,0,0.3); transition:all 0.35s ease;';
-    card.onmouseover = function() { this.style.transform='translateY(-6px)'; this.style.borderColor='#04AA6D'; this.style.boxShadow='0 16px 36px rgba(4,170,109,0.2)'; };
+    const card = document.createElement('a');
+    card.href = p.url;
+    card.target = '_blank';
+    card.rel = 'noopener';
+    card.className = 'proj-card reveal';
+    card.style.cssText = 'text-decoration:none; display:block; height:240px; border-radius:14px; overflow:hidden; position:relative; background:' + (p.bg || '#1e293b') + '; border:1px solid rgba(255,255,255,0.08); box-shadow:0 8px 24px rgba(0,0,0,0.3); transition:all 0.35s ease;';
+    card.onmouseover = function() { this.style.transform='translateY(-6px)'; this.style.borderColor='#04AA6D'; this.style.boxShadow='0 16px 36px rgba(4,170,109,0.25)'; };
     card.onmouseout = function() { this.style.transform='none'; this.style.borderColor='rgba(255,255,255,0.08)'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.3)'; };
 
-    card.innerHTML=`
+    card.innerHTML = `
       <div style="width:100%; height:100%; position:relative; overflow:hidden;">
         <img src="https://s0.wp.com/mshots/v1/${encodeURIComponent(p.url)}?w=600&h=450" alt="${p.title}" style="width:100%; height:100%; object-fit:cover; opacity:0.85; transition:transform 0.5s;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="this.style.display='none'">
         
