@@ -1,3 +1,17 @@
+
+/* ── Safe Reveal & Instant Visibility ──────────────── */
+function triggerSafeReveal() {
+  document.querySelectorAll('.reveal').forEach(function(el) {
+    el.classList.add('visible');
+    el.style.opacity = '1';
+    el.style.transform = 'none';
+  });
+}
+document.addEventListener('DOMContentLoaded', triggerSafeReveal);
+window.addEventListener('load', triggerSafeReveal);
+setTimeout(triggerSafeReveal, 100);
+setTimeout(triggerSafeReveal, 500);
+
 /* ═══════════════════════════════════════════════════
    main.js — Portfolio animations, nav, Firebase data
 ═══════════════════════════════════════════════════ */
@@ -686,43 +700,24 @@ function orderPackageWhatsApp(pkgId, basePrice, pkgName) {
   window.open(waUrl, '_blank');
 }
 
-  // Trigger reveal observer for newly created elements
-  if (typeof IntersectionObserver !== 'undefined') {
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(en => {
-        if (en.isIntersecting) {
-          en.target.classList.add('visible');
-          io.unobserve(en.target);
-        }
-      });
-    }, { threshold: 0.1 });
-    container.querySelectorAll('.reveal').forEach(el => io.observe(el));
-  }
-}
-
 /* ── Init ───────────────────────────────────────── */
-document.addEventListener('DOMContentLoaded',function(){
+document.addEventListener('DOMContentLoaded', function() {
   loadProjects();
   loadPackages();
   loadBlogs();
   loadAllBlogs();
   loadArticle();
   loadSettings();
-  // link CSS additions
-  const lnk=document.createElement('link');
-  lnk.rel='stylesheet';lnk.href=rootPath()+'css/additions.css';
+  const lnk = document.createElement('link');
+  lnk.rel = 'stylesheet';
+  lnk.href = rootPath() + 'css/additions.css';
   document.head.appendChild(lnk);
 });
 
-
 /* ── Footer Background Typing ───────────────────── */
-(function initFooterBgTyping(){
+(function initFooterBgTyping() {
   const footer = document.querySelector('.footer');
-  if(!footer) return;
-
-  footer.style.position = 'relative';
-  footer.style.overflow = 'hidden';
-
+  if (!footer) return;
   const footerMain = footer.querySelector('.footer-main');
   if(footerMain) {
     footerMain.style.position = 'relative';
