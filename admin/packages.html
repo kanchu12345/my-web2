@@ -361,26 +361,43 @@ function sanitise(str){
 }
 
 /* ── Load Packages ── */
+/* ── Load packages with robust JSON fallback ── */
 async function loadPackages(){
-  const list = document.getElementById('pkgList');
-  const cnt = document.getElementById('pkgCount');
-  list.innerHTML = '<div class="no-projects">Loading packages…</div>';
-
-  currentPackages = [];
-  try {
-    const snap = await getDocs(collection(db, 'packages'));
-    if (!snap.empty) {
-      snap.forEach(d => currentPackages.push({ id: d.id, ...d.data() }));
-    }
-  } catch (e) {
-    console.log('Firebase fetch failed, checking local backup', e);
+  const list=document.getElementById('pkgList');
+  const cnt=document.getElementById('pkgCount');
+  
+  async function loadFromLocalJson() {
+    try {
+      const res = await fetch('../data/packages.json');
+      const items = await res.json();
+      if (items && items.length > 0) {
+        if(cnt) cnt.textContent = `(${items.length})`;
+        list.innerHTML = '';
+        items.forEach(p => {
+          list.appendChild(makeListItem(p));
+        });
+        return;
+      }
+    } catch(e) {}
+    list.innerHTML = '<div class="no-projects">No packages found. Add a new package →</div>';
   }
 
-  if (currentPackages.length === 0) {
-    const local = localStorage.getItem('infinite_packages');
-    if (local) {
-      try { currentPackages = JSON.parse(local); } catch(e){}
+  try{
+    const snap=await getDocs(collection(db,'packages'));
+    if(snap.empty){
+      await loadFromLocalJson();
+      return;
     }
+    if(cnt) cnt.textContent=`(${snap.size})`;
+    list.innerHTML='';
+    snap.forEach(d=>{
+      const p={id:d.id,...d.data()};
+      list.appendChild(makeListItem(p));
+    });
+  }catch(e){
+    await loadFromLocalJson();
+  }
+}
   }
 
   if (currentPackages.length === 0) {

@@ -209,19 +209,54 @@ function sanitise(str){
 }
 
 /* ── Load projects ── */
+/* ── Load projects with robust JSON fallback ── */
 async function loadProjects(){
   const list=document.getElementById('projList');
   const cnt=document.getElementById('projCount');
+  
+  // Timeout safety
+  let loaded = false;
+  const timer = setTimeout(async () => {
+    if (!loaded) {
+      await loadFromLocalJson();
+    }
+  }, 2500);
+
+  async function loadFromLocalJson() {
+    try {
+      const res = await fetch('../data/projects.json');
+      const items = await res.json();
+      if (items && items.length > 0) {
+        cnt.textContent = `(${items.length})`;
+        list.innerHTML = '';
+        items.forEach(p => {
+          list.appendChild(makeListItem(p));
+        });
+        return;
+      }
+    } catch(e) {}
+    list.innerHTML = '<div class="no-projects">No projects found. Add your first project →</div>';
+  }
+
   try{
     const snap=await getDocs(collection(db,'projects'));
-    if(snap.empty){list.innerHTML='<div class="no-projects">No projects yet. Add your first project →</div>';cnt.textContent='';return;}
+    loaded = true;
+    clearTimeout(timer);
+    if(snap.empty){
+      await loadFromLocalJson();
+      return;
+    }
     cnt.textContent=`(${snap.size})`;
     list.innerHTML='';
     snap.forEach(d=>{
       const p={id:d.id,...d.data()};
       list.appendChild(makeListItem(p));
     });
-  }catch(e){list.innerHTML='<div class="no-projects">Error loading projects. Check Firebase config.</div>';}
+  }catch(e){
+    loaded = true;
+    clearTimeout(timer);
+    await loadFromLocalJson();
+  }
 }
 
 function makeListItem(p){
