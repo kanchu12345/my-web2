@@ -1,6 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /admin/
+Disallow: /backend/
 
-Sitemap: https://kanchu12345.github.io/my-web2/sitemap.xml
-Sitemap: https://infinitedesign.com/sitemap.xml
-
+Sitemap: https://infiniteweb.dev/sitemap.xml
