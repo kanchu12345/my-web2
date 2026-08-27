@@ -572,11 +572,19 @@ async function loadPackages() {
   renderPackages(pkgs, grid);
 }
 
+
+function parseBasePrice(priceStr) {
+  const digits = String(priceStr).replace(/[^0-9]/g, '');
+  return parseInt(digits, 10) || 5000;
+}
+
 function renderPackages(list, container) {
   container.innerHTML = '';
   list.forEach((pkg, index) => {
+    const basePrice = parseBasePrice(pkg.price);
     const card = document.createElement('div');
     card.className = `pkg-card ${pkg.featured ? 'featured' : ''} reveal reveal-delay-${(index % 4) + 1}`;
+    card.id = `pkg_card_${pkg.id || index}`;
 
     const featuresHtml = (pkg.features || []).map(feat => `
       <li class="pkg-feature-item">
@@ -585,15 +593,31 @@ function renderPackages(list, container) {
       </li>
     `).join('');
 
-    const addonHtml = pkg.addon ? `
-      <div class="pkg-addon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-        <span>${pkg.addon}</span>
+    const addonsHtml = `
+      <div class="pkg-addons-box" style="margin: 16px 0; padding: 14px; background: rgba(0,0,0,0.25); border: 1px dashed rgba(4,170,109,0.35); border-radius: 10px; text-align: left;">
+        <div style="font-size: 11px; font-weight: 800; color: #04AA6D; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; display:flex; align-items:center; gap:5px;">
+          <span>✨ Optional Power Add-ons:</span>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 6px; font-size: 12px; color: #cbd5e1;">
+          <label style="display:flex; align-items:center; gap:7px; cursor:pointer;">
+            <input type="checkbox" class="pkg-addon-cb" data-pkg-id="${pkg.id || index}" data-name="Extra Page" data-price="1500" onchange="updatePkgTotal('${pkg.id || index}', ${basePrice}, '${pkg.name}')">
+            <span>+1 Extra Page (+Rs. 1,500)</span>
+          </label>
+          <label style="display:flex; align-items:center; gap:7px; cursor:pointer;">
+            <input type="checkbox" class="pkg-addon-cb" data-pkg-id="${pkg.id || index}" data-name="PayHere Gateway" data-price="8000" onchange="updatePkgTotal('${pkg.id || index}', ${basePrice}, '${pkg.name}')">
+            <span>PayHere Card Gateway (+Rs. 8,000)</span>
+          </label>
+          <label style="display:flex; align-items:center; gap:7px; cursor:pointer;">
+            <input type="checkbox" class="pkg-addon-cb" data-pkg-id="${pkg.id || index}" data-name="Google Maps & SEO" data-price="2500" onchange="updatePkgTotal('${pkg.id || index}', ${basePrice}, '${pkg.name}')">
+            <span>Google Maps & Local SEO (+Rs. 2,500)</span>
+          </label>
+          <label style="display:flex; align-items:center; gap:7px; cursor:pointer;">
+            <input type="checkbox" class="pkg-addon-cb" data-pkg-id="${pkg.id || index}" data-name="Sinhala/English Bilingual" data-price="5000" onchange="updatePkgTotal('${pkg.id || index}', ${basePrice}, '${pkg.name}')">
+            <span>Sinhala + English Dual (+Rs. 5,000)</span>
+          </label>
+        </div>
       </div>
-    ` : '';
-
-    const waText = encodeURIComponent(`Hi Infinite Creative Web Design! I'm interested in the "${pkg.name}" (${pkg.price}) Web Design Package. Please provide more information.`);
-    const waUrl = `https://wa.me/94789714912?text=${waText}`;
+    `;
 
     card.innerHTML = `
       <div class="pkg-badge-wrap">
@@ -607,20 +631,60 @@ function renderPackages(list, container) {
       <h3 class="pkg-name">${pkg.name}</h3>
       <p class="pkg-desc">${pkg.description || ''}</p>
       <div class="pkg-price-wrap">
-        <div class="pkg-price">${pkg.price}</div>
+        <div class="pkg-price" id="price_display_${pkg.id || index}">${pkg.price}</div>
       </div>
       <ul class="pkg-features">
         ${featuresHtml}
       </ul>
-      ${addonHtml}
-      <a href="${waUrl}" target="_blank" rel="noopener" class="pkg-btn">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
-        ${pkg.cta || 'Get Started'}
-      </a>
+      ${addonsHtml}
+      <button onclick="orderPackageWhatsApp('${pkg.id || index}', ${basePrice}, '${pkg.name}')" class="pkg-btn" style="width:100%; border:none; cursor:pointer; font-family:inherit; font-size:0.95rem; font-weight:800; display:inline-flex; align-items:center; justify-content:center; gap:8px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
+        <span>${pkg.cta || 'Choose ' + pkg.name}</span> &rarr;
+      </button>
     `;
 
     container.appendChild(card);
   });
+}
+
+function updatePkgTotal(pkgId, basePrice, pkgName) {
+  const cbs = document.querySelectorAll(`.pkg-addon-cb[data-pkg-id="${pkgId}"]:checked`);
+  let addonTotal = 0;
+  cbs.forEach(cb => addonTotal += parseInt(cb.dataset.price, 10));
+  const total = basePrice + addonTotal;
+  const disp = document.getElementById(`price_display_${pkgId}`);
+  if (disp) {
+    disp.textContent = 'Rs. ' + total.toLocaleString() + '/-';
+  }
+}
+
+function orderPackageWhatsApp(pkgId, basePrice, pkgName) {
+  const cbs = document.querySelectorAll(`.pkg-addon-cb[data-pkg-id="${pkgId}"]:checked`);
+  let addonTotal = 0;
+  const selectedAddons = [];
+  cbs.forEach(cb => {
+    const p = parseInt(cb.dataset.price, 10);
+    addonTotal += p;
+    selectedAddons.push(`• ${cb.dataset.name} (+Rs. ${p.toLocaleString()})`);
+  });
+
+  const total = basePrice + addonTotal;
+  
+  let msg = `👋 Hello Infinite Creative Web Design!\n\n`;
+  msg += `📦 *Selected Package:* ${pkgName} (Base: Rs. ${basePrice.toLocaleString()}/-)\n`;
+  
+  if (selectedAddons.length > 0) {
+    msg += `\n✨ *Selected Add-ons:*\n${selectedAddons.join('\n')}\n`;
+  } else {
+    msg += `\n✨ *Add-ons:* Standard Included Features\n`;
+  }
+
+  msg += `\n💰 *Total Investment:* Rs. ${total.toLocaleString()}/-\n`;
+  msg += `🚀 I would like to get started with this package. Please let me know how to proceed!`;
+
+  const waUrl = `https://wa.me/94789714912?text=${encodeURIComponent(msg)}`;
+  window.open(waUrl, '_blank');
+}
 
   // Trigger reveal observer for newly created elements
   if (typeof IntersectionObserver !== 'undefined') {
