@@ -150,6 +150,13 @@ function makeCard(p){
 function renderFallbackProjects(grid){
   const demos = [
   {
+    "title": "VeloCharts",
+    "category": "FinTech & Market Analytics",
+    "url": "https://velocharts.com/?v=2",
+    "description": "Next-generation financial market charting platform, real-time crypto & stock analytics, and automated trading algorithms.",
+    "bg": "#042f2e"
+  },
+  {
     "title": "Perx Lanka",
     "category": "Corporate & Engineering Solutions",
     "url": "http://perxlanka.com/",
