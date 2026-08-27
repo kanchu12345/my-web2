@@ -771,3 +771,24 @@ document.addEventListener('DOMContentLoaded',function(){
   }, { threshold: 0.5 });
   io.observe(el);
 })();
+
+/* ── FAQ Accordion Toggle ───────────────────────── */
+(function initFaq(){
+  document.addEventListener('click', function(e){
+    const btn = e.target.closest('.faq-question');
+    if (!btn) return;
+    const item = btn.closest('.faq-item');
+    if (!item) return;
+    const wasActive = item.classList.contains('active');
+    
+    // Close other FAQs in the same container if desired, or toggle
+    const container = item.closest('.faq-wrap');
+    if (container) {
+      container.querySelectorAll('.faq-item').forEach(el => el.classList.remove('active'));
+    }
+    if (!wasActive) {
+      item.classList.add('active');
+    }
+  });
+})();
+
