@@ -103,9 +103,9 @@
 
       <div class="b-cell b-portfolio glass reveal" style="grid-column: 1 / -1;">
         <div class="cell-head">
-          <h2 class="cell-title">Selected Projects</h2>
+          <h2 class="cell-title">Completed Projects</h2>
           <a href="{{ url('/portfolio') }}" class="cell-link" id="viewAllProjects">
-            View all
+            View all completed projects
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
         </div>
