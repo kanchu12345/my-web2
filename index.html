@@ -447,6 +447,16 @@
       if (displayEl) {
         displayEl.textContent = 'Rs. ' + grandTotal.toLocaleString() + '/-';
       }
+
+      // Dynamic Hosting Highlight based on package tier (5k and 10k get 100% Free Hosting)
+      const hostingBadge = document.getElementById('calcHostingBadge');
+      if (hostingBadge) {
+        if (base <= 10000) {
+          hostingBadge.innerHTML = '<span style="font-size:24px;">🎁</span><div><strong style="color:#04AA6D; font-size:0.9rem; display:block;">100% Free Cloud Hosting Included</strong><small style="color:#94a3b8; font-size:0.8rem;">Zero monthly server fees. Lightning-fast global SSL hosting.</small></div>';
+        } else {
+          hostingBadge.innerHTML = '<span style="font-size:24px;">🚀</span><div><strong style="color:#38bdf8; font-size:0.9rem; display:block;">Enterprise High-Performance Cloud Included</strong><small style="color:#94a3b8; font-size:0.8rem;">Optimized for high-concurrency traffic & zero-downtime reliability.</small></div>';
+        }
+      }
     }
 
     function dispatchFullWhatsAppQuote() {
@@ -473,7 +483,12 @@
 
       let msg = '👋 Hello Infinite Creative Web Design!\n\n';
       msg += '📦 *Selected Website Tier:* ' + tierName + ' (Base: Rs. ' + base.toLocaleString() + '/-)\n';
-      msg += '🎁 *Cloud Hosting:* 100% Free Hosting Included (Rs. 0/-)\n';
+      
+      if (base <= 10000) {
+        msg += '🎁 *Cloud Hosting:* 100% Free Cloud Hosting Included (Rs. 0/-)\n';
+      } else {
+        msg += '🚀 *Cloud Server:* Enterprise High-Speed Cloud Deployment Included\n';
+      }
       
       if (addons.length > 0) {
         msg += '\n✨ *Selected Add-ons:*\n' + addons.join('\n') + '\n';

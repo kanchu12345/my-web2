@@ -432,13 +432,13 @@
     </a>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
-      <li><a href="packages" class="active" style="color:#04AA6D;">Packages</a></li>
-      <li><a href="projects">Projects</a></li>
-      <li><a href="about">About</a></li>
-      <li><a href="services">Services</a></li>
-      <li><a href="blogs">Blogs</a></li>
-      <li><a href="tutorials">Tutorials</a></li>
-      <li><a href="contact">Contact</a></li>
+      <li><a href="packages.html" class="active" style="color:#04AA6D;">Packages</a></li>
+      <li><a href="portfolio.html">Projects</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="blogs.html">Blogs</a></li>
+      <li><a href="tutorials.html">Tutorials</a></li>
+      <li><a href="contact.html">Contact</a></li>
     </ul>
     <div class="nav-actions">
       <div class="nav-status"><span class="status-dot"></span><span class="status-text">Available for Projects</span></div>
@@ -452,13 +452,13 @@
 
   <div class="mobile-menu glass" id="mobileMenu" aria-hidden="true">
     <a href="index.html" class="mm-link">Home</a>
-    <a href="packages" class="mm-link" style="color:#04AA6D;">Packages</a>
-    <a href="projects" class="mm-link">Projects</a>
-    <a href="about" class="mm-link">About</a>
-    <a href="services" class="mm-link">Services</a>
-    <a href="blogs" class="mm-link">Blogs</a>
-    <a href="tutorials" class="mm-link">Tutorials</a>
-    <a href="contact" class="mm-link">Contact</a>
+    <a href="packages.html" class="mm-link" style="color:#04AA6D;">Packages</a>
+    <a href="portfolio.html" class="mm-link">Projects</a>
+    <a href="about.html" class="mm-link">About</a>
+    <a href="services.html" class="mm-link">Services</a>
+    <a href="blogs.html" class="mm-link">Blogs</a>
+    <a href="tutorials.html" class="mm-link">Tutorials</a>
+    <a href="contact.html" class="mm-link">Contact</a>
     <a href="https://wa.me/94789714912" class="mm-link mm-cta" target="_blank">💬 Let's Talk</a>
   </div>
 
@@ -530,9 +530,14 @@
             </div>
 
             <!-- Free Hosting Guarantee Badge -->
-            <div id="calcHostingBadge" style="background:rgba(4,170,109,0.1); border:1px solid rgba(4,170,109,0.3); border-radius:10px; padding:14px; display:flex; align-items:center; gap:12px;"><span style="font-size:24px;">🎁</span><div><strong style="color:#04AA6D; font-size:0.9rem; display:block;">100% Free Cloud Hosting Included</strong><small style="color:#94a3b8; font-size:0.8rem;">Zero monthly server fees for Starter & Standard.</small></div></div>
+            <div style="background:rgba(4,170,109,0.1); border:1px solid rgba(4,170,109,0.3); border-radius:10px; padding:14px; display:flex; align-items:center; gap:12px;">
+              <span style="font-size:24px;">🎁</span>
+              <div>
+                <strong style="color:#04AA6D; font-size:0.9rem; display:block;">100% Free Cloud Hosting Included</strong>
+                <small style="color:#94a3b8; font-size:0.8rem;">Zero monthly server fees. Lightning-fast global SSL hosting.</small>
+              </div>
+            </div>
           </div>
-        </div>
 
           <!-- Column 2: All Power Add-ons Checkboxes -->
           <div>
@@ -673,24 +678,24 @@
         <div class="footer-col-title">Navigation</div>
         <ul class="footer-links">
           <li><a href="index.html">Home</a></li>
-          <li><a href="packages">Packages</a></li>
-          <li><a href="projects">Projects</a></li>
-          <li><a href="about">About</a></li>
-          <li><a href="services">Services</a></li>
-          <li><a href="blogs">Blogs</a></li>
-          <li><a href="tutorials">Tutorials</a></li>
-          <li><a href="contact">Contact</a></li>
+          <li><a href="packages.html">Packages</a></li>
+          <li><a href="portfolio.html">Projects</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="blogs.html">Blogs</a></li>
+          <li><a href="tutorials.html">Tutorials</a></li>
+          <li><a href="contact.html">Contact</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <div class="footer-col-title">Packages</div>
         <ul class="footer-links">
-          <li><a href="packages">Starter (Rs. 5,000/-)</a></li>
-          <li><a href="packages">Standard (Rs. 10,000/-)</a></li>
-          <li><a href="packages">Advanced (Rs. 15,000/-)</a></li>
-          <li><a href="packages">Professional (Rs. 20,000/-)</a></li>
-          <li><a href="packages">Business Pro (Rs. 40,000/-)</a></li>
-          <li><a href="packages">E-Commerce (Rs. 60,000/-)</a></li>
+          <li><a href="packages.html">Starter (Rs. 5,000/-)</a></li>
+          <li><a href="packages.html">Standard (Rs. 10,000/-)</a></li>
+          <li><a href="packages.html">Advanced (Rs. 15,000/-)</a></li>
+          <li><a href="packages.html">Professional (Rs. 20,000/-)</a></li>
+          <li><a href="packages.html">Business Pro (Rs. 40,000/-)</a></li>
+          <li><a href="packages.html">E-Commerce (Rs. 60,000/-)</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -728,16 +733,6 @@
       if (displayEl) {
         displayEl.textContent = 'Rs. ' + grandTotal.toLocaleString() + '/-';
       }
-
-      // Dynamic Hosting Highlight based on package tier (5k and 10k get 100% Free Hosting)
-      const hostingBadge = document.getElementById('calcHostingBadge');
-      if (hostingBadge) {
-        if (base <= 10000) {
-          hostingBadge.innerHTML = '<span style="font-size:24px;">🎁</span><div><strong style="color:#04AA6D; font-size:0.9rem; display:block;">100% Free Cloud Hosting Included</strong><small style="color:#94a3b8; font-size:0.8rem;">Zero monthly server fees. Lightning-fast global SSL hosting.</small></div>';
-        } else {
-          hostingBadge.innerHTML = '<span style="font-size:24px;">🚀</span><div><strong style="color:#38bdf8; font-size:0.9rem; display:block;">Enterprise High-Performance Cloud Included</strong><small style="color:#94a3b8; font-size:0.8rem;">Optimized for high-concurrency traffic & zero-downtime reliability.</small></div>';
-        }
-      }
     }
 
     function dispatchFullWhatsAppQuote() {
@@ -764,12 +759,7 @@
 
       let msg = '👋 Hello Infinite Creative Web Design!\n\n';
       msg += '📦 *Selected Website Tier:* ' + tierName + ' (Base: Rs. ' + base.toLocaleString() + '/-)\n';
-      
-      if (base <= 10000) {
-        msg += '🎁 *Cloud Hosting:* 100% Free Cloud Hosting Included (Rs. 0/-)\n';
-      } else {
-        msg += '🚀 *Cloud Server:* Enterprise High-Speed Cloud Deployment Included\n';
-      }
+      msg += '🎁 *Cloud Hosting:* 100% Free Hosting Included (Rs. 0/-)\n';
       
       if (addons.length > 0) {
         msg += '\n✨ *Selected Add-ons:*\n' + addons.join('\n') + '\n';
