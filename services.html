@@ -55,7 +55,7 @@ Route::<span class="cv">get</span>(<span class="cs">'/'</span>,
   </a>
   <ul class="nav-links">
     <li><a href="index.html">Home</a></li>
-    <li><a href="#packages">Packages</a></li>
+    <li><a href="packages.html">Packages</a></li>
     <li><a href="portfolio.html">Portfolio</a></li>
     <li><a href="about.html">About</a></li>
     <li><a href="services.html" class="active" style="color:#04AA6D;">Services</a></li>
@@ -75,7 +75,7 @@ Route::<span class="cv">get</span>(<span class="cs">'/'</span>,
 
 <div class="mobile-menu glass" id="mobileMenu" aria-hidden="true">
   <a href="index.html" class="mm-link">Home</a>
-  <a href="#packages" class="mm-link">Packages</a>
+  <a href="packages.html" class="mm-link">Packages</a>
   <a href="portfolio.html" class="mm-link">Portfolio</a>
   <a href="about.html" class="mm-link">About</a>
   <a href="services.html" class="mm-link" style="color:#04AA6D;">Services</a>
@@ -120,20 +120,21 @@ Route::<span class="cv">get</span>(<span class="cs">'/'</span>,
   </div>
 </section>
 
-<!-- ══ PACKAGES & PRICING ═══════════════════════ -->
-<section class="section" id="packages" aria-label="Web Design Packages" style="padding-top:0">
+<!-- ══ PACKAGES CTA BANNER ═════════════════════ -->
+<section class="section" aria-label="Web Design Packages" style="padding-top:0">
   <div class="section-inner">
-    <div class="section-eyebrow reveal">Transparent Pricing</div>
-    <div class="pricing-header reveal">
-      <h2 class="pricing-title">Web Design Packages</h2>
-      <p class="pricing-subtitle">
-        Transparent, goal-focused website packages designed to scale your brand and generate measurable ROI.
-      </p>
-    </div>
-
-    <div class="packages-grid" id="packagesGrid">
-      <!-- Dynamically populated by js/main.js or fallback -->
-      <div style="grid-column: 1 / -1; text-align:center; padding: 40px; color: var(--white-70);">Loading packages...</div>
+    <div class="bento">
+      <div class="b-cell reveal" style="grid-column: 1 / -1; background: linear-gradient(135deg, rgba(4,170,109,0.12), rgba(4,170,109,0.04)); border: 1px solid rgba(4,170,109,0.3); border-radius: var(--r-xl); padding: 40px; text-align: center;">
+        <div class="section-eyebrow" style="margin-bottom:8px;">Transparent Pricing</div>
+        <h2 style="font-size: 2.2rem; margin-bottom: 12px; font-weight:800;">Web Design Packages & Pricing</h2>
+        <p style="font-size: 1.05rem; max-width: 680px; margin: 0 auto 24px; color: var(--white-70); line-height: 1.6;">
+          Transparent, goal-focused website packages designed to scale your brand and generate measurable ROI. Starting from Rs. 5,000/-.
+        </p>
+        <a href="packages.html" class="nav-cta" style="display:inline-flex; align-items:center; gap:8px; padding:14px 28px; font-size:1rem; font-weight:700; border-radius:10px;">
+          <span>Explore All Packages & Pricing</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+      </div>
     </div>
   </div>
 </section>
