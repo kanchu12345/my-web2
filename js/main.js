@@ -150,6 +150,20 @@ function makeCard(p){
 function renderFallbackProjects(grid){
   const demos = [
   {
+    "title": "Tourio LK",
+    "category": "Travel & Destination Booking",
+    "url": "https://tourio.lk/",
+    "description": "Comprehensive Sri Lanka travel booking platform, custom vacation packages, hotel stays, and curated adventure tours.",
+    "bg": "#042f2e"
+  },
+  {
+    "title": "Hela Invest",
+    "category": "Finance & Investment Advisory",
+    "url": "https://helainvest.com/",
+    "description": "Premier Sri Lankan investment advisory portal, wealth growth management, and financial project funding platform.",
+    "bg": "#1e1b4b"
+  },
+  {
     "title": "VeloCharts",
     "category": "FinTech & Market Analytics",
     "url": "https://velocharts.com/?v=2",
