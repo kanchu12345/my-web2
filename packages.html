@@ -487,6 +487,120 @@
     </div>
   </section>
 
+  <!-- ══ COMPREHENSIVE INSTANT PROJECT ESTIMATOR (ALL OPTIONS & FREE HOSTING) ══ -->
+  <section class="section" id="calculator" aria-label="Instant Project Estimate" style="padding-top:0;">
+    <div class="section-inner">
+      <div class="section-eyebrow reveal">Transparent Upfront Pricing</div>
+      <div class="pricing-header reveal">
+        <h2 class="pricing-title">Instant Project Scope & Investment Estimator</h2>
+        <p class="pricing-subtitle">
+          Customize your package with all optional power add-ons. <strong>🎁 Free Fast Cloud Hosting included with every package!</strong>
+        </p>
+      </div>
+
+      <div class="b-cell reveal" style="background:linear-gradient(135deg, #131b2e 0%, #0b0f19 100%); border:1px solid rgba(4,170,109,0.35); border-radius:24px; padding:36px; max-width:920px; margin:0 auto; box-shadow:0 24px 60px rgba(0,0,0,0.5);">
+        
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:28px; margin-bottom:28px;">
+          
+          <!-- Column 1: Website Tier & Extra Pages -->
+          <div style="display:flex; flex-direction:column; gap:20px;">
+            <div>
+              <label style="display:block; font-weight:800; color:#fff; font-size:0.95rem; margin-bottom:8px;">1. Select Website Tier</label>
+              <select id="calcTier" onchange="calculateFullEstimate()" style="width:100%; padding:12px 14px; background:#080c16; border:1px solid #334155; color:#fff; border-radius:8px; font-size:0.95rem; outline:none; font-weight:600;">
+                <option value="5000" data-name="Starter Package">Starter (3 Pages) — Rs. 5,000</option>
+                <option value="10000" selected data-name="Standard Package">Standard Business (5 Pages + Admin) — Rs. 10,000</option>
+                <option value="15000" data-name="Advanced Package">Advanced Marketing (Custom UI) — Rs. 15,000</option>
+                <option value="20000" data-name="Corporate Professional">Corporate Professional — Rs. 20,000</option>
+                <option value="40000" data-name="Business Pro Enterprise">Business Pro Enterprise — Rs. 40,000</option>
+                <option value="60000" data-name="E-Commerce Online Store">Full E-Commerce Online Store — Rs. 60,000</option>
+              </select>
+            </div>
+
+            <div>
+              <label style="display:block; font-weight:800; color:#fff; font-size:0.95rem; margin-bottom:8px;">2. Extra Custom Pages (+Rs. 1,500 each)</label>
+              <select id="calcExtraPages" onchange="calculateFullEstimate()" style="width:100%; padding:12px 14px; background:#080c16; border:1px solid #334155; color:#fff; border-radius:8px; font-size:0.95rem; outline:none;">
+                <option value="0">No Extra Pages (Included in Base Package)</option>
+                <option value="1">+1 Extra Page (+Rs. 1,500)</option>
+                <option value="2">+2 Extra Pages (+Rs. 3,000)</option>
+                <option value="3">+3 Extra Pages (+Rs. 4,500)</option>
+                <option value="4">+4 Extra Pages (+Rs. 6,000)</option>
+                <option value="5">+5 Extra Pages (+Rs. 7,500)</option>
+                <option value="10">+10 Custom Pages (+Rs. 15,000)</option>
+              </select>
+            </div>
+
+            <!-- Free Hosting Guarantee Badge -->
+            <div style="background:rgba(4,170,109,0.1); border:1px solid rgba(4,170,109,0.3); border-radius:10px; padding:14px; display:flex; align-items:center; gap:12px;">
+              <span style="font-size:24px;">🎁</span>
+              <div>
+                <strong style="color:#04AA6D; font-size:0.9rem; display:block;">100% Free Cloud Hosting Included</strong>
+                <small style="color:#94a3b8; font-size:0.8rem;">Zero monthly server fees. Lightning-fast global SSL hosting.</small>
+              </div>
+            </div>
+          </div>
+
+          <!-- Column 2: All Power Add-ons Checkboxes -->
+          <div>
+            <label style="display:block; font-weight:800; color:#fff; font-size:0.95rem; margin-bottom:12px;">3. Select Power Add-Ons</label>
+            <div style="display:flex; flex-direction:column; gap:10px; color:#cbd5e1; font-size:0.88rem;">
+              
+              <label style="display:flex; align-items:center; gap:10px; cursor:pointer; background:#080c16; padding:8px 12px; border-radius:6px; border:1px solid #1e293b;">
+                <input type="checkbox" class="calc-addon-check" data-name="PayHere / Card Payment Gateway" data-price="8000" onchange="calculateFullEstimate()" accent-color="#04AA6D">
+                <span>💳 PayHere Card Gateway (+Rs. 8,000)</span>
+              </label>
+
+              <label style="display:flex; align-items:center; gap:10px; cursor:pointer; background:#080c16; padding:8px 12px; border-radius:6px; border:1px solid #1e293b;">
+                <input type="checkbox" class="calc-addon-check" data-name="Google Maps & Local SEO Setup" data-price="2500" onchange="calculateFullEstimate()" accent-color="#04AA6D" checked>
+                <span>📍 Google Maps & Local SEO (+Rs. 2,500)</span>
+              </label>
+
+              <label style="display:flex; align-items:center; gap:10px; cursor:pointer; background:#080c16; padding:8px 12px; border-radius:6px; border:1px solid #1e293b;">
+                <input type="checkbox" class="calc-addon-check" data-name="Sinhala + English Dual Language" data-price="5000" onchange="calculateFullEstimate()" accent-color="#04AA6D">
+                <span>🗣️ Sinhala + English Dual Language (+Rs. 5,000)</span>
+              </label>
+
+              <label style="display:flex; align-items:center; gap:10px; cursor:pointer; background:#080c16; padding:8px 12px; border-radius:6px; border:1px solid #1e293b;">
+                <input type="checkbox" class="calc-addon-check" data-name="Core Web Vitals 99+ Speed Boost" data-price="2000" onchange="calculateFullEstimate()" accent-color="#04AA6D" checked>
+                <span>⚡ 99+ PageSpeed Optimization (+Rs. 2,000)</span>
+              </label>
+
+              <label style="display:flex; align-items:center; gap:10px; cursor:pointer; background:#080c16; padding:8px 12px; border-radius:6px; border:1px solid #1e293b;">
+                <input type="checkbox" class="calc-addon-check" data-name="Custom Brand Logo & Favicon Suite" data-price="3500" onchange="calculateFullEstimate()" accent-color="#04AA6D">
+                <span>🎨 Custom Brand Logo & Favicon (+Rs. 3,500)</span>
+              </label>
+
+              <label style="display:flex; align-items:center; gap:10px; cursor:pointer; background:#080c16; padding:8px 12px; border-radius:6px; border:1px solid #1e293b;">
+                <input type="checkbox" class="calc-addon-check" data-name="Advanced Web Security & DDoS Shield" data-price="3000" onchange="calculateFullEstimate()" accent-color="#04AA6D">
+                <span>🔒 Advanced Web Security & Shield (+Rs. 3,000)</span>
+              </label>
+
+              <label style="display:flex; align-items:center; gap:10px; cursor:pointer; background:#080c16; padding:8px 12px; border-radius:6px; border:1px solid #1e293b;">
+                <input type="checkbox" class="calc-addon-check" data-name=".COM Domain Registration (1 Year)" data-price="4500" onchange="calculateFullEstimate()" accent-color="#04AA6D">
+                <span>🌐 .COM Domain Registration (+Rs. 4,500)</span>
+              </label>
+
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Result Box & WhatsApp Action -->
+        <div style="background:#080c16; border:1px solid #1e293b; border-radius:14px; padding:24px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:20px;">
+          <div>
+            <span style="font-size:0.85rem; color:#94a3b8; text-transform:uppercase; letter-spacing:0.08em; font-weight:700;">Calculated Total Investment</span>
+            <div id="calcTotalDisplay" style="font-size:2.4rem; font-weight:900; color:#04AA6D; line-height:1.2; margin:4px 0;">Rs. 14,500/-</div>
+            <small style="color:#64748b;">✔ Includes Free Cloud Hosting • Mobile Responsive • 100% SEO</small>
+          </div>
+          <button onclick="dispatchFullWhatsAppQuote()" style="background:#04AA6D; color:#fff; border:none; padding:16px 32px; border-radius:10px; font-weight:800; font-size:1.05rem; cursor:pointer; display:inline-flex; align-items:center; gap:10px; box-shadow:0 6px 20px rgba(4,170,109,0.45); transition:transform 0.2s;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
+            <span>💬 Lock In Price on WhatsApp</span> &rarr;
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
   <!-- ══ FAQ SECTION (PRICING & DELIVERY) ════════ -->
   <section class="section" id="faq" aria-label="Frequently Asked Questions" style="padding-top:0">
     <div class="section-inner">
@@ -601,5 +715,68 @@
   </footer>
 
   <script src="js/main.js?v=12" defer></script>
+<script>
+    function calculateFullEstimate() {
+      const tierEl = document.getElementById('calcTier');
+      const base = parseInt(tierEl.value, 10) || 5000;
+      
+      const extraPagesCount = parseInt(document.getElementById('calcExtraPages').value, 10) || 0;
+      const extraPagesTotal = extraPagesCount * 1500;
+
+      let addonsTotal = 0;
+      document.querySelectorAll('.calc-addon-check:checked').forEach(cb => {
+        addonsTotal += parseInt(cb.dataset.price, 10);
+      });
+
+      const grandTotal = base + extraPagesTotal + addonsTotal;
+      const displayEl = document.getElementById('calcTotalDisplay');
+      if (displayEl) {
+        displayEl.textContent = 'Rs. ' + grandTotal.toLocaleString() + '/-';
+      }
+    }
+
+    function dispatchFullWhatsAppQuote() {
+      const tierEl = document.getElementById('calcTier');
+      const tierName = tierEl.options[tierEl.selectedIndex].getAttribute('data-name');
+      const base = parseInt(tierEl.value, 10) || 5000;
+      
+      const extraPagesCount = parseInt(document.getElementById('calcExtraPages').value, 10) || 0;
+      const extraPagesTotal = extraPagesCount * 1500;
+
+      const addons = [];
+      if (extraPagesCount > 0) {
+        addons.push('• +' + extraPagesCount + ' Extra Custom Pages (+Rs. ' + extraPagesTotal.toLocaleString() + ')');
+      }
+
+      let addonsTotal = 0;
+      document.querySelectorAll('.calc-addon-check:checked').forEach(cb => {
+        const p = parseInt(cb.dataset.price, 10);
+        addonsTotal += p;
+        addons.push('• ' + cb.dataset.name + ' (+Rs. ' + p.toLocaleString() + ')');
+      });
+
+      const grandTotal = base + extraPagesTotal + addonsTotal;
+
+      let msg = '👋 Hello Infinite Creative Web Design!\n\n';
+      msg += '📦 *Selected Website Tier:* ' + tierName + ' (Base: Rs. ' + base.toLocaleString() + '/-)\n';
+      msg += '🎁 *Cloud Hosting:* 100% Free Hosting Included (Rs. 0/-)\n';
+      
+      if (addons.length > 0) {
+        msg += '\n✨ *Selected Add-ons:*\n' + addons.join('\n') + '\n';
+      }
+
+      msg += '\n💰 *Total Calculated Investment:* Rs. ' + grandTotal.toLocaleString() + '/-\n';
+      msg += '🚀 I would like to proceed with this custom estimate. Please let me know how we can start!';
+
+      const waUrl = 'https://wa.me/94789714912?text=' + encodeURIComponent(msg);
+      window.open(waUrl, '_blank');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      if (document.getElementById('calcTier')) {
+        calculateFullEstimate();
+      }
+    });
+  </script>
 </body>
 </html>
