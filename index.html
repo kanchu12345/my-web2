@@ -152,6 +152,25 @@
           Ultra-fast, mobile-first websites engineered with custom UI/UX design, modern SEO, and automated workflows with <strong>100% PageSpeed Guarantee</strong>.
         </p>
 
+        <!-- INTERACTIVE AUTO-TYPING PYTHON TERMINAL -->
+        <div class="hero-code-terminal" style="background:#080c16; border:1px solid rgba(4,170,109,0.4); border-radius:12px; padding:14px 18px; margin-bottom:22px; font-family:'Fira Code', monospace; font-size:0.85rem; box-shadow:0 14px 35px rgba(0,0,0,0.6); text-align:left; position:relative; overflow:hidden;">
+          <div style="display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.08); padding-bottom:8px; margin-bottom:10px;">
+            <div style="display:flex; align-items:center; gap:6px;">
+              <span style="width:10px; height:10px; border-radius:50%; background:#ef4444; display:inline-block;"></span>
+              <span style="width:10px; height:10px; border-radius:50%; background:#f59e0b; display:inline-block;"></span>
+              <span style="width:10px; height:10px; border-radius:50%; background:#10b981; display:inline-block;"></span>
+            </div>
+            <div style="color:#94a3b8; font-size:11px; font-weight:700; display:flex; align-items:center; gap:6px;">
+              <span style="color:#38bdf8;">🐍 infinite_engine.py</span> • <span style="color:#04AA6D;">⚡ Auto-Engine</span>
+            </div>
+          </div>
+          <div id="autoCodeType" style="color:#e2e8f0; line-height:1.6; min-height:64px; font-weight:500; word-break:break-word;">
+            <span style="color:#f43f5e;">import</span> <span style="color:#38bdf8;">infinite_ai</span><br>
+            <span style="color:#04AA6D;">site</span> = <span style="color:#38bdf8;">infinite_ai</span>.<span style="color:#facc15;">build_agency</span>(speed=<span style="color:#a78bfa;">"100%"</span>, seo=<span style="color:#a78bfa;">"#1 Rank"</span>)<br>
+            <span style="color:#04AA6D;">site</span>.<span style="color:#facc15;">launch</span>(target=<span style="color:#a78bfa;">"Sri Lanka & Global"</span>)<span id="typingCursor" style="display:inline-block; width:8px; height:14px; background:#04AA6D; margin-left:4px; vertical-align:middle; animation:blinkCursor 0.7s infinite;"></span>
+          </div>
+        </div>
+
         <div class="hero-btns" style="display:flex; flex-wrap:wrap; gap:12px;">
           <a href="#calculator" class="btn btn-primary" id="heroViewWork" style="background:#04AA6D; color:#fff; font-weight:800; padding:12px 24px; border-radius:8px; box-shadow:0 8px 24px rgba(4,170,109,0.35); text-decoration:none; display:inline-flex; align-items:center; gap:8px;">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
@@ -564,5 +583,51 @@
       }
     });
   </script>
+
+  <style>
+    @keyframes blinkCursor {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+  </style>
+
+  <script>
+    // Python Code Auto-Typing Simulation
+    (function initHeroPythonTyping() {
+      const el = document.getElementById('autoCodeType');
+      if (!el) return;
+
+      const snippets = [
+        [
+          '<span style="color:#f43f5e;">import</span> <span style="color:#38bdf8;">infinite_ai</span>',
+          '<span style="color:#04AA6D;">site</span> = <span style="color:#38bdf8;">infinite_ai</span>.<span style="color:#facc15;">create_website</span>(speed=<span style="color:#a78bfa;">"100%"</span>, seo=<span style="color:#a78bfa;">"#1 Rank"</span>)',
+          '<span style="color:#04AA6D;">site</span>.<span style="color:#facc15;">deploy</span>(region=<span style="color:#a78bfa;">"Sri Lanka & Worldwide"</span>) 🚀'
+        ],
+        [
+          '<span style="color:#f43f5e;">from</span> <span style="color:#38bdf8;">growth_engine</span> <span style="color:#f43f5e;">import</span> <span style="color:#facc15;">UltraFastUI</span>',
+          '<span style="color:#04AA6D;">portal</span> = <span style="color:#facc15;">UltraFastUI</span>(mobile_first=<span style="color:#a78bfa;">True</span>, payhere=<span style="color:#a78bfa;">True</span>)',
+          '<span style="color:#f43f5e;">return</span> <span style="color:#04AA6D;">portal</span>.<span style="color:#facc15;">convert_visitors_to_clients</span>()'
+        ],
+        [
+          '<span style="color:#64748b;"># 100% High Performance & Zero Monthly Bloat</span>',
+          '<span style="color:#f43f5e;">def</span> <span style="color:#facc15;">launch_business</span>():',
+          '    <span style="color:#f43f5e;">yield</span> <span style="color:#a78bfa;">"Turn Casual Visitors Into High-Paying Clients 🎯"</span>'
+        ]
+      ];
+
+      let snippetIndex = 0;
+
+      function renderSnippet(idx) {
+        const lines = snippets[idx];
+        el.innerHTML = lines.join('<br>') + '<span id="typingCursor" style="display:inline-block; width:8px; height:14px; background:#04AA6D; margin-left:4px; vertical-align:middle; animation:blinkCursor 0.7s infinite;"></span>';
+        
+        snippetIndex = (snippetIndex + 1) % snippets.length;
+        setTimeout(() => renderSnippet(snippetIndex), 3500);
+      }
+
+      setTimeout(() => renderSnippet(1), 3500);
+    })();
+  </script>
+
 </body>
 </html>
