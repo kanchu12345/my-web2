@@ -1,7 +1,40 @@
 {
   "updated_at": "2026-08-27T13:18:18.178972+00:00",
-  "count": 30,
+  "count": 33,
   "articles": [
+    {
+      "id": "infinite_seo_low_price_web_design",
+      "title": "Low Price Web Design Sri Lanka: How to Get a High-Converting Website from Rs. 5,000/-",
+      "category": "Web Design Sri Lanka",
+      "date": "Aug 27, 2026",
+      "description": "Discover affordable web design packages in Sri Lanka starting at Rs. 5,000/-. Learn how Infinite Creative Web Design builds ultra-fast, mobile-friendly websites with zero hidden fees in Tangalle and islandwide.",
+      "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1000&q=80",
+      "body_html": "<body>\n      <p class=\"lead\">Looking for <strong>low price web design in Sri Lanka</strong> without sacrificing modern speed, mobile responsiveness, or Google search ranking? <strong>Infinite Creative Web Design</strong> brings enterprise-grade design to Sri Lankan small businesses, startups, and entrepreneurs starting from just <strong>Rs. 5,000/-</strong>.</p>\n      \n      <h2>Why Low Price Web Design Doesn't Mean Low Quality</h2>\n      <p>Many businesses in Colombo, Kandy, Galle, and Tangalle assume quality websites cost hundreds of thousands of rupees. With modern Jamstack architecture and clean code, we deliver lightning-fast websites with 99+ Google PageSpeed scores, zero monthly hosting bloat, and integrated WhatsApp chat inquiry buttons.</p>\n      \n      <div style=\"background:#131b2e; border:1px solid #1e293b; border-left:4px solid #04AA6D; padding:20px; border-radius:8px; margin:24px 0;\">\n        <h3 style=\"color:#04AA6D; margin-top:0;\">🚀 Our Transparent Web Design Packages</h3>\n        <ul style=\"color:#cbd5e1; line-height:1.8;\">\n          <li><strong>Starter Package (Rs. 5,000/-):</strong> 3 Pages, Mobile Responsive, Free Domain Setup, WhatsApp Lead Button.</li>\n          <li><strong>Standard Package (Rs. 10,000/-):</strong> 5 Pages, SEO Meta Optimization, Google Maps & Contact Form.</li>\n          <li><strong>Professional Package (Rs. 20,000/-):</strong> Multi-page corporate site, CMS Admin Panel & 100% SEO.</li>\n          <li><strong>E-Commerce Store (Rs. 60,000/-):</strong> PayHere / WebXPay payment gateway, product catalog & inventory.</li>\n        </ul>\n      </div>\n\n      <h2>How Web Design Lessons & Tutorials Help Business Owners</h2>\n      <p>We believe in empowering clients. Visit our free <a href=\"tutorials.html\" style=\"color:#04AA6D; font-weight:bold;\">Infinite Academy Web Design Lessons</a> to learn the basics of HTML5, CSS3, JavaScript, and SEO so you can manage your website with complete confidence.</p>\n    </body>",
+      "source": "Infinite Web Editorial",
+      "fetched_at": "2026-08-27T17:40:41.297Z"
+    },
+    {
+      "id": "infinite_seo_tangalle_web_developer",
+      "title": "Web Design Tangalle & Southern Province: Complete Business Digitalization Guide",
+      "category": "Tech News",
+      "date": "Aug 27, 2026",
+      "description": "Explore the booming digital ecosystem in Tangalle and Southern Sri Lanka. How local tourism, villas, restaurants, and retail shops are skyrocketing sales with custom web development.",
+      "image": "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=1000&q=80",
+      "body_html": "<body>\n      <p class=\"lead\">From beach villas and surfing resorts in Tangalle, Dickwella, and Hiriketiya to retail companies in Matara and Hambantota, having a professional digital presence is essential for attracting local and international clients.</p>\n      \n      <h2>Why Businesses in Tangalle Choose Infinite Creative Web Design</h2>\n      <p>As a leading <strong>affordable web developer in Sri Lanka</strong> based in Tangalle, we specialize in high-impact web design with direct booking engines, bilingual English/Sinhala support, Google Maps optimization, and mobile-friendly speed.</p>\n    </body>",
+      "source": "Infinite Web Editorial",
+      "fetched_at": "2026-08-27T17:40:41.298Z"
+    },
+    {
+      "id": "infinite_seo_web_design_lessons_roadmap",
+      "title": "Top Web Design Lessons & Coding Roadmaps for Sri Lankan Developers in 2026",
+      "category": "Tutorials & Lessons",
+      "date": "Aug 27, 2026",
+      "description": "Start your coding journey with free web design lessons covering HTML5, CSS3, JavaScript, Python, and React at Infinite Academy.",
+      "image": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1000&q=80",
+      "body_html": "<body>\n      <p class=\"lead\">Looking to learn web development from scratch in Sri Lanka? Check out our free interactive <a href=\"tutorials.html\" style=\"color:#04AA6D; font-weight:bold;\">Infinite Academy Web Design Lessons</a> with live code playgrounds and quizzes.</p>\n    </body>",
+      "source": "Infinite Academy",
+      "fetched_at": "2026-08-27T17:40:41.298Z"
+    },
     {
       "id": "devto_4496588",
       "title": "Kademlia: Algo That Turned XOR Distance Into a Network",
