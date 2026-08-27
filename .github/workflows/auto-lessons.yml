@@ -1,0 +1,43 @@
+name: 🎓 Infinite Academy — Autonomous Lesson Sync & Publisher
+
+on:
+  schedule:
+    # Runs daily at 00:00 UTC to sync and publish fresh curriculum
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+    # Allows 1-click manual trigger from GitHub Actions tab
+
+jobs:
+  sync-and-publish-lessons:
+    name: Sync & Publish Academy Tutorials
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🐍 Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 🎓 Run Autonomous Lesson Publisher
+        run: python .github/scripts/auto_lessons.py
+
+      - name: 📝 Check for changes
+        id: changes
+        run: |
+          git diff --quiet data/w3-tutorials.js || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: 💾 Commit and push updated lessons
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "Infinite Academy Bot"
+          git add data/w3-tutorials.js
+          git commit -m "🎓 Auto-update: Synchronized fresh tutorials and quizzes [$(date +'%Y-%m-%d')]"
+          git push
