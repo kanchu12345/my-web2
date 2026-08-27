@@ -1,280 +1,86 @@
-// W3Schools-Style Complete Tutorials Database
-// Generated for Infinite Academy Platform
+// Infinite Academy — Bespoke Developer Hub & Tutorials Engine
+// Original Creative Curriculum by Infinite Creative Web Design
 
-window.W3_TUTORIALS = {
+window.ACADEMY_COURSES = {
   "html": {
-    "name": "HTML",
-    "fullName": "HTML5 Tutorial",
-    "desc": "The standard markup language for building web pages",
-    "color": "#E34F26",
+    "name": "HTML5",
+    "icon": "🌐",
+    "tagline": "Modern Web Structure & Semantics",
+    "badge": "Frontend Core",
+    "color": "#04AA6D",
     "sections": [
       {
-        "title": "HTML Tutorial",
+        "title": "1. Foundations of HTML5",
         "lessons": [
           {
             "id": "html_intro",
-            "title": "HTML Introduction",
-            "subtitle": "HTML is the standard markup language for creating Web pages.",
-            "content": "\n              <p>HTML stands for <strong>Hyper Text Markup Language</strong>. It describes the structure of a Web page and tells the browser how to display text, images, and other media.</p>\n              <div class=\"w3-note\">\n                <h4>Core HTML Facts:</h4>\n                <ul>\n                  <li>HTML stands for Hyper Text Markup Language</li>\n                  <li>HTML elements are the building blocks of HTML pages</li>\n                  <li>HTML elements are represented by <code>&lt;tagname&gt;</code> tags</li>\n                  <li>Browsers do not display the HTML tags, but use them to render the content of the page</li>\n                </ul>\n              </div>\n              <h3>A Simple HTML Document</h3>\n            ",
-            "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <title>Page Title</title>\n</head>\n<body>\n\n  <h1>My First Heading</h1>\n  <p>My first paragraph.</p>\n\n</body>\n</html>",
-            "explanation": "\n              <h3>HTML Document Breakdown</h3>\n              <table class=\"w3-table\">\n                <tr><th>Tag</th><th>Description</th></tr>\n                <tr><td><code>&lt;!DOCTYPE html&gt;</code></td><td>Declaration defining that this document is an HTML5 document</td></tr>\n                <tr><td><code>&lt;html&gt;</code></td><td>Root element of an HTML page</td></tr>\n                <tr><td><code>&lt;head&gt;</code></td><td>Contains meta information, title, scripts, and stylesheet links</td></tr>\n                <tr><td><code>&lt;title&gt;</code></td><td>Specifies a title shown in browser tab and search engines</td></tr>\n                <tr><td><code>&lt;body&gt;</code></td><td>Contains the visible page content (headings, paragraphs, images)</td></tr>\n                <tr><td><code>&lt;h1&gt;</code></td><td>Defines a primary header</td></tr>\n                <tr><td><code>&lt;p&gt;</code></td><td>Defines a paragraph of text</td></tr>\n              </table>\n            ",
-            "exercise": {
-              "question": "What does HTML stand for?",
+            "title": "HTML5 Architecture & Boilerplate",
+            "readTime": "4 min read",
+            "summary": "Learn how the modern web is structured using semantic HTML5 markup.",
+            "content": "\n              <p class=\"lead\">HTML5 is the universal foundation of every website on the planet. It organizes content into a logical, accessible Document Object Model (DOM) that browsers and search engines can interpret.</p>\n\n              <div class=\"pro-tip-card\">\n                <div class=\"pro-tip-header\">\n                  <span class=\"pro-badge\">💡 Agency Best Practice</span>\n                  <strong>Mobile-First Viewport & SEO Readiness</strong>\n                </div>\n                <p>Always declare <code>&lt;!DOCTYPE html&gt;</code> and include <code>&lt;meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"&gt;</code>. Without the viewport meta tag, mobile devices will render your website zoomed out as a desktop layout.</p>\n              </div>\n\n              <h3>Modern HTML5 Boilerplate</h3>\n              <p>Every production-ready web application starts with this clean semantic layout:</p>\n            ",
+            "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Modern Web Application</title>\n  <style>\n    body { font-family: 'Segoe UI', sans-serif; background: #0f172a; color: #f8fafc; padding: 24px; }\n    .hero-card { background: #1e293b; border: 1px solid #334155; padding: 30px; border-radius: 12px; }\n    h1 { color: #04AA6D; margin-top: 0; }\n    .btn { background: #04AA6D; color: white; padding: 10px 20px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; }\n  </style>\n</head>\n<body>\n\n  <div class=\"hero-card\">\n    <h1>🚀 Welcome to Infinite Academy</h1>\n    <p>Built with clean HTML5 semantics, responsive CSS, and modern web architecture.</p>\n    <button class=\"btn\" onclick=\"alert('Welcome to Modern Web Engineering!')\">Explore Interactive Courses</button>\n  </div>\n\n</body>\n</html>",
+            "keyTakeaways": [
+              "<code>&lt;!DOCTYPE html&gt;</code> tells the browser to use the modern HTML5 standard rendering mode.",
+              "<code>&lt;html lang='en'&gt;</code> declares the page language for screen readers and search engines.",
+              "The <code>&lt;head&gt;</code> contains metadata, while <code>&lt;body&gt;</code> contains all visible interface elements."
+            ],
+            "challenge": {
+              "question": "Why is the viewport meta tag critical in modern web design?",
               "options": [
-                "Hyperlinks and Text Markup Language",
-                "Hyper Text Markup Language",
-                "Home Tool Markup Language",
-                "High Tech Modern Language"
+                "It changes the website background color automatically",
+                "It instructs mobile devices how to scale and fit the website to the screen width",
+                "It is required for JavaScript to run",
+                "It increases internet connection speed"
               ],
               "answer": 1,
-              "tip": "HTML = Hyper Text Markup Language."
+              "explanation": "The viewport tag is the cornerstone of responsive design. It ensures pixels scale 1:1 on smartphones."
             }
           },
           {
-            "id": "html_basic",
-            "title": "HTML Basic Examples",
-            "subtitle": "Learn the most fundamental HTML building blocks.",
-            "content": "\n              <p>In this lesson we look at basic HTML examples: Headings, Paragraphs, Links, Images, and Buttons.</p>\n            ",
-            "code": "<!DOCTYPE html>\n<html>\n<body>\n\n  <h1>Main Heading</h1>\n  <p>This is a paragraph.</p>\n  \n  <a href=\"https://kanchu12345.github.io/my-web2/\">Visit Infinite Design</a><br><br>\n  \n  <button onclick=\"alert('Hello from Infinite Academy!')\" style=\"background:#04AA6D; color:white; padding:8px 16px; border:none; border-radius:4px; cursor:pointer;\">\n    Click Me\n  </button>\n\n</body>\n</html>",
-            "explanation": "\n              <p>HTML links are defined with the <code>&lt;a&gt;</code> tag, and button elements are defined with <code>&lt;button&gt;</code>.</p>\n            ",
-            "exercise": {
-              "question": "Which tag is used to create a clickable button in HTML?",
+            "id": "html_semantics",
+            "title": "Semantic Elements & Accessibility",
+            "readTime": "5 min read",
+            "summary": "Structure your pages with semantic tags that search engines and screen readers love.",
+            "content": "\n              <p class=\"lead\">Semantic HTML conveys meaning to humans, web crawlers, and assistive technologies rather than just acting as generic division boxes.</p>\n\n              <div class=\"comparison-grid\">\n                <div class=\"comp-col old\">\n                  <div class=\"comp-title\">❌ Non-Semantic (Old Way)</div>\n                  <pre><code>&lt;div class=\"header\"&gt;...&lt;/div&gt;\n&lt;div class=\"nav\"&gt;...&lt;/div&gt;\n&lt;div class=\"main-content\"&gt;...&lt;/div&gt;\n&lt;div class=\"footer\"&gt;...&lt;/div&gt;</code></pre>\n                </div>\n                <div class=\"comp-col modern\">\n                  <div class=\"comp-title\">✅ Modern Semantic HTML5</div>\n                  <pre><code>&lt;header&gt;...&lt;/header&gt;\n&lt;nav&gt;...&lt;/nav&gt;\n&lt;main&gt;...&lt;/main&gt;\n&lt;footer&gt;...&lt;/footer&gt;</code></pre>\n                </div>\n              </div>\n\n              <h3>Key Semantic Landmarks:</h3>\n              <table class=\"modern-table\">\n                <tr><th>Tag</th><th>Semantic Meaning</th><th>SEO & Accessibility Value</th></tr>\n                <tr><td><code>&lt;header&gt;</code></td><td>Introductory branding or navigation container</td><td>High visual anchor</td></tr>\n                <tr><td><code>&lt;nav&gt;</code></td><td>Primary navigation links</td><td>Screen reader jump point</td></tr>\n                <tr><td><code>&lt;main&gt;</code></td><td>The dominant central content of the document</td><td>Only 1 allowed per page</td></tr>\n                <tr><td><code>&lt;section&gt;</code></td><td>Standalone thematic group of content with heading</td><td>Google snippet indexing</td></tr>\n                <tr><td><code>&lt;article&gt;</code></td><td>Self-contained, independently shareable content</td><td>Blog/News indexing</td></tr>\n                <tr><td><code>&lt;aside&gt;</code></td><td>Indirectly related sidebar or callout content</td><td>Secondary relevance</td></tr>\n                <tr><td><code>&lt;footer&gt;</code></td><td>Legal, copyright, and secondary links</td><td>Site-wide footer context</td></tr>\n              </table>\n            ",
+            "code": "<!DOCTYPE html>\n<html>\n<head>\n<style>\nbody { font-family: sans-serif; background: #0f172a; color: #fff; margin:0; padding:20px; }\nheader, nav, main, footer { background: #1e293b; border: 1px solid #334155; padding: 15px; margin-bottom: 12px; border-radius: 8px; }\nnav a { color: #04AA6D; margin-right: 15px; text-decoration: none; font-weight: bold; }\n</style>\n</head>\n<body>\n\n<header>\n  <h2>Infinite Design Studio</h2>\n</header>\n\n<nav>\n  <a href=\"#\">Home</a>\n  <a href=\"#\">Packages</a>\n  <a href=\"#\">Portfolio</a>\n  <a href=\"#\">Contact</a>\n</nav>\n\n<main>\n  <h3>Crafting World-Class Digital Experiences</h3>\n  <p>Semantic layouts allow search engines to rank your pages faster and screen readers to parse your interface effortlessly.</p>\n</main>\n\n<footer>\n  <small>&copy; 2026 Infinite Creative Web Design. All rights reserved.</small>\n</footer>\n\n</body>\n</html>",
+            "keyTakeaways": [
+              "Semantic tags give meaning to content for superior SEO and accessibility.",
+              "Use exactly one <code>&lt;main&gt;</code> element per page.",
+              "Wrap independent reusable content (e.g. blog posts, cards) in <code>&lt;article&gt;</code>."
+            ],
+            "challenge": {
+              "question": "How many <main> tags should exist on a single HTML webpage?",
               "options": [
-                "<click>",
-                "<btn>",
-                "<button>",
-                "<input type='clickable'>"
+                "Unlimited",
+                "As many as sections",
+                "Exactly one",
+                "None"
               ],
               "answer": 2,
-              "tip": "<button> creates a clickable button."
-            }
-          },
-          {
-            "id": "html_elements",
-            "title": "HTML Elements",
-            "subtitle": "An HTML element is defined by a start tag, some content, and an end tag.",
-            "content": "\n              <p>The HTML <strong>element</strong> is everything from the start tag to the end tag:</p>\n              <div class=\"w3-code-syntax\"><code>&lt;tagname&gt; Content goes here... &lt;/tagname&gt;</code></div>\n              <p>Empty elements (like <code>&lt;br&gt;</code> and <code>&lt;img&gt;</code>) do not have content or end tags.</p>\n            ",
-            "code": "<!DOCTYPE html>\n<html>\n<body>\n\n  <h1>My First Heading</h1>\n  <p>My first paragraph with a line<br>break inside it.</p>\n\n</body>\n</html>",
-            "explanation": "<p>HTML elements can be nested inside one another to construct complex UI structures.</p>",
-            "exercise": {
-              "question": "What is an empty HTML element?",
-              "options": [
-                "An element with no attributes",
-                "An element with no content or closing tag (e.g. <br>, <img>)",
-                "An element with zero opacity",
-                "A deleted element"
-              ],
-              "answer": 1,
-              "tip": "Empty elements have no closing tag."
-            }
-          },
-          {
-            "id": "html_attributes",
-            "title": "HTML Attributes",
-            "subtitle": "Attributes provide additional information about HTML elements.",
-            "content": "\n              <p>All HTML elements can have attributes. Attributes provide additional information and are always specified in the start tag in <code>name=\"value\"</code> pairs.</p>\n            ",
-            "code": "<!DOCTYPE html>\n<html>\n<body>\n\n  <h2>The href and target Attributes</h2>\n  <p><a href=\"https://kanchu12345.github.io/my-web2/\" target=\"_blank\">Open Website in New Tab</a></p>\n\n  <h2>The src and alt Attributes</h2>\n  <img src=\"https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400\" alt=\"Laptop Code\" width=\"300\" style=\"border-radius:8px;\">\n\n</body>\n</html>",
-            "explanation": "\n              <p>Common attributes include <code>href</code>, <code>src</code>, <code>alt</code>, <code>style</code>, <code>id</code>, and <code>class</code>.</p>\n            ",
-            "exercise": {
-              "question": "Where are HTML attributes always specified?",
-              "options": [
-                "In the end tag",
-                "In the start tag",
-                "In the CSS file",
-                "In the footer"
-              ],
-              "answer": 1,
-              "tip": "Attributes belong in the opening/start tag."
-            }
-          },
-          {
-            "id": "html_headings",
-            "title": "HTML Headings",
-            "subtitle": "Headings define titles and section structure on a web page.",
-            "content": "\n              <p>HTML headings are defined with <code>&lt;h1&gt;</code> to <code>&lt;h6&gt;</code> tags. <code>&lt;h1&gt;</code> defines the most important heading. <code>&lt;h6&gt;</code> defines the least important heading.</p>\n            ",
-            "code": "<!DOCTYPE html>\n<html>\n<body>\n\n  <h1>Heading 1 - Page Title</h1>\n  <h2>Heading 2 - Major Section</h2>\n  <h3>Heading 3 - Subsection</h3>\n  <h4>Heading 4 - Minor Subsection</h4>\n  <h5>Heading 5 - Detail</h5>\n  <h6>Heading 6 - Smallest</h6>\n\n</body>\n</html>",
-            "explanation": "<p>Search engines use headings to index the structure and content of your web pages for SEO.</p>",
-            "exercise": {
-              "question": "How many levels of headings are available in HTML?",
-              "options": [
-                "3",
-                "4",
-                "6",
-                "10"
-              ],
-              "answer": 2,
-              "tip": "HTML supports 6 heading levels: <h1> through <h6>."
-            }
-          },
-          {
-            "id": "html_styles",
-            "title": "HTML Styles & Inline CSS",
-            "subtitle": "Use the style attribute to style elements directly.",
-            "content": "\n              <p>The HTML <code>style</code> attribute has the syntax <code>style=\"property:value;\"</code>.</p>\n            ",
-            "code": "<!DOCTYPE html>\n<html>\n<body style=\"background-color:#f0fdf4; font-family:sans-serif;\">\n\n  <h1 style=\"color:#04AA6D; text-align:center;\">Styled Heading</h1>\n  <p style=\"color:#333; font-size:18px; line-height:1.6;\">\n    This paragraph has custom font size, color, and line height.\n  </p>\n\n</body>\n</html>",
-            "explanation": "<p>Properties include <code>color</code>, <code>background-color</code>, <code>font-family</code>, <code>font-size</code>, and <code>text-align</code>.</p>",
-            "exercise": {
-              "question": "Which style property defines the text alignment in HTML/CSS?",
-              "options": [
-                "align",
-                "text-align",
-                "text-position",
-                "float"
-              ],
-              "answer": 1,
-              "tip": "text-align: center | left | right | justify;"
-            }
-          },
-          {
-            "id": "html_formatting",
-            "title": "HTML Formatting",
-            "subtitle": "Special elements for formatting text.",
-            "content": "\n              <p>Formatting elements include <code>&lt;b&gt;</code> (bold), <code>&lt;strong&gt;</code> (important), <code>&lt;i&gt;</code> (italic), <code>&lt;em&gt;</code> (emphasized), <code>&lt;mark&gt;</code> (highlighted), <code>&lt;small&gt;</code>, <code>&lt;del&gt;</code>, <code>&lt;ins&gt;</code>, <code>&lt;sub&gt;</code>, <code>&lt;sup&gt;</code>.</p>\n            ",
-            "code": "<!DOCTYPE html>\n<html>\n<body>\n\n  <p>Normal text</p>\n  <p><strong>Important bold text</strong></p>\n  <p><em>Emphasized italic text</em></p>\n  <p>Highlighted <mark>vital information</mark></p>\n  <p>Water: H<sub>2</sub>O | Math: 10<sup>2</sup> = 100</p>\n\n</body>\n</html>",
-            "explanation": "<p>Use <code>&lt;strong&gt;</code> and <code>&lt;em&gt;</code> for accessible, semantic text markup.</p>",
-            "exercise": {
-              "question": "Which tag highlights text with a yellow background by default?",
-              "options": [
-                "<highlight>",
-                "<mark>",
-                "<yellow>",
-                "<bg>"
-              ],
-              "answer": 1,
-              "tip": "<mark> indicates marked or highlighted text."
-            }
-          },
-          {
-            "id": "html_links",
-            "title": "HTML Links",
-            "subtitle": "HTML links allow users to navigate between web pages.",
-            "content": "\n              <p>The <code>&lt;a&gt;</code> tag defines hyperlinks with <code>href</code> destination.</p>\n            ",
-            "code": "<!DOCTYPE html>\n<html>\n<body>\n\n  <h2>Hyperlinks</h2>\n  <p><a href=\"https://kanchu12345.github.io/my-web2/\" target=\"_blank\">Visit Infinite Creative Web Design</a></p>\n  <p><a href=\"mailto:infinitedesign768@gmail.com\">Send us an Email</a></p>\n  <p><a href=\"tel:+94771234567\">Call +94 77 123 4567</a></p>\n\n</body>\n</html>",
-            "explanation": "<p>Use <code>target=\"_blank\"</code> to open links in a new window or tab.</p>",
-            "exercise": {
-              "question": "Which prefix is used in the href attribute to create a direct phone call link?",
-              "options": [
-                "phone:",
-                "call:",
-                "tel:",
-                "dial:"
-              ],
-              "answer": 2,
-              "tip": "href='tel:+94771234567' triggers phone dialers."
-            }
-          },
-          {
-            "id": "html_images",
-            "title": "HTML Images",
-            "subtitle": "Embedding images with responsive properties.",
-            "content": "\n              <p>Use <code>&lt;img src=\"image.jpg\" alt=\"Description\"&gt;</code> to render images.</p>\n            ",
-            "code": "<!DOCTYPE html>\n<html>\n<body>\n\n  <h2>Responsive Web Image</h2>\n  <img src=\"https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600\" \n       alt=\"Coding Developer Setup\" \n       style=\"max-width:100%; height:auto; border-radius:10px; box-shadow:0 6px 18px rgba(0,0,0,0.1);\">\n\n</body>\n</html>",
-            "explanation": "<p>The <code>alt</code> attribute is essential for SEO and screen-reader accessibility.</p>",
-            "exercise": {
-              "question": "Which attribute is used to provide an alternative text for images?",
-              "options": [
-                "title",
-                "alt",
-                "desc",
-                "src"
-              ],
-              "answer": 1,
-              "tip": "alt provides alternate text."
-            }
-          },
-          {
-            "id": "html_tables",
-            "title": "HTML Tables",
-            "subtitle": "Arranging structured data into rows and columns.",
-            "content": "\n              <p>Use <code>&lt;table&gt;</code>, <code>&lt;tr&gt;</code> (row), <code>&lt;th&gt;</code> (header), and <code>&lt;td&gt;</code> (data cell).</p>\n            ",
-            "code": "<!DOCTYPE html>\n<html>\n<head>\n<style>\ntable { width: 100%; border-collapse: collapse; font-family: sans-serif; }\nth, td { border: 1px solid #ddd; padding: 10px; text-align: left; }\nth { background-color: #04AA6D; color: white; }\ntr:nth-child(even) { background-color: #f9f9f9; }\n</style>\n</head>\n<body>\n\n<h2>Website Packages Table</h2>\n<table>\n  <tr>\n    <th>Plan</th>\n    <th>Pages</th>\n    <th>Price</th>\n  </tr>\n  <tr>\n    <td>Starter</td>\n    <td>3</td>\n    <td>Rs. 5,000/-</td>\n  </tr>\n  <tr>\n    <td>Standard</td>\n    <td>5</td>\n    <td>Rs. 10,000/-</td>\n  </tr>\n  <tr>\n    <td>Professional</td>\n    <td>Custom</td>\n    <td>Rs. 20,000/-</td>\n  </tr>\n</table>\n\n</body>\n</html>",
-            "explanation": "<p><code>border-collapse: collapse;</code> prevents double-line borders.</p>",
-            "exercise": {
-              "question": "Which tag defines a standard data cell in an HTML table?",
-              "options": [
-                "<th>",
-                "<td>",
-                "<cell>",
-                "<tr>"
-              ],
-              "answer": 1,
-              "tip": "<td> stands for Table Data."
-            }
-          },
-          {
-            "id": "html_lists",
-            "title": "HTML Lists",
-            "subtitle": "Unordered, ordered, and description lists.",
-            "content": "\n              <p>Use <code>&lt;ul&gt;</code> for bulleted lists and <code>&lt;ol&gt;</code> for numbered lists with <code>&lt;li&gt;</code> items.</p>\n            ",
-            "code": "<!DOCTYPE html>\n<html>\n<body>\n\n  <h2>Tech Stack (Unordered)</h2>\n  <ul>\n    <li>HTML5 / CSS3</li>\n    <li>JavaScript ES6+</li>\n    <li>Firebase / Cloud</li>\n  </ul>\n\n  <h2>Project Steps (Ordered)</h2>\n  <ol>\n    <li>Discovery & Planning</li>\n    <li>Design & Prototyping</li>\n    <li>Development & SEO</li>\n    <li>Deployment</li>\n  </ol>\n\n</body>\n</html>",
-            "explanation": "<p>List items can contain nested lists for multi-level navigation trees.</p>",
-            "exercise": {
-              "question": "Which tag defines an unordered (bulleted) list?",
-              "options": [
-                "<ol>",
-                "<list>",
-                "<ul>",
-                "<dl>"
-              ],
-              "answer": 2,
-              "tip": "<ul> = Unordered List."
-            }
-          },
-          {
-            "id": "html_block_inline",
-            "title": "HTML Block & Inline Elements",
-            "subtitle": "Understand how elements occupy space on the screen.",
-            "content": "\n              <p><strong>Block-level elements</strong> always start on a new line and take up the full width available (e.g., <code>&lt;div&gt;</code>, <code>&lt;h1&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;form&gt;</code>, <code>&lt;header&gt;</code>, <code>&lt;footer&gt;</code>, <code>&lt;section&gt;</code>).</p>\n              <p><strong>Inline elements</strong> do not start on a new line and only take up as much width as necessary (e.g., <code>&lt;span&gt;</code>, <code>&lt;a&gt;</code>, <code>&lt;img&gt;</code>, <code>&lt;strong&gt;</code>, <code>&lt;em&gt;</code>).</p>\n            ",
-            "code": "<!DOCTYPE html>\n<html>\n<body>\n\n  <!-- Block element -->\n  <div style=\"background:#04AA6D; color:white; padding:15px; border-radius:6px; margin-bottom:15px;\">\n    This is a &lt;div&gt; (block element). It spans 100% width.\n  </div>\n\n  <!-- Inline elements -->\n  <p>\n    This is a paragraph with <span style=\"background:yellow; font-weight:bold; padding:2px 6px;\">an inline &lt;span&gt;</span> inside it.\n  </p>\n\n</body>\n</html>",
-            "explanation": "<p><code>&lt;div&gt;</code> is the standard block container; <code>&lt;span&gt;</code> is the standard inline text container.</p>",
-            "exercise": {
-              "question": "Which of the following is an inline element?",
-              "options": [
-                "<div>",
-                "<p>",
-                "<span>",
-                "<section>"
-              ],
-              "answer": 2,
-              "tip": "<span> is an inline container for styling parts of text."
+              "explanation": "The <main> tag represents the unique primary content of the document and must appear only once."
             }
           },
           {
             "id": "html_forms",
-            "title": "HTML Forms & Input Types",
-            "subtitle": "Collecting data from users with forms.",
-            "content": "\n              <p>HTML forms use <code>&lt;form&gt;</code>, <code>&lt;input&gt;</code>, <code>&lt;select&gt;</code>, <code>&lt;textarea&gt;</code>, and <code>&lt;button&gt;</code>.</p>\n            ",
-            "code": "<!DOCTYPE html>\n<html>\n<head>\n<style>\ninput, select, textarea { width: 100%; padding: 8px; margin: 6px 0 12px; box-sizing: border-box; }\n</style>\n</head>\n<body>\n\n<h2>Inquiry Form</h2>\n<form action=\"#\">\n  <label for=\"name\">Name:</label>\n  <input type=\"text\" id=\"name\" required placeholder=\"Your full name\">\n\n  <label for=\"pkg\">Package:</label>\n  <select id=\"pkg\">\n    <option>Starter (Rs. 5,000/-)</option>\n    <option>Standard (Rs. 10,000/-)</option>\n    <option>Professional (Rs. 20,000/-)</option>\n    <option>E-Commerce (Rs. 60,000/-)</option>\n  </select>\n\n  <button type=\"submit\" style=\"background:#04AA6D; color:white; padding:10px 20px; border:none; border-radius:6px; cursor:pointer; font-weight:bold;\">\n    Submit Form\n  </button>\n</form>\n\n</body>\n</html>",
-            "explanation": "<p>Input types include <code>text</code>, <code>password</code>, <code>email</code>, <code>number</code>, <code>checkbox</code>, <code>radio</code>, <code>date</code>, <code>file</code>, and <code>submit</code>.</p>",
-            "exercise": {
-              "question": "Which attribute ensures a form field cannot be submitted blank?",
+            "title": "Modern Interactive Forms & Validation",
+            "readTime": "6 min read",
+            "summary": "Build high-converting, mobile-friendly forms with native HTML5 input validation.",
+            "content": "\n              <p class=\"lead\">Forms are how websites turn visitors into paying clients. HTML5 provides built-in client-side validation attributes like <code>required</code>, <code>pattern</code>, <code>min</code>, <code>max</code>, and specialized input types.</p>\n            ",
+            "code": "<!DOCTYPE html>\n<html>\n<head>\n<style>\nbody { font-family: 'Segoe UI', sans-serif; background: #0b0f19; color: #f8fafc; padding: 24px; }\n.form-box { max-width: 450px; background: #1e293b; border: 1px solid #334155; padding: 24px; border-radius: 12px; }\nlabel { display: block; margin-top: 12px; font-weight: 600; font-size: 14px; color: #94a3b8; }\ninput, select, textarea { width: 100%; padding: 10px; margin-top: 6px; background: #0f172a; border: 1px solid #475569; border-radius: 6px; color: #fff; box-sizing: border-box; }\ninput:focus, select:focus, textarea:focus { border-color: #04AA6D; outline: none; }\n.submit-btn { width: 100%; margin-top: 18px; padding: 12px; background: #04AA6D; color: white; font-weight: bold; border: none; border-radius: 6px; cursor: pointer; }\n.submit-btn:hover { background: #038c59; }\n</style>\n</head>\n<body>\n\n<div class=\"form-box\">\n  <h3 style=\"margin-top:0; color:#04AA6D;\">Get Project Quote</h3>\n  <form onsubmit=\"event.preventDefault(); alert('Inquiry sent successfully!');\">\n    <label for=\"name\">Your Name *</label>\n    <input type=\"text\" id=\"name\" required placeholder=\"e.g. Kasun Fernando\">\n\n    <label for=\"email\">Email Address *</label>\n    <input type=\"email\" id=\"email\" required placeholder=\"name@company.com\">\n\n    <label for=\"pkg\">Select Website Package</label>\n    <select id=\"pkg\">\n      <option>Starter Package (Rs. 5,000/-)</option>\n      <option>Standard Package (Rs. 10,000/-)</option>\n      <option selected>Professional Package (Rs. 20,000/-)</option>\n      <option>E-Commerce Store (Rs. 60,000/-)</option>\n    </select>\n\n    <button type=\"submit\" class=\"submit-btn\">Send Inquiry</button>\n  </form>\n</div>\n\n</body>\n</html>",
+            "keyTakeaways": [
+              "<code>type='email'</code> and <code>type='tel'</code> trigger optimized mobile keyboards on iPhones and Android.",
+              "<code>required</code> provides immediate native browser validation before submission."
+            ],
+            "challenge": {
+              "question": "Which input type triggers the dedicated email keyboard on mobile devices?",
               "options": [
-                "validate",
-                "required",
-                "mandatory",
-                "check"
+                "type='text'",
+                "type='email'",
+                "type='mail'",
+                "type='input'"
               ],
               "answer": 1,
-              "tip": "required triggers native browser validation."
-            }
-          },
-          {
-            "id": "html_media",
-            "title": "HTML Audio & Video",
-            "subtitle": "Embedding native multimedia without third-party plugins.",
-            "content": "\n              <p>HTML5 introduced native <code>&lt;video&gt;</code> and <code>&lt;audio&gt;</code> tags with <code>controls</code>, <code>autoplay</code>, and <code>loop</code>.</p>\n            ",
-            "code": "<!DOCTYPE html>\n<html>\n<body>\n\n<h2>HTML Video Element</h2>\n\n<video width=\"320\" height=\"240\" controls poster=\"images/logo.png\" style=\"border-radius:8px;\">\n  <source src=\"https://www.w3schools.com/html/mov_bbb.mp4\" type=\"video/mp4\">\n  Your browser does not support the video tag.\n</video>\n\n</body>\n</html>",
-            "explanation": "<p>Always specify <code>controls</code> so users can play, pause, and adjust volume.</p>",
-            "exercise": {
-              "question": "Which attribute provides play, pause, and volume controls on an HTML video?",
-              "options": [
-                "buttons",
-                "controls",
-                "media-bar",
-                "player"
-              ],
-              "answer": 1,
-              "tip": "controls enables browser-native playback buttons."
+              "explanation": "type='email' triggers the mobile keyboard with @ and .com keys."
             }
           }
         ]
@@ -282,107 +88,60 @@ window.W3_TUTORIALS = {
     ]
   },
   "css": {
-    "name": "CSS",
-    "fullName": "CSS3 Tutorial",
-    "desc": "The stylesheet language for designing modern web pages",
+    "name": "CSS3",
+    "icon": "🎨",
+    "tagline": "Modern UI Engineering & Responsive Layouts",
+    "badge": "Styling & Motion",
     "color": "#264DE4",
     "sections": [
       {
-        "title": "CSS Tutorial",
+        "title": "1. Modern CSS Layouts",
         "lessons": [
           {
-            "id": "css_intro",
-            "title": "CSS Introduction",
-            "subtitle": "CSS is the language we use to style an HTML document.",
-            "content": "\n              <p><strong>CSS</strong> stands for <strong>Cascading Style Sheets</strong>. CSS describes how HTML elements are to be displayed on screen, tablet, mobile, and print.</p>\n              <div class=\"w3-note\">\n                <h4>CSS Benefits:</h4>\n                <ul>\n                  <li>Separates presentation from structure</li>\n                  <li>Saves massive time by sharing styles across whole websites</li>\n                  <li>Provides responsive layouts with media queries, Flexbox, and Grid</li>\n                </ul>\n              </div>\n            ",
-            "code": "<!DOCTYPE html>\n<html>\n<head>\n<style>\nbody { background: #f8fafc; font-family: Arial, sans-serif; }\nh1 { color: #04AA6D; text-align: center; }\np { font-size: 18px; color: #475569; line-height: 1.6; }\n.card {\n  background: white;\n  padding: 20px;\n  border-radius: 10px;\n  box-shadow: 0 4px 12px rgba(0,0,0,0.08);\n  border-left: 4px solid #04AA6D;\n}\n</style>\n</head>\n<body>\n\n<h1>Welcome to CSS3</h1>\n<div class=\"card\">\n  <h3>Modern Web Design</h3>\n  <p>Styled with CSS3 box shadows, border radius, and custom colors.</p>\n</div>\n\n</body>\n</html>",
-            "explanation": "<p>A CSS rule consists of a selector and a declaration block <code>selector { property: value; }</code>.</p>",
-            "exercise": {
-              "question": "What does CSS stand for?",
-              "options": [
-                "Cascading Style Sheets",
-                "Creative Style System",
-                "Computer Styling Software",
-                "Custom Sheet System"
-              ],
-              "answer": 0,
-              "tip": "CSS = Cascading Style Sheets."
-            }
-          },
-          {
-            "id": "css_selectors",
-            "title": "CSS Selectors",
-            "subtitle": "Select and target HTML elements to style.",
-            "content": "\n              <p>Target by tag name (<code>p</code>), class (<code>.btn</code>), ID (<code>#main</code>), or pseudo-classes (<code>:hover</code>).</p>\n            ",
-            "code": "<!DOCTYPE html>\n<html>\n<head>\n<style>\n#banner { background: #282A35; color: white; padding: 15px; border-radius: 6px; }\n.badge { background: #04AA6D; color: white; padding: 3px 8px; border-radius: 4px; font-size: 12px; }\n.btn {\n  background: #04AA6D; color: white; padding: 10px 20px;\n  border: none; border-radius: 6px; cursor: pointer; transition: 0.3s;\n}\n.btn:hover { background: #038c59; transform: translateY(-2px); }\n</style>\n</head>\n<body>\n\n<div id=\"banner\">\n  <h2>Targeted by ID <span class=\"badge\">NEW</span></h2>\n</div>\n<br>\n<button class=\"btn\">Hover Me (Pseudo-class :hover)</button>\n\n</body>\n</html>",
-            "explanation": "<p>Use classes (<code>.name</code>) for reusable styles and IDs (<code>#name</code>) for unique page sections.</p>",
-            "exercise": {
-              "question": "Which symbol denotes a class selector in CSS?",
-              "options": [
-                "#",
-                ".",
-                "@",
-                "$"
-              ],
-              "answer": 1,
-              "tip": "Class selectors start with a period (.) e.g. .btn"
-            }
-          },
-          {
-            "id": "css_boxmodel",
-            "title": "CSS Box Model",
-            "subtitle": "Content, Padding, Border, and Margin.",
-            "content": "\n              <p>Every HTML element is a box consisting of: <strong>Content</strong> &gt; <strong>Padding</strong> &gt; <strong>Border</strong> &gt; <strong>Margin</strong>.</p>\n            ",
-            "code": "<!DOCTYPE html>\n<html>\n<head>\n<style>\n.box {\n  background-color: #f1f5f9;\n  width: 300px;\n  border: 4px solid #04AA6D;\n  padding: 30px;\n  margin: 20px auto;\n  box-sizing: border-box;\n  text-align: center;\n  border-radius: 8px;\n}\n</style>\n</head>\n<body>\n\n<div class=\"box\">\n  <strong>Content Area</strong><br>\n  Surrounded by 30px padding, 4px green border, and 20px margin.\n</div>\n\n</body>\n</html>",
-            "explanation": "<p><code>box-sizing: border-box;</code> ensures padding and borders do not expand total specified width.</p>",
-            "exercise": {
-              "question": "What is the outermost layer of the CSS box model?",
-              "options": [
-                "Border",
-                "Padding",
-                "Margin",
-                "Outline"
-              ],
-              "answer": 2,
-              "tip": "Margin is the space outside the border."
-            }
-          },
-          {
             "id": "css_flexbox",
-            "title": "CSS Flexbox",
-            "subtitle": "One-dimensional flexible layout model.",
-            "content": "\n              <p>Flexbox simplifies horizontal and vertical alignment with <code>display: flex;</code>, <code>justify-content</code>, and <code>align-items</code>.</p>\n            ",
-            "code": "<!DOCTYPE html>\n<html>\n<head>\n<style>\n.flex-container {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  gap: 12px;\n  background: #f0fdf4;\n  padding: 20px;\n  border-radius: 10px;\n}\n.flex-item {\n  flex: 1;\n  background: #04AA6D;\n  color: white;\n  padding: 20px;\n  text-align: center;\n  font-weight: bold;\n  border-radius: 6px;\n}\n</style>\n</head>\n<body>\n\n<div class=\"flex-container\">\n  <div class=\"flex-item\">Design</div>\n  <div class=\"flex-item\">Develop</div>\n  <div class=\"flex-item\">Deploy</div>\n</div>\n\n</body>\n</html>",
-            "explanation": "<p>To center anything: <code>display: flex; justify-content: center; align-items: center;</code></p>",
-            "exercise": {
-              "question": "Which flexbox property defines alignment along the cross axis (vertically)?",
+            "title": "Mastering CSS Flexbox",
+            "readTime": "5 min read",
+            "summary": "Build flexible, responsive 1-dimensional layouts with intuitive alignment.",
+            "content": "\n              <p class=\"lead\">Flexbox is the modern industry standard for aligning navigation bars, hero layouts, button groups, and cards along a single direction.</p>\n\n              <div class=\"pro-tip-card\">\n                <div class=\"pro-tip-header\">\n                  <span class=\"pro-badge\">⚡ Instant Centering</span>\n                  <strong>The Ultimate 3-Line Center</strong>\n                </div>\n                <pre><code>display: flex;\njustify-content: center; /* Horizontal */\nalign-items: center;     /* Vertical */</code></pre>\n              </div>\n            ",
+            "code": "<!DOCTYPE html>\n<html>\n<head>\n<style>\nbody { background: #0b0f19; font-family: sans-serif; padding: 20px; color: #fff; }\n.nav-bar {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  background: #1e293b;\n  padding: 14px 24px;\n  border-radius: 12px;\n  border: 1px solid #334155;\n}\n.nav-links { display: flex; gap: 20px; }\n.nav-links a { color: #94a3b8; text-decoration: none; font-weight: 600; }\n.nav-links a:hover { color: #04AA6D; }\n.cta { background: #04AA6D; color: #fff; padding: 8px 18px; border-radius: 50px; font-weight: bold; text-decoration: none; }\n</style>\n</head>\n<body>\n\n<div class=\"nav-bar\">\n  <div style=\"font-weight:bold; font-size:18px; color:#04AA6D;\">INFINITE</div>\n  <div class=\"nav-links\">\n    <a href=\"#\">Home</a>\n    <a href=\"#\">Packages</a>\n    <a href=\"#\">Work</a>\n  </div>\n  <a href=\"#\" class=\"cta\">Let's Talk</a>\n</div>\n\n</body>\n</html>",
+            "keyTakeaways": [
+              "<code>justify-content</code> controls main-axis spacing (e.g. space-between).",
+              "<code>align-items</code> controls cross-axis vertical alignment.",
+              "<code>gap: 16px;</code> effortlessly spaces children without ugly margin overrides."
+            ],
+            "challenge": {
+              "question": "Which CSS property adds clean uniform space between flex children?",
               "options": [
-                "justify-content",
-                "align-items",
-                "flex-direction",
-                "flex-wrap"
+                "margin-between",
+                "gap",
+                "spacing",
+                "flex-margin"
               ],
               "answer": 1,
-              "tip": "align-items aligns flex items along the cross axis."
+              "explanation": "The 'gap' property sets spacing between items in both Flexbox and Grid."
             }
           },
           {
             "id": "css_grid",
-            "title": "CSS Grid",
-            "subtitle": "Two-dimensional layout grid for rows and columns.",
-            "content": "\n              <p>CSS Grid lets you create powerful responsive layouts with <code>grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));</code>.</p>\n            ",
-            "code": "<!DOCTYPE html>\n<html>\n<head>\n<style>\n.grid-container {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));\n  gap: 16px;\n  padding: 20px;\n  background: #282A35;\n  border-radius: 12px;\n}\n.grid-item {\n  background: #04AA6D;\n  color: white;\n  padding: 30px 10px;\n  text-align: center;\n  font-weight: bold;\n  border-radius: 8px;\n}\n</style>\n</head>\n<body>\n\n<div class=\"grid-container\">\n  <div class=\"grid-item\">Starter (5k)</div>\n  <div class=\"grid-item\">Standard (10k)</div>\n  <div class=\"grid-item\">Advanced (15k)</div>\n  <div class=\"grid-item\">Pro (20k)</div>\n</div>\n\n</body>\n</html>",
-            "explanation": "<p>Grid handles both rows and columns simultaneously with built-in responsiveness.</p>",
-            "exercise": {
-              "question": "What CSS property defines the column tracks in a CSS Grid?",
+            "title": "CSS Grid & Auto-Fit Responsive Cards",
+            "readTime": "6 min read",
+            "summary": "Create 2-dimensional layouts that automatically adapt to any screen size without media queries.",
+            "content": "\n              <p class=\"lead\">CSS Grid gives you full two-dimensional layout power across rows and columns simultaneously.</p>\n            ",
+            "code": "<!DOCTYPE html>\n<html>\n<head>\n<style>\nbody { background: #0b0f19; font-family: sans-serif; padding: 24px; color: #fff; }\n.grid-cards {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));\n  gap: 16px;\n}\n.card {\n  background: #1e293b;\n  border: 1px solid #334155;\n  border-radius: 12px;\n  padding: 24px;\n  transition: transform 0.3s, border-color 0.3s;\n}\n.card:hover {\n  transform: translateY(-4px);\n  border-color: #04AA6D;\n  box-shadow: 0 10px 25px rgba(4,170,109,0.2);\n}\n.price { font-size: 24px; font-weight: bold; color: #04AA6D; margin: 10px 0; }\n</style>\n</head>\n<body>\n\n<h2>Responsive Pricing Grid</h2>\n<div class=\"grid-cards\">\n  <div class=\"card\">\n    <h3>Starter</h3>\n    <div class=\"price\">Rs. 5,000/-</div>\n    <p>3 Pages • Mobile Ready</p>\n  </div>\n  <div class=\"card\">\n    <h3>Standard</h3>\n    <div class=\"price\">Rs. 10,000/-</div>\n    <p>5 Pages • Admin Panel</p>\n  </div>\n  <div class=\"card\">\n    <h3>Professional</h3>\n    <div class=\"price\">Rs. 20,000/-</div>\n    <p>Custom UI • Full SEO</p>\n  </div>\n  <div class=\"card\">\n    <h3>E-Commerce</h3>\n    <div class=\"price\">Rs. 60,000/-</div>\n    <p>Payment Gateway • Store</p>\n  </div>\n</div>\n\n</body>\n</html>",
+            "keyTakeaways": [
+              "<code>repeat(auto-fit, minmax(220px, 1fr))</code> makes grids self-responsive without single media queries.",
+              "Hover transforms and transitions elevate user engagement."
+            ],
+            "challenge": {
+              "question": "What CSS Grid formula creates automatic wrapping columns without media queries?",
               "options": [
-                "grid-columns",
-                "grid-template-columns",
-                "columns",
-                "grid-track"
+                "grid-columns: auto-wrap",
+                "repeat(auto-fit, minmax(200px, 1fr))",
+                "display: responsive-grid",
+                "columns: 100%"
               ],
               "answer": 1,
-              "tip": "grid-template-columns sets the sizing of columns."
+              "explanation": "repeat(auto-fit, minmax(...)) dynamically fills available width with equal columns."
             }
           }
         ]
@@ -391,87 +150,35 @@ window.W3_TUTORIALS = {
   },
   "js": {
     "name": "JavaScript",
-    "fullName": "JavaScript Tutorial",
-    "desc": "The programming language of the modern Web",
+    "icon": "⚡",
+    "tagline": "Dynamic Frontend Engineering & Async APIs",
+    "badge": "Programming",
     "color": "#F7DF1E",
     "sections": [
       {
-        "title": "JS Tutorial",
+        "title": "1. Core Modern JavaScript (ES6+)",
         "lessons": [
           {
-            "id": "js_intro",
-            "title": "JS Introduction",
-            "subtitle": "JavaScript is the world's most popular programming language.",
-            "content": "\n              <p>JavaScript powers client-side interactivity, DOM manipulation, asynchronous network calls (AJAX/Fetch), and server backend (Node.js).</p>\n            ",
-            "code": "<!DOCTYPE html>\n<html>\n<body>\n\n<h2>JavaScript Interactive Demo</h2>\n<p id=\"demo\">Original text before click.</p>\n\n<button onclick=\"changeText()\" style=\"background:#04AA6D; color:white; padding:10px 20px; border:none; border-radius:6px; cursor:pointer; font-weight:bold;\">\n  Change Text & Color\n</button>\n\n<script>\nfunction changeText() {\n  const el = document.getElementById('demo');\n  el.innerHTML = '🎉 Text changed dynamically with JavaScript!';\n  el.style.color = '#04AA6D';\n  el.style.fontWeight = 'bold';\n}\n</script>\n\n</body>\n</html>",
-            "explanation": "<p><code>document.getElementById('id')</code> is the fundamental DOM selector method.</p>",
-            "exercise": {
-              "question": "Which HTML tag is used to embed JavaScript code in a web page?",
+            "id": "js_async_fetch",
+            "title": "Async / Await & Fetch API",
+            "readTime": "5 min read",
+            "summary": "Learn how modern web applications load live data in the background without refreshing.",
+            "content": "\n              <p class=\"lead\">Modern web applications communicate with cloud databases and REST APIs using <code>async / await</code> and the native <code>fetch()</code> method.</p>\n            ",
+            "code": "<!DOCTYPE html>\n<html>\n<head>\n<style>\nbody { background: #0b0f19; font-family: sans-serif; color: #fff; padding: 20px; }\n.btn { background: #04AA6D; color: white; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; }\n.quote-box { margin-top: 15px; padding: 16px; background: #1e293b; border-left: 4px solid #04AA6D; border-radius: 6px; min-height: 40px; }\n</style>\n</head>\n<body>\n\n<h2>Live Async API Fetcher</h2>\n<button class=\"btn\" onclick=\"fetchLiveQuote()\">⚡ Fetch Tech Quote</button>\n\n<div class=\"quote-box\" id=\"quoteText\">Click button to fetch from API asynchronously...</div>\n\n<script>\nasync function fetchLiveQuote() {\n  const box = document.getElementById('quoteText');\n  box.textContent = \"Fetching from remote server...\";\n\n  try {\n    // Simulated realistic API latency\n    await new Promise(r => setTimeout(r, 600));\n    \n    const quotes = [\n      \"Simplicity is prerequisite for reliability. — Edsger W. Dijkstra\",\n      \"Make it work, make it right, make it fast. — Kent Beck\",\n      \"Design is intelligence made visible. — Infinite Creative\",\n      \"Code is like humor. When you have to explain it, it’s bad.\"\n    ];\n    const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];\n    box.innerHTML = \"<strong>Result:</strong> \" + randomQuote;\n  } catch (err) {\n    box.textContent = \"Failed to load data: \" + err.message;\n  }\n}\n</script>\n\n</body>\n</html>",
+            "keyTakeaways": [
+              "<code>async / await</code> enables synchronous-looking code for asynchronous operations.",
+              "Always wrap async network calls in <code>try { ... } catch(err) { ... }</code> for bulletproof error handling."
+            ],
+            "challenge": {
+              "question": "What keyword pauses function execution until a Promise resolves inside an async function?",
               "options": [
-                "<js>",
-                "<script>",
-                "<javascript>",
-                "<code>"
-              ],
-              "answer": 1,
-              "tip": "<script> is used for JavaScript code."
-            }
-          },
-          {
-            "id": "js_variables",
-            "title": "JS Variables (let & const)",
-            "subtitle": "Storing and managing data values in modern ES6+.",
-            "content": "\n              <p>Use <code>const</code> by default for values that never get reassigned, and <code>let</code> for variables that change.</p>\n            ",
-            "code": "<!DOCTYPE html>\n<html>\n<body>\n\n<h2>Pricing Calculator</h2>\n<p id=\"out\"></p>\n\n<script>\nconst basePrice = 5000;\nlet extraPages = 3;\nconst extraRate = 1500;\n\nconst total = basePrice + (extraPages * extraRate);\n\ndocument.getElementById('out').innerHTML = \n  \"Base: Rs. \" + basePrice + \"<br>\" +\n  \"Extra Pages: \" + extraPages + \" (Rs. \" + (extraPages * extraRate) + \")<br>\" +\n  \"<strong>Total Price: Rs. \" + total.toLocaleString() + \"/-</strong>\";\n</script>\n\n</body>\n</html>",
-            "explanation": "<p><code>const</code> prevents accidental variable re-assignment bugs.</p>",
-            "exercise": {
-              "question": "Can a variable declared with const be reassigned?",
-              "options": [
-                "Yes",
-                "No",
-                "Only inside a loop",
-                "Only in strict mode"
-              ],
-              "answer": 1,
-              "tip": "const creates an immutable binding."
-            }
-          },
-          {
-            "id": "js_functions",
-            "title": "JS Functions & Arrow Syntax",
-            "subtitle": "Writing reusable, modular JavaScript code.",
-            "content": "\n              <p>Arrow functions offer concise syntax: <code>const multiply = (a, b) =&gt; a * b;</code>.</p>\n            ",
-            "code": "<!DOCTYPE html>\n<html>\n<body>\n\n<h2>Function Execution</h2>\n<p id=\"calcOut\"></p>\n\n<script>\n// Arrow Function\nconst calculateDiscount = (price, discountPercent) => price - (price * (discountPercent / 100));\n\nconst proPrice = 20000;\nconst promoPrice = calculateDiscount(proPrice, 15); // 15% discount\n\ndocument.getElementById('calcOut').innerHTML = \n  \"Pro Package: Rs. \" + proPrice + \"<br>\" +\n  \"With 15% Discount: <strong style='color:#04AA6D;'>Rs. \" + promoPrice.toLocaleString() + \"/-</strong>\";\n</script>\n\n</body>\n</html>",
-            "explanation": "<p>Functions can return calculated values using the <code>return</code> keyword.</p>",
-            "exercise": {
-              "question": "What keyword is used to send a value back from a JavaScript function?",
-              "options": [
-                "send",
-                "output",
-                "return",
-                "give"
+                "pause",
+                "wait",
+                "await",
+                "defer"
               ],
               "answer": 2,
-              "tip": "return halts execution and returns the value."
-            }
-          },
-          {
-            "id": "js_dom",
-            "title": "JS DOM Manipulation",
-            "subtitle": "Creating, styling, and deleting HTML elements on the fly.",
-            "content": "\n              <p>Use <code>document.createElement()</code>, <code>appendChild()</code>, and <code>classList.toggle()</code>.</p>\n            ",
-            "code": "<!DOCTYPE html>\n<html>\n<body>\n\n<h2>Interactive Task List</h2>\n<input type=\"text\" id=\"tInput\" placeholder=\"New task...\" style=\"padding:6px; border-radius:4px; border:1px solid #ccc;\">\n<button onclick=\"addItem()\" style=\"background:#04AA6D; color:white; padding:6px 14px; border:none; border-radius:4px; cursor:pointer; font-weight:bold;\">Add</button>\n\n<ul id=\"tList\" style=\"margin-top:15px; padding-left:20px;\"></ul>\n\n<script>\nfunction addItem() {\n  const input = document.getElementById('tInput');\n  if(!input.value.trim()) return;\n\n  const li = document.createElement('li');\n  li.textContent = input.value;\n  li.style.cursor = 'pointer';\n  li.onclick = function() { this.remove(); };\n  \n  document.getElementById('tList').appendChild(li);\n  input.value = '';\n}\n</script>\n\n</body>\n</html>",
-            "explanation": "<p>Click any created task to delete it dynamically!</p>",
-            "exercise": {
-              "question": "Which method adds a new child node to an element in the DOM?",
-              "options": [
-                "appendNode()",
-                "appendChild()",
-                "insertChild()",
-                "attach()"
-              ],
-              "answer": 1,
-              "tip": "appendChild() attaches a child element."
+              "explanation": "The 'await' keyword waits for the Promise to complete and returns its resolved value."
             }
           }
         ]
@@ -480,30 +187,35 @@ window.W3_TUTORIALS = {
   },
   "python": {
     "name": "Python",
-    "fullName": "Python Tutorial",
-    "desc": "A versatile language for AI, data, and web backends",
+    "icon": "🐍",
+    "tagline": "Clean Scripting, AI & Data Science",
+    "badge": "Backend & AI",
     "color": "#3776AB",
     "sections": [
       {
-        "title": "Python Tutorial",
+        "title": "1. Python Fundamentals",
         "lessons": [
           {
-            "id": "py_intro",
-            "title": "Python Introduction",
-            "subtitle": "Clean, English-like syntax for fast development.",
-            "content": "\n              <p>Python is popular for web applications (Django, Flask), Machine Learning, scripting, and data science.</p>\n            ",
-            "code": "# Python 3 Basics\nprint(\"Hello from Infinite Python Academy!\")\n\n# Dictionary data structure\npackage = {\n    \"name\": \"Professional Web Design\",\n    \"price_lkr\": 20000,\n    \"pages\": \"Custom UI\",\n    \"seo_included\": True\n}\n\nprint(f\"Plan: {package['name']}\")\nprint(f\"Price: Rs. {package['price_lkr']:,}/-\")\nprint(f\"SEO Included: {package['seo_included']}\")\n",
-            "explanation": "<p>Python uses clean indentation instead of curly brackets.</p>",
-            "exercise": {
-              "question": "How do you start a comment in Python?",
+            "id": "py_basics",
+            "title": "Python Data Structures & Automation",
+            "readTime": "4 min read",
+            "summary": "Discover lists, dictionaries, and list comprehensions for rapid automation.",
+            "content": "\n              <p class=\"lead\">Python is loved worldwide for its expressive, clean syntax and powerful standard library.</p>\n            ",
+            "code": "# Python 3 Agency Automation Script\n\nprojects = [\n    {\"client\": \"Lanka Logistics\", \"budget\": 60000, \"status\": \"Completed\"},\n    {\"client\": \"Southern Tours\", \"budget\": 20000, \"status\": \"In Progress\"},\n    {\"client\": \"Colombo Cafe\", \"budget\": 15000, \"status\": \"Completed\"}\n]\n\n# Calculate total completed revenue\ncompleted_revenue = sum(p[\"budget\"] for p in projects if p[\"status\"] == \"Completed\")\n\nprint(\"=== Infinite Agency Performance ===\")\nfor p in projects:\n    print(f\"• {p['client']}: Rs. {p['budget']:,}/- [{p['status']}]\")\n\nprint(f\"\nTotal Completed Revenue: Rs. {completed_revenue:,}/-\")\n",
+            "keyTakeaways": [
+              "List comprehensions and generator expressions allow clean 1-line filtering and aggregation.",
+              "f-strings (<code>f'{value:,}'</code>) provide clean number and text formatting."
+            ],
+            "challenge": {
+              "question": "What symbol starts a single-line comment in Python?",
               "options": [
                 "//",
-                "/*",
                 "#",
-                "--"
+                "--",
+                "/*"
               ],
-              "answer": 2,
-              "tip": "# is the comment prefix in Python."
+              "answer": 1,
+              "explanation": "# marks the start of a comment in Python."
             }
           }
         ]
@@ -512,30 +224,36 @@ window.W3_TUTORIALS = {
   },
   "sql": {
     "name": "SQL",
-    "fullName": "SQL Database Tutorial",
-    "desc": "Querying relational databases",
+    "icon": "🗄️",
+    "tagline": "Database Querying & Relational Architecture",
+    "badge": "Database",
     "color": "#00758F",
     "sections": [
       {
-        "title": "SQL Tutorial",
+        "title": "1. Relational Database Queries",
         "lessons": [
           {
-            "id": "sql_intro",
-            "title": "SQL Introduction",
-            "subtitle": "Managing and querying relational databases.",
-            "content": "\n              <p>SQL (Structured Query Language) is used to store, query, update, and delete database records.</p>\n            ",
-            "code": "-- SQL Query Example\nSELECT id, client_name, package, amount, created_at\nFROM orders\nWHERE status = 'Completed'\nORDER BY amount DESC;\n",
-            "explanation": "<p><code>SELECT * FROM table;</code> retrieves all records.</p>",
-            "exercise": {
-              "question": "Which SQL clause filters records based on a condition?",
+            "id": "sql_queries",
+            "title": "Advanced SELECT & Filtering Queries",
+            "readTime": "4 min read",
+            "summary": "Query relational databases with high-performance SQL filters and joins.",
+            "content": "\n              <p class=\"lead\">Structured Query Language (SQL) is the universal tool for reading, writing, and organizing data in MySQL, PostgreSQL, and SQLite.</p>\n            ",
+            "code": "-- SQL Query: Get High-Value Clients in Sri Lanka\nSELECT \n    client_id,\n    company_name,\n    package_type,\n    amount_paid,\n    created_at\nFROM clients\nWHERE country = 'Sri Lanka' \n  AND amount_paid >= 20000\nORDER BY amount_paid DESC;\n",
+            "keyTakeaways": [
+              "<code>SELECT</code> defines the columns to return.",
+              "<code>WHERE</code> filters rows based on criteria.",
+              "<code>ORDER BY col DESC</code> sorts records in descending order."
+            ],
+            "challenge": {
+              "question": "Which clause sorts the result set in SQL?",
               "options": [
-                "FILTER BY",
-                "WHERE",
-                "HAVING ONLY",
-                "MATCH"
+                "SORT BY",
+                "ORDER BY",
+                "GROUP BY",
+                "ARRANGE BY"
               ],
               "answer": 1,
-              "tip": "WHERE clause filters records in SQL."
+              "explanation": "ORDER BY is used to sort the result set in ascending or descending order."
             }
           }
         ]
@@ -544,30 +262,35 @@ window.W3_TUTORIALS = {
   },
   "php": {
     "name": "PHP",
-    "fullName": "PHP Tutorial",
-    "desc": "Server-side web scripting language",
+    "icon": "🐘",
+    "tagline": "Modern Server-Side Architecture & APIs",
+    "badge": "Backend",
     "color": "#777BB4",
     "sections": [
       {
-        "title": "PHP Tutorial",
+        "title": "1. Server-Side PHP Engineering",
         "lessons": [
           {
-            "id": "php_intro",
-            "title": "PHP Introduction",
-            "subtitle": "Powers dynamic websites, WordPress, and Laravel.",
-            "content": "\n              <p>PHP executes on the web server and generates output HTML for the browser.</p>\n            ",
-            "code": "<?php\n$company = \"Infinite Creative Web Design\";\n$packages = [\"Starter\" => 5000, \"Standard\" => 10000, \"Professional\" => 20000];\n\necho \"<h1>Welcome to $company</h1>\";\nforeach ($packages as $name => $price) {\n    echo \"<p>$name: Rs. \" . number_format($price) . \"/-</p>\";\n}\n?>",
-            "explanation": "<p>PHP variables begin with the <code>$</code> character.</p>",
-            "exercise": {
-              "question": "Which statement outputs text to the screen in PHP?",
+            "id": "php_backend",
+            "title": "Dynamic Templates & Data Processing",
+            "readTime": "4 min read",
+            "summary": "Harness PHP to render dynamic web pages and handle backend business logic.",
+            "content": "\n              <p class=\"lead\">PHP powers over 75% of the web, including WordPress, Laravel, and enterprise portals.</p>\n            ",
+            "code": "<?php\n// PHP 8+ Modern Associative Arrays & Rendering\n$site_config = [\n    \"brand\" => \"Infinite Creative Web Design\",\n    \"location\" => \"Tangalle, Sri Lanka\",\n    \"experience\" => 12\n];\n\nfunction getPackageTier(int $budget): string {\n    return match (true) {\n        $budget >= 60000 => \"E-Commerce Online Store\",\n        $budget >= 20000 => \"Corporate Professional\",\n        $budget >= 10000 => \"Standard Business\",\n        default => \"Starter Package\"\n    };\n}\n\n$client_budget = 20000;\n$recommended_tier = getPackageTier($client_budget);\n\necho \"<h1>Welcome to {$site_config['brand']}</h1>\";\necho \"<p>Based in {$site_config['location']} ({$site_config['experience']}+ years exp).</p>\";\necho \"<p>For Rs. \" . number_format($client_budget) . \"/-, recommended tier: <strong>$recommended_tier</strong></p>\";\n?>",
+            "keyTakeaways": [
+              "PHP 8 <code>match</code> expressions provide clean, type-safe condition matching.",
+              "Variables are prefixed with <code>$</code> and embedded directly into double-quoted strings."
+            ],
+            "challenge": {
+              "question": "How do variables begin in PHP?",
               "options": [
-                "print_out",
-                "echo",
-                "console.log",
-                "display"
+                "@",
+                "&",
+                "$",
+                "#"
               ],
-              "answer": 1,
-              "tip": "echo outputs strings in PHP."
+              "answer": 2,
+              "explanation": "All PHP variables must start with a dollar sign ($)."
             }
           }
         ]
@@ -576,30 +299,35 @@ window.W3_TUTORIALS = {
   },
   "react": {
     "name": "React",
-    "fullName": "React.js Tutorial",
-    "desc": "Modern JavaScript UI library",
+    "icon": "⚛️",
+    "tagline": "Component Architecture & Reactive State",
+    "badge": "Frontend UI",
     "color": "#61DAFB",
     "sections": [
       {
-        "title": "React Tutorial",
+        "title": "1. Modern React & Hooks",
         "lessons": [
           {
-            "id": "react_intro",
-            "title": "React Introduction",
-            "subtitle": "Building component-based User Interfaces.",
-            "content": "\n              <p>React creates fast, reactive web applications using a Virtual DOM and reusable components.</p>\n            ",
-            "code": "import React, { useState } from 'react';\n\nfunction Counter() {\n  const [count, setCount] = useState(0);\n\n  return (\n    <div style={{ padding: '20px', background: '#f8fafc', borderRadius: '8px' }}>\n      <h3>React Counter Component</h3>\n      <p>Clicked: <strong>{count}</strong> times</p>\n      <button onClick={() => setCount(count + 1)} style={{ padding: '8px 16px', background: '#04AA6D', color: '#fff', border: 'none', borderRadius: '4px' }}>\n        Increment (+1)\n      </button>\n    </div>\n  );\n}\n\nexport default Counter;",
-            "explanation": "<p>The <code>useState</code> Hook adds reactive state to functional components.</p>",
-            "exercise": {
-              "question": "Which React Hook is used to add state to a functional component?",
+            "id": "react_hooks",
+            "title": "State Management with useState & Props",
+            "readTime": "5 min read",
+            "summary": "Build reactive components with declarative JSX and React Hooks.",
+            "content": "\n              <p class=\"lead\">React empowers developers to build modular, component-driven User Interfaces with lightning fast Virtual DOM updates.</p>\n            ",
+            "code": "import React, { useState } from 'react';\n\nfunction PricingApp() {\n  const [selectedPlan, setSelectedPlan] = useState('Professional');\n  const plans = [\n    { name: 'Starter', price: 5000 },\n    { name: 'Professional', price: 20000 },\n    { name: 'E-Commerce', price: 60000 }\n  ];\n\n  return (\n    <div style={{ padding: '24px', background: '#0b0f19', color: '#fff', borderRadius: '12px' }}>\n      <h2 style={{ color: '#04AA6D' }}>Infinite React Configurator</h2>\n      <div style={{ display: 'flex', gap: '10px', margin: '15px 0' }}>\n        {plans.map(p => (\n          <button\n            key={p.name}\n            onClick={() => setSelectedPlan(p.name)}\n            style={{\n              padding: '10px 16px',\n              background: selectedPlan === p.name ? '#04AA6D' : '#1e293b',\n              color: '#fff',\n              border: '1px solid #334155',\n              borderRadius: '6px',\n              cursor: 'pointer'\n            }}\n          >\n            {p.name}\n          </button>\n        ))}\n      </div>\n      <p>Active Choice: <strong>{selectedPlan}</strong></p>\n    </div>\n  );\n}\n\nexport default PricingApp;",
+            "keyTakeaways": [
+              "<code>useState</code> manages dynamic reactive values in functional components.",
+              "Array <code>.map()</code> generates dynamic lists of elements with unique <code>key</code> props."
+            ],
+            "challenge": {
+              "question": "Which React Hook initializes and updates component state?",
               "options": [
-                "useReducer",
-                "useState",
                 "useEffect",
+                "useState",
+                "useRef",
                 "useMemo"
               ],
               "answer": 1,
-              "tip": "useState initializes and updates component state."
+              "explanation": "useState is the core hook for managing reactive component state."
             }
           }
         ]
@@ -608,30 +336,35 @@ window.W3_TUTORIALS = {
   },
   "git": {
     "name": "Git",
-    "fullName": "Git Tutorial",
-    "desc": "Distributed version control system",
+    "icon": "🌿",
+    "tagline": "Distributed Version Control & GitHub Workflows",
+    "badge": "DevOps",
     "color": "#F05032",
     "sections": [
       {
-        "title": "Git Tutorial",
+        "title": "1. Essential Git Workflows",
         "lessons": [
           {
-            "id": "git_intro",
-            "title": "Git Introduction",
-            "subtitle": "Track code changes and collaborate on GitHub.",
-            "content": "\n              <p>Git allows developers to create branches, stage commits, and push repositories to remote hosts like GitHub.</p>\n            ",
-            "code": "# Git Command Cheatsheet\n\n# 1. Initialize repository\ngit init\n\n# 2. Stage all modifications\ngit add .\n\n# 3. Create permanent snapshot commit\ngit commit -m \"feat: Add W3Schools tutorials platform\"\n\n# 4. Push to remote repository\ngit push origin main\n",
-            "explanation": "<p><code>git status</code> reveals which files are modified or staged.</p>",
-            "exercise": {
-              "question": "Which command shows the working tree status in Git?",
+            "id": "git_workflow",
+            "title": "Branching, Committing & GitHub Deployment",
+            "readTime": "4 min read",
+            "summary": "Master team collaboration, branching, and automated deployments with Git.",
+            "content": "\n              <p class=\"lead\">Git is the industry standard for tracking code changes, collaborating across teams, and triggering automated CI/CD deployments.</p>\n            ",
+            "code": "# The Professional 4-Step Git Workflow\n\n# 1. Create and switch to a feature branch\ngit checkout -b feature/pricing-engine\n\n# 2. Stage modified files\ngit add .\n\n# 3. Create descriptive conventional commit\ngit commit -m \"feat(pricing): add dedicated packages page and seo schema\"\n\n# 4. Push branch and open Pull Request\ngit push origin feature/pricing-engine\n",
+            "keyTakeaways": [
+              "Use feature branches to keep the <code>main</code> branch clean and production-ready.",
+              "Write clear, conventional commit messages (<code>feat:</code>, <code>fix:</code>, <code>docs:</code>)."
+            ],
+            "challenge": {
+              "question": "Which command creates and switches to a new Git branch simultaneously?",
               "options": [
-                "git check",
-                "git state",
-                "git status",
-                "git diff"
+                "git branch new",
+                "git checkout -b branch-name",
+                "git switch create",
+                "git make branch"
               ],
-              "answer": 2,
-              "tip": "git status displays branch and staging information."
+              "answer": 1,
+              "explanation": "git checkout -b <name> creates and immediately checks out the new branch."
             }
           }
         ]
@@ -639,3 +372,4 @@ window.W3_TUTORIALS = {
     ]
   }
 };
+window.W3_TUTORIALS = window.ACADEMY_COURSES;

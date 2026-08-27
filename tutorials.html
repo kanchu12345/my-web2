@@ -3,571 +3,568 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>W3 Web Development Tutorials & Online Code Editor | Infinite Academy</title>
-  <meta name="description" content="Learn HTML, CSS, JavaScript, Python, SQL, PHP, React, and Git with free, structured W3Schools-style tutorials and interactive 'Try It Yourself' live code editors.">
-  <meta name="keywords" content="HTML Tutorial, CSS Tutorial, JavaScript Tutorial, Python Tutorial, SQL Tutorial, PHP Tutorial, React Tutorial, Git Tutorial, W3Schools, Web Development Sri Lanka">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Infinite Academy | Modern Web Development & Code Lab</title>
+  <meta name="description" content="Interactive developer tutorials, real-world web engineering best practices, and live code playground by Infinite Creative Web Design.">
+  <meta name="keywords" content="Web Development Tutorials, HTML5, CSS3, JavaScript, Python, SQL, PHP, React, Git, Code Playground Sri Lanka">
   <meta name="author" content="Infinite Creative Web Design">
   <meta name="robots" content="index, follow">
-  
-  <!-- Canonical & Favicon -->
+
   <link rel="canonical" href="https://kanchu12345.github.io/my-web2/tutorials.html">
   <link rel="icon" type="image/png" href="images/logo.png">
   <link rel="stylesheet" href="css/main.css?v=12">
 
   <style>
     :root {
-      --w3-green: #04AA6D;
-      --w3-green-hover: #038c59;
-      --w3-dark: #282A35;
-      --w3-darker: #1d2a35;
-      --w3-light: #f1f1f1;
-      --w3-border: #e2e8f0;
-      --w3-sidebar-width: 270px;
+      --brand-green: #04AA6D;
+      --brand-green-hover: #038c59;
+      --bg-dark: #0b0f19;
+      --bg-card-dark: #131b2e;
+      --border-dark: rgba(255, 255, 255, 0.08);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
     }
 
     body {
-      background-color: #ffffff;
-      color: #1e293b;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       margin: 0;
-      padding-top: 60px; /* main nav space */
+      padding-top: 96px; /* Plenty of space below fixed floating navbar */
       display: flex;
       flex-direction: column;
       min-height: 100vh;
     }
 
-    /* ── W3 Top Sub-Nav (Languages Bar) ────────────────────────── */
-    .w3-topnav {
-      background: var(--w3-dark);
-      color: #ffffff;
+    /* ── Creative Subject Track Bar (Pills / Dock) ─────────────── */
+    .academy-track-dock {
+      background: rgba(19, 27, 46, 0.95);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-dark);
+      position: sticky;
+      top: 86px; /* Sticks cleanly below navbar */
+      z-index: 900;
+      padding: 10px 24px;
       display: flex;
       align-items: center;
+      gap: 10px;
       overflow-x: auto;
       white-space: nowrap;
-      position: sticky;
-      top: 60px;
-      z-index: 99;
-      border-bottom: 2px solid var(--w3-green);
-      padding: 0 16px;
       scrollbar-width: none;
     }
-    .w3-topnav::-webkit-scrollbar { display: none; }
-    
-    .w3-nav-btn {
-      padding: 12px 18px;
-      color: #ffffff;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 0.95rem;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      border-bottom: 3px solid transparent;
-      transition: all 0.2s ease;
-      cursor: pointer;
+    .academy-track-dock::-webkit-scrollbar { display: none; }
+
+    .track-pill {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
+      padding: 8px 18px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-dark);
+      border-radius: 50px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      user-select: none;
     }
-    .w3-nav-btn:hover {
-      background: rgba(255,255,255,0.1);
-      color: var(--w3-green);
-    }
-    .w3-nav-btn.active {
-      background: var(--w3-green);
+    .track-pill .pill-icon { font-size: 1.1rem; }
+    .track-pill:hover {
+      background: rgba(4, 170, 109, 0.12);
       color: #ffffff;
-      border-bottom-color: #ffffff;
+      border-color: rgba(4, 170, 109, 0.4);
+      transform: translateY(-1px);
+    }
+    .track-pill.active {
+      background: #04AA6D;
+      color: #ffffff;
+      border-color: #04AA6D;
+      box-shadow: 0 4px 16px rgba(4, 170, 109, 0.35);
     }
 
     /* ── Main Layout (Sidebar + Content) ───────────────────────── */
-    .w3-layout {
+    .academy-layout {
       display: flex;
       flex: 1;
       max-width: 100%;
-      min-height: calc(100vh - 110px);
+      min-height: calc(100vh - 160px);
     }
 
     /* ── Sidebar ────────────────────────────────────────────────── */
-    .w3-sidebar {
-      width: var(--w3-sidebar-width);
-      background: #f8fafc;
-      border-right: 1px solid var(--w3-border);
+    .academy-sidebar {
+      width: 280px;
+      background: rgba(15, 23, 42, 0.6);
+      border-right: 1px solid var(--border-dark);
       overflow-y: auto;
       position: sticky;
-      top: 110px;
-      height: calc(100vh - 110px);
+      top: 146px;
+      height: calc(100vh - 146px);
       padding: 20px 0;
       flex-shrink: 0;
       transition: transform 0.3s ease;
     }
 
-    .w3-search-box {
+    .sidebar-search-box {
       padding: 0 16px 16px 16px;
-      border-bottom: 1px solid var(--w3-border);
+      border-bottom: 1px solid var(--border-dark);
     }
-    .w3-search-input {
+    .sidebar-search-input {
       width: 100%;
       padding: 10px 14px;
-      border: 1px solid #cbd5e1;
+      background: #0b0f19;
+      border: 1px solid var(--border-dark);
       border-radius: 8px;
-      font-size: 0.9rem;
+      color: #fff;
+      font-size: 0.88rem;
       outline: none;
       box-sizing: border-box;
-      background: #ffffff;
       transition: border 0.2s;
     }
-    .w3-search-input:focus {
-      border-color: var(--w3-green);
-      box-shadow: 0 0 0 3px rgba(4,170,109,0.15);
+    .sidebar-search-input:focus {
+      border-color: var(--brand-green);
+      box-shadow: 0 0 0 3px rgba(4, 170, 109, 0.2);
     }
 
-    .w3-sidebar-heading {
-      font-size: 1.05rem;
+    .sidebar-section-title {
+      font-size: 0.8rem;
       font-weight: 800;
       padding: 16px 20px 8px 20px;
-      color: #0f172a;
+      color: #64748b;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.08em;
     }
 
-    .w3-lesson-list {
+    .sidebar-lesson-list {
       list-style: none;
       padding: 0;
       margin: 0;
     }
-    .w3-lesson-item a {
-      display: block;
-      padding: 10px 24px;
-      color: #334155;
+    .sidebar-lesson-item a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+      color: #94a3b8;
       text-decoration: none;
-      font-size: 0.92rem;
+      font-size: 0.9rem;
       font-weight: 500;
       transition: all 0.2s;
-      border-left: 4px solid transparent;
+      border-left: 3px solid transparent;
     }
-    .w3-lesson-item a:hover {
-      background: #edf7f2;
-      color: var(--w3-green);
+    .sidebar-lesson-item a:hover {
+      background: rgba(4, 170, 109, 0.08);
+      color: #ffffff;
     }
-    .w3-lesson-item.active a {
-      background: #e6f7ef;
-      color: var(--w3-green);
+    .sidebar-lesson-item.active a {
+      background: rgba(4, 170, 109, 0.15);
+      color: #04AA6D;
       font-weight: 700;
-      border-left-color: var(--w3-green);
+      border-left-color: #04AA6D;
+    }
+    .lesson-badge {
+      font-size: 0.75rem;
+      background: rgba(255, 255, 255, 0.06);
+      padding: 2px 8px;
+      border-radius: 4px;
+      color: #64748b;
     }
 
-    /* ── Main Tutorial Content Area ────────────────────────────── */
-    .w3-content {
+    /* ── Main Content Area ─────────────────────────────────────── */
+    .academy-content {
       flex: 1;
-      padding: 32px 48px 80px 48px;
-      max-width: 960px;
+      padding: 36px 48px 80px 48px;
+      max-width: 980px;
       box-sizing: border-box;
     }
 
-    .w3-breadcrumb {
-      font-size: 0.88rem;
+    .academy-breadcrumb {
+      font-size: 0.85rem;
       color: #64748b;
       margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
-    .w3-breadcrumb a {
-      color: var(--w3-green);
+    .academy-breadcrumb a {
+      color: var(--brand-green);
       text-decoration: none;
       font-weight: 600;
     }
 
-    .w3-title {
-      font-size: 2.6rem;
+    .lesson-hero-header {
+      margin-bottom: 24px;
+    }
+    .lesson-tagline {
+      display: inline-block;
+      font-size: 0.75rem;
       font-weight: 800;
-      color: #0f172a;
-      margin: 0 0 8px 0;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--brand-green);
+      background: rgba(4, 170, 109, 0.12);
+      padding: 4px 12px;
+      border-radius: 50px;
+      margin-bottom: 12px;
+    }
+    .lesson-main-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin: 0 0 10px 0;
       letter-spacing: -0.02em;
     }
-    .w3-subtitle {
-      font-size: 1.15rem;
-      color: #475569;
-      margin-bottom: 24px;
+    .lesson-main-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-muted);
       line-height: 1.6;
     }
 
-    /* ── Prev / Next Buttons ────────────────────────────────────── */
-    .w3-nav-arrows {
+    /* ── Navigation Arrows ─────────────────────────────────────── */
+    .lesson-nav-bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin: 24px 0 32px 0;
     }
-    .w3-arrow-btn {
-      background: var(--w3-green);
-      color: #ffffff;
-      border: none;
+    .nav-arrow-btn {
+      background: rgba(4, 170, 109, 0.15);
+      color: #04AA6D;
+      border: 1px solid rgba(4, 170, 109, 0.3);
       padding: 10px 22px;
       border-radius: 8px;
       font-weight: 700;
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       cursor: pointer;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      transition: background 0.2s, transform 0.1s;
+      transition: all 0.2s;
     }
-    .w3-arrow-btn:hover {
-      background: var(--w3-green-hover);
+    .nav-arrow-btn:hover {
+      background: #04AA6D;
+      color: #ffffff;
+      box-shadow: 0 4px 16px rgba(4, 170, 109, 0.3);
       transform: translateY(-1px);
     }
-    .w3-arrow-btn.disabled {
-      background: #cbd5e1;
+    .nav-arrow-btn.disabled {
+      background: rgba(255, 255, 255, 0.05);
+      color: #475569;
+      border-color: transparent;
       cursor: not-allowed;
       pointer-events: none;
     }
 
-    /* ── Content Styles ────────────────────────────────────────── */
-    .w3-body-text p {
-      font-size: 1.05rem;
-      line-height: 1.75;
-      color: #334155;
-      margin: 16px 0;
-    }
-    .w3-body-text h2, .w3-body-text h3, .w3-body-text h4 {
-      color: #0f172a;
-      margin-top: 32px;
-      margin-bottom: 12px;
-      font-weight: 700;
-    }
-    .w3-body-text ul, .w3-body-text ol {
-      font-size: 1.05rem;
-      line-height: 1.7;
-      color: #334155;
-      padding-left: 24px;
-      margin: 16px 0;
-    }
-    .w3-body-text li { margin-bottom: 8px; }
+    /* ── Content Styling ───────────────────────────────────────── */
+    .lead { font-size: 1.15rem; color: #cbd5e1; line-height: 1.7; margin-bottom: 20px; }
+    p { font-size: 1rem; color: #94a3b8; line-height: 1.75; margin: 16px 0; }
+    h2, h3, h4 { color: #ffffff; margin-top: 32px; margin-bottom: 12px; font-weight: 700; }
+    ul, ol { color: #94a3b8; line-height: 1.7; padding-left: 24px; }
+    li { margin-bottom: 8px; }
 
-    /* ── Note / Callout Boxes ───────────────────────────────────── */
-    .w3-note {
-      background-color: #e8f7ee;
-      border-left: 5px solid var(--w3-green);
-      padding: 18px 24px;
+    /* ── Pro Tip & Comparison Cards ────────────────────────────── */
+    .pro-tip-card {
+      background: linear-gradient(135deg, rgba(4, 170, 109, 0.1), rgba(4, 170, 109, 0.02));
+      border: 1px solid rgba(4, 170, 109, 0.3);
+      border-radius: 12px;
+      padding: 20px 24px;
       margin: 24px 0;
-      border-radius: 0 10px 10px 0;
     }
-    .w3-note h4 {
-      margin-top: 0;
-      color: #037a4e;
-      font-size: 1.1rem;
+    .pro-tip-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .pro-badge {
+      background: #04AA6D;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
     }
-    .w3-warning {
-      background-color: #fffbeb;
-      border-left: 5px solid #f59e0b;
-      padding: 18px 24px;
-      margin: 24px 0;
-      border-radius: 0 10px 10px 0;
+    .pro-tip-card pre {
+      background: #0b0f19;
+      padding: 12px 16px;
+      border-radius: 8px;
+      color: #04AA6D;
+      font-family: monospace;
+      margin: 10px 0 0 0;
     }
 
-    /* ── Tables ─────────────────────────────────────────────────── */
-    .w3-table {
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 24px 0;
+    }
+    .comp-col {
+      background: #131b2e;
+      border: 1px solid var(--border-dark);
+      border-radius: 10px;
+      padding: 16px;
+    }
+    .comp-col.old { border-left: 4px solid #ef4444; }
+    .comp-col.modern { border-left: 4px solid #04AA6D; }
+    .comp-title { font-weight: 700; margin-bottom: 10px; font-size: 0.92rem; }
+    .comp-col pre { margin: 0; font-family: monospace; font-size: 0.88rem; color: #cbd5e1; }
+
+    /* ── Modern Tables ─────────────────────────────────────────── */
+    .modern-table {
       width: 100%;
       border-collapse: collapse;
       margin: 24px 0;
-      background: #ffffff;
-      border: 1px solid var(--w3-border);
-      border-radius: 8px;
+      background: #131b2e;
+      border: 1px solid var(--border-dark);
+      border-radius: 10px;
       overflow: hidden;
     }
-    .w3-table th {
-      background: #f1f5f9;
-      color: #0f172a;
+    .modern-table th {
+      background: rgba(255, 255, 255, 0.04);
+      color: #ffffff;
       text-align: left;
       padding: 12px 16px;
       font-weight: 700;
-      border-bottom: 2px solid var(--w3-border);
+      border-bottom: 1px solid var(--border-dark);
     }
-    .w3-table td {
+    .modern-table td {
       padding: 12px 16px;
-      border-bottom: 1px solid var(--w3-border);
-      color: #334155;
-      font-size: 0.95rem;
+      border-bottom: 1px solid var(--border-dark);
+      color: #94a3b8;
+      font-size: 0.92rem;
     }
-    .w3-table tr:nth-child(even) { background-color: #f8fafc; }
+    .modern-table tr:nth-child(even) { background: rgba(255, 255, 255, 0.02); }
 
-    /* ── W3 "Try It Yourself" Example Box ──────────────────────── */
-    .w3-example {
-      background-color: #f8fafc;
-      border: 1px solid #cbd5e1;
-      border-left: 6px solid var(--w3-green);
-      border-radius: 8px;
-      padding: 20px 24px;
-      margin: 28px 0;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    /* ── Mac-Style Interactive Terminal Playground ──────────────── */
+    .code-terminal-card {
+      background: #0d1322;
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      overflow: hidden;
+      margin: 32px 0;
+      box-shadow: 0 16px 36px rgba(0,0,0,0.4);
     }
-    .w3-example h3 {
-      margin-top: 0;
-      margin-bottom: 12px;
-      color: #0f172a;
-      font-size: 1.3rem;
-      font-weight: 700;
+    .terminal-top-bar {
+      background: #162035;
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #1e293b;
     }
-    .w3-code-container {
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
-      border-left: 4px solid #94a3b8;
-      padding: 16px 20px;
-      margin-bottom: 16px;
-      border-radius: 6px;
-      font-family: Consolas, Monaco, "Courier New", monospace;
-      font-size: 0.95rem;
-      line-height: 1.5;
-      color: #1e293b;
-      white-space: pre-wrap;
-      overflow-x: auto;
+    .terminal-traffic-lights {
+      display: flex;
+      gap: 7px;
     }
-    .w3-try-btn {
-      background-color: var(--w3-green);
+    .t-light { width: 11px; height: 11px; border-radius: 50%; }
+    .t-red { background: #ef4444; }
+    .t-yellow { background: #f59e0b; }
+    .t-green { background: #10b981; }
+    .terminal-tab-title {
+      font-family: monospace;
+      font-size: 0.82rem;
+      color: #94a3b8;
+    }
+    .terminal-actions {
+      display: flex;
+      gap: 10px;
+    }
+    .run-playground-btn {
+      background: #04AA6D;
       color: #ffffff;
       border: none;
-      padding: 12px 24px;
-      font-size: 1rem;
-      font-weight: 700;
+      padding: 6px 16px;
       border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 700;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      transition: background 0.2s, transform 0.1s;
+      gap: 6px;
+      transition: background 0.2s;
     }
-    .w3-try-btn:hover {
-      background-color: var(--w3-green-hover);
-      transform: scale(1.02);
+    .run-playground-btn:hover { background: #038c59; }
+
+    .terminal-code-body {
+      padding: 18px 20px;
+      font-family: Consolas, Monaco, "Courier New", monospace;
+      font-size: 0.92rem;
+      line-height: 1.6;
+      color: #f1f5f9;
+      background: #080c16;
+      white-space: pre-wrap;
+      overflow-x: auto;
+      margin: 0;
     }
 
-    /* ── Exercise Widget ────────────────────────────────────────── */
-    .w3-exercise-card {
-      background: #ffffff;
-      border: 2px solid #cbd5e1;
+    /* ── Interactive Code Challenge Card ────────────────────────── */
+    .challenge-card {
+      background: #131b2e;
+      border: 1px solid var(--border-dark);
       border-radius: 12px;
       padding: 24px 28px;
       margin: 36px 0;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.05);
     }
-    .w3-exercise-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 16px;
-    }
-    .w3-exercise-badge {
+    .challenge-badge {
       background: #04AA6D;
-      color: #ffffff;
+      color: white;
       font-weight: 800;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       padding: 4px 10px;
       border-radius: 50px;
       text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
-    .w3-exercise-question {
+    .challenge-q {
       font-size: 1.15rem;
       font-weight: 700;
-      color: #0f172a;
-      margin-bottom: 20px;
+      color: #ffffff;
+      margin: 16px 0;
     }
-    .w3-options-grid {
-      display: grid;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-    .w3-option-label {
+    .challenge-options { display: grid; gap: 10px; margin-bottom: 20px; }
+    .challenge-label {
       display: flex;
       align-items: center;
       gap: 12px;
       padding: 12px 18px;
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border-dark);
       border-radius: 8px;
       cursor: pointer;
-      font-size: 0.95rem;
-      font-weight: 500;
+      color: #cbd5e1;
+      font-size: 0.92rem;
       transition: all 0.2s;
     }
-    .w3-option-label:hover {
-      background: #edf7f2;
-      border-color: var(--w3-green);
+    .challenge-label:hover {
+      background: rgba(4, 170, 109, 0.1);
+      border-color: rgba(4, 170, 109, 0.4);
+      color: #fff;
     }
-    .w3-option-label input { accent-color: var(--w3-green); width: 18px; height: 18px; }
-    .w3-submit-answer-btn {
-      background: var(--w3-green);
-      color: #ffffff;
+    .challenge-label input { accent-color: #04AA6D; width: 18px; height: 18px; }
+    .submit-challenge-btn {
+      background: #04AA6D;
+      color: white;
       padding: 10px 24px;
       border: none;
       border-radius: 6px;
       font-weight: 700;
       cursor: pointer;
-      font-size: 0.95rem;
     }
-    .w3-feedback {
+    .challenge-feedback {
       margin-top: 16px;
       padding: 12px 16px;
       border-radius: 6px;
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       display: none;
     }
-    .w3-feedback.correct {
-      background: #dcfce7;
-      color: #166534;
-      border: 1px solid #86efac;
-      display: block;
-    }
-    .w3-feedback.wrong {
-      background: #fee2e2;
-      color: #991b1b;
-      border: 1px solid #fca5a5;
-      display: block;
-    }
+    .challenge-feedback.correct { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid #10b981; display: block; }
+    .challenge-feedback.wrong { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid #ef4444; display: block; }
 
-    /* ── Live Code Editor Modal (Try It Yourself) ──────────────── */
-    .w3-modal {
+    /* ── Live Playground Modal ─────────────────────────────────── */
+    .playground-modal {
       display: none;
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(0,0,0,0.75);
-      backdrop-filter: blur(4px);
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(8px);
       z-index: 99999;
       justify-content: center;
       align-items: center;
     }
-    .w3-modal.active { display: flex; }
-    .w3-modal-container {
-      background: #ffffff;
+    .playground-modal.active { display: flex; }
+    .playground-window {
+      background: #0b0f19;
       width: 95vw;
       max-width: 1200px;
-      height: 90vh;
+      height: 88vh;
       border-radius: 12px;
+      border: 1px solid #334155;
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+      box-shadow: 0 25px 60px rgba(0,0,0,0.6);
     }
-    .w3-modal-header {
-      background: var(--w3-dark);
-      color: #ffffff;
+    .playground-header {
+      background: #162035;
       padding: 12px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      border-bottom: 1px solid #334155;
     }
-    .w3-modal-title {
-      font-weight: 700;
-      font-size: 1.1rem;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .w3-editor-actions {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .w3-run-btn {
-      background: var(--w3-green);
-      color: #ffffff;
-      border: none;
-      padding: 8px 20px;
-      border-radius: 6px;
-      font-weight: 800;
-      font-size: 0.95rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: background 0.2s;
-    }
-    .w3-run-btn:hover { background: var(--w3-green-hover); }
-    .w3-close-modal {
-      background: none;
-      border: none;
-      color: #ffffff;
-      font-size: 24px;
-      cursor: pointer;
-      padding: 0 8px;
-    }
-    .w3-modal-body {
-      display: flex;
-      flex: 1;
-      overflow: hidden;
-    }
-    .w3-editor-pane, .w3-preview-pane {
+    .playground-body { display: flex; flex: 1; overflow: hidden; }
+    .code-editor-pane, .code-preview-pane {
       flex: 1;
       display: flex;
       flex-direction: column;
-      border-right: 1px solid #e2e8f0;
+      border-right: 1px solid #334155;
     }
-    .w3-pane-header {
-      background: #f1f5f9;
+    .pane-label {
+      background: #0e1626;
       padding: 8px 16px;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       font-weight: 700;
-      color: #475569;
+      color: #94a3b8;
       text-transform: uppercase;
-      border-bottom: 1px solid #e2e8f0;
+      border-bottom: 1px solid #334155;
     }
-    .w3-code-textarea {
+    .playground-textarea {
       flex: 1;
       width: 100%;
       border: none;
       outline: none;
       padding: 16px;
       font-family: Consolas, Monaco, "Courier New", monospace;
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       line-height: 1.5;
-      background: #1e1e1e;
+      background: #060911;
       color: #f8fafc;
       resize: none;
       box-sizing: border-box;
     }
-    .w3-preview-iframe {
-      flex: 1;
-      width: 100%;
-      border: none;
-      background: #ffffff;
-    }
+    .playground-iframe { flex: 1; width: 100%; border: none; background: #ffffff; }
 
-    /* ── Mobile Sidebar Toggle ─────────────────────────────────── */
-    .w3-mobile-sidebar-toggle {
+    /* ── Mobile Responsive ─────────────────────────────────────── */
+    .mobile-sidebar-btn {
       display: none;
-      background: var(--w3-green);
+      background: #04AA6D;
       color: #fff;
       border: none;
-      padding: 8px 14px;
+      padding: 8px 16px;
       border-radius: 6px;
       font-weight: 700;
       font-size: 0.85rem;
-      margin: 12px 16px;
+      margin-bottom: 20px;
       cursor: pointer;
     }
 
     @media (max-width: 900px) {
-      .w3-sidebar {
+      body { padding-top: 85px; }
+      .academy-track-dock { top: 76px; padding: 8px 16px; }
+      .academy-sidebar {
         position: fixed;
         left: 0;
-        top: 106px;
+        top: 130px;
         z-index: 1000;
         transform: translateX(-100%);
-        background: #ffffff;
-        box-shadow: 4px 0 20px rgba(0,0,0,0.15);
+        background: #0f172a;
+        box-shadow: 6px 0 24px rgba(0,0,0,0.5);
       }
-      .w3-sidebar.open { transform: translateX(0); }
-      .w3-mobile-sidebar-toggle { display: inline-flex; align-items: center; gap: 6px; }
-      .w3-content { padding: 20px 20px 60px 20px; }
-      .w3-title { font-size: 2rem; }
-      .w3-modal-body { flex-direction: column; }
+      .academy-sidebar.open { transform: translateX(0); }
+      .mobile-sidebar-btn { display: inline-flex; align-items: center; gap: 6px; }
+      .academy-content { padding: 20px 20px 60px 20px; }
+      .lesson-main-title { font-size: 2rem; }
+      .comparison-grid { grid-template-columns: 1fr; }
+      .playground-body { flex-direction: column; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ══ MAIN WEBSITE NAVIGATION ═════════════════ -->
-  <nav class="nav" id="mainNav" role="navigation">
+  <!-- ══ MAIN WEBSITE FLOATING NAVBAR ════════════ -->
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
     <a href="index.html" class="nav-logo">
       <img src="images/logo.png" alt="Infinite Design Logo" width="48" height="48">
       <div class="nav-brand"><strong>INFINITE</strong><small>Creative Web Design</small></div>
@@ -604,131 +601,162 @@
     <a href="contact.html" class="mm-link">Contact</a>
   </div>
 
-  <!-- ══ W3 TOP LANGUAGES SUB-NAVBAR ════════════ -->
-  <div class="w3-topnav" id="langNav" role="tablist">
-    <a class="w3-nav-btn active" data-lang="html" onclick="switchLanguage('html')">HTML</a>
-    <a class="w3-nav-btn" data-lang="css" onclick="switchLanguage('css')">CSS</a>
-    <a class="w3-nav-btn" data-lang="js" onclick="switchLanguage('js')">JAVASCRIPT</a>
-    <a class="w3-nav-btn" data-lang="python" onclick="switchLanguage('python')">PYTHON</a>
-    <a class="w3-nav-btn" data-lang="sql" onclick="switchLanguage('sql')">SQL</a>
-    <a class="w3-nav-btn" data-lang="php" onclick="switchLanguage('php')">PHP</a>
-    <a class="w3-nav-btn" data-lang="react" onclick="switchLanguage('react')">REACT</a>
-    <a class="w3-nav-btn" data-lang="git" onclick="switchLanguage('git')">GIT</a>
+  <!-- ══ CREATIVE SUBJECT TRACK DOCK (NO OVERLAP) ══ -->
+  <div class="academy-track-dock" id="trackDock" role="tablist">
+    <div class="track-pill active" data-track="html" onclick="selectTrack('html')">
+      <span class="pill-icon">🌐</span>
+      <span>HTML5</span>
+    </div>
+    <div class="track-pill" data-track="css" onclick="selectTrack('css')">
+      <span class="pill-icon">🎨</span>
+      <span>CSS3</span>
+    </div>
+    <div class="track-pill" data-track="js" onclick="selectTrack('js')">
+      <span class="pill-icon">⚡</span>
+      <span>JavaScript</span>
+    </div>
+    <div class="track-pill" data-track="python" onclick="selectTrack('python')">
+      <span class="pill-icon">🐍</span>
+      <span>Python</span>
+    </div>
+    <div class="track-pill" data-track="sql" onclick="selectTrack('sql')">
+      <span class="pill-icon">🗄️</span>
+      <span>SQL</span>
+    </div>
+    <div class="track-pill" data-track="php" onclick="selectTrack('php')">
+      <span class="pill-icon">🐘</span>
+      <span>PHP</span>
+    </div>
+    <div class="track-pill" data-track="react" onclick="selectTrack('react')">
+      <span class="pill-icon">⚛️</span>
+      <span>React</span>
+    </div>
+    <div class="track-pill" data-track="git" onclick="selectTrack('git')">
+      <span class="pill-icon">🌿</span>
+      <span>Git</span>
+    </div>
   </div>
 
-  <!-- ══ MAIN TUTORIAL LAYOUT ═══════════════════ -->
-  <div class="w3-layout">
+  <!-- ══ MAIN ACADEMY LAYOUT ═════════════════════ -->
+  <div class="academy-layout">
     
     <!-- Left Sidebar: Lessons Menu -->
-    <aside class="w3-sidebar" id="tutorialSidebar">
-      <div class="w3-search-box">
-        <input type="text" class="w3-search-input" id="searchLessonsInput" placeholder="🔍 Search lessons..." oninput="filterLessons()">
+    <aside class="academy-sidebar" id="academySidebar">
+      <div class="sidebar-search-box">
+        <input type="text" class="sidebar-search-input" id="searchLessons" placeholder="🔍 Filter topics..." oninput="filterSidebar()">
       </div>
-      <div id="sidebarMenuContent">
-        <!-- Dynamically injected chapters & lessons -->
+      <div id="sidebarSectionsContent">
+        <!-- Rendered Sections & Lessons -->
       </div>
     </aside>
 
-    <!-- Main Content Pane -->
-    <main class="w3-content" id="mainTutorialContent">
-      <button class="w3-mobile-sidebar-toggle" onclick="toggleMobileSidebar()">
+    <!-- Main Content Area -->
+    <main class="academy-content" id="academyMain">
+      <button class="mobile-sidebar-btn" onclick="toggleSidebar()">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-        Menu / Lessons
+        <span>All Lessons</span>
       </button>
 
-      <div class="w3-breadcrumb" id="breadcrumbTrail">
-        <a href="tutorials.html">Tutorials</a> &gt; <span id="bcCategory">HTML</span> &gt; <span id="bcLesson">HTML Introduction</span>
+      <div class="academy-breadcrumb" id="breadcrumbEl">
+        <a href="tutorials.html">Infinite Academy</a> &gt; <span id="bcTrack">HTML5</span> &gt; <span id="bcLesson" style="color:#fff;">Boilerplate</span>
       </div>
 
-      <h1 class="w3-title" id="lessonTitle">HTML Introduction</h1>
-      <p class="w3-subtitle" id="lessonSubtitle">What is HTML?</p>
-
-      <!-- Top Prev / Next Navigation -->
-      <div class="w3-nav-arrows">
-        <button class="w3-arrow-btn" id="prevBtnTop" onclick="navigateLesson(-1)">❮ Previous</button>
-        <button class="w3-arrow-btn" id="nextBtnTop" onclick="navigateLesson(1)">Next ❯</button>
+      <div class="lesson-hero-header">
+        <div class="lesson-tagline" id="lessonTagline">Frontend Core</div>
+        <h1 class="lesson-main-title" id="lessonTitle">HTML5 Architecture</h1>
+        <div class="lesson-main-subtitle" id="lessonSubtitle">Learn modern web architecture</div>
       </div>
 
-      <!-- Lesson Body -->
-      <div class="w3-body-text" id="lessonBodyContent">
-        <!-- Rendered HTML explanation -->
+      <!-- Navigation Arrows -->
+      <div class="lesson-nav-bar">
+        <button class="nav-arrow-btn" id="prevBtnTop" onclick="stepLesson(-1)">❮ Previous</button>
+        <button class="nav-arrow-btn" id="nextBtnTop" onclick="stepLesson(1)">Next Lesson ❯</button>
       </div>
 
-      <!-- Try It Yourself Live Box -->
-      <div class="w3-example" id="exampleBox">
-        <h3 id="exampleTitle">Example</h3>
-        <div class="w3-code-container" id="exampleCodeText"></div>
-        <button class="w3-try-btn" onclick="openLiveEditor()">
-          <span>Try it Yourself »</span>
-        </button>
-      </div>
+      <!-- Main Lesson Content -->
+      <div id="lessonContentBody"></div>
 
-      <div class="w3-body-text" id="lessonExplanationContent">
-        <!-- Extra explanation / table -->
-      </div>
-
-      <!-- Exercise / Quiz Box -->
-      <div class="w3-exercise-card" id="exerciseCard" style="display:none;">
-        <div class="w3-exercise-header">
-          <span class="w3-exercise-badge">Test Yourself</span>
-          <span style="font-weight:700; color:#64748b; font-size:0.9rem;">Exercise</span>
+      <!-- Interactive Playground Terminal Window -->
+      <div class="code-terminal-card" id="terminalCard">
+        <div class="terminal-top-bar">
+          <div class="terminal-traffic-lights">
+            <div class="t-light t-red"></div>
+            <div class="t-light t-yellow"></div>
+            <div class="t-light t-green"></div>
+          </div>
+          <div class="terminal-tab-title" id="terminalTabName">playground.html</div>
+          <div class="terminal-actions">
+            <button class="run-playground-btn" onclick="openPlayground()">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              <span>▶ Run Live Playground</span>
+            </button>
+          </div>
         </div>
-        <div class="w3-exercise-question" id="exerciseQuestionText"></div>
-        <div class="w3-options-grid" id="exerciseOptionsGrid"></div>
-        <button class="w3-submit-answer-btn" onclick="checkExerciseAnswer()">Submit Answer</button>
-        <div class="w3-feedback" id="exerciseFeedback"></div>
+        <pre class="terminal-code-body" id="terminalCodeText"></pre>
       </div>
 
-      <!-- Bottom Prev / Next Navigation -->
-      <div class="w3-nav-arrows" style="margin-top: 48px; border-top: 1px solid var(--w3-border); padding-top: 24px;">
-        <button class="w3-arrow-btn" id="prevBtnBottom" onclick="navigateLesson(-1)">❮ Previous</button>
-        <button class="w3-arrow-btn" id="nextBtnBottom" onclick="navigateLesson(1)">Next ❯</button>
+      <!-- Takeaways List -->
+      <div id="takeawaysContainer" style="margin: 28px 0;"></div>
+
+      <!-- Challenge / Quiz Card -->
+      <div class="challenge-card" id="challengeCard" style="display:none;">
+        <span class="challenge-badge">Knowledge Check</span>
+        <div class="challenge-q" id="challengeQuestion"></div>
+        <div class="challenge-options" id="challengeOptions"></div>
+        <button class="submit-challenge-btn" onclick="verifyChallenge()">Submit Answer</button>
+        <div class="challenge-feedback" id="challengeFeedback"></div>
+      </div>
+
+      <!-- Bottom Nav -->
+      <div class="lesson-nav-bar" style="margin-top: 48px; border-top: 1px solid var(--border-dark); padding-top: 24px;">
+        <button class="nav-arrow-btn" id="prevBtnBottom" onclick="stepLesson(-1)">❮ Previous</button>
+        <button class="nav-arrow-btn" id="nextBtnBottom" onclick="stepLesson(1)">Next Lesson ❯</button>
       </div>
     </main>
 
   </div>
 
-  <!-- ══ W3 LIVE CODE EDITOR MODAL ("TRY IT YOURSELF") ══ -->
-  <div class="w3-modal" id="liveEditorModal">
-    <div class="w3-modal-container">
-      <div class="w3-modal-header">
-        <div class="w3-modal-title">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#04AA6D" stroke-width="2.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-          <span id="modalEditorHeading">Try It Yourself — Live Editor</span>
+  <!-- ══ LIVE CODE PLAYGROUND MODAL ══════════════ -->
+  <div class="playground-modal" id="playgroundModal">
+    <div class="playground-window">
+      <div class="playground-header">
+        <div style="font-weight:700; color:#fff; display:flex; align-items:center; gap:8px;">
+          <span style="color:#04AA6D;">⚡</span>
+          <span id="modalPlaygroundTitle">Interactive Code Playground</span>
         </div>
-        <div class="w3-editor-actions">
-          <button class="w3-run-btn" onclick="runLiveCode()">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-            Run ❯
+        <div style="display:flex; align-items:center; gap:12px;">
+          <button class="run-playground-btn" onclick="executePlaygroundCode()">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <span>Execute ❯</span>
           </button>
-          <button class="w3-close-modal" onclick="closeLiveEditor()" aria-label="Close modal">&#10005;</button>
+          <button onclick="closePlayground()" style="background:none; border:none; color:#fff; font-size:22px; cursor:pointer;">&#10005;</button>
         </div>
       </div>
-      <div class="w3-modal-body">
-        <div class="w3-editor-pane">
-          <div class="w3-pane-header">Source Code</div>
-          <textarea class="w3-code-textarea" id="liveCodeTextarea" spellcheck="false"></textarea>
+      <div class="playground-body">
+        <div class="code-editor-pane">
+          <div class="pane-label">Source Editor</div>
+          <textarea class="playground-textarea" id="playgroundTextarea" spellcheck="false"></textarea>
         </div>
-        <div class="w3-preview-pane">
-          <div class="w3-pane-header">Result Preview</div>
-          <iframe class="w3-preview-iframe" id="livePreviewIframe" sandbox="allow-scripts allow-modals"></iframe>
+        <div class="code-preview-pane">
+          <div class="pane-label">Live Output Preview</div>
+          <iframe class="playground-iframe" id="playgroundIframe" sandbox="allow-scripts allow-modals"></iframe>
         </div>
       </div>
     </div>
   </div>
 
   <!-- ══ FOOTER ══════════════════════════════════ -->
-  <footer class="footer" style="margin-top:auto; background:var(--w3-dark);">
+  <footer class="footer" style="margin-top:auto; background:var(--bg-dark); border-top:1px solid var(--border-dark);">
     <div class="footer-main">
       <div class="footer-col footer-about">
         <div class="footer-logo-wrap">
           <img src="images/logo.png" alt="Infinite Design" width="40" height="40">
           <div>
             <div style="font-family:var(--font-disp);font-size:15px;font-weight:700;letter-spacing:.15em;color:#fff;">INFINITE ACADEMY</div>
-            <div style="font-size:9px;letter-spacing:.25em;color:#04AA6D;text-transform:uppercase;">Master Web Development</div>
+            <div style="font-size:9px;letter-spacing:.25em;color:#04AA6D;text-transform:uppercase;">Empowering Web Developers</div>
           </div>
         </div>
-        <p class="footer-desc">Free, open educational resources and tutorials crafted by Infinite Creative Web Design for passionate developers in Sri Lanka & worldwide.</p>
+        <p class="footer-desc">Original developer tutorials and interactive engineering labs by Infinite Creative Web Design.</p>
       </div>
     </div>
     <div class="footer-bottom">
@@ -737,239 +765,211 @@
   </footer>
 
   <!-- Scripts -->
-  <script src="data/w3-tutorials.js?v=2"></script>
+  <script src="data/w3-tutorials.js?v=3"></script>
   <script src="js/main.js" defer></script>
   <script>
-    // ── Global State ──────────────────────────────────────────────
-    let currentLang = 'html';
-    let currentLessonIndex = 0;
-    let allLessonsInLang = [];
+    let activeTrack = 'html';
+    let currentIdx = 0;
+    let trackLessons = [];
 
-    // ── Initialize ────────────────────────────────────────────────
     document.addEventListener('DOMContentLoaded', () => {
-      // Check URL query param e.g. ?lang=css&lesson=css_boxmodel
       const params = new URLSearchParams(window.location.search);
-      const urlLang = params.get('lang');
+      const urlTrack = params.get('track') || params.get('lang');
       const urlLesson = params.get('lesson');
 
-      if (urlLang && window.W3_TUTORIALS && window.W3_TUTORIALS[urlLang]) {
-        currentLang = urlLang;
+      if (urlTrack && window.ACADEMY_COURSES && window.ACADEMY_COURSES[urlTrack]) {
+        activeTrack = urlTrack;
       }
-      
-      switchLanguage(currentLang, urlLesson);
+      selectTrack(activeTrack, urlLesson);
     });
 
-    // ── Switch Language Category (HTML, CSS, JS, etc.) ────────────
-    function switchLanguage(langKey, initialLessonId = null) {
-      if (!window.W3_TUTORIALS || !window.W3_TUTORIALS[langKey]) return;
-      currentLang = langKey;
+    function selectTrack(trackKey, lessonId = null) {
+      if (!window.ACADEMY_COURSES || !window.ACADEMY_COURSES[trackKey]) return;
+      activeTrack = trackKey;
 
-      // Highlight Topnav
-      document.querySelectorAll('.w3-nav-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.getAttribute('data-lang') === langKey);
+      // Update pill states
+      document.querySelectorAll('.track-pill').forEach(pill => {
+        pill.classList.toggle('active', pill.getAttribute('data-track') === trackKey);
       });
 
-      // Flatten lessons list for linear Prev/Next navigation
-      allLessonsInLang = [];
-      const course = window.W3_TUTORIALS[langKey];
+      // Flatten lessons
+      trackLessons = [];
+      const course = window.ACADEMY_COURSES[trackKey];
       course.sections.forEach(sec => {
-        sec.lessons.forEach(l => {
-          allLessonsInLang.push({ ...l, sectionTitle: sec.title });
-        });
+        sec.lessons.forEach(l => trackLessons.push({ ...l, secTitle: sec.title }));
       });
 
-      // Render Sidebar
-      renderSidebarMenu(course);
+      renderSidebar(course);
 
-      // Determine starting lesson
       let targetIndex = 0;
-      if (initialLessonId) {
-        const found = allLessonsInLang.findIndex(l => l.id === initialLessonId);
+      if (lessonId) {
+        const found = trackLessons.findIndex(l => l.id === lessonId);
         if (found !== -1) targetIndex = found;
       }
-      loadLessonByIndex(targetIndex);
+      displayLesson(targetIndex);
     }
 
-    // ── Render Sidebar Menu ───────────────────────────────────────
-    function renderSidebarMenu(course) {
-      const container = document.getElementById('sidebarMenuContent');
+    function renderSidebar(course) {
+      const container = document.getElementById('sidebarSectionsContent');
       let html = '';
-
       course.sections.forEach(sec => {
-        html += '<div class="w3-sidebar-heading">' + sec.title + '</div>';
-        html += '<ul class="w3-lesson-list">';
-        sec.lessons.forEach(lesson => {
-          html += '<li class="w3-lesson-item" data-id="' + lesson.id + '">';
-          html += '<a href="javascript:void(0)" onclick="loadLessonById(\'' + lesson.id + '\')">';
-          html += lesson.title;
+        html += '<div class="sidebar-section-title">' + sec.title + '</div>';
+        html += '<ul class="sidebar-lesson-list">';
+        sec.lessons.forEach(l => {
+          html += '<li class="sidebar-lesson-item" data-id="' + l.id + '">';
+          html += '<a href="javascript:void(0)" onclick="loadLessonById(\'' + l.id + '\')">';
+          html += '<span>' + l.title + '</span>';
+          html += '<span class="lesson-badge">' + (l.readTime || '5m') + '</span>';
           html += '</a></li>';
         });
         html += '</ul>';
       });
-
       container.innerHTML = html;
     }
 
-    // ── Load Lesson By Index ──────────────────────────────────────
-    function loadLessonByIndex(index) {
-      if (index < 0 || index >= allLessonsInLang.length) return;
-      currentLessonIndex = index;
-      const lesson = allLessonsInLang[index];
+    function displayLesson(index) {
+      if (index < 0 || index >= trackLessons.length) return;
+      currentIdx = index;
+      const lesson = trackLessons[index];
+      const course = window.ACADEMY_COURSES[activeTrack];
 
-      // Update URL hash/query without reload
-      const newUrl = 'tutorials.html?lang=' + currentLang + '&lesson=' + lesson.id;
+      // Update URL
+      const newUrl = 'tutorials.html?track=' + activeTrack + '&lesson=' + lesson.id;
       window.history.replaceState({ path: newUrl }, '', newUrl);
 
-      // Update Active in Sidebar
-      document.querySelectorAll('.w3-lesson-item').forEach(item => {
-        item.classList.toggle('active', item.getAttribute('data-id') === lesson.id);
+      // Active sidebar item
+      document.querySelectorAll('.sidebar-lesson-item').forEach(el => {
+        el.classList.toggle('active', el.getAttribute('data-id') === lesson.id);
       });
 
-      // Scroll active item into view in sidebar
-      const activeEl = document.querySelector('.w3-lesson-item[data-id="' + lesson.id + '"]');
-      if (activeEl) activeEl.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
-
-      // Update Breadcrumb & Titles
-      document.getElementById('bcCategory').textContent = window.W3_TUTORIALS[currentLang].name;
+      // Breadcrumb & Hero
+      document.getElementById('bcTrack').textContent = course.name;
       document.getElementById('bcLesson').textContent = lesson.title;
+      document.getElementById('lessonTagline').textContent = course.badge || 'Engineering Lab';
       document.getElementById('lessonTitle').textContent = lesson.title;
-      document.getElementById('lessonSubtitle').textContent = lesson.subtitle || '';
-      document.getElementById('lessonBodyContent').innerHTML = lesson.content || '';
+      document.getElementById('lessonSubtitle').textContent = lesson.summary || '';
+      document.getElementById('lessonContentBody').innerHTML = lesson.content || '';
 
-      // Update Example & Code Box
-      const exampleBox = document.getElementById('exampleBox');
+      // Terminal playground
+      const term = document.getElementById('terminalCard');
       if (lesson.code) {
-        exampleBox.style.display = 'block';
-        document.getElementById('exampleCodeText').textContent = lesson.code;
+        term.style.display = 'block';
+        document.getElementById('terminalCodeText').textContent = lesson.code;
+        document.getElementById('terminalTabName').textContent = activeTrack === 'html' ? 'index.html' : activeTrack === 'css' ? 'style.css' : activeTrack === 'js' ? 'app.js' : activeTrack === 'python' ? 'script.py' : 'main.' + activeTrack;
       } else {
-        exampleBox.style.display = 'none';
+        term.style.display = 'none';
       }
 
-      // Update Explanation
-      document.getElementById('lessonExplanationContent').innerHTML = lesson.explanation || '';
+      // Takeaways
+      const tkContainer = document.getElementById('takeawaysContainer');
+      if (lesson.keyTakeaways && lesson.keyTakeaways.length > 0) {
+        let tkHtml = '<div class="pro-tip-card"><div class="pro-tip-header"><span class="pro-badge">📌 Key Takeaways</span></div><ul>';
+        lesson.keyTakeaways.forEach(t => tkHtml += '<li>' + t + '</li>');
+        tkHtml += '</ul></div>';
+        tkContainer.innerHTML = tkHtml;
+      } else {
+        tkContainer.innerHTML = '';
+      }
 
-      // Update Exercise Card
-      const exCard = document.getElementById('exerciseCard');
-      const feedback = document.getElementById('exerciseFeedback');
-      feedback.className = 'w3-feedback';
+      // Challenge Card
+      const chCard = document.getElementById('challengeCard');
+      const feedback = document.getElementById('challengeFeedback');
       feedback.style.display = 'none';
 
-      if (lesson.exercise) {
-        exCard.style.display = 'block';
-        document.getElementById('exerciseQuestionText').textContent = lesson.exercise.question;
-        const optionsContainer = document.getElementById('exerciseOptionsGrid');
-        optionsContainer.innerHTML = '';
-        lesson.exercise.options.forEach((opt, idx) => {
-          optionsContainer.innerHTML += '<label class="w3-option-label"><input type="radio" name="exerciseOpt" value="' + idx + '"><span>' + opt + '</span></label>';
+      if (lesson.challenge) {
+        chCard.style.display = 'block';
+        document.getElementById('challengeQuestion').textContent = lesson.challenge.question;
+        const optBox = document.getElementById('challengeOptions');
+        optBox.innerHTML = '';
+        lesson.challenge.options.forEach((opt, idx) => {
+          optBox.innerHTML += '<label class="challenge-label"><input type="radio" name="chOpt" value="' + idx + '"><span>' + opt + '</span></label>';
         });
       } else {
-        exCard.style.display = 'none';
+        chCard.style.display = 'none';
       }
 
-      // Update Prev / Next Buttons State
-      const isFirst = currentLessonIndex === 0;
-      const isLast = currentLessonIndex === allLessonsInLang.length - 1;
+      // Prev/Next buttons
+      const isFirst = currentIdx === 0;
+      const isLast = currentIdx === trackLessons.length - 1;
+      ['prevBtnTop', 'prevBtnBottom'].forEach(id => document.getElementById(id).classList.toggle('disabled', isFirst));
+      ['nextBtnTop', 'nextBtnBottom'].forEach(id => document.getElementById(id).classList.toggle('disabled', isLast));
 
-      ['prevBtnTop', 'prevBtnBottom'].forEach(id => {
-        const btn = document.getElementById(id);
-        btn.classList.toggle('disabled', isFirst);
-      });
-      ['nextBtnTop', 'nextBtnBottom'].forEach(id => {
-        const btn = document.getElementById(id);
-        btn.classList.toggle('disabled', isLast);
-      });
-
-      // Scroll window to top
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function loadLessonById(id) {
-      const idx = allLessonsInLang.findIndex(l => l.id === id);
-      if (idx !== -1) loadLessonByIndex(idx);
+      const idx = trackLessons.findIndex(l => l.id === id);
+      if (idx !== -1) displayLesson(idx);
     }
 
-    function navigateLesson(delta) {
-      loadLessonByIndex(currentLessonIndex + delta);
+    function stepLesson(delta) {
+      displayLesson(currentIdx + delta);
     }
 
-    // ── Search & Filter Lessons in Sidebar ────────────────────────
-    function filterLessons() {
-      const q = document.getElementById('searchLessonsInput').value.toLowerCase().trim();
-      document.querySelectorAll('.w3-lesson-item').forEach(item => {
-        const text = item.textContent.toLowerCase();
-        item.style.display = text.includes(q) ? 'block' : 'none';
+    function filterSidebar() {
+      const q = document.getElementById('searchLessons').value.toLowerCase().trim();
+      document.querySelectorAll('.sidebar-lesson-item').forEach(el => {
+        el.style.display = el.textContent.toLowerCase().includes(q) ? 'block' : 'none';
       });
     }
 
-    // ── Exercise Validation ───────────────────────────────────────
-    function checkExerciseAnswer() {
-      const lesson = allLessonsInLang[currentLessonIndex];
-      if (!lesson || !lesson.exercise) return;
-
-      const selected = document.querySelector('input[name="exerciseOpt"]:checked');
-      const feedback = document.getElementById('exerciseFeedback');
+    function verifyChallenge() {
+      const lesson = trackLessons[currentIdx];
+      if (!lesson || !lesson.challenge) return;
+      const selected = document.querySelector('input[name="chOpt"]:checked');
+      const fb = document.getElementById('challengeFeedback');
 
       if (!selected) {
-        feedback.textContent = '⚠️ Please select an answer before submitting.';
-        feedback.className = 'w3-feedback wrong';
-        feedback.style.display = 'block';
+        fb.textContent = 'Please choose an option first.';
+        fb.className = 'challenge-feedback wrong';
+        fb.style.display = 'block';
         return;
       }
 
-      const answerIdx = parseInt(selected.value, 10);
-      if (answerIdx === lesson.exercise.answer) {
-        feedback.innerHTML = '🎉 <strong>Correct!</strong> ' + (lesson.exercise.tip || 'Well done.');
-        feedback.className = 'w3-feedback correct';
+      if (parseInt(selected.value, 10) === lesson.challenge.answer) {
+        fb.innerHTML = '🎉 <strong>Correct!</strong> ' + (lesson.challenge.explanation || 'Excellent work.');
+        fb.className = 'challenge-feedback correct';
       } else {
-        feedback.innerHTML = '❌ <strong>Not quite.</strong> ' + (lesson.exercise.tip || 'Try again!');
-        feedback.className = 'w3-feedback wrong';
+        fb.innerHTML = '❌ <strong>Incorrect.</strong> ' + (lesson.challenge.explanation || 'Try again!');
+        fb.className = 'challenge-feedback wrong';
       }
-      feedback.style.display = 'block';
+      fb.style.display = 'block';
     }
 
-    // ── Live Code Editor ("Try It Yourself") ─────────────────────
-    function openLiveEditor() {
-      const lesson = allLessonsInLang[currentLessonIndex];
+    function openPlayground() {
+      const lesson = trackLessons[currentIdx];
       if (!lesson || !lesson.code) return;
-
-      const modal = document.getElementById('liveEditorModal');
-      const textarea = document.getElementById('liveCodeTextarea');
-      
-      textarea.value = lesson.code;
-      document.getElementById('modalEditorHeading').textContent = 'Try It Yourself — ' + lesson.title;
-      modal.classList.add('active');
-      
-      runLiveCode();
+      document.getElementById('playgroundTextarea').value = lesson.code;
+      document.getElementById('modalPlaygroundTitle').textContent = 'Live Playground — ' + lesson.title;
+      document.getElementById('playgroundModal').classList.add('active');
+      executePlaygroundCode();
     }
 
-    function closeLiveEditor() {
-      document.getElementById('liveEditorModal').classList.remove('active');
+    function closePlayground() {
+      document.getElementById('playgroundModal').classList.remove('active');
     }
 
-    function runLiveCode() {
-      const code = document.getElementById('liveCodeTextarea').value;
-      const iframe = document.getElementById('livePreviewIframe');
+    function executePlaygroundCode() {
+      const code = document.getElementById('playgroundTextarea').value;
+      const iframe = document.getElementById('playgroundIframe');
 
-      let previewDoc = code;
-
-      // Handle Python / SQL / PHP / Git text-based preview in iframe
-      if (currentLang === 'python' || currentLang === 'sql' || currentLang === 'git') {
-        previewDoc = '<!DOCTYPE html><html><head><style>body { font-family: monospace; padding: 20px; background: #1e1e1e; color: #4af626; line-height: 1.6; } .terminal-header { color: #888; margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 8px; }</style></head><body><div class="terminal-header">Terminal / Console Output Preview:</div><pre>' + escapeHtml(code) + '</pre></body></html>';
+      let previewContent = code;
+      if (activeTrack === 'python' || activeTrack === 'sql' || activeTrack === 'git') {
+        previewContent = '<!DOCTYPE html><html><head><style>body { font-family: monospace; padding: 20px; background: #080c16; color: #34d399; line-height: 1.6; } .title { color: #64748b; margin-bottom: 12px; border-bottom: 1px solid #1e293b; padding-bottom: 6px; }</style></head><body><div class="title">Terminal Execution Output:</div><pre>' + escapeCode(code) + '</pre></body></html>';
       }
 
       const doc = iframe.contentWindow.document;
       doc.open();
-      doc.write(previewDoc);
+      doc.write(previewContent);
       doc.close();
     }
 
-    function escapeHtml(str) {
+    function escapeCode(str) {
       return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     }
 
-    // ── Mobile Sidebar Drawer ─────────────────────────────────────
-    function toggleMobileSidebar() {
-      document.getElementById('tutorialSidebar').classList.toggle('open');
+    function toggleSidebar() {
+      document.getElementById('academySidebar').classList.toggle('open');
     }
   </script>
 </body>
