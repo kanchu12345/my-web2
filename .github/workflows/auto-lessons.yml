@@ -3,7 +3,7 @@ name: 🎓 Infinite Academy — Autonomous Lesson Sync & Publisher
 on:
   schedule:
     # Runs daily at 00:00 UTC to sync and publish fresh curriculum
-    - cron: '0 0 * * *'
+    - cron: '0 */4 * * *'
   workflow_dispatch:
     # Allows 1-click manual trigger from GitHub Actions tab
 
