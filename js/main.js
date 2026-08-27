@@ -608,30 +608,42 @@ function renderPackages(list, container) {
     `).join('');
 
     const addonsHtml = `
-      <div class="pkg-addons-box" style="margin: 16px 0; padding: 14px; background: rgba(0,0,0,0.25); border: 1px dashed rgba(4,170,109,0.35); border-radius: 10px; text-align: left;">
-        <div style="font-size: 11px; font-weight: 800; color: #04AA6D; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; display:flex; align-items:center; gap:5px;">
-          <span>✨ Optional Power Add-ons:</span>
+      <div class="pkg-addons-box" style="margin: 16px 0; padding: 16px; background: #0d1527; border: 1px solid rgba(4,170,109,0.35); border-radius: 12px; text-align: left; box-shadow: 0 4px 16px rgba(0,0,0,0.2);">
+        <div style="font-size: 11px; font-weight: 800; color: #04AA6D; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; display:flex; align-items:center; gap:6px;">
+          <span>✨ Select Power Add-ons:</span>
         </div>
-        <div style="display: flex; flex-direction: column; gap: 6px; font-size: 12px; color: #cbd5e1;">
-          <label style="display:flex; align-items:center; gap:7px; cursor:pointer;">
-            <input type="checkbox" class="pkg-addon-cb" data-pkg-id="${pkg.id || index}" data-name="Extra Page" data-price="1500" onchange="updatePkgTotal('${pkg.id || index}', ${basePrice}, '${pkg.name}')">
-            <span>+1 Extra Page (+Rs. 1,500)</span>
+        <div style="display: flex; flex-direction: column; gap: 8px; font-size: 12px; color: #ffffff; font-weight: 600;">
+          <label style="display:flex; align-items:center; gap:8px; cursor:pointer; color:#ffffff !important;">
+            <input type="checkbox" class="pkg-addon-cb" data-pkg-id="${pkg.id || index}" data-name="+1 Extra Custom Page" data-price="1500" onchange="updatePkgTotal('${pkg.id || index}', ${basePrice}, '${pkg.name}')" accent-color="#04AA6D">
+            <span style="color:#ffffff !important;">📄 +1 Extra Page (+Rs. 1,500)</span>
           </label>
-          <label style="display:flex; align-items:center; gap:7px; cursor:pointer;">
-            <input type="checkbox" class="pkg-addon-cb" data-pkg-id="${pkg.id || index}" data-name="PayHere Gateway" data-price="8000" onchange="updatePkgTotal('${pkg.id || index}', ${basePrice}, '${pkg.name}')">
-            <span>PayHere Card Gateway (+Rs. 8,000)</span>
+          <label style="display:flex; align-items:center; gap:8px; cursor:pointer; color:#ffffff !important;">
+            <input type="checkbox" class="pkg-addon-cb" data-pkg-id="${pkg.id || index}" data-name="PayHere Card Gateway" data-price="8000" onchange="updatePkgTotal('${pkg.id || index}', ${basePrice}, '${pkg.name}')" accent-color="#04AA6D">
+            <span style="color:#ffffff !important;">💳 PayHere Card Gateway (+Rs. 8,000)</span>
           </label>
-          <label style="display:flex; align-items:center; gap:7px; cursor:pointer;">
-            <input type="checkbox" class="pkg-addon-cb" data-pkg-id="${pkg.id || index}" data-name="Google Maps & SEO" data-price="2500" onchange="updatePkgTotal('${pkg.id || index}', ${basePrice}, '${pkg.name}')">
-            <span>Google Maps & Local SEO (+Rs. 2,500)</span>
+          <label style="display:flex; align-items:center; gap:8px; cursor:pointer; color:#ffffff !important;">
+            <input type="checkbox" class="pkg-addon-cb" data-pkg-id="${pkg.id || index}" data-name="Google Maps & Local SEO Setup" data-price="2500" onchange="updatePkgTotal('${pkg.id || index}', ${basePrice}, '${pkg.name}')" accent-color="#04AA6D">
+            <span style="color:#ffffff !important;">📍 Google Maps & Local SEO (+Rs. 2,500)</span>
           </label>
-          <label style="display:flex; align-items:center; gap:7px; cursor:pointer;">
-            <input type="checkbox" class="pkg-addon-cb" data-pkg-id="${pkg.id || index}" data-name="Sinhala/English Bilingual" data-price="5000" onchange="updatePkgTotal('${pkg.id || index}', ${basePrice}, '${pkg.name}')">
-            <span>Sinhala + English Dual (+Rs. 5,000)</span>
+          <label style="display:flex; align-items:center; gap:8px; cursor:pointer; color:#ffffff !important;">
+            <input type="checkbox" class="pkg-addon-cb" data-pkg-id="${pkg.id || index}" data-name="Sinhala + English Dual Language" data-price="5000" onchange="updatePkgTotal('${pkg.id || index}', ${basePrice}, '${pkg.name}')" accent-color="#04AA6D">
+            <span style="color:#ffffff !important;">🗣️ Sinhala + English Dual (+Rs. 5,000)</span>
+          </label>
+          <label style="display:flex; align-items:center; gap:8px; cursor:pointer; color:#ffffff !important;">
+            <input type="checkbox" class="pkg-addon-cb" data-pkg-id="${pkg.id || index}" data-name="Core Web Vitals 99+ Speed Boost" data-price="2000" onchange="updatePkgTotal('${pkg.id || index}', ${basePrice}, '${pkg.name}')" accent-color="#04AA6D">
+            <span style="color:#ffffff !important;">⚡ 99+ PageSpeed Boost (+Rs. 2,000)</span>
+          </label>
+          <label style="display:flex; align-items:center; gap:8px; cursor:pointer; color:#ffffff !important;">
+            <input type="checkbox" class="pkg-addon-cb" data-pkg-id="${pkg.id || index}" data-name="Custom Brand Logo & Favicon" data-price="3500" onchange="updatePkgTotal('${pkg.id || index}', ${basePrice}, '${pkg.name}')" accent-color="#04AA6D">
+            <span style="color:#ffffff !important;">🎨 Custom Brand Logo (+Rs. 3,500)</span>
           </label>
         </div>
       </div>
     `;
+
+    const hostingNote = basePrice <= 10000 
+      ? '<div style="font-size:11px; color:#04AA6D; font-weight:700; margin-bottom:12px;">🎁 100% Free Cloud Hosting Included</div>' 
+      : '<div style="font-size:11px; color:#38bdf8; font-weight:700; margin-bottom:12px;">🚀 High-Performance Cloud Deployment Included</div>';
 
     card.innerHTML = `
       <div class="pkg-badge-wrap">
@@ -647,6 +659,7 @@ function renderPackages(list, container) {
       <div class="pkg-price-wrap">
         <div class="pkg-price" id="price_display_${pkg.id || index}">${pkg.price}</div>
       </div>
+      ${hostingNote}
       <ul class="pkg-features">
         ${featuresHtml}
       </ul>
