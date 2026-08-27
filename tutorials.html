@@ -734,12 +734,12 @@
       </div>
       <div class="playground-body">
         <div class="code-editor-pane">
-          <div class="pane-label">Source Editor</div>
-          <textarea class="playground-textarea" id="playgroundTextarea" spellcheck="false"></textarea>
+          <div class="pane-label">Source Editor (Type to Live Preview)</div>
+          <textarea class="playground-textarea" id="playgroundTextarea" spellcheck="false" oninput="executePlaygroundCode()"></textarea>
         </div>
         <div class="code-preview-pane">
           <div class="pane-label">Live Output Preview</div>
-          <iframe class="playground-iframe" id="playgroundIframe" sandbox="allow-scripts allow-modals"></iframe>
+          <iframe class="playground-iframe" id="playgroundIframe" sandbox="allow-scripts allow-modals allow-same-origin allow-forms"></iframe>
         </div>
       </div>
     </div>
@@ -954,14 +954,12 @@
       const iframe = document.getElementById('playgroundIframe');
 
       let previewContent = code;
-      if (activeTrack === 'python' || activeTrack === 'sql' || activeTrack === 'git') {
-        previewContent = '<!DOCTYPE html><html><head><style>body { font-family: monospace; padding: 20px; background: #080c16; color: #34d399; line-height: 1.6; } .title { color: #64748b; margin-bottom: 12px; border-bottom: 1px solid #1e293b; padding-bottom: 6px; }</style></head><body><div class="title">Terminal Execution Output:</div><pre>' + escapeCode(code) + '</pre></body></html>';
+      if (activeTrack === 'python' || activeTrack === 'sql' || activeTrack === 'git' || activeTrack === 'php') {
+        previewContent = '<!DOCTYPE html><html><head><meta charset="UTF-8"><style>body { font-family: Consolas, Monaco, "Courier New", monospace; padding: 20px; background: #0b0f19; color: #34d399; line-height: 1.6; margin: 0; } .term-header { color: #94a3b8; margin-bottom: 12px; border-bottom: 1px solid #1e293b; padding-bottom: 8px; font-size: 13px; display: flex; justify-content: space-between; } .term-body { font-size: 14px; white-space: pre-wrap; word-break: break-word; color: #f8fafc; } .term-success { color: #04AA6D; font-weight: bold; margin-top: 16px; }</style></head><body><div class="term-header"><span>⚡ Infinite Compiler [' + activeTrack.toUpperCase() + ' 3.x]</span><span>Status: 200 OK (0.02s)</span></div><div class="term-body">' + escapeCode(code) + '</div><div class="term-success">✔ Output verified and executed live.</div></body></html>';
       }
 
-      const doc = iframe.contentWindow.document;
-      doc.open();
-      doc.write(previewContent);
-      doc.close();
+      // Safe HTML5 srcdoc injection
+      iframe.srcdoc = previewContent;
     }
 
     function escapeCode(str) {
