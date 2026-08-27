@@ -350,16 +350,24 @@ Route::<span class="cv">get</span>(<span class="cs">'/'</span>,
             <span class="l">T</span><span class="l">E</span>
           </div>
         </div>
-        <p class="hero-sub">Top 3% Creative Talent</p>
-        <p class="hero-tagline">"High-impact Creative Solutions Executed by World-class Talent."</p>
-        <div class="hero-btns">
-          <a href="portfolio.html" class="btn btn-primary" id="heroViewWork">
+        <div style="display:inline-flex; align-items:center; gap:8px; background:rgba(4,170,109,0.15); border:1px solid rgba(4,170,109,0.35); border-radius:50px; padding:6px 16px; margin: 12px 0;">
+          <span style="width:8px; height:8px; border-radius:50%; background:#04AA6D; box-shadow:0 0 8px #04AA6D;"></span>
+          <span style="color:#04AA6D; font-weight:800; font-size:0.8rem; letter-spacing:0.08em; text-transform:uppercase;">Sri Lanka's Elite Conversion Web Agency</span>
+        </div>
+        <h2 style="font-size: clamp(1.8rem, 3.5vw, 2.5rem); font-weight:900; color:#ffffff; margin:0 0 12px; line-height:1.2; letter-spacing:-0.02em;">
+          Turn Visitors Into <span style="background:linear-gradient(135deg, #04AA6D, #38bdf8); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">Paying Clients</span>
+        </h2>
+        <p class="hero-tagline" style="font-size:1.05rem; color:#cbd5e1; margin-bottom:20px; line-height:1.6;">
+          Ultra-fast, mobile-first websites with automated workflows & 100% SEO ranking. Packages starting from <strong>Rs. 5,000/-</strong> with <strong>100% PageSpeed Guarantee</strong>.
+        </p>
+        <div class="hero-btns" style="display:flex; flex-wrap:wrap; gap:12px;">
+          <a href="#calculator" class="btn btn-primary" id="heroViewWork" style="background:#04AA6D; color:#fff; font-weight:800; padding:12px 24px; border-radius:8px; box-shadow:0 8px 24px rgba(4,170,109,0.35); text-decoration:none; display:inline-flex; align-items:center; gap:8px;">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-              <path d="M5 12h14M12 5l7 7-7 7" />
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
             </svg>
-            View Projects
+            Instant Estimate
           </a>
-          <a href="contact.html" class="btn btn-ghost" id="heroContact">Get In Touch</a>
+          <a href="portfolio.html" class="btn btn-ghost" id="heroContact" style="border-radius:8px;">View Projects</a>
         </div>
       </div>
 
@@ -586,6 +594,64 @@ Route::<span class="cv">get</span>(<span class="cs">'/'</span>,
     </div>
   </section>
 
+  <!-- ══ INTERACTIVE INSTANT PROJECT ESTIMATOR (HIGH CONVERSION) ══ -->
+  <section class="section" id="calculator" aria-label="Instant Project Estimate" style="padding-top:0;">
+    <div class="section-inner">
+      <div class="section-eyebrow reveal">Transparent Pricing</div>
+      <div class="pricing-header reveal">
+        <h2 class="pricing-title">Instant Project Scope & Investment Estimator</h2>
+        <p class="pricing-subtitle">
+          Select your requirements below to calculate an upfront estimate with zero hidden fees.
+        </p>
+      </div>
+
+      <div class="b-cell reveal" style="background:linear-gradient(135deg, #131b2e 0%, #0b0f19 100%); border:1px solid rgba(4,170,109,0.35); border-radius:20px; padding:36px; max-width:850px; margin:0 auto; box-shadow:0 20px 50px rgba(0,0,0,0.5);">
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:24px; margin-bottom:28px;">
+          
+          <!-- Step 1: Package Type -->
+          <div>
+            <label style="display:block; font-weight:800; color:#fff; font-size:0.95rem; margin-bottom:8px;">1. Select Website Tier</label>
+            <select id="calcTier" onchange="calculateEstimate()" style="width:100%; padding:12px; background:#080c16; border:1px solid #334155; color:#fff; border-radius:8px; font-size:0.95rem; outline:none;">
+              <option value="5000" data-name="Starter Package">Starter Website (3 Pages) — Rs. 5,000</option>
+              <option value="10000" selected data-name="Standard Package">Standard Business (5 Pages + Admin) — Rs. 10,000</option>
+              <option value="15000" data-name="Advanced Package">Advanced Marketing (Custom UI) — Rs. 15,000</option>
+              <option value="20000" data-name="Corporate Package">Corporate Professional (Multi-page) — Rs. 20,000</option>
+              <option value="60000" data-name="E-Commerce Store">Full E-Commerce Store (PayHere) — Rs. 60,000</option>
+            </select>
+          </div>
+
+          <!-- Step 2: Extra Options -->
+          <div>
+            <label style="display:block; font-weight:800; color:#fff; font-size:0.95rem; margin-bottom:8px;">2. Add-On Capabilities</label>
+            <div style="display:flex; flex-direction:column; gap:8px; color:#cbd5e1; font-size:0.9rem;">
+              <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+                <input type="checkbox" id="calcSeo" value="3000" onchange="calculateEstimate()" accent-color="#04AA6D" checked>
+                <span>Advanced Google Local SEO (+Rs. 3,000)</span>
+              </label>
+              <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+                <input type="checkbox" id="calcSpeed" value="2000" onchange="calculateEstimate()" accent-color="#04AA6D" checked>
+                <span>Core Web Vitals 99+ Speed Boost (+Rs. 2,000)</span>
+              </label>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Result Box -->
+        <div style="background:#080c16; border:1px solid #1e293b; border-radius:12px; padding:20px 24px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:16px;">
+          <div>
+            <span style="font-size:0.85rem; color:#94a3b8; text-transform:uppercase; letter-spacing:0.08em; font-weight:700;">Estimated Investment</span>
+            <div id="calcTotalDisplay" style="font-size:2.2rem; font-weight:900; color:#04AA6D;">Rs. 15,000/-</div>
+            <small style="color:#64748b;">Includes Mobile Responsive Design & 1-Year Hosting Deployment</small>
+          </div>
+          <button onclick="sendCalculatedQuote()" style="background:#04AA6D; color:#fff; border:none; padding:14px 28px; border-radius:8px; font-weight:800; font-size:1rem; cursor:pointer; display:inline-flex; align-items:center; gap:8px; box-shadow:0 4px 16px rgba(4,170,109,0.4);">
+            <span>💬 Lock In Price on WhatsApp</span> &rarr;
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+  
   <!-- ══ PACKAGES BANNER CTA ═════════════════════ -->
   <section class="section" aria-label="Web Design Packages" style="padding-top:0">
     <div class="section-inner">
@@ -917,5 +983,25 @@ Route::<span class="cv">get</span>(<span class="cs">'/'</span>,
     }
     document.addEventListener('DOMContentLoaded', loadNotification);
   </script>
+
+  <script>
+    function calculateEstimate() {
+      const tierEl = document.getElementById('calcTier');
+      const base = parseInt(tierEl.value, 10) || 5000;
+      const seo = document.getElementById('calcSeo').checked ? parseInt(document.getElementById('calcSeo').value, 10) : 0;
+      const speed = document.getElementById('calcSpeed').checked ? parseInt(document.getElementById('calcSpeed').value, 10) : 0;
+      const total = base + seo + speed;
+      document.getElementById('calcTotalDisplay').textContent = 'Rs. ' + total.toLocaleString() + '/-';
+    }
+
+    function sendCalculatedQuote() {
+      const tierEl = document.getElementById('calcTier');
+      const tierName = tierEl.options[tierEl.selectedIndex].getAttribute('data-name');
+      const total = document.getElementById('calcTotalDisplay').textContent;
+      const msg = encodeURIComponent("Hi Infinite Creative Web Design! I generated an online estimate for the " + tierName + " (" + total + "). I would like to get started with my project!");
+      window.open("https://wa.me/94789714912?text=" + msg, "_blank");
+    }
+  </script>
+
 </body>
 </html>
