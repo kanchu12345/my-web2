@@ -150,6 +150,13 @@ function makeCard(p){
 function renderFallbackProjects(grid){
   const demos = [
   {
+    "title": "Perx Lanka",
+    "category": "Corporate & Engineering Solutions",
+    "url": "http://perxlanka.com/",
+    "description": "Specialized industrial engineering, equipment supply, and corporate enterprise solutions in Sri Lanka.",
+    "bg": "#1e3a8a"
+  },
+  {
     "title": "Hiri Surf School",
     "category": "Tourism & Surfing Academy",
     "url": "https://hirisurfschool.com/",
