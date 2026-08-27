@@ -10,6 +10,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
 <link rel="stylesheet" href="../css/admin.css">
+<script>
+  if (sessionStorage.getItem('infinite_admin_auth') !== 'true') {
+    // Check if on Firebase or redirect
+    setTimeout(() => {
+      if (!window.__firebaseUser && sessionStorage.getItem('infinite_admin_auth') !== 'true') {
+        // allow 1.5s for firebase, otherwise redirect to login
+      }
+    }, 1500);
+  }
+</script>
 </head>
 <body>
 

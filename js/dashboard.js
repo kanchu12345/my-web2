@@ -1,3 +1,8 @@
+// Master Admin Auth bypass
+if (sessionStorage.getItem('infinite_admin_auth') === 'true') {
+  const userEl = document.getElementById('sbEmail');
+  if (userEl) userEl.textContent = 'infinitedesign768@gmail.com';
+}
 /* ═══════════════════════════════════════════════════
    dashboard.js — Real-Time Firestore Analytics Dashboard
    ═══════════════════════════════════════════════════ */
