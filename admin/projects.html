@@ -208,19 +208,70 @@ function sanitise(str){
   return String(str).replace(/[<>&"'`]/g,'').trim().slice(0,500);
 }
 
+
+/* ── Auto-generate mockup from website URL ── */
+window.autoGenerateMockup = function(url) {
+  if (!url || !url.startsWith('http')) return;
+  const cleanUrl = url.trim();
+  const mockupUrl = `https://image.thum.io/get/width/1200/crop/800/noanimate/${cleanUrl}`;
+  
+  const imgUrlInput = document.getElementById('pImgUrl');
+  const imgPrev = document.getElementById('imgPreview');
+  
+  if (imgUrlInput && (!imgUrlInput.value || imgUrlInput.value.includes('thum.io') || imgUrlInput.value.includes('unsplash'))) {
+    imgUrlInput.value = mockupUrl;
+  }
+  if (imgPrev) {
+    imgPrev.src = mockupUrl;
+    imgPrev.style.display = 'block';
+  }
+  toast('⚡ Auto-captured live website mockup!', 'ok');
+};
+
+document.getElementById('autoMockupBtn')?.addEventListener('click', () => {
+  const url = document.getElementById('pUrl').value;
+  if (!url) {
+    toast('Please enter a website link first', 'err');
+    return;
+  }
+  window.autoGenerateMockup(url);
+});
+
+
 /* ── Load projects ── */
-/* ── Load projects with robust JSON fallback ── */
+/* ── Load projects with immediate data render ── */
 async function loadProjects(){
   const list=document.getElementById('projList');
   const cnt=document.getElementById('projCount');
   
-  // Timeout safety
-  let loaded = false;
-  const timer = setTimeout(async () => {
-    if (!loaded) {
-      await loadFromLocalJson();
+  // 1. Immediately fetch and display existing data/projects.json
+  try {
+    const res = await fetch('../data/projects.json');
+    const localItems = await res.json();
+    if (localItems && localItems.length > 0) {
+      cnt.textContent = `(${localItems.length})`;
+      list.innerHTML = '';
+      localItems.forEach(p => {
+        list.appendChild(makeListItem(p));
+      });
     }
-  }, 2500);
+  } catch(e) {}
+
+  // 2. Fetch from Firestore to merge dynamic additions
+  try{
+    const snap=await getDocs(collection(db,'projects'));
+    if(!snap.empty){
+      cnt.textContent=`(${snap.size})`;
+      list.innerHTML='';
+      snap.forEach(d=>{
+        const p={id:d.id,...d.data()};
+        list.appendChild(makeListItem(p));
+      });
+    }
+  }catch(e){
+    console.log('Firestore sync status:', e.message);
+  }
+}, 2500);
 
   async function loadFromLocalJson() {
     try {
