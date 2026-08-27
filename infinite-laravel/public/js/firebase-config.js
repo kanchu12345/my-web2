@@ -1,9 +1,9 @@
 /* ═══════════════════════════════════════
-   FIREBASE CONFIGURATION
-   Replace with your actual Firebase project values
+   FIREBASE CONFIGURATION (OFFICIAL SECURE PROD)
+   Project: infinite-web-f6860
 ═══════════════════════════════════════ */
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
-import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, onSnapshot, serverTimestamp }
+import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, onSnapshot, serverTimestamp, query, orderBy, limit }
   from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged }
   from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
@@ -13,13 +13,13 @@ import { getAnalytics, logEvent }
   from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js';
 
 const firebaseConfig = {
-  apiKey:            "AIzaSyAHCTeebz4pYAVnL1EsGcIjBrg44WLxELo",
-  authDomain:        "myweb-66fc2.firebaseapp.com",
-  projectId:         "myweb-66fc2",
-  storageBucket:     "myweb-66fc2.firebasestorage.app",
-  messagingSenderId: "910047422435",
-  appId:             "1:910047422435:web:61e4fb5909304e3c2d22d6",
-  measurementId:     "G-9ZTSL7DBJN"
+  apiKey:            "AIzaSyAMvJjqvzZF1FzcecXfVLU3qX0ocLXy4h0",
+  authDomain:        "infinite-web-f6860.firebaseapp.com",
+  projectId:         "infinite-web-f6860",
+  storageBucket:     "infinite-web-f6860.firebasestorage.app",
+  messagingSenderId: "620614036545",
+  appId:             "1:620614036545:web:5c874e3da6ddb40b4deac0",
+  measurementId:     "G-D2XDMKN1LX"
 };
 
 const app       = initializeApp(firebaseConfig);
@@ -30,6 +30,6 @@ const analytics = getAnalytics(app);
 
 export { app, db, auth, storage, analytics, logEvent,
   collection, getDocs, addDoc, updateDoc, deleteDoc, doc,
-  onSnapshot, serverTimestamp,
+  onSnapshot, serverTimestamp, query, orderBy, limit,
   signInWithEmailAndPassword, signOut, onAuthStateChanged,
   ref, uploadBytes, getDownloadURL };
