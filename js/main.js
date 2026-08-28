@@ -1178,7 +1178,7 @@ function renderPackages(list, container) {
 
     const secHeader = document.createElement('div');
     secHeader.className = 'pkg-section-header reveal';
-    secHeader.style.cssText = 'grid-column: 1 / -1; margin-top: 36px; margin-bottom: 20px; text-align: left; background: #0d1527; padding: 20px 24px; border-radius: 14px; border-left: 5px solid #04AA6D; box-shadow: 0 4px 20px rgba(0,0,0,0.3);';
+    secHeader.style.cssText = 'grid-column: 1 / -1; margin-top: 36px; margin-bottom: 20px; text-align: left; background: #090e1a !important; padding: 20px 24px; border-radius: 14px; border-left: 5px solid #04AA6D; box-shadow: 0 4px 20px rgba(0,0,0,0.5);';
     secHeader.innerHTML = `
       <h2 style="font-family:'Space Grotesk', sans-serif; font-size: 1.6rem; font-weight: 800; color: #ffffff !important; margin-bottom: 6px; display:flex; align-items:center; gap:10px; text-shadow: 0 2px 4px rgba(0,0,0,0.8);">${t.title}</h2>
       <p style="color: #cbd5e1 !important; font-size: 0.95rem; margin: 0; font-weight: 500; line-height:1.5;">${t.desc}</p>
@@ -1190,16 +1190,19 @@ function renderPackages(list, container) {
       const card = document.createElement('div');
       card.className = `pkg-card ${pkg.featured ? 'featured' : ''} reveal reveal-delay-${(index % 4) + 1}`;
       card.id = `pkg_card_${pkg.id || index}`;
+      
+      // Inline styles to guarantee dark navy background and high contrast text
+      card.style.cssText = 'background: #0d1527 !important; border: 1px solid rgba(4,170,109,0.35) !important; border-radius: 16px; padding: 32px 24px; display: flex; flex-direction: column; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.4); color: #ffffff !important;';
 
       const featuresHtml = (pkg.features || []).map(feat => `
-        <li class="pkg-feature-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-          <span style="color:#e2e8f0; font-size:0.92rem; font-weight:500;">${feat}</span>
+        <li class="pkg-feature-item" style="display:flex; align-items:flex-start; gap:10px; font-size:0.95rem; color:#ffffff !important; line-height:1.4; font-weight:600;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#04AA6D" stroke-width="2.8" style="min-width:18px; width:18px; height:18px; margin-top:2px;"><polyline points="20 6 9 17 4 12"/></svg>
+          <span style="color:#ffffff !important; font-weight:600 !important; font-size:0.95rem !important;">${feat}</span>
         </li>
       `).join('');
 
       const addonsHtml = `
-        <div class="pkg-addons-box" style="margin: 16px 0; padding: 16px; background: #090e1a; border: 1px solid rgba(4,170,109,0.35); border-radius: 12px; text-align: left; box-shadow: 0 4px 16px rgba(0,0,0,0.2);">
+        <div class="pkg-addons-box" style="margin: 16px 0; padding: 16px; background: #050914; border: 1px solid rgba(4,170,109,0.4); border-radius: 12px; text-align: left; box-shadow: 0 4px 16px rgba(0,0,0,0.3);">
           <div style="font-size: 11px; font-weight: 800; color: #04AA6D; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; display:flex; align-items:center; gap:6px;">
             <span>✨ Select Optional Add-ons:</span>
           </div>
@@ -1226,7 +1229,7 @@ function renderPackages(list, container) {
 
       // ONLY 5000 and 10000 packages get Free Cloud Hosting badge!
       const hostingNote = basePrice <= 10000 
-        ? '<div style="font-size:12px; color:#04AA6D; font-weight:800; margin-bottom:12px; padding:6px 12px; background:rgba(4,170,109,0.12); border-radius:6px; border:1px solid rgba(4,170,109,0.3); display:inline-block;">🎁 100% Free Cloud Hosting Included</div>' 
+        ? '<div style="font-size:12px; color:#04AA6D; font-weight:800; margin-bottom:12px; padding:6px 12px; background:rgba(4,170,109,0.15); border-radius:6px; border:1px solid rgba(4,170,109,0.4); display:inline-block;">🎁 100% Free Cloud Hosting Included</div>' 
         : '';
 
       const originalPriceHtml = pkg.originalPrice 
@@ -1235,24 +1238,24 @@ function renderPackages(list, container) {
 
       card.innerHTML = `
         <div class="pkg-badge-wrap">
-          <span class="pkg-badge ${pkg.featured ? 'featured-badge' : ''}">${pkg.tag || 'Package'}</span>
-          <div class="pkg-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <span class="pkg-badge ${pkg.featured ? 'featured-badge' : ''}" style="background:rgba(4,170,109,0.2); color:#04AA6D; font-weight:700;">${pkg.tag || 'Package'}</span>
+          <div class="pkg-icon" style="background:rgba(4,170,109,0.15); color:#04AA6D; width:36px; height:36px; border-radius:10px; display:flex; align-items:center; justify-content:center;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#04AA6D" stroke-width="2">
               ${pkg.name.toLowerCase().includes('commerce') ? '<circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>' : '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>'}
             </svg>
           </div>
         </div>
-        <h3 class="pkg-name" style="font-size:1.35rem; font-weight:800; color:#ffffff;">${pkg.name}</h3>
-        <p class="pkg-desc" style="color:#94a3b8; font-size:0.9rem; margin-bottom:16px;">${pkg.description || ''}</p>
-        <div class="pkg-price-wrap">
+        <h3 class="pkg-name" style="font-size:1.4rem; font-weight:800; color:#ffffff !important; margin-bottom:6px;">${pkg.name}</h3>
+        <p class="pkg-desc" style="color:#94a3b8 !important; font-size:0.9rem; margin-bottom:16px;">${pkg.description || ''}</p>
+        <div class="pkg-price-wrap" style="padding:12px 0; border-top:1px dashed rgba(255,255,255,0.1); border-bottom:1px dashed rgba(255,255,255,0.1); margin-bottom:16px;">
           ${originalPriceHtml}
-          <div class="pkg-price" id="price_display_${pkg.id || index}" style="font-size:1.7rem; font-weight:800; color:#04AA6D;">${pkg.price}</div>
+          <div class="pkg-price" id="price_display_${pkg.id || index}" style="font-size:1.75rem; font-weight:800; color:#04AA6D !important;">${pkg.price}</div>
         </div>
         ${hostingNote}
-        <ul class="pkg-features" style="margin-top:12px;">${featuresHtml}</ul>
+        <ul class="pkg-features" style="margin:16px 0; padding:0; list-style:none; display:flex; flex-direction:column; gap:10px;">${featuresHtml}</ul>
         ${addonsHtml}
         <div class="pkg-addon-note" style="font-size:12px; color:#94a3b8; margin-bottom:14px;">${pkg.addon || ''}</div>
-        <button onclick="dispatchPackageWhatsApp('${pkg.name}', ${basePrice}, '${pkg.id || index}')" class="btn btn-primary pkg-cta" style="width:100%; padding:12px; font-weight:700;">${pkg.cta || 'Choose Plan'}</button>
+        <button onclick="dispatchPackageWhatsApp('${pkg.name}', ${basePrice}, '${pkg.id || index}')" class="btn btn-primary pkg-cta" style="width:100%; padding:12px; font-weight:700; background:#04AA6D; color:#ffffff; border:none; border-radius:8px; cursor:pointer;">${pkg.cta || 'Choose Plan'}</button>
       `;
 
       container.appendChild(card);
