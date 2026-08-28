@@ -91,17 +91,23 @@ body{background:var(--bg);color:var(--white);font-family:'Inter',sans-serif;disp
 .kpi-trend.negative{color:var(--red);}
 
 /* ── CHART GRID ─────────────────────────────── */
+
+/* ── CHART GRID & CONTAINERS ────────────────── */
 .chart-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:14px;}
 .chart-card{
   background:var(--card);border:1px solid var(--glass-b);border-radius:16px;
-  padding:22px;overflow:hidden;
+  padding:22px;overflow:hidden;position:relative;display:flex;flex-direction:column;
 }
 .chart-wide{grid-column:span 2;}
-.chart-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+.chart-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-shrink:0;}
 .chart-title{font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:600;letter-spacing:.04em;}
 .chart-legend{display:flex;gap:14px;}
 .leg-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--grey);}
 .leg-dot{width:8px;height:8px;border-radius:50%;}
+
+.chart-wrap{position:relative;height:240px;width:100%;max-height:240px;}
+.chart-card canvas{max-height:240px !important;width:100% !important;display:block;}
+
 
 /* ── LIVE LIST ──────────────────────────────── */
 .live-list{display:flex;flex-direction:column;gap:8px;}

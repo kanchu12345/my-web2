@@ -288,6 +288,7 @@ document.getElementById('loginForm').addEventListener('submit',async function(e)
 
   if (isMasterUser && isMasterPw) {
     sessionStorage.setItem('infinite_admin_auth', 'true');
+    localStorage.setItem('infinite_admin_auth', 'true');
     localStorage.setItem('infinite_admin_user', JSON.stringify({ email: 'infinitedesign768@gmail.com', role: 'Super Admin' }));
     localStorage.removeItem('id_attempts');
     window.location.href = 'dashboard.html';

@@ -8,10 +8,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/admin.css">
 <script>
-  // Master Admin guard
-  if (sessionStorage.getItem('infinite_admin_auth') !== 'true') {
+  const isAuth = localStorage.getItem('infinite_admin_auth') === 'true' || sessionStorage.getItem('infinite_admin_auth') === 'true';
+  if (!isAuth) {
     setTimeout(() => {
-      if (!window.__firebaseUser && sessionStorage.getItem('infinite_admin_auth') !== 'true') {
+      const authAgain = localStorage.getItem('infinite_admin_auth') === 'true' || sessionStorage.getItem('infinite_admin_auth') === 'true';
+      if (!window.__firebaseUser && !authAgain) {
         window.location.href = 'login.html';
       }
     }, 3000);

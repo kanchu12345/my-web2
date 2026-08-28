@@ -9,8 +9,8 @@ if (sessionStorage.getItem('infinite_admin_auth') === 'true') {
 import { auth, db, onAuthStateChanged, signOut, collection, getDocs, onSnapshot }
   from '../js/firebase-config.js';
 
-/* ── Auth guard with Master Admin Support ────────── */
-const isMasterAdmin = sessionStorage.getItem('infinite_admin_auth') === 'true';
+/* ── Auth guard with Permanent Master Admin Support ────────── */
+const isMasterAdmin = (localStorage.getItem('infinite_admin_auth') === 'true' || sessionStorage.getItem('infinite_admin_auth') === 'true');
 const storedAdmin = JSON.parse(localStorage.getItem('infinite_admin_user') || '{"email":"infinitedesign768@gmail.com"}');
 
 if (isMasterAdmin) {
@@ -23,19 +23,22 @@ if (isMasterAdmin) {
 
 onAuthStateChanged(auth, function(user){
   if (user) {
+    window.__firebaseUser = user;
     const email = user.email || 'admin';
     const el = document.getElementById('sbEmail');
     if (el) el.textContent = email;
     const av = document.getElementById('sbAvatar');
     if (av) av.textContent = email[0].toUpperCase();
     if (!isMasterAdmin) init();
-  } else if (!isMasterAdmin) {
+  } else if (!isMasterAdmin && (localStorage.getItem('infinite_admin_auth') !== 'true' && sessionStorage.getItem('infinite_admin_auth') !== 'true')) {
     window.location.href = 'login.html';
   }
 });
 
 document.getElementById('logoutBtn')?.addEventListener('click', async function(){
-  await signOut(auth);
+  localStorage.removeItem('infinite_admin_auth');
+  sessionStorage.removeItem('infinite_admin_auth');
+  try { await signOut(auth); } catch(e){}
   window.location.href='login.html';
 });
 
