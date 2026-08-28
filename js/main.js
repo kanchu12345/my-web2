@@ -150,6 +150,13 @@ function makeCard(p){
 function renderFallbackProjects(grid){
   const demos = [
   {
+    "title": "Zap Ceylon",
+    "category": "Conglomerate & Global Trade",
+    "url": "https://kanchu12345.github.io/ZAP-CEYLON-/",
+    "description": "Premier diversified Sri Lankan conglomerate portal spanning global trade, Ceylon gems & spices, construction, finance, and digital innovation.",
+    "bg": "#0f172a"
+  },
+  {
     "title": "Hiri Surf School",
     "category": "Tourism & Beach Academy",
     "url": "https://hirisurfschool.com/",

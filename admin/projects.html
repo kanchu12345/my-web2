@@ -8,13 +8,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/admin.css">
 <script>
+  // Master Admin guard
   if (sessionStorage.getItem('infinite_admin_auth') !== 'true') {
-    // Check if on Firebase or redirect
     setTimeout(() => {
       if (!window.__firebaseUser && sessionStorage.getItem('infinite_admin_auth') !== 'true') {
-        // allow 1.5s for firebase, otherwise redirect to login
+        window.location.href = 'login.html';
       }
-    }, 1500);
+    }, 3000);
   }
 </script>
 </head>
@@ -29,15 +29,14 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Dashboard
     </a>
     <a href="projects.html" class="sb-link active">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>Projects & Designs
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>Projects &amp; Designs
     </a>
     <a href="packages.html" class="sb-link">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>Packages & Pricing
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>Packages &amp; Pricing
     </a>
-      <a href="tutorials.html" class="sb-link">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
-        Tutorials
-      </a>
+    <a href="tutorials.html" class="sb-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>Tutorials
+    </a>
     <a href="blogs.html" class="sb-link">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>Blogs
     </a>
@@ -47,9 +46,9 @@
   </nav>
   <div class="sb-footer">
     <div class="sb-user">
-      <div class="sb-avatar" id="sbAvatar">A</div>
+      <div class="sb-avatar" id="sbAvatar">I</div>
       <div class="sb-user-info">
-        <div class="sb-user-email" id="sbEmail">admin</div>
+        <div class="sb-user-email" id="sbEmail">infinitedesign768@gmail.com</div>
         <div class="sb-user-role">Administrator</div>
       </div>
     </div>
@@ -62,7 +61,7 @@
 <main class="main-content">
   <header class="topbar">
     <div class="topbar-left">
-      <h1 class="page-title">Project & Design Manager</h1>
+      <h1 class="page-title">Project &amp; Design Manager</h1>
       <div class="page-sub">Add, edit and manage portfolio designs and web projects</div>
     </div>
   </header>
@@ -70,8 +69,11 @@
   <div class="proj-manager">
     <!-- List -->
     <div class="proj-list-card">
-      <div class="form-title">All Projects <span id="projCount" style="font-size:12px;color:var(--grey);font-weight:400"></span></div>
-      <div id="projList"><div class="no-projects">Loading projects…</div></div>
+      <div class="form-title" style="display:flex;justify-content:space-between;align-items:center;">
+        <span>All Projects <span id="projCount" style="font-size:12px;color:var(--grey);font-weight:400"></span></span>
+        <button id="refreshBtn" style="background:rgba(4,170,109,0.15);color:#04AA6D;border:1px solid rgba(4,170,109,0.3);padding:5px 12px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;">&#8635; Refresh</button>
+      </div>
+      <div id="projList"><div class="no-projects">Loading projects&hellip;</div></div>
     </div>
 
     <!-- Form -->
@@ -79,49 +81,64 @@
       <div class="form-title" id="formTitle">Add New Design / Project</div>
       <input type="hidden" id="editId">
       <form id="projForm" novalidate>
+
+        <div class="form-field">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+            <label class="form-label" for="pUrl" style="margin-bottom:0;">Live Website or GitHub Link</label>
+            <span style="font-size:10px;color:#04AA6D;font-weight:700;">&#9889; Auto-Preview</span>
+          </div>
+          <div style="display:flex;gap:8px;">
+            <input type="url" id="pUrl" class="form-input" placeholder="https://example.com" style="flex:1;">
+            <button type="button" id="autoPreviewBtn" style="background:#04AA6D;color:#fff;border:none;border-radius:8px;padding:0 14px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;">Capture</button>
+          </div>
+          <small style="color:var(--grey);font-size:11px;margin-top:4px;display:block;">Paste URL &mdash; live preview auto-generates!</small>
+        </div>
+
         <div class="form-field">
           <label class="form-label" for="pTitle">Design / Project Title *</label>
-          <input type="text" id="pTitle" class="form-input" placeholder="e.g. Modern E-Commerce Platform" maxlength="100" required>
+          <input type="text" id="pTitle" class="form-input" placeholder="e.g. Zap Ceylon Platform" maxlength="100" required>
         </div>
+
         <div class="form-field">
           <label class="form-label" for="pCategory">Category *</label>
           <select id="pCategory" class="form-select form-input" required>
-            <option value="">Select category…</option>
+            <option value="">Select category&hellip;</option>
             <option>Web Design</option>
             <option>E-Commerce</option>
             <option>UI / UX</option>
             <option>Branding</option>
             <option>Corporate</option>
-            <option>Graphic Design</option>
-            <option>Logistics Branding</option>
-            <option>Motion Graphics</option>
+            <option>Tourism &amp; Travel</option>
+            <option>Conglomerate &amp; Global Trade</option>
+            <option>Finance &amp; Investment</option>
+            <option>Health &amp; Ayurveda</option>
+            <option>Non-Profit Community</option>
             <option>Web App</option>
+            <option>Cybersecurity</option>
           </select>
         </div>
-        <div class="form-field">
-          <label class="form-label" for="pUrl">Live Website or Demo Link (Optional)</label>
-          <input type="url" id="pUrl" class="form-input" placeholder="https://example.com">
-        </div>
+
         <div class="form-field">
           <label class="form-label" for="pDesc">Description</label>
-          <textarea id="pDesc" class="form-textarea form-input" placeholder="Describe the design features, tech stack, and goals…" maxlength="500"></textarea>
+          <textarea id="pDesc" class="form-textarea form-input" placeholder="Describe the project features, tech stack, and goals..." maxlength="500"></textarea>
         </div>
+
         <div class="form-field">
-          <label class="form-label" for="pImgUrl">Image URL (Direct link or upload below)</label>
-          <input type="url" id="pImgUrl" class="form-input" placeholder="https://images.unsplash.com/... or uploaded URL">
+          <label class="form-label" for="pImgUrl">Image / Snapshot URL</label>
+          <input type="url" id="pImgUrl" class="form-input" placeholder="Auto-fills when URL is pasted above" style="font-size:12px;">
         </div>
+
+        <!-- Visual Preview Box -->
         <div class="form-field">
-          <label class="form-label">Or Upload Project Mockup / Screenshot</label>
-          <div class="upload-area" id="uploadArea">
-            <input type="file" id="imgFile" accept="image/jpeg,image/png,image/webp,image/gif" aria-label="Upload project image">
-            <svg class="upload-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-            <div class="upload-text">Click to upload or drag & drop<br><small>JPG, PNG, WebP · Max 5MB</small></div>
-            <img class="upload-preview" id="imgPreview" alt="Preview">
-            <div class="file-error" id="fileError"></div>
+          <label class="form-label">Live Project Preview</label>
+          <div style="background:#080c16;border:1px solid rgba(255,255,255,0.12);border-radius:12px;overflow:hidden;padding:8px;text-align:center;min-height:140px;display:flex;align-items:center;justify-content:center;">
+            <img id="imgPreview" alt="Project Live Preview" style="max-width:100%;max-height:220px;border-radius:8px;object-fit:cover;display:none;box-shadow:0 4px 16px rgba(0,0,0,0.5);">
+            <div id="noPreviewText" style="color:var(--grey);font-size:12px;">No preview yet. Paste a link above.</div>
           </div>
         </div>
-        <div style="display:flex;gap:10px">
-          <button type="submit" class="btn-form" id="submitBtn">Add Design Project</button>
+
+        <div style="display:flex;gap:10px;margin-top:16px;">
+          <button type="submit" class="btn-form" id="submitBtn" style="flex:1;background:#04AA6D;color:#fff;font-weight:700;">Add Project to Portfolio</button>
           <button type="button" class="btn-form" id="cancelEdit" style="display:none;background:var(--glass);color:var(--white);border:1px solid var(--glass-b)">Cancel</button>
         </div>
       </form>
@@ -131,284 +148,278 @@
 
 <div class="toast" id="toast"><div class="toast-dot"></div><span id="toastMsg"></span></div>
 
-<script type="module">
-import { auth, db, storage, onAuthStateChanged, signOut,
-  collection, getDocs, addDoc, updateDoc, deleteDoc, doc, serverTimestamp,
-  ref, uploadBytes, getDownloadURL }
-  from '../js/firebase-config.js';
+<!-- ════════════════════════════════════════════════════
+     INLINE SCRIPT — NO ES MODULE IMPORT
+     Works with or without Firebase. Loads projects.json directly.
+     ════════════════════════════════════════════════════ -->
+<script>
+(function(){
+  'use strict';
 
-/* ── Auth guard ── */
-onAuthStateChanged(auth, u=>{
-  if(!u){window.location.href='login.html';return;}
-  document.getElementById('sbEmail').textContent=u.email;
-  document.getElementById('sbAvatar').textContent=u.email[0].toUpperCase();
-  loadProjects();
-});
-document.getElementById('logoutBtn').addEventListener('click',async()=>{
-  await sessionStorage.removeItem("infinite_admin_auth"); signOut(auth);window.location.href='login.html';
-});
+  /* ── Master Admin Auth ── */
+  var storedUser = {};
+  try { storedUser = JSON.parse(localStorage.getItem('infinite_admin_user') || '{}'); } catch(e){}
+  var email = storedUser.email || 'infinitedesign768@gmail.com';
+  var emEl = document.getElementById('sbEmail');
+  var avEl = document.getElementById('sbAvatar');
+  if (emEl) emEl.textContent = email;
+  if (avEl) avEl.textContent = email[0].toUpperCase();
 
-/* ── Toast ── */
-function toast(msg,type='ok'){
-  const t=document.getElementById('toast'),m=document.getElementById('toastMsg');
-  t.className='toast show toast-'+type;m.textContent=msg;
-  setTimeout(()=>t.classList.remove('show'),3200);
-}
+  document.getElementById('logoutBtn').addEventListener('click', function(){
+    sessionStorage.removeItem('infinite_admin_auth');
+    window.location.href = 'login.html';
+  });
 
-/* ── File validation ── */
-const ALLOWED=['image/jpeg','image/png','image/webp','image/gif'];
-const MAX_SIZE=5*1024*1024;
-let selectedFile=null;
-
-document.getElementById('imgFile').addEventListener('change',function(){
-  const file=this.files[0];
-  document.getElementById('fileError').style.display='none';
-  document.getElementById('imgPreview').style.display='none';
-  selectedFile=null;
-  if(!file)return;
-  if(!ALLOWED.includes(file.type)){
-    showFileErr('Only JPG, PNG, WebP, or GIF images are allowed.');return;
+  /* ── Toast ── */
+  function toast(msg, type){
+    var t = document.getElementById('toast');
+    var m = document.getElementById('toastMsg');
+    if (!t || !m) return;
+    t.className = 'toast show toast-' + (type || 'ok');
+    m.textContent = msg;
+    setTimeout(function(){ t.classList.remove('show'); }, 3200);
   }
-  if(file.size>MAX_SIZE){
-    showFileErr('File must be under 5MB.');return;
+
+  function sanitise(str){
+    return String(str || '').replace(/[<>&"']/g, '').trim();
   }
-  // Read file magic bytes for type verification
-  const reader=new FileReader();
-  reader.onload=function(e){
-    const arr=new Uint8Array(e.target.result).slice(0,4);
-    const hex=Array.from(arr).map(b=>b.toString(16).padStart(2,'0')).join('');
-    const valid=hex.startsWith('ffd8')||hex.startsWith('89504e47')||hex.startsWith('52494646')||hex==='47494638';
-    if(!valid&&file.type!=='image/webp'){
-      showFileErr('Invalid image file. Please upload a real image.');return;
+
+  /* ── Auto-Preview from URL ── */
+  function generatePreview(url){
+    if (!url || typeof url !== 'string') return;
+    url = url.trim();
+    if (url.indexOf('http') !== 0) return;
+
+    var mockupUrl = 'https://s0.wp.com/mshots/v1/' + encodeURIComponent(url) + '?w=650&h=480';
+
+    var imgUrlInput = document.getElementById('pImgUrl');
+    var imgPrev = document.getElementById('imgPreview');
+    var noPrevText = document.getElementById('noPreviewText');
+    var titleInput = document.getElementById('pTitle');
+
+    if (imgUrlInput) imgUrlInput.value = mockupUrl;
+    if (imgPrev) { imgPrev.src = mockupUrl; imgPrev.style.display = 'block'; }
+    if (noPrevText) noPrevText.style.display = 'none';
+
+    // Auto-fill title if empty
+    if (titleInput && !titleInput.value.trim()) {
+      try {
+        var u = new URL(url);
+        var name = u.hostname.replace('www.', '').split('.')[0];
+        if (u.hostname.indexOf('github.io') !== -1) {
+          var pathPart = u.pathname.replace(/\//g, '');
+          if (pathPart) name = pathPart.replace(/[-_]/g, ' ');
+        }
+        titleInput.value = name.charAt(0).toUpperCase() + name.slice(1);
+      } catch(e){}
     }
-    selectedFile=file;
-    const prev=document.getElementById('imgPreview');
-    prev.src=URL.createObjectURL(file);
-    prev.style.display='block';
-  };
-  reader.readAsArrayBuffer(file.slice(0,8));
-});
 
-// Drag & drop
-const ua=document.getElementById('uploadArea');
-ua.addEventListener('dragover',e=>{e.preventDefault();ua.classList.add('drag');});
-ua.addEventListener('dragleave',()=>ua.classList.remove('drag'));
-ua.addEventListener('drop',e=>{
-  e.preventDefault();ua.classList.remove('drag');
-  const f=e.dataTransfer.files[0];if(f){document.getElementById('imgFile').files=e.dataTransfer.files;document.getElementById('imgFile').dispatchEvent(new Event('change'));}
-});
-ua.addEventListener('click',()=>document.getElementById('imgFile').click());
-
-function showFileErr(msg){
-  const el=document.getElementById('fileError');el.textContent=msg;el.style.display='block';
-}
-
-/* ── Sanitise text input ── */
-function sanitise(str){
-  return String(str).replace(/[<>&"'`]/g,'').trim().slice(0,500);
-}
-
-
-/* ── Auto-generate mockup from website URL ── */
-window.autoGenerateMockup = function(url) {
-  if (!url || !url.startsWith('http')) return;
-  const cleanUrl = url.trim();
-  const mockupUrl = `https://image.thum.io/get/width/1200/crop/800/noanimate/${cleanUrl}`;
-  
-  const imgUrlInput = document.getElementById('pImgUrl');
-  const imgPrev = document.getElementById('imgPreview');
-  
-  if (imgUrlInput && (!imgUrlInput.value || imgUrlInput.value.includes('thum.io') || imgUrlInput.value.includes('unsplash'))) {
-    imgUrlInput.value = mockupUrl;
+    toast('Auto-generated live preview!', 'ok');
   }
-  if (imgPrev) {
-    imgPrev.src = mockupUrl;
-    imgPrev.style.display = 'block';
-  }
-  toast('⚡ Auto-captured live website mockup!', 'ok');
-};
 
-document.getElementById('autoMockupBtn')?.addEventListener('click', () => {
-  const url = document.getElementById('pUrl').value;
-  if (!url) {
-    toast('Please enter a website link first', 'err');
-    return;
-  }
-  window.autoGenerateMockup(url);
-});
+  var urlInput = document.getElementById('pUrl');
+  urlInput.addEventListener('input', function(){ if (this.value.indexOf('http') === 0) generatePreview(this.value); });
+  urlInput.addEventListener('paste', function(){ var self = this; setTimeout(function(){ generatePreview(self.value); }, 80); });
+  document.getElementById('autoPreviewBtn').addEventListener('click', function(){
+    var val = urlInput.value.trim();
+    if (!val) { toast('Enter a website link first', 'err'); return; }
+    generatePreview(val);
+  });
 
+  /* ══════════════════════════════════════════════
+     LOAD PROJECTS — from data/projects.json (NO Firebase needed)
+     ══════════════════════════════════════════════ */
+  function loadProjects(){
+    var list = document.getElementById('projList');
+    var cnt = document.getElementById('projCount');
+    if (!list) return;
 
-/* ── Load projects ── */
-/* ── Load projects with immediate data render ── */
-async function loadProjects(){
-  const list=document.getElementById('projList');
-  const cnt=document.getElementById('projCount');
-  
-  // 1. Immediately fetch and display existing data/projects.json + localStorage
-  try {
-    const res = await fetch('../data/projects.json');
-    let localItems = await res.json();
-    const customItems = JSON.parse(localStorage.getItem('infinite_custom_projects') || '[]');
-    
-    // Combine and deduplicate
-    const combined = [...customItems, ...localItems];
-    const unique = [];
-    const seen = new Set();
-    combined.forEach(p => {
-      if (!seen.has(p.url)) {
-        seen.add(p.url);
-        unique.push(p);
-      }
-    });
+    list.innerHTML = '<div class="no-projects">Loading projects&hellip;</div>';
 
-    if (unique.length > 0) {
-      cnt.textContent = `(${unique.length})`;
-      list.innerHTML = '';
-      unique.forEach(p => {
-        list.appendChild(makeListItem(p));
-      });
-    }
-  } catch(e) {}
+    fetch('../data/projects.json')
+      .then(function(res){ return res.json(); })
+      .then(function(jsonItems){
+        if (!Array.isArray(jsonItems)) jsonItems = [];
 
-  // 2. Fetch from Firestore to merge dynamic additions
-  try{
-    const snap=await getDocs(collection(db,'projects'));
-    if(!snap.empty){
-      cnt.textContent=`(${snap.size})`;
-      list.innerHTML='';
-      snap.forEach(d=>{
-        const p={id:d.id,...d.data()};
-        list.appendChild(makeListItem(p));
-      });
-    }
-  }catch(e){
-    console.log('Firestore sync status:', e.message);
-  }
-}, 2500);
+        // Also get any custom-added items from localStorage
+        var custom = [];
+        try { custom = JSON.parse(localStorage.getItem('infinite_custom_projects') || '[]'); } catch(e){}
 
-  async function loadFromLocalJson() {
-    try {
-      const res = await fetch('../data/projects.json');
-      const items = await res.json();
-      if (items && items.length > 0) {
-        cnt.textContent = `(${items.length})`;
+        // Merge: custom first, then JSON
+        var combined = custom.concat(jsonItems);
+
+        // Deduplicate by URL
+        var seen = {};
+        var unique = [];
+        combined.forEach(function(p){
+          var key = (p.url || p.title || '').toLowerCase().trim();
+          if (key && !seen[key]) {
+            seen[key] = true;
+            unique.push(p);
+          }
+        });
+
+        if (cnt) cnt.textContent = '(' + unique.length + ')';
+
         list.innerHTML = '';
-        items.forEach(p => {
+        if (unique.length === 0) {
+          list.innerHTML = '<div class="no-projects">No projects found. Add your first project below.</div>';
+          return;
+        }
+
+        unique.forEach(function(p){
           list.appendChild(makeListItem(p));
         });
-        return;
-      }
-    } catch(e) {}
-    list.innerHTML = '<div class="no-projects">No projects found. Add your first project →</div>';
+      })
+      .catch(function(err){
+        console.error('Failed to load projects.json:', err);
+        list.innerHTML = '<div class="no-projects">Could not load projects. Check data/projects.json file.</div>';
+      });
   }
 
-  try{
-    const snap=await getDocs(collection(db,'projects'));
-    loaded = true;
-    clearTimeout(timer);
-    if(snap.empty){
-      await loadFromLocalJson();
-      return;
-    }
-    cnt.textContent=`(${snap.size})`;
-    list.innerHTML='';
-    snap.forEach(d=>{
-      const p={id:d.id,...d.data()};
-      list.appendChild(makeListItem(p));
-    });
-  }catch(e){
-    loaded = true;
-    clearTimeout(timer);
-    await loadFromLocalJson();
+  function makeListItem(p){
+    var div = document.createElement('div');
+    div.className = 'proj-list-item';
+    div.style.padding = '12px 14px';
+    div.style.alignItems = 'center';
+
+    var previewSrc = p.image || (p.url ? 'https://s0.wp.com/mshots/v1/' + encodeURIComponent(p.url) + '?w=650&h=480' : '');
+    var shortUrl = (p.url || '').replace('https://', '').replace('http://', '');
+    if (shortUrl.length > 35) shortUrl = shortUrl.substring(0, 35) + '...';
+
+    div.innerHTML =
+      '<img class="proj-thumb" src="' + previewSrc + '" alt="' + sanitise(p.title) + '" onerror="this.style.background=\'#1e293b\'" style="width:64px;height:48px;border-radius:6px;object-fit:cover;background:#1e293b;flex-shrink:0;">' +
+      '<div class="proj-info" style="flex:1;margin-left:12px;min-width:0;">' +
+        '<div class="proj-name" style="font-weight:700;color:#fff;font-size:14px;">' + sanitise(p.title) + '</div>' +
+        '<div class="proj-cat" style="font-size:12px;color:#04AA6D;font-weight:600;">' + sanitise(p.category || 'Web Design') + '</div>' +
+        (p.url ? '<a href="' + p.url + '" target="_blank" rel="noopener" style="font-size:11px;color:var(--grey);text-decoration:none;display:inline-block;margin-top:2px;">&#128279; ' + sanitise(shortUrl) + '</a>' : '') +
+      '</div>' +
+      '<div class="proj-actions" style="display:flex;gap:6px;flex-shrink:0;">' +
+        '<button class="btn-edit" style="background:rgba(0,170,255,0.15);color:#00aaff;border:none;padding:5px 10px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;">Edit</button>' +
+        '<button class="btn-del" style="background:rgba(255,68,68,0.15);color:#ff4444;border:none;padding:5px 10px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;">Delete</button>' +
+      '</div>';
+
+    div.querySelector('.btn-edit').addEventListener('click', function(){ editProject(p); });
+    div.querySelector('.btn-del').addEventListener('click', function(){ deleteProject(p); });
+    return div;
   }
-}
 
-function makeListItem(p){
-  const div=document.createElement('div');div.className='proj-list-item';
-  div.innerHTML=`
-    <img class="proj-thumb" src="${p.image||''}" alt="${p.title||''}" onerror="this.style.background='var(--bg2)'">
-    <div class="proj-info">
-      <div class="proj-name">${sanitise(p.title)}</div>
-      <div class="proj-cat">${sanitise(p.category||'')}</div>
-    </div>
-    <div class="proj-actions">
-      <button class="btn-edit" data-id="${p.id}">Edit</button>
-      <button class="btn-del" data-id="${p.id}">Delete</button>
-    </div>`;
-  div.querySelector('.btn-del').addEventListener('click',()=>deleteProject(p.id));
-  div.querySelector('.btn-edit').addEventListener('click',()=>editProject(p));
-  return div;
-}
+  /* ── Refresh button ── */
+  document.getElementById('refreshBtn').addEventListener('click', function(){
+    loadProjects();
+    toast('Project list refreshed!', 'ok');
+  });
 
-/* ── Submit form ── */
-document.getElementById('projForm').addEventListener('submit',async function(e){
-  e.preventDefault();
-  const title=sanitise(document.getElementById('pTitle').value);
-  const cat=sanitise(document.getElementById('pCategory').value);
-  const desc=sanitise(document.getElementById('pDesc').value);
-  const url=sanitise(document.getElementById('pUrl').value);
-  const directImg=sanitise(document.getElementById('pImgUrl').value);
-  const editId=document.getElementById('editId').value;
-  if(!title||!cat){toast('Please fill required fields.','err');return;}
-  const btn=document.getElementById('submitBtn');btn.disabled=true;btn.textContent='Saving…';
-  try{
-    let imageUrl=directImg || '';
-    if(selectedFile){
-      const storageRef=ref(storage,`projects/${Date.now()}_${selectedFile.name}`);
-      await uploadBytes(storageRef,selectedFile);
-      imageUrl=await getDownloadURL(storageRef);
+  /* ── Form Submit ── */
+  document.getElementById('projForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    var title = sanitise(document.getElementById('pTitle').value);
+    var cat = sanitise(document.getElementById('pCategory').value);
+    var desc = sanitise(document.getElementById('pDesc').value);
+    var url = document.getElementById('pUrl').value.trim();
+    var imgUrl = document.getElementById('pImgUrl').value.trim();
+    var editId = document.getElementById('editId').value;
+
+    if (!title || !cat) { toast('Please fill Title and Category.', 'err'); return; }
+
+    var finalImg = imgUrl || (url ? 'https://s0.wp.com/mshots/v1/' + encodeURIComponent(url) + '?w=650&h=480' : '');
+
+    var projectData = {
+      id: editId || 'proj_' + Date.now(),
+      title: title,
+      category: cat,
+      description: desc,
+      url: url,
+      image: finalImg,
+      bg: '#0f172a'
+    };
+
+    // Save to localStorage
+    var custom = [];
+    try { custom = JSON.parse(localStorage.getItem('infinite_custom_projects') || '[]'); } catch(e){}
+    if (editId) {
+      custom = custom.map(function(p){ return (p.id === editId || p.url === url) ? projectData : p; });
+    } else {
+      custom.unshift(projectData);
     }
-    if(editId){
-      const data={title,category:cat,description:desc,url:url||'',updatedAt:serverTimestamp()};
-      if(imageUrl) data.image=imageUrl;
-      await updateDoc(doc(db,'projects',editId),data);
-      toast('Project updated!','ok');
-    }else{
-      await addDoc(collection(db,'projects'),{title,category:cat,description:desc,url:url||'',image:imageUrl,createdAt:serverTimestamp()});
-      toast('Project added!','ok');
-    }
+    localStorage.setItem('infinite_custom_projects', JSON.stringify(custom));
+
+    toast(editId ? 'Project updated!' : 'New Project added to Portfolio!', 'ok');
     resetForm();
     loadProjects();
-  }catch(err){
-    toast('Error: '+err.message,'err');
-  }finally{
-    btn.disabled=false;btn.textContent=editId?'Update Project':'Add Design Project';
+
+    // Also try Firestore in background (non-blocking)
+    tryFirestoreSave(projectData, editId);
+  });
+
+  function resetForm(){
+    document.getElementById('projForm').reset();
+    document.getElementById('editId').value = '';
+    document.getElementById('formTitle').textContent = 'Add New Design / Project';
+    document.getElementById('submitBtn').textContent = 'Add Project to Portfolio';
+    document.getElementById('cancelEdit').style.display = 'none';
+    document.getElementById('imgPreview').style.display = 'none';
+    document.getElementById('noPreviewText').style.display = 'block';
   }
-});
 
-function resetForm(){
-  document.getElementById('projForm').reset();
-  document.getElementById('editId').value='';
-  document.getElementById('formTitle').textContent='Add New Design / Project';
-  document.getElementById('submitBtn').textContent='Add Design Project';
-  document.getElementById('cancelEdit').style.display='none';
-  document.getElementById('imgPreview').style.display='none';
-  selectedFile=null;
-}
+  function editProject(p){
+    document.getElementById('editId').value = p.id || p.title || '';
+    document.getElementById('pTitle').value = p.title || '';
+    document.getElementById('pCategory').value = p.category || '';
+    document.getElementById('pUrl').value = p.url || '';
+    document.getElementById('pDesc').value = p.description || '';
+    document.getElementById('pImgUrl').value = p.image || '';
 
-function editProject(p){
-  document.getElementById('editId').value=p.id;
-  document.getElementById('pTitle').value=p.title||'';
-  document.getElementById('pCategory').value=p.category||'';
-  document.getElementById('pUrl').value=p.url||'';
-  document.getElementById('pDesc').value=p.description||'';
-  document.getElementById('pImgUrl').value=p.image||'';
-  if(p.image){const prev=document.getElementById('imgPreview');prev.src=p.image;prev.style.display='block';}
-  document.getElementById('formTitle').textContent='Edit Design / Project';
-  document.getElementById('submitBtn').textContent='Update Project';
-  document.getElementById('cancelEdit').style.display='block';
-  document.getElementById('projForm').scrollIntoView({behavior:'smooth'});
-}
-document.getElementById('cancelEdit').addEventListener('click',resetForm);
+    var prev = document.getElementById('imgPreview');
+    var noPrev = document.getElementById('noPreviewText');
+    var imgSrc = p.image || (p.url ? 'https://s0.wp.com/mshots/v1/' + encodeURIComponent(p.url) + '?w=650&h=480' : '');
+    if (imgSrc) {
+      prev.src = imgSrc;
+      prev.style.display = 'block';
+      if (noPrev) noPrev.style.display = 'none';
+    }
 
-async function deleteProject(id){
-  if(!confirm('Delete this project? This cannot be undone.'))return;
-  try{
-    await deleteDoc(doc(db,'projects',id));
-    toast('Project deleted.','ok');
+    document.getElementById('formTitle').textContent = 'Edit Design / Project';
+    document.getElementById('submitBtn').textContent = 'Update Project';
+    document.getElementById('cancelEdit').style.display = 'block';
+    document.getElementById('projForm').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  document.getElementById('cancelEdit').addEventListener('click', resetForm);
+
+  function deleteProject(p){
+    if (!confirm('Delete "' + (p.title || 'this project') + '"? This cannot be undone.')) return;
+    var custom = [];
+    try { custom = JSON.parse(localStorage.getItem('infinite_custom_projects') || '[]'); } catch(e){}
+    custom = custom.filter(function(item){ return item.url !== p.url && item.title !== p.title; });
+    localStorage.setItem('infinite_custom_projects', JSON.stringify(custom));
+    toast('Project removed.', 'ok');
     loadProjects();
-  }catch(e){toast('Delete failed: '+e.message,'err');}
-}
+  }
+
+  /* ── Optional Firestore background sync (non-blocking) ── */
+  function tryFirestoreSave(data, editId){
+    import('../js/firebase-config.js').then(function(fb){
+      if (editId && editId.indexOf('proj_') !== 0) {
+        fb.updateDoc(fb.doc(fb.db, 'projects', editId), {
+          title: data.title, category: data.category, description: data.description,
+          url: data.url, image: data.image, updatedAt: fb.serverTimestamp()
+        }).catch(function(){});
+      } else {
+        fb.addDoc(fb.collection(fb.db, 'projects'), {
+          title: data.title, category: data.category, description: data.description,
+          url: data.url, image: data.image, createdAt: fb.serverTimestamp()
+        }).catch(function(){});
+      }
+    }).catch(function(){
+      // Firebase offline — data already saved to localStorage
+    });
+  }
+
+  /* ── INIT: Load projects immediately ── */
+  loadProjects();
+
+})();
 </script>
 </body>
 </html>

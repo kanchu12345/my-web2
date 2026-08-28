@@ -126,16 +126,35 @@ import { auth, db, storage, onAuthStateChanged, signOut,
   ref, uploadBytes, getDownloadURL }
   from '../js/firebase-config.js';
 
-/* ── Auth guard ── */
-onAuthStateChanged(auth, u=>{
-  if(!u){window.location.href='login.html';return;}
-  document.getElementById('sbEmail').textContent=u.email;
-  document.getElementById('sbAvatar').textContent=u.email[0].toUpperCase();
+/* ── Auth guard with Master Admin Support ── */
+function initBlogsAuth() {
+  const isMaster = sessionStorage.getItem('infinite_admin_auth') === 'true';
+  const storedUser = JSON.parse(localStorage.getItem('infinite_admin_user') || '{"email":"infinitedesign768@gmail.com"}');
+  
+  const emEl = document.getElementById('sbEmail');
+  const avEl = document.getElementById('sbAvatar');
+  if (emEl) emEl.textContent = storedUser.email || 'infinitedesign768@gmail.com';
+  if (avEl) avEl.textContent = (storedUser.email || 'A')[0].toUpperCase();
+
   loadBlogs();
+
+  onAuthStateChanged(auth, u => {
+    if (u) {
+      if (emEl) emEl.textContent = u.email;
+      if (avEl) avEl.textContent = u.email[0].toUpperCase();
+    } else if (!isMaster) {
+      window.location.href = 'login.html';
+    }
+  });
+}
+
+document.getElementById('logoutBtn').addEventListener('click', async () => {
+  sessionStorage.removeItem("infinite_admin_auth");
+  try { await signOut(auth); } catch(e){}
+  window.location.href = 'login.html';
 });
-document.getElementById('logoutBtn').addEventListener('click',async()=>{
-  await sessionStorage.removeItem("infinite_admin_auth"); signOut(auth);window.location.href='login.html';
-});
+
+initBlogsAuth();
 
 /* ── Toast ── */
 function toast(msg,type='ok'){
@@ -197,20 +216,74 @@ function sanitise(str){
   return String(str).replace(/[<>&"'`]/g,'').trim().slice(0,500);
 }
 
-/* ── Load projects ── */
+/* ── Load Blogs with JSON & LocalStorage Sync ── */
 async function loadBlogs(){
-  const list=document.getElementById('projList');
-  const cnt=document.getElementById('projCount');
-  try{
-    const snap=await getDocs(collection(db,'blogs'));
-    if(snap.empty){list.innerHTML='<div class="no-projects">No blogs yet. Add your first project →</div>';cnt.textContent='';return;}
-    cnt.textContent=`(${snap.size})`;
-    list.innerHTML='';
-    snap.forEach(d=>{
-      const p={id:d.id,...d.data()};
-      list.appendChild(makeListItem(p));
-    });
-  }catch(e){list.innerHTML='<div class="no-projects">Error loading projects. Check Firebase config.</div>';}
+  const list = document.getElementById('projList');
+  const cnt = document.getElementById('projCount');
+  if (!list) return;
+
+  list.innerHTML = '<div class="no-projects">Loading blogs…</div>';
+
+  let items = [];
+
+  // 1. Fetch from data/blogs.json
+  try {
+    const res = await fetch('../data/blogs.json');
+    const data = await res.json();
+    const articles = data.articles || (Array.isArray(data) ? data : []);
+    if (Array.isArray(articles)) {
+      items = articles.map((a, i) => ({
+        id: a.id || a.slug || 'blog_' + i,
+        title: a.title,
+        category: a.category || 'Web Design',
+        description: a.summary || a.excerpt || a.description || '',
+        image: a.image || a.cover || ''
+      }));
+    }
+  } catch(e) {}
+
+  // 2. Fetch custom blogs from localStorage
+  try {
+    const custom = JSON.parse(localStorage.getItem('infinite_custom_blogs') || '[]');
+    if (Array.isArray(custom)) {
+      items = [...custom, ...items];
+    }
+  } catch(e) {}
+
+  // 3. Merge Firestore blogs if online
+  try {
+    const snap = await getDocs(collection(db, 'blogs'));
+    if (!snap.empty) {
+      const fbItems = [];
+      snap.forEach(d => {
+        fbItems.push({ id: d.id, ...d.data() });
+      });
+      items = [...fbItems, ...items];
+    }
+  } catch(e) {}
+
+  // Deduplicate
+  const seen = new Set();
+  const uniqueBlogs = [];
+  items.forEach(b => {
+    const key = (b.id || b.title || '').toLowerCase().trim();
+    if (key && !seen.has(key)) {
+      seen.add(key);
+      uniqueBlogs.push(b);
+    }
+  });
+
+  if (cnt) cnt.textContent = `(${uniqueBlogs.length})`;
+
+  list.innerHTML = '';
+  if (uniqueBlogs.length === 0) {
+    list.innerHTML = '<div class="no-projects">No blogs found. Add your first blog →</div>';
+    return;
+  }
+
+  uniqueBlogs.forEach(p => {
+    list.appendChild(makeListItem(p));
+  });
 }
 
 function makeListItem(p){

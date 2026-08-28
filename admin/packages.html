@@ -338,13 +338,29 @@ const DEFAULT_PACKAGES = [
 
 let currentPackages = [];
 
-/* ── Auth guard ── */
-onAuthStateChanged(auth, u => {
-  if(!u){window.location.href='login.html';return;}
-  document.getElementById('sbEmail').textContent=u.email;
-  document.getElementById('sbAvatar').textContent=u.email[0].toUpperCase();
+/* ── Auth guard with Master Admin Support ── */
+function initPackagesAuth() {
+  const isMaster = sessionStorage.getItem('infinite_admin_auth') === 'true';
+  const storedUser = JSON.parse(localStorage.getItem('infinite_admin_user') || '{"email":"infinitedesign768@gmail.com"}');
+  
+  const emEl = document.getElementById('sbEmail');
+  const avEl = document.getElementById('sbAvatar');
+  if (emEl) emEl.textContent = storedUser.email || 'infinitedesign768@gmail.com';
+  if (avEl) avEl.textContent = (storedUser.email || 'A')[0].toUpperCase();
+
   loadPackages();
-});
+
+  onAuthStateChanged(auth, u => {
+    if (u) {
+      if (emEl) emEl.textContent = u.email;
+      if (avEl) avEl.textContent = u.email[0].toUpperCase();
+    } else if (!isMaster) {
+      window.location.href = 'login.html';
+    }
+  });
+}
+
+initPackagesAuth();
 document.getElementById('logoutBtn').addEventListener('click', async () => {
   await sessionStorage.removeItem("infinite_admin_auth"); signOut(auth);window.location.href='login.html';
 });
@@ -396,8 +412,6 @@ async function loadPackages(){
     });
   }catch(e){
     await loadFromLocalJson();
-  }
-}
   }
 
   if (currentPackages.length === 0) {

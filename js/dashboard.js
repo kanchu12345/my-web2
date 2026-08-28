@@ -9,15 +9,29 @@ if (sessionStorage.getItem('infinite_admin_auth') === 'true') {
 import { auth, db, onAuthStateChanged, signOut, collection, getDocs, onSnapshot }
   from '../js/firebase-config.js';
 
-/* ── Auth guard ─────────────────────────────────── */
-onAuthStateChanged(auth, function(user){
-  if(!user){ window.location.href='login.html'; return; }
-  const email = user.email||'admin';
+/* ── Auth guard with Master Admin Support ────────── */
+const isMasterAdmin = sessionStorage.getItem('infinite_admin_auth') === 'true';
+const storedAdmin = JSON.parse(localStorage.getItem('infinite_admin_user') || '{"email":"infinitedesign768@gmail.com"}');
+
+if (isMasterAdmin) {
   const el = document.getElementById('sbEmail');
-  if(el) el.textContent = email;
+  if (el) el.textContent = storedAdmin.email || 'infinitedesign768@gmail.com';
   const av = document.getElementById('sbAvatar');
-  if(av) av.textContent = email[0].toUpperCase();
+  if (av) av.textContent = (storedAdmin.email || 'A')[0].toUpperCase();
   init();
+}
+
+onAuthStateChanged(auth, function(user){
+  if (user) {
+    const email = user.email || 'admin';
+    const el = document.getElementById('sbEmail');
+    if (el) el.textContent = email;
+    const av = document.getElementById('sbAvatar');
+    if (av) av.textContent = email[0].toUpperCase();
+    if (!isMasterAdmin) init();
+  } else if (!isMasterAdmin) {
+    window.location.href = 'login.html';
+  }
 });
 
 document.getElementById('logoutBtn')?.addEventListener('click', async function(){
