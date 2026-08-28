@@ -8,15 +8,17 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/admin.css">
 <script>
-  const isAuth = localStorage.getItem('infinite_admin_auth') === 'true' || sessionStorage.getItem('infinite_admin_auth') === 'true';
-  if (!isAuth) {
-    setTimeout(() => {
-      const authAgain = localStorage.getItem('infinite_admin_auth') === 'true' || sessionStorage.getItem('infinite_admin_auth') === 'true';
-      if (!window.__firebaseUser && !authAgain) {
-        window.location.href = 'login.html';
-      }
-    }, 3000);
-  }
+  (function(){
+    var isAuth = localStorage.getItem('infinite_admin_auth') === 'true' || sessionStorage.getItem('infinite_admin_auth') === 'true';
+    if (!isAuth) {
+      setTimeout(function(){
+        var recheck = localStorage.getItem('infinite_admin_auth') === 'true' || sessionStorage.getItem('infinite_admin_auth') === 'true';
+        if (!recheck && !window.__firebaseUser) {
+          window.location.href = 'login.html';
+        }
+      }, 5000);
+    }
+  })();
 </script>
 </head>
 <body>
@@ -167,6 +169,7 @@
   if (avEl) avEl.textContent = email[0].toUpperCase();
 
   document.getElementById('logoutBtn').addEventListener('click', function(){
+    localStorage.removeItem('infinite_admin_auth');
     sessionStorage.removeItem('infinite_admin_auth');
     window.location.href = 'login.html';
   });

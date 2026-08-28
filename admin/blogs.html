@@ -8,14 +8,17 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/admin.css">
 <script>
-  if (sessionStorage.getItem('infinite_admin_auth') !== 'true') {
-    // Check if on Firebase or redirect
-    setTimeout(() => {
-      if (!window.__firebaseUser && sessionStorage.getItem('infinite_admin_auth') !== 'true') {
-        // allow 1.5s for firebase, otherwise redirect to login
-      }
-    }, 1500);
-  }
+  (function(){
+    var isAuth = localStorage.getItem('infinite_admin_auth') === 'true' || sessionStorage.getItem('infinite_admin_auth') === 'true';
+    if (!isAuth) {
+      setTimeout(function(){
+        var recheck = localStorage.getItem('infinite_admin_auth') === 'true' || sessionStorage.getItem('infinite_admin_auth') === 'true';
+        if (!recheck && !window.__firebaseUser) {
+          window.location.href = 'login.html';
+        }
+      }, 5000);
+    }
+  })();
 </script>
 </head>
 <body>
@@ -149,7 +152,7 @@ function initBlogsAuth() {
 }
 
 document.getElementById('logoutBtn').addEventListener('click', async () => {
-  sessionStorage.removeItem("infinite_admin_auth");
+  localStorage.removeItem("infinite_admin_auth"); sessionStorage.removeItem("infinite_admin_auth");
   try { await signOut(auth); } catch(e){}
   window.location.href = 'login.html';
 });

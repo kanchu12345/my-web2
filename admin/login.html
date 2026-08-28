@@ -257,7 +257,12 @@ document.getElementById('pwToggle').addEventListener('click',function(){
 
 /* ── Auth state ─────────────────────────────── */
 onAuthStateChanged(auth,function(user){
-  if(user) window.location.href='dashboard.html';
+  if(user){
+    localStorage.setItem('infinite_admin_auth', 'true');
+    sessionStorage.setItem('infinite_admin_auth', 'true');
+    localStorage.setItem('infinite_admin_user', JSON.stringify({ email: user.email || 'infinitedesign768@gmail.com', role: 'Administrator' }));
+    window.location.href='dashboard.html';
+  }
 });
 
 /* ── Login form submit ──────────────────────── */
@@ -304,6 +309,9 @@ document.getElementById('loginForm').addEventListener('submit',async function(e)
 
   try{
     await signInWithEmailAndPassword(auth,email,pw);
+    localStorage.setItem('infinite_admin_auth', 'true');
+    sessionStorage.setItem('infinite_admin_auth', 'true');
+    localStorage.setItem('infinite_admin_user', JSON.stringify({ email: email, role: 'Administrator' }));
     // Log login
     logLogin(email,'success');
     resetAttempts();
