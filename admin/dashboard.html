@@ -13,12 +13,7 @@
 <script>
   const isAuth = localStorage.getItem('infinite_admin_auth') === 'true' || sessionStorage.getItem('infinite_admin_auth') === 'true';
   if (!isAuth) {
-    setTimeout(() => {
-      const authAgain = localStorage.getItem('infinite_admin_auth') === 'true' || sessionStorage.getItem('infinite_admin_auth') === 'true';
-      if (!window.__firebaseUser && !authAgain) {
-        window.location.href = 'login.html';
-      }
-    }, 3000);
+    
   }
 </script>
 </head>

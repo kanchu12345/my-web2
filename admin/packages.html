@@ -73,19 +73,7 @@
     cursor: pointer;
   }
 </style>
-<script>
-  (function(){
-    var isAuth = localStorage.getItem('infinite_admin_auth') === 'true' || sessionStorage.getItem('infinite_admin_auth') === 'true';
-    if (!isAuth) {
-      setTimeout(function(){
-        var recheck = localStorage.getItem('infinite_admin_auth') === 'true' || sessionStorage.getItem('infinite_admin_auth') === 'true';
-        if (!recheck && !window.__firebaseUser) {
-          window.location.href = 'login.html';
-        }
-      }, 5000);
-    }
-  })();
-</script>
+
 </head>
 <body>
 <aside class="sidebar">
@@ -357,8 +345,6 @@ function initPackagesAuth() {
     if (u) {
       if (emEl) emEl.textContent = u.email;
       if (avEl) avEl.textContent = u.email[0].toUpperCase();
-    } else if (!isMaster) {
-      window.location.href = 'login.html';
     }
   });
 }

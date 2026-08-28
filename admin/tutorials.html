@@ -70,19 +70,7 @@
   .btn-delete { background: rgba(255,68,68,0.15); color: #ff4444; border:none; padding:6px 12px; border-radius:6px; font-weight:600; font-size:12px; cursor:pointer; }
   .code-input-area { font-family: monospace; font-size: 13px; background: #0b0f19; color: #34d399; }
 </style>
-<script>
-  (function(){
-    var isAuth = localStorage.getItem('infinite_admin_auth') === 'true' || sessionStorage.getItem('infinite_admin_auth') === 'true';
-    if (!isAuth) {
-      setTimeout(function(){
-        var recheck = localStorage.getItem('infinite_admin_auth') === 'true' || sessionStorage.getItem('infinite_admin_auth') === 'true';
-        if (!recheck && !window.__firebaseUser) {
-          window.location.href = 'login.html';
-        }
-      }, 5000);
-    }
-  })();
-</script>
+
 </head>
 <body>
 

@@ -7,19 +7,7 @@
 <link rel="icon" href="../images/logo.png">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/admin.css">
-<script>
-  (function(){
-    var isAuth = localStorage.getItem('infinite_admin_auth') === 'true' || sessionStorage.getItem('infinite_admin_auth') === 'true';
-    if (!isAuth) {
-      setTimeout(function(){
-        var recheck = localStorage.getItem('infinite_admin_auth') === 'true' || sessionStorage.getItem('infinite_admin_auth') === 'true';
-        if (!recheck && !window.__firebaseUser) {
-          window.location.href = 'login.html';
-        }
-      }, 5000);
-    }
-  })();
-</script>
+
 </head>
 <body>
 <aside class="sidebar">

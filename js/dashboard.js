@@ -24,14 +24,13 @@ if (isMasterAdmin) {
 onAuthStateChanged(auth, function(user){
   if (user) {
     window.__firebaseUser = user;
+    localStorage.setItem('infinite_admin_auth', 'true');
     const email = user.email || 'admin';
     const el = document.getElementById('sbEmail');
     if (el) el.textContent = email;
     const av = document.getElementById('sbAvatar');
     if (av) av.textContent = email[0].toUpperCase();
     if (!isMasterAdmin) init();
-  } else if (!isMasterAdmin && (localStorage.getItem('infinite_admin_auth') !== 'true' && sessionStorage.getItem('infinite_admin_auth') !== 'true')) {
-    window.location.href = 'login.html';
   }
 });
 
