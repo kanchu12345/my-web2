@@ -553,8 +553,9 @@ const DEFAULT_PACKAGES = [
     "price": "Rs. 5,000/-",
     "priceNum": 5000,
     "tag": "Budget Hero",
-    "category": "low-cost",
-    "sectionTitle": "Low-Cost Web Design Packages",
+    "topic": "low-cost",
+    "sectionTitle": "💡 Low-Cost Web Design Packages",
+    "sectionDesc": "High quality, affordable web solutions tailored for Sri Lankan startups, small businesses & personal sites.",
     "featured": false,
     "popular": false,
     "description": "Essential low-cost package for personal sites, small shops & instant online presence.",
@@ -576,8 +577,9 @@ const DEFAULT_PACKAGES = [
     "price": "Rs. 10,000/-",
     "priceNum": 10000,
     "tag": "Best Value",
-    "category": "low-cost",
-    "sectionTitle": "Low-Cost Web Design Packages",
+    "topic": "low-cost",
+    "sectionTitle": "💡 Low-Cost Web Design Packages",
+    "sectionDesc": "High quality, affordable web solutions tailored for Sri Lankan startups, small businesses & personal sites.",
     "featured": true,
     "popular": true,
     "description": "Solid 5-page business website with self-manageable admin panel & local SEO.",
@@ -600,8 +602,9 @@ const DEFAULT_PACKAGES = [
     "price": "Rs. 15,000/-",
     "priceNum": 15000,
     "tag": "Growth",
-    "category": "low-cost",
-    "sectionTitle": "Low-Cost Web Design Packages",
+    "topic": "low-cost",
+    "sectionTitle": "💡 Low-Cost Web Design Packages",
+    "sectionDesc": "High quality, affordable web solutions tailored for Sri Lankan startups, small businesses & personal sites.",
     "featured": false,
     "popular": false,
     "description": "Custom UI design built for high conversions, lead generation & ad campaigns.",
@@ -624,8 +627,9 @@ const DEFAULT_PACKAGES = [
     "price": "Rs. 20,000/-",
     "priceNum": 20000,
     "tag": "Most Popular",
-    "category": "low-cost",
-    "sectionTitle": "Low-Cost Web Design Packages",
+    "topic": "low-cost",
+    "sectionTitle": "💡 Low-Cost Web Design Packages",
+    "sectionDesc": "High quality, affordable web solutions tailored for Sri Lankan startups, small businesses & personal sites.",
     "featured": true,
     "popular": true,
     "description": "Corporate-level web presence with advanced security, Google Analytics & SSL.",
@@ -650,8 +654,9 @@ const DEFAULT_PACKAGES = [
     "originalPrice": "Rs. 37,500/-",
     "priceNum": 30000,
     "tag": "Promo Offer",
-    "category": "low-cost",
-    "sectionTitle": "Low-Cost Web Design Packages",
+    "topic": "low-cost",
+    "sectionTitle": "💡 Low-Cost Web Design Packages",
+    "sectionDesc": "High quality, affordable web solutions tailored for Sri Lankan startups, small businesses & personal sites.",
     "featured": false,
     "popular": false,
     "description": "High-impact single-page conversion landing page with business email.",
@@ -675,8 +680,9 @@ const DEFAULT_PACKAGES = [
     "originalPrice": "Rs. 45,000/-",
     "priceNum": 35000,
     "tag": "Promo Offer",
-    "category": "low-cost",
-    "sectionTitle": "Low-Cost Web Design Packages",
+    "topic": "low-cost",
+    "sectionTitle": "💡 Low-Cost Web Design Packages",
+    "sectionDesc": "High quality, affordable web solutions tailored for Sri Lankan startups, small businesses & personal sites.",
     "featured": false,
     "popular": false,
     "description": "Clean 2-page website for growing services and portfolio showcases with business email.",
@@ -700,8 +706,9 @@ const DEFAULT_PACKAGES = [
     "originalPrice": "Rs. 50,000/-",
     "priceNum": 40000,
     "tag": "Promo Offer",
-    "category": "low-cost",
-    "sectionTitle": "Low-Cost Web Design Packages",
+    "topic": "low-cost",
+    "sectionTitle": "💡 Low-Cost Web Design Packages",
+    "sectionDesc": "High quality, affordable web solutions tailored for Sri Lankan startups, small businesses & personal sites.",
     "featured": false,
     "popular": false,
     "description": "Comprehensive 3-page business presentation with dedicated email & admin access.",
@@ -724,8 +731,9 @@ const DEFAULT_PACKAGES = [
     "price": "Rs. 40,000/-",
     "priceNum": 40000,
     "tag": "Enterprise Low-Cost",
-    "category": "low-cost",
-    "sectionTitle": "Low-Cost Web Design Packages",
+    "topic": "low-cost",
+    "sectionTitle": "💡 Low-Cost Web Design Packages",
+    "sectionDesc": "High quality, affordable web solutions tailored for Sri Lankan startups, small businesses & personal sites.",
     "featured": false,
     "popular": false,
     "description": "Top-tier custom engineering tailored specifically for startup leaders.",
@@ -750,8 +758,9 @@ const DEFAULT_PACKAGES = [
     "originalPrice": "Rs. 57,500/-",
     "priceNum": 45000,
     "tag": "Corporate Special",
-    "category": "corporate",
-    "sectionTitle": "Corporate & International Web Design Packages",
+    "topic": "corporate",
+    "sectionTitle": "🏢 Standard Corporate Packages",
+    "sectionDesc": "Established business & company website packages with custom UI, business emails & admin control.",
     "featured": false,
     "popular": false,
     "description": "4-page corporate presentation built for modern companies and agencies.",
@@ -775,8 +784,9 @@ const DEFAULT_PACKAGES = [
     "originalPrice": "Rs. 75,000/-",
     "priceNum": 60000,
     "tag": "Most Popular",
-    "category": "corporate",
-    "sectionTitle": "Corporate & International Web Design Packages",
+    "topic": "corporate",
+    "sectionTitle": "🏢 Standard Corporate Packages",
+    "sectionDesc": "Established business & company website packages with custom UI, business emails & admin control.",
     "featured": true,
     "popular": true,
     "description": "10-page complete business website with 3 business email accounts & rich UI features.",
@@ -802,8 +812,9 @@ const DEFAULT_PACKAGES = [
     "originalPrice": "Rs. 125,000/-",
     "priceNum": 99000,
     "tag": "High Impact",
-    "category": "corporate",
-    "sectionTitle": "Corporate & International Web Design Packages",
+    "topic": "corporate",
+    "sectionTitle": "🏢 Standard Corporate Packages",
+    "sectionDesc": "Established business & company website packages with custom UI, business emails & admin control.",
     "featured": false,
     "popular": false,
     "description": "20-page full corporate portal with 5 business emails & advanced interactive sliders.",
@@ -829,8 +840,9 @@ const DEFAULT_PACKAGES = [
     "originalPrice": "Rs. 160,000/-",
     "priceNum": 125000,
     "tag": "Enterprise",
-    "category": "corporate",
-    "sectionTitle": "Corporate & International Web Design Packages",
+    "topic": "corporate",
+    "sectionTitle": "🏢 Standard Corporate Packages",
+    "sectionDesc": "Established business & company website packages with custom UI, business emails & admin control.",
     "featured": false,
     "popular": false,
     "description": "30-page enterprise powerhouse with 10 business emails & DDoS security shield.",
@@ -850,30 +862,85 @@ const DEFAULT_PACKAGES = [
     "order": 12
   },
   {
-    "id": "pkg-platinum-nextgen",
-    "name": "Platinum Next-Gen 3D Elite",
+    "id": "pkg-premium-global",
+    "name": "Premium Global",
     "price": "Rs. 160,000/-",
     "originalPrice": "Rs. 200,000/-",
     "priceNum": 160000,
-    "tag": "Flagship 2026",
-    "category": "corporate",
-    "sectionTitle": "Corporate & International Web Design Packages",
+    "tag": "International",
+    "topic": "international",
+    "sectionTitle": "🌍 International & Premium Web Design Packages",
+    "sectionDesc": "Built for export brands, multinational firms & global operations targeting international search markets.",
+    "featured": false,
+    "popular": false,
+    "description": "35-page international corporate web system with licensed Envato stock photos and SEO content.",
+    "features": [
+      "35 Static & Dynamic Web Pages",
+      "News & Blog Publishing System",
+      "Envato Stock Photos with Premium License ($33 Value)",
+      "SEO Optimized Content Writing Included",
+      "Mega Menu, Video Backgrounds & Parallax",
+      "10 Business Email Accounts",
+      "Global Multi-Region CDN Deployment",
+      "1 Year Dedicated Maintenance"
+    ],
+    "addon": "Additional page: Rs. 8,000/- per page",
+    "cta": "Choose Premium Global",
+    "order": 13
+  },
+  {
+    "id": "pkg-premium-modern",
+    "name": "Premium Modern",
+    "price": "Rs. 200,000/-",
+    "originalPrice": "Rs. 250,000/-",
+    "priceNum": 200000,
+    "tag": "Next-Gen 3D",
+    "topic": "international",
+    "sectionTitle": "🌍 International & Premium Web Design Packages",
+    "sectionDesc": "Built for export brands, multinational firms & global operations targeting international search markets.",
     "featured": true,
     "popular": false,
-    "description": "All Platinum features + Next-Gen Ultra Modern 3D / Interactive Design & Animations.",
+    "description": "40-page flagship modern design with micro-interactions, 3D elements & premium design plugins.",
     "features": [
-      "All Features in Platinum Included",
-      "Next-Gen Modern UI/UX (Three.js / 3D Bento Grid)",
-      "Custom Micro-Interactions & Fluid Animations",
-      "10+ Business Email Accounts",
-      "Advanced API & CRM Integrations",
-      "Full AI Search Engine Optimization (AEO/GEO)",
-      "1 Year Dedicated Maintenance & VIP Support",
-      "🚀 Ultra-Fast Edge Cloud Infrastructure"
+      "40 Web Pages Architecture",
+      "Next-Gen 3D Elements & Micro-Interactions",
+      "Uses Premium Design Plugins & Libraries",
+      "SEO-Friendly Content Writing Included",
+      "Envato Licensed High-Res Stock Photography",
+      "15 Business Email Accounts",
+      "AI Search Engine Optimization (AEO/GEO)",
+      "1 Year Dedicated VIP Concierge Support"
     ],
-    "addon": "Free .COM Domain + Corporate Identity Suite",
-    "cta": "Choose Next-Gen 3D Elite",
-    "order": 13
+    "addon": "Additional page: Rs. 8,000/- per page",
+    "cta": "Choose Premium Modern",
+    "order": 14
+  },
+  {
+    "id": "pkg-premium-international",
+    "name": "Premium International",
+    "price": "Rs. 250,000/-",
+    "originalPrice": "Rs. 300,000/-",
+    "priceNum": 250000,
+    "tag": "Global Elite",
+    "topic": "international",
+    "sectionTitle": "🌍 International & Premium Web Design Packages",
+    "sectionDesc": "Built for export brands, multinational firms & global operations targeting international search markets.",
+    "featured": false,
+    "popular": false,
+    "description": "45-page global enterprise solution designed to capture international search traffic in US, UK, EU & Asia.",
+    "features": [
+      "45 Web Pages Multi-Region Architecture",
+      "Multi-Currency & Multi-Language Readiness",
+      "Full Global SEO Target Configuration",
+      "Licensed Stock Photography & Video Assets",
+      "20 Business Email Accounts",
+      "Enterprise Security & Cyber Shield Guard",
+      "Dedicated Project Manager Support",
+      "🚀 High-Performance Edge Server Deployment"
+    ],
+    "addon": "Additional page: Rs. 8,000/- per page",
+    "cta": "Choose Premium International",
+    "order": 15
   },
   {
     "id": "pkg-product-catalogue",
@@ -881,8 +948,9 @@ const DEFAULT_PACKAGES = [
     "price": "Rs. 180,000/-",
     "priceNum": 180000,
     "tag": "Wholesale & Trade",
-    "category": "ecommerce",
-    "sectionTitle": "E-Commerce & Product Catalogue Solutions",
+    "topic": "ecommerce",
+    "sectionTitle": "🛒 E-Commerce & Product Catalogue Solutions",
+    "sectionDesc": "Complete online store & catalogue platforms ready for PayHere, Visa, Mastercard & Koko installment payments.",
     "featured": false,
     "popular": false,
     "description": "Showcase unlimited product categories and receive direct wholesale & retail inquiries.",
@@ -897,7 +965,7 @@ const DEFAULT_PACKAGES = [
     ],
     "addon": "Conditions Apply",
     "cta": "Choose Product Catalogue",
-    "order": 14
+    "order": 16
   },
   {
     "id": "pkg-ecommerce-full",
@@ -905,8 +973,9 @@ const DEFAULT_PACKAGES = [
     "price": "Start from Rs. 60,000/-",
     "priceNum": 60000,
     "tag": "Enterprise Store",
-    "category": "ecommerce",
-    "sectionTitle": "E-Commerce & Product Catalogue Solutions",
+    "topic": "ecommerce",
+    "sectionTitle": "🛒 E-Commerce & Product Catalogue Solutions",
+    "sectionDesc": "Complete online store & catalogue platforms ready for PayHere, Visa, Mastercard & Koko installment payments.",
     "featured": true,
     "popular": false,
     "description": "Complete online store with shopping carts, PayHere card checkout, and order tracking.",
@@ -922,7 +991,127 @@ const DEFAULT_PACKAGES = [
     ],
     "addon": "Conditions Apply",
     "cta": "Choose Full E-Commerce",
-    "order": 15
+    "order": 17
+  },
+  {
+    "id": "pkg-service-email",
+    "name": "Business Email Hosting",
+    "price": "Rs. 5,000/year",
+    "priceNum": 5000,
+    "tag": "Digital Service",
+    "topic": "services",
+    "sectionTitle": "🛠️ Specialized Digital Services & Business Add-Ons",
+    "sectionDesc": "Standalone digital solutions to upgrade your brand reputation, search rank, email & maintenance.",
+    "featured": false,
+    "popular": false,
+    "description": "Professional @yourdomain.com business email hosting with webmail and anti-spam protection.",
+    "features": [
+      "Professional @yourdomain.com Email Addresses",
+      "Webmail Access on Android & Mobile",
+      "IMAP / POP3 / SMTP Support (Outlook & Mobile Sync)",
+      "Advanced Spam & Virus Protection",
+      "99.9% Server Uptime Guarantee",
+      "Free Migration from Old Email Host"
+    ],
+    "addon": "Per 5 Accounts setup",
+    "cta": "Get Email Hosting",
+    "order": 18
+  },
+  {
+    "id": "pkg-service-seo",
+    "name": "SEO & Google Dominance",
+    "price": "Rs. 25,000/-",
+    "priceNum": 25000,
+    "tag": "Digital Service",
+    "topic": "services",
+    "sectionTitle": "🛠️ Specialized Digital Services & Business Add-Ons",
+    "sectionDesc": "Standalone digital solutions to upgrade your brand reputation, search rank, email & maintenance.",
+    "featured": true,
+    "popular": true,
+    "description": "Complete search engine optimization package to rank your website on Google Page #1.",
+    "features": [
+      "Keyword Research for Sri Lanka & Global Markets",
+      "On-Page Technical SEO Audit & Fixes",
+      "Google Search Console & Sitemap Submission",
+      "Google Analytics 4 Tracking Setup",
+      "Schema.org Rich Snippets JSON-LD",
+      "Speed Optimization (90+ Core Web Vitals)"
+    ],
+    "addon": "Monthly SEO Growth Reports provided",
+    "cta": "Boost Google Ranking",
+    "order": 19
+  },
+  {
+    "id": "pkg-service-gmb",
+    "name": "Google Business Profile & Local SEO",
+    "price": "Rs. 15,000/-",
+    "priceNum": 15000,
+    "tag": "Digital Service",
+    "topic": "services",
+    "sectionTitle": "🛠️ Specialized Digital Services & Business Add-Ons",
+    "sectionDesc": "Standalone digital solutions to upgrade your brand reputation, search rank, email & maintenance.",
+    "featured": false,
+    "popular": false,
+    "description": "Claim, verify and optimize your Google Maps profile to attract nearby customers.",
+    "features": [
+      "Google Business Profile Claiming & Verification",
+      "Google Maps Location Pin Setup",
+      "Business Information & Hours Optimization",
+      "5-Star Review Generation Strategy",
+      "Product / Service Catalogue Upload",
+      "Local Citation & NAP Consistency"
+    ],
+    "addon": "Increases local phone calls & walk-ins",
+    "cta": "Setup Google Maps",
+    "order": 20
+  },
+  {
+    "id": "pkg-service-maintenance",
+    "name": "Website Maintenance & Care",
+    "price": "Rs. 12,000/year",
+    "priceNum": 12000,
+    "tag": "Digital Service",
+    "topic": "services",
+    "sectionTitle": "🛠️ Specialized Digital Services & Business Add-Ons",
+    "sectionDesc": "Standalone digital solutions to upgrade your brand reputation, search rank, email & maintenance.",
+    "featured": false,
+    "popular": false,
+    "description": "Hassle-free annual website maintenance, updates, backups and security monitoring.",
+    "features": [
+      "Monthly Content Updates & Edits",
+      "Automated Daily / Weekly Cloud Backups",
+      "Security Scanning & Malware Protection",
+      "Plugin & Core Engine Updates",
+      "Uptime & Speed Monitoring",
+      "Priority Technical Support"
+    ],
+    "addon": "Zero downtime guarantee",
+    "cta": "Get Maintenance Care",
+    "order": 21
+  },
+  {
+    "id": "pkg-service-logo",
+    "name": "Brand Logo & Identity Suite",
+    "price": "Rs. 10,000/-",
+    "priceNum": 10000,
+    "tag": "Digital Service",
+    "topic": "services",
+    "sectionTitle": "🛠️ Specialized Digital Services & Business Add-Ons",
+    "sectionDesc": "Standalone digital solutions to upgrade your brand reputation, search rank, email & maintenance.",
+    "featured": false,
+    "popular": false,
+    "description": "High-resolution vector logo design and brand assets for your company.",
+    "features": [
+      "3 Custom Logo Design Concepts",
+      "High-Resolution Vector Source Files (AI, EPS, SVG, PNG)",
+      "Transparent Background PNG Variations",
+      "Favicon & Web Icon Suite",
+      "Social Media Profile & Cover Banners",
+      "Brand Color Palette & Typography Guidelines"
+    ],
+    "addon": "100% Original Vector Artwork",
+    "cta": "Get Custom Logo",
+    "order": 22
   }
 ];
 
@@ -974,30 +1163,29 @@ function parseBasePrice(priceStr) {
 function renderPackages(list, container) {
   container.innerHTML = '';
   
-  // Group packages by section
-  const lowCostList = list.filter(p => p.category === 'low-cost' || (p.priceNum && p.priceNum <= 40000 && !p.category));
-  const corpList = list.filter(p => p.category === 'corporate' || (p.priceNum && p.priceNum > 40000 && p.category !== 'low-cost'));
-  const ecomList = list.filter(p => p.category === 'ecommerce');
-
-  const sections = [
-    { title: "💡 Low-Cost Web Design Packages", desc: "High quality, affordable web solutions tailored for Sri Lankan startups, small businesses & personal sites.", items: lowCostList.length > 0 ? lowCostList : list.slice(0, 8) },
-    { title: "🏢 Corporate & International Web Design Packages", desc: "Enterprise-grade web portals with multi-department business email, rich sliders & full SEO suites.", items: corpList },
-    { title: "🛒 E-Commerce & Product Catalogue Solutions", desc: "Complete online store & catalogue platforms ready for PayHere, Visa, Mastercard & Koko installment payments.", items: ecomList }
+  // Group packages by 5 topics
+  const topics = [
+    { key: 'low-cost', title: '💡 Low-Cost Web Design Packages', desc: 'High quality, affordable web solutions tailored for Sri Lankan startups, small businesses & personal sites.' },
+    { key: 'corporate', title: '🏢 Standard Corporate Packages', desc: 'Established business & company website packages with custom UI, business emails & admin control.' },
+    { key: 'international', title: '🌍 International & Premium Web Design Packages', desc: 'Built for export brands, multinational firms & global operations targeting international search markets.' },
+    { key: 'ecommerce', title: '🛒 E-Commerce & Product Catalogue Solutions', desc: 'Complete online store & catalogue platforms ready for PayHere, Visa, Mastercard & Koko installment payments.' },
+    { key: 'services', title: '🛠️ Specialized Digital Services & Business Add-Ons', desc: 'Standalone digital solutions to upgrade your brand reputation, search rank, email & maintenance.' }
   ];
 
-  sections.forEach(sec => {
-    if (!sec.items || sec.items.length === 0) return;
+  topics.forEach(t => {
+    const items = list.filter(p => p.topic === t.key || p.category === t.key);
+    if (!items || items.length === 0) return;
 
     const secHeader = document.createElement('div');
     secHeader.className = 'pkg-section-header reveal';
-    secHeader.style.cssText = 'grid-column: 1 / -1; margin-top: 36px; margin-bottom: 20px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 16px;';
+    secHeader.style.cssText = 'grid-column: 1 / -1; margin-top: 42px; margin-bottom: 22px; text-align: left; border-bottom: 1px solid rgba(4,170,109,0.25); padding-bottom: 16px;';
     secHeader.innerHTML = `
-      <h2 style="font-family:'Space Grotesk',sans-serif; font-size: 1.8rem; font-weight: 800; color: #fff; margin-bottom: 6px; display:flex; align-items:center; gap:10px;">${sec.title}</h2>
-      <p style="color: #94a3b8; font-size: 0.95rem; margin: 0;">${sec.desc}</p>
+      <h2 style="font-family:'Space Grotesk',sans-serif; font-size: 1.8rem; font-weight: 800; color: #fff; margin-bottom: 6px; display:flex; align-items:center; gap:10px;">${t.title}</h2>
+      <p style="color: #94a3b8; font-size: 0.95rem; margin: 0;">${t.desc}</p>
     `;
     container.appendChild(secHeader);
 
-    sec.items.forEach((pkg, index) => {
+    items.forEach((pkg, index) => {
       const basePrice = parseBasePrice(pkg.price);
       const card = document.createElement('div');
       card.className = `pkg-card ${pkg.featured ? 'featured' : ''} reveal reveal-delay-${(index % 4) + 1}`;
@@ -1035,10 +1223,6 @@ function renderPackages(list, container) {
             <label style="display:flex; align-items:center; gap:8px; cursor:pointer; color:#ffffff !important;">
               <input type="checkbox" class="pkg-addon-cb" data-pkg-id="${pkg.id || index}" data-name="Core Web Vitals 99+ Speed Boost" data-price="2000" onchange="updatePkgTotal('${pkg.id || index}', ${basePrice}, '${pkg.name}')" accent-color="#04AA6D">
               <span style="color:#ffffff !important;">⚡ 99+ PageSpeed Boost (+Rs. 2,000)</span>
-            </label>
-            <label style="display:flex; align-items:center; gap:8px; cursor:pointer; color:#ffffff !important;">
-              <input type="checkbox" class="pkg-addon-cb" data-pkg-id="${pkg.id || index}" data-name="Custom Brand Logo & Favicon" data-price="3500" onchange="updatePkgTotal('${pkg.id || index}', ${basePrice}, '${pkg.name}')" accent-color="#04AA6D">
-              <span style="color:#ffffff !important;">🎨 Custom Brand Logo (+Rs. 3,500)</span>
             </label>
           </div>
         </div>
