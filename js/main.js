@@ -561,10 +561,10 @@ const DEFAULT_PACKAGES = [
     "description": "Essential low-cost package for personal sites, small shops & instant online presence.",
     "features": [
       "3 Pages Included",
-      "Mobile & Android Friendly Design",
-      "Direct Call & WhatsApp Chat System",
-      "Social Media Share & Links",
-      "Header Image Banner",
+      "Mobile & Android Friendly UI",
+      "Direct WhatsApp Chat & Call Button",
+      "Social Media Links & Share Icons",
+      "Header Banner & Fast Loading Speed",
       "🎁 100% Free Cloud Hosting (Zero Monthly Fees)"
     ],
     "addon": "📄 Need more pages? Add extra pages for just Rs. 1,500/- per page!",
@@ -586,9 +586,9 @@ const DEFAULT_PACKAGES = [
     "features": [
       "5 Pages Included",
       "Self-Manageable Admin Panel Access",
-      "Contact Form & Google Maps Location",
-      "Mobile Responsive & Animations",
-      "Basic SEO & Social Icons",
+      "Contact Form & Google Maps Location Pin",
+      "Mobile Responsive Layout & Animations",
+      "Basic SEO & Social Media Icons",
       "1 Month Free Support",
       "🎁 100% Free Cloud Hosting (Zero Monthly Fees)"
     ],
@@ -610,12 +610,12 @@ const DEFAULT_PACKAGES = [
     "description": "Custom UI design built for high conversions, lead generation & ad campaigns.",
     "features": [
       "7 Pages Included",
-      "Custom UI Design System",
-      "Full Control Admin Dashboard",
+      "Custom Conversion UI Design System",
+      "Full Control Admin Control Panel",
       "Speed Optimization (95+ Mobile Score)",
       "Meta Pixel & WhatsApp Lead Capture",
       "Interactive Contact & Inquiry Forms",
-      "Free Basic SEO & Analytics",
+      "Free Basic SEO & Analytics Setup",
       "🚀 High-Speed Cloud Server Deployment"
     ],
     "addon": "Priority 2-Month Support included",
@@ -636,11 +636,10 @@ const DEFAULT_PACKAGES = [
     "description": "Corporate-level web presence with advanced security, Google Analytics & SSL.",
     "features": [
       "10 Pages Included",
-      "Premium Corporate Design & Animations",
+      "Premium Corporate Design & Micro-Animations",
       "Google Analytics 4 & Meta Setup",
-      "SSL Certificate & Security Shield",
+      "Free SSL Certificate & Security Shield",
       "Full Google Local SEO Optimization",
-      "Full Control Admin Panel",
       "Customer Lead Generation Strategy",
       "3 Months Dedicated Priority Support",
       "🚀 High-Speed Cloud Server Deployment"
@@ -665,10 +664,11 @@ const DEFAULT_PACKAGES = [
     "features": [
       "1-Page High Converting Landing Page",
       "1 Professional Business Email Account",
-      "Mobile Responsive & Animations",
+      "Mobile Responsive & Banner Animations",
       "Google Map Location Setup",
-      "Direct Calls & WhatsApp Chat",
-      "Free Basic SEO & Social Share Icons"
+      "Direct Click-to-Call & WhatsApp Chat",
+      "Free Basic SEO & Social Share Icons",
+      "🚀 High-Speed Cloud Server Deployment"
     ],
     "addon": "Fast delivery in 2-3 business days",
     "cta": "Choose Starter 01",
@@ -688,12 +688,13 @@ const DEFAULT_PACKAGES = [
     "popular": false,
     "description": "Clean 2-page website for growing services and portfolio showcases with business email.",
     "features": [
-      "2-Pages Showcase Website",
+      "2 Pages Website Architecture",
       "1 Professional Business Email Account",
       "Header Slider & Image Carousel",
       "Mobile Chat System & Direct Calls",
       "Google Map Location & Free SSL",
-      "Basic SEO & Social Icons"
+      "Basic SEO & Social Icons",
+      "🚀 High-Speed Cloud Server Deployment"
     ],
     "addon": "Priority 1-Month Support",
     "cta": "Choose Starter 02",
@@ -713,12 +714,13 @@ const DEFAULT_PACKAGES = [
     "popular": false,
     "description": "Comprehensive 3-page business presentation with dedicated email & admin access.",
     "features": [
-      "3-Pages Full Website",
+      "3 Pages Full Website (Home, Services, Contact)",
       "1 Professional Business Email Account",
       "Self-Manageable Admin Panel",
       "Header Slider & Hover Effects",
       "Google Map & Mobile Chat System",
-      "Free Basic SEO & Speed Boost"
+      "Free Basic SEO & Speed Boost",
+      "🚀 High-Speed Cloud Server Deployment"
     ],
     "addon": "Free Logo & Favicon Styling included",
     "cta": "Choose Starter 03",
@@ -739,13 +741,12 @@ const DEFAULT_PACKAGES = [
     "features": [
       "12 Custom Pages Included",
       "Bespoke Custom UI/UX Engineering",
-      "Core Web Vitals Optimization",
+      "Core Web Vitals 99+ Speed Optimization",
       "Custom Micro-Interactions & Animations",
       "Full SEO & Conversion Suite",
       "Advanced Role-Based Admin Panel",
-      "Automated Daily Cloud Backups",
-      "6 Months Extended Dedicated Support",
-      "🚀 High-Speed Cloud Server Deployment"
+      "Automated Daily Cloud Backups & SSL",
+      "6 Months Extended Dedicated Support"
     ],
     "addon": "Free Minor Updates for 6 Months",
     "cta": "Choose Business Pro",
@@ -763,15 +764,16 @@ const DEFAULT_PACKAGES = [
     "sectionDesc": "Established business & company website packages with custom UI, business emails & admin control.",
     "featured": false,
     "popular": false,
-    "description": "15-page corporate presentation built for modern companies and agencies.",
+    "description": "6-page corporate presentation built for modern companies, consultants and agencies.",
     "features": [
-      "15 Custom Pages Included",
+      "6 Custom Pages Included",
       "1 Professional Business Email Account",
-      "Full Control Admin Panel",
+      "Self-Manageable Admin Control Panel",
+      "Header Slider & Banner Animations",
       "Contact & Quotation Request Forms",
       "Google Map Location & Free SSL",
       "Standard Google SEO Setup",
-      "🚀 High-Speed Cloud Server Deployment"
+      "1 Month Free Maintenance & Support"
     ],
     "addon": "Add extra pages for Rs. 1,500/- per page",
     "cta": "Choose Starter Corp",
@@ -789,17 +791,16 @@ const DEFAULT_PACKAGES = [
     "sectionDesc": "Established business & company website packages with custom UI, business emails & admin control.",
     "featured": true,
     "popular": true,
-    "description": "20-page complete business website with 3 business email accounts & rich UI features.",
+    "description": "10-page complete business website with 3 business email accounts & rich UI features.",
     "features": [
-      "20 Custom Pages Included",
+      "10 Custom Pages Included",
       "3 Professional Business Email Accounts",
       "Header Slider, Layer Slider & Parallax Effects",
-      "Google Map Location & Mobile Chat System",
+      "Mobile Chat System & Direct Click-to-Call",
+      "Google Map Location & QR Code Setup",
       "Full SEO & Google Search Console Setup",
-      "Self-Manageable Admin Panel",
       "Customer Generation Strategy Pro",
-      "2 Months Free Priority Maintenance",
-      "🚀 High-Performance Global Cloud Hosting"
+      "2 Months Free Priority Maintenance"
     ],
     "addon": "Dual Language Support (Sinhala + English) available",
     "cta": "Choose Silver Corp",
@@ -817,17 +818,17 @@ const DEFAULT_PACKAGES = [
     "sectionDesc": "Established business & company website packages with custom UI, business emails & admin control.",
     "featured": false,
     "popular": false,
-    "description": "35-page full corporate portal with 5 business emails & advanced interactive sliders.",
+    "description": "15-page full corporate portal with 5 business emails & advanced interactive sliders.",
     "features": [
-      "35 Enterprise Web Pages",
+      "15 Custom Pages Included",
       "5 Professional Business Email Accounts",
       "Multilayer Slider & Animated Image Carousel",
-      "Mega Menu, Hover & Scroll Effects",
+      "Mega Menu, Hover & Scroll Micro-Interactions",
       "Advanced Speed & Caching Layer",
       "Full Control Dynamic Admin Dashboard",
       "Meta Pixel & GA4 Analytics Setup",
-      "3 Months Dedicated Priority Support",
-      "🚀 Enterprise Cloud Server Deployment"
+      "PayHere / Online Card Gateway Ready",
+      "3 Months Dedicated VIP Support"
     ],
     "addon": "Includes PayHere / Online Card Gateway option",
     "cta": "Choose Gold Corp",
@@ -845,17 +846,16 @@ const DEFAULT_PACKAGES = [
     "sectionDesc": "Established business & company website packages with custom UI, business emails & admin control.",
     "featured": false,
     "popular": false,
-    "description": "50-page enterprise powerhouse with 10 business emails & DDoS security shield.",
+    "description": "25-page enterprise powerhouse with 10 business emails & DDoS security shield.",
     "features": [
-      "50 Enterprise Web Pages",
+      "25 Custom Pages Included",
       "10 Professional Business Email Accounts",
       "Layer Slider, Mega Menu & Video Backgrounds",
-      "DDoS Shield & Advanced Cyber Security",
+      "DDoS Shield & Cyber Guard Security",
       "Full SEO & Rich Snippets Optimization",
-      "Blog / News Publishing System",
+      "Blog / News Publishing Automation",
       "Custom Admin Panel for Team Multi-Users",
-      "6 Months Comprehensive Support",
-      "🚀 Global CDN & High-Capacity Cloud Infrastructure"
+      "6 Months Comprehensive Priority Support"
     ],
     "addon": "VIP Account Manager Support included",
     "cta": "Choose Platinum Powerhouse",
@@ -873,16 +873,16 @@ const DEFAULT_PACKAGES = [
     "sectionDesc": "Built for export brands, multinational firms & global operations targeting international search markets.",
     "featured": false,
     "popular": false,
-    "description": "65-page international corporate web system with licensed stock photos and SEO writing.",
+    "description": "30-page international corporate web system with licensed stock photos and SEO content writing.",
     "features": [
-      "65 International Web Pages",
+      "30 Custom Web Pages",
+      "10 Business Email Accounts",
       "News & Blog Publishing System",
       "Envato Stock Photos with Premium License ($33 Value)",
-      "SEO Optimized Content Writing Included",
-      "Mega Menu, Video Backgrounds & Parallax",
-      "10 Business Email Accounts",
+      "SEO-Friendly Content Writing Included",
+      "Mega Menu, Video Backgrounds & Parallax Effects",
       "Global Multi-Region CDN Deployment",
-      "1 Year Dedicated Maintenance"
+      "1 Year Dedicated Maintenance & Care"
     ],
     "addon": "Additional page: Rs. 8,000/- per page",
     "cta": "Choose Premium Global",
@@ -900,15 +900,15 @@ const DEFAULT_PACKAGES = [
     "sectionDesc": "Built for export brands, multinational firms & global operations targeting international search markets.",
     "featured": true,
     "popular": false,
-    "description": "80-page flagship modern design with micro-interactions, 3D elements & premium design plugins.",
+    "description": "35-page flagship modern design with micro-interactions, 3D elements & premium design plugins.",
     "features": [
-      "80 Next-Gen Web Pages",
+      "35 Custom Web Pages",
+      "15 Business Email Accounts",
       "Next-Gen 3D Elements & Micro-Interactions",
       "Uses Premium Design Plugins & Libraries",
-      "SEO-Friendly Content Writing Included",
-      "Envato Licensed High-Res Stock Photography",
-      "15 Business Email Accounts",
+      "Envato Licensed Stock Photography",
       "AI Search Engine Optimization (AEO/GEO)",
+      "SEO Content Writing Included",
       "1 Year Dedicated VIP Concierge Support"
     ],
     "addon": "Additional page: Rs. 8,000/- per page",
@@ -927,15 +927,15 @@ const DEFAULT_PACKAGES = [
     "sectionDesc": "Built for export brands, multinational firms & global operations targeting international search markets.",
     "featured": false,
     "popular": false,
-    "description": "100-page global enterprise solution designed to capture international search traffic in US, UK, EU & Asia.",
+    "description": "40-page global enterprise solution designed to capture international search traffic in US, UK, EU & Asia.",
     "features": [
-      "100 Global Web Pages Multi-Region",
+      "40 Custom Web Pages",
+      "20 Business Email Accounts",
       "Multi-Currency & Multi-Language Readiness",
       "Full Global SEO Target Configuration",
       "Licensed Stock Photography & Video Assets",
-      "20 Business Email Accounts",
       "Enterprise Security & Cyber Shield Guard",
-      "Dedicated Project Manager Support",
+      "Dedicated Senior Account Manager",
       "🚀 High-Performance Edge Server Deployment"
     ],
     "addon": "Additional page: Rs. 8,000/- per page",
@@ -955,7 +955,6 @@ const DEFAULT_PACKAGES = [
     "popular": false,
     "description": "Showcase unlimited product categories and receive direct wholesale & retail inquiries.",
     "features": [
-      "Unlimited Product Pages Display",
       "Unlimited Product Catalogue Display",
       "Direct WhatsApp & Email Quote Inquiries",
       "Category Filtering & Instant Search",
@@ -981,7 +980,6 @@ const DEFAULT_PACKAGES = [
     "popular": false,
     "description": "Complete online store with shopping carts, PayHere card checkout, and order tracking.",
     "features": [
-      "Unlimited Product Pages & Store Front",
       "Complete Shopping Cart & Checkout System",
       "PayHere / Master / Visa / Koko Online Payments",
       "Order Management & Customer Invoicing",
@@ -1013,8 +1011,7 @@ const DEFAULT_PACKAGES = [
       "IMAP / POP3 / SMTP Support (Outlook & Mobile Sync)",
       "Advanced Spam & Virus Protection",
       "99.9% Server Uptime Guarantee",
-      "Free Migration from Old Email Host",
-      "🎁 100% Free Cloud Hosting (Zero Monthly Fees)"
+      "Free Migration from Old Email Host"
     ],
     "addon": "Per 5 Accounts setup",
     "cta": "Get Email Hosting",
@@ -1110,8 +1107,7 @@ const DEFAULT_PACKAGES = [
       "Transparent Background PNG Variations",
       "Favicon & Web Icon Suite",
       "Social Media Profile & Cover Banners",
-      "Brand Color Palette & Typography Guidelines",
-      "🎁 100% Free Cloud Hosting (Zero Monthly Fees)"
+      "Brand Color Palette & Typography Guidelines"
     ],
     "addon": "100% Original Vector Artwork",
     "cta": "Get Custom Logo",
