@@ -1175,3 +1175,29 @@ button, .btn, .btn-primary, .btn-secondary, a.cta-btn, .nav-link, select, input 
     max-width: 100% !important;
   }
 }
+
+/* High contrast section headers for package topics */
+.pkg-section-header {
+  grid-column: 1 / -1;
+  background: #0d1527 !important;
+  padding: 22px 28px !important;
+  border-radius: 14px !important;
+  border-left: 5px solid #04AA6D !important;
+  margin-top: 36px !important;
+  margin-bottom: 24px !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3) !important;
+}
+
+.pkg-section-header h2 {
+  color: #ffffff !important;
+  font-size: 1.65rem !important;
+  font-weight: 800 !important;
+  margin-bottom: 6px !important;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.9) !important;
+}
+
+.pkg-section-header p {
+  color: #cbd5e1 !important;
+  font-size: 0.95rem !important;
+  font-weight: 500 !important;
+}

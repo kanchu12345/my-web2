@@ -666,8 +666,7 @@ const DEFAULT_PACKAGES = [
       "Mobile Responsive & Animations",
       "Google Map Location Setup",
       "Direct Calls & WhatsApp Chat",
-      "Free Basic SEO & Social Share Icons",
-      "🎁 100% Free Cloud Hosting Included"
+      "Free Basic SEO & Social Share Icons"
     ],
     "addon": "Fast delivery in 2-3 business days",
     "cta": "Choose Starter 01",
@@ -692,8 +691,7 @@ const DEFAULT_PACKAGES = [
       "Header Slider & Image Carousel",
       "Mobile Chat System & Direct Calls",
       "Google Map Location & Free SSL",
-      "Basic SEO & Social Icons",
-      "🎁 Free Cloud Hosting Included"
+      "Basic SEO & Social Icons"
     ],
     "addon": "Priority 1-Month Support",
     "cta": "Choose Starter 02",
@@ -718,8 +716,7 @@ const DEFAULT_PACKAGES = [
       "Self-Manageable Admin Panel",
       "Header Slider & Hover Effects",
       "Google Map & Mobile Chat System",
-      "Free Basic SEO & Speed Boost",
-      "🎁 100% Free Cloud Hosting Included"
+      "Free Basic SEO & Speed Boost"
     ],
     "addon": "Free Logo & Favicon Styling included",
     "cta": "Choose Starter 03",
@@ -1011,7 +1008,8 @@ const DEFAULT_PACKAGES = [
       "IMAP / POP3 / SMTP Support (Outlook & Mobile Sync)",
       "Advanced Spam & Virus Protection",
       "99.9% Server Uptime Guarantee",
-      "Free Migration from Old Email Host"
+      "Free Migration from Old Email Host",
+      "🎁 100% Free Cloud Hosting (Zero Monthly Fees)"
     ],
     "addon": "Per 5 Accounts setup",
     "cta": "Get Email Hosting",
@@ -1107,7 +1105,8 @@ const DEFAULT_PACKAGES = [
       "Transparent Background PNG Variations",
       "Favicon & Web Icon Suite",
       "Social Media Profile & Cover Banners",
-      "Brand Color Palette & Typography Guidelines"
+      "Brand Color Palette & Typography Guidelines",
+      "🎁 100% Free Cloud Hosting (Zero Monthly Fees)"
     ],
     "addon": "100% Original Vector Artwork",
     "cta": "Get Custom Logo",
@@ -1178,10 +1177,10 @@ function renderPackages(list, container) {
 
     const secHeader = document.createElement('div');
     secHeader.className = 'pkg-section-header reveal';
-    secHeader.style.cssText = 'grid-column: 1 / -1; margin-top: 42px; margin-bottom: 22px; text-align: left; border-bottom: 1px solid rgba(4,170,109,0.25); padding-bottom: 16px;';
+    secHeader.style.cssText = 'grid-column: 1 / -1; margin-top: 36px; margin-bottom: 20px; text-align: left; background: #0d1527; padding: 20px 24px; border-radius: 14px; border-left: 5px solid #04AA6D; box-shadow: 0 4px 20px rgba(0,0,0,0.3);';
     secHeader.innerHTML = `
-      <h2 style="font-family:'Space Grotesk',sans-serif; font-size: 1.8rem; font-weight: 800; color: #fff; margin-bottom: 6px; display:flex; align-items:center; gap:10px;">${t.title}</h2>
-      <p style="color: #94a3b8; font-size: 0.95rem; margin: 0;">${t.desc}</p>
+      <h2 style="font-family:'Space Grotesk', sans-serif; font-size: 1.6rem; font-weight: 800; color: #ffffff !important; margin-bottom: 6px; display:flex; align-items:center; gap:10px; text-shadow: 0 2px 4px rgba(0,0,0,0.8);">${t.title}</h2>
+      <p style="color: #cbd5e1 !important; font-size: 0.95rem; margin: 0; font-weight: 500; line-height:1.5;">${t.desc}</p>
     `;
     container.appendChild(secHeader);
 
@@ -1194,14 +1193,14 @@ function renderPackages(list, container) {
       const featuresHtml = (pkg.features || []).map(feat => `
         <li class="pkg-feature-item">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-          <span>${feat}</span>
+          <span style="color:#e2e8f0; font-size:0.92rem; font-weight:500;">${feat}</span>
         </li>
       `).join('');
 
       const addonsHtml = `
-        <div class="pkg-addons-box" style="margin: 16px 0; padding: 16px; background: #0d1527; border: 1px solid rgba(4,170,109,0.35); border-radius: 12px; text-align: left; box-shadow: 0 4px 16px rgba(0,0,0,0.2);">
+        <div class="pkg-addons-box" style="margin: 16px 0; padding: 16px; background: #090e1a; border: 1px solid rgba(4,170,109,0.35); border-radius: 12px; text-align: left; box-shadow: 0 4px 16px rgba(0,0,0,0.2);">
           <div style="font-size: 11px; font-weight: 800; color: #04AA6D; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; display:flex; align-items:center; gap:6px;">
-            <span>✨ Select Power Add-ons:</span>
+            <span>✨ Select Optional Add-ons:</span>
           </div>
           <div style="display: flex; flex-direction: column; gap: 8px; font-size: 12px; color: #ffffff; font-weight: 600;">
             <label style="display:flex; align-items:center; gap:8px; cursor:pointer; color:#ffffff !important;">
@@ -1220,17 +1219,14 @@ function renderPackages(list, container) {
               <input type="checkbox" class="pkg-addon-cb" data-pkg-id="${pkg.id || index}" data-name="Sinhala + English Dual Language" data-price="5000" onchange="updatePkgTotal('${pkg.id || index}', ${basePrice}, '${pkg.name}')" accent-color="#04AA6D">
               <span style="color:#ffffff !important;">🗣️ Sinhala + English Dual (+Rs. 5,000)</span>
             </label>
-            <label style="display:flex; align-items:center; gap:8px; cursor:pointer; color:#ffffff !important;">
-              <input type="checkbox" class="pkg-addon-cb" data-pkg-id="${pkg.id || index}" data-name="Core Web Vitals 99+ Speed Boost" data-price="2000" onchange="updatePkgTotal('${pkg.id || index}', ${basePrice}, '${pkg.name}')" accent-color="#04AA6D">
-              <span style="color:#ffffff !important;">⚡ 99+ PageSpeed Boost (+Rs. 2,000)</span>
-            </label>
           </div>
         </div>
       `;
 
+      // ONLY 5000 and 10000 packages get Free Cloud Hosting badge!
       const hostingNote = basePrice <= 10000 
-        ? '<div style="font-size:11px; color:#04AA6D; font-weight:700; margin-bottom:12px;">🎁 100% Free Cloud Hosting Included</div>' 
-        : '<div style="font-size:11px; color:#38bdf8; font-weight:700; margin-bottom:12px;">🚀 High-Performance Cloud Deployment Included</div>';
+        ? '<div style="font-size:12px; color:#04AA6D; font-weight:800; margin-bottom:12px; padding:6px 12px; background:rgba(4,170,109,0.12); border-radius:6px; border:1px solid rgba(4,170,109,0.3); display:inline-block;">🎁 100% Free Cloud Hosting Included</div>' 
+        : '';
 
       const originalPriceHtml = pkg.originalPrice 
         ? `<div style="font-size:12px; color:#94a3b8; text-decoration:line-through; font-weight:600; margin-bottom:2px;">Original: ${pkg.originalPrice}</div>` 
@@ -1245,17 +1241,17 @@ function renderPackages(list, container) {
             </svg>
           </div>
         </div>
-        <h3 class="pkg-name">${pkg.name}</h3>
-        <p class="pkg-desc">${pkg.description || ''}</p>
+        <h3 class="pkg-name" style="font-size:1.35rem; font-weight:800; color:#ffffff;">${pkg.name}</h3>
+        <p class="pkg-desc" style="color:#94a3b8; font-size:0.9rem; margin-bottom:16px;">${pkg.description || ''}</p>
         <div class="pkg-price-wrap">
           ${originalPriceHtml}
-          <div class="pkg-price" id="price_display_${pkg.id || index}">${pkg.price}</div>
+          <div class="pkg-price" id="price_display_${pkg.id || index}" style="font-size:1.7rem; font-weight:800; color:#04AA6D;">${pkg.price}</div>
         </div>
         ${hostingNote}
-        <ul class="pkg-features">${featuresHtml}</ul>
+        <ul class="pkg-features" style="margin-top:12px;">${featuresHtml}</ul>
         ${addonsHtml}
-        <div class="pkg-addon-note">${pkg.addon || ''}</div>
-        <button onclick="dispatchPackageWhatsApp('${pkg.name}', ${basePrice}, '${pkg.id || index}')" class="btn btn-primary pkg-cta">${pkg.cta || 'Choose Plan'}</button>
+        <div class="pkg-addon-note" style="font-size:12px; color:#94a3b8; margin-bottom:14px;">${pkg.addon || ''}</div>
+        <button onclick="dispatchPackageWhatsApp('${pkg.name}', ${basePrice}, '${pkg.id || index}')" class="btn btn-primary pkg-cta" style="width:100%; padding:12px; font-weight:700;">${pkg.cta || 'Choose Plan'}</button>
       `;
 
       container.appendChild(card);
