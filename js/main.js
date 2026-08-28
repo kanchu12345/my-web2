@@ -549,104 +549,186 @@ async function loadSettings(){
 const DEFAULT_PACKAGES = [
   {
     "id": "pkg-starter",
-    "name": "Starter",
+    "name": "Starter Essential",
     "price": "Rs. 5,000/-",
     "priceNum": 5000,
     "tag": "Budget Hero",
-    "category": "low-budget",
+    "category": "low-cost",
+    "sectionTitle": "Low-Cost Web Design Packages",
     "featured": false,
     "popular": false,
-    "description": "Essential package perfect for personal websites & simple business presence.",
+    "description": "Essential low-cost package for personal sites, small shops & instant online presence.",
     "features": [
       "3 Pages Included",
-      "Mobile Friendly Design (100% Android & iOS)",
-      "WhatsApp & Social Media Integration",
-      "Fast Loading Speed",
+      "Mobile & Android Friendly Design",
+      "Direct Call & WhatsApp Chat System",
+      "Social Media Share & Links",
+      "Header Image Banner",
       "🎁 100% Free Cloud Hosting (Zero Monthly Fees)"
     ],
     "addon": "📄 Need more pages? Add extra pages for just Rs. 1,500/- per page!",
-    "cta": "Choose Starter",
+    "cta": "Choose Starter 5K",
     "order": 1
   },
   {
     "id": "pkg-standard",
-    "name": "Standard",
+    "name": "Standard Business",
     "price": "Rs. 10,000/-",
     "priceNum": 10000,
     "tag": "Best Value",
-    "category": "low-budget",
+    "category": "low-cost",
+    "sectionTitle": "Low-Cost Web Design Packages",
     "featured": true,
     "popular": true,
-    "description": "Solid multi-page website with self-manageable admin panel.",
+    "description": "Solid 5-page business website with self-manageable admin panel & local SEO.",
     "features": [
       "5 Pages Included",
-      "Admin Panel Access",
-      "Contact Form Integration",
-      "Basic Google SEO Setup",
-      "1 Month Free Dedicated Support",
+      "Self-Manageable Admin Panel Access",
+      "Contact Form & Google Maps Location",
+      "Mobile Responsive & Animations",
+      "Basic SEO & Social Icons",
+      "1 Month Free Support",
       "🎁 100% Free Cloud Hosting (Zero Monthly Fees)"
     ],
     "addon": "Add extra pages for Rs. 1,500/- per page",
-    "cta": "Choose Standard",
+    "cta": "Choose Standard 10K",
     "order": 2
   },
   {
     "id": "pkg-advanced",
-    "name": "Advanced",
+    "name": "Advanced Growth",
     "price": "Rs. 15,000/-",
     "priceNum": 15000,
     "tag": "Growth",
-    "category": "low-budget",
+    "category": "low-cost",
+    "sectionTitle": "Low-Cost Web Design Packages",
     "featured": false,
     "popular": false,
-    "description": "Custom UI design built for high conversions and marketing campaigns.",
+    "description": "Custom UI design built for high conversions, lead generation & ad campaigns.",
     "features": [
-      "Custom UI Design",
-      "Full Control Admin Panel",
+      "Custom UI Design System",
+      "Full Control Admin Dashboard",
       "Speed Optimization (95+ Mobile Score)",
-      "Meta Pixel Tracking Setup",
-      "Advanced Contact & Lead Forms",
-      "Standard SEO & Analytics",
+      "Meta Pixel & WhatsApp Lead Capture",
+      "Interactive Contact & Inquiry Forms",
+      "Free Basic SEO & Analytics",
       "🚀 High-Speed Cloud Server Deployment"
     ],
     "addon": "Priority 2-Month Support included",
-    "cta": "Choose Advanced",
+    "cta": "Choose Advanced 15K",
     "order": 3
   },
   {
     "id": "pkg-professional",
-    "name": "Professional",
+    "name": "Corporate Professional",
     "price": "Rs. 20,000/-",
     "priceNum": 20000,
     "tag": "Most Popular",
-    "category": "low-budget",
+    "category": "low-cost",
+    "sectionTitle": "Low-Cost Web Design Packages",
     "featured": true,
     "popular": true,
-    "description": "Corporate-level web presence with advanced security and analytics.",
+    "description": "Corporate-level web presence with advanced security, Google Analytics & SSL.",
     "features": [
-      "Premium Corporate Design",
-      "Google Analytics 4 Setup",
-      "Advanced Security Layer & SSL",
-      "Full SEO Optimization",
+      "Premium Corporate Design & Animations",
+      "Google Analytics 4 & Meta Setup",
+      "SSL Certificate & Security Shield",
+      "Full Google Local SEO Optimization",
       "Full Control Admin Panel",
-      "High Speed Performance Optimization",
+      "Customer Lead Generation Strategy",
       "3 Months Dedicated Priority Support",
       "🚀 High-Speed Cloud Server Deployment"
     ],
     "addon": "Complete Brand & Digital Asset Alignment",
-    "cta": "Choose Professional",
+    "cta": "Choose Professional 20K",
     "order": 4
+  },
+  {
+    "id": "pkg-starter-01",
+    "name": "Starter 01",
+    "price": "Rs. 30,000/-",
+    "originalPrice": "Rs. 37,500/-",
+    "priceNum": 30000,
+    "tag": "Promo Offer",
+    "category": "low-cost",
+    "sectionTitle": "Low-Cost Web Design Packages",
+    "featured": false,
+    "popular": false,
+    "description": "High-impact single-page conversion landing page with business email.",
+    "features": [
+      "1-Page High Converting Website",
+      "1 Professional Business Email Account",
+      "Mobile Responsive & Animations",
+      "Google Map Location Setup",
+      "Direct Calls & WhatsApp Chat",
+      "Free Basic SEO & Social Share Icons",
+      "🎁 100% Free Cloud Hosting Included"
+    ],
+    "addon": "Fast delivery in 2-3 business days",
+    "cta": "Choose Starter 01",
+    "order": 5
+  },
+  {
+    "id": "pkg-starter-02",
+    "name": "Starter 02",
+    "price": "Rs. 35,000/-",
+    "originalPrice": "Rs. 45,000/-",
+    "priceNum": 35000,
+    "tag": "Promo Offer",
+    "category": "low-cost",
+    "sectionTitle": "Low-Cost Web Design Packages",
+    "featured": false,
+    "popular": false,
+    "description": "Clean 2-page website for growing services and portfolio showcases with business email.",
+    "features": [
+      "2-Pages Website Architecture",
+      "1 Professional Business Email Account",
+      "Header Slider & Image Carousel",
+      "Mobile Chat System & Direct Calls",
+      "Google Map Location & Free SSL",
+      "Basic SEO & Social Icons",
+      "🎁 Free Cloud Hosting Included"
+    ],
+    "addon": "Priority 1-Month Support",
+    "cta": "Choose Starter 02",
+    "order": 6
+  },
+  {
+    "id": "pkg-starter-03",
+    "name": "Starter 03",
+    "price": "Rs. 40,000/-",
+    "originalPrice": "Rs. 50,000/-",
+    "priceNum": 40000,
+    "tag": "Promo Offer",
+    "category": "low-cost",
+    "sectionTitle": "Low-Cost Web Design Packages",
+    "featured": false,
+    "popular": false,
+    "description": "Comprehensive 3-page business presentation with dedicated email & admin access.",
+    "features": [
+      "3-Pages Full Website (Home, Services, Contact)",
+      "1 Professional Business Email Account",
+      "Self-Manageable Admin Panel",
+      "Header Slider & Hover Effects",
+      "Google Map & Mobile Chat System",
+      "Free Basic SEO & Speed Boost",
+      "🎁 100% Free Cloud Hosting Included"
+    ],
+    "addon": "Free Logo & Favicon Styling included",
+    "cta": "Choose Starter 03",
+    "order": 7
   },
   {
     "id": "pkg-business-pro",
     "name": "Business Pro",
     "price": "Rs. 40,000/-",
     "priceNum": 40000,
-    "tag": "Enterprise",
-    "category": "low-budget",
+    "tag": "Enterprise Low-Cost",
+    "category": "low-cost",
+    "sectionTitle": "Low-Cost Web Design Packages",
     "featured": false,
     "popular": false,
-    "description": "Top-tier custom engineering tailored specifically for market leaders.",
+    "description": "Top-tier custom engineering tailored specifically for startup leaders.",
     "features": [
       "Bespoke Custom UI/UX Engineering",
       "Core Web Vitals Optimization",
@@ -659,76 +741,6 @@ const DEFAULT_PACKAGES = [
     ],
     "addon": "Free Minor Updates for 6 Months",
     "cta": "Choose Business Pro",
-    "order": 5
-  },
-  {
-    "id": "pkg-ecommerce-low",
-    "name": "E-Commerce Online Stores",
-    "price": "Start from Rs. 60,000/-",
-    "priceNum": 60000,
-    "tag": "Online Store",
-    "category": "low-budget",
-    "featured": true,
-    "popular": false,
-    "description": "Full-featured online store ready to sell products and receive online payments.",
-    "features": [
-      "Complete E-Commerce Online Store",
-      "Payment Gateway Integration (PayHere / Card / COD)",
-      "Product Catalog & Category Filtering",
-      "Shopping Cart & Multi-Step Checkout",
-      "Customer Accounts & Order Tracking",
-      "Admin Inventory & Sales Dashboard",
-      "Full SEO + Speed Optimization",
-      "🚀 High-Security Cloud Server with SSL & DDoS Shield"
-    ],
-    "addon": "Includes product upload training & store setup guide",
-    "cta": "Start E-Commerce Store",
-    "order": 6
-  },
-  {
-    "id": "pkg-starter-01",
-    "name": "Starter 01",
-    "price": "Rs. 30,000/-",
-    "originalPrice": "Rs. 37,500/-",
-    "priceNum": 30000,
-    "tag": "Promo Offer",
-    "category": "corporate",
-    "featured": false,
-    "popular": false,
-    "description": "High-impact single-page conversion landing page with 1 business email.",
-    "features": [
-      "1-Page High Converting Website",
-      "1 Professional Business Email Account",
-      "100% Android & iOS Responsive UI",
-      "Google Maps & Local Contact Info",
-      "WhatsApp & Social Links",
-      "🎁 Free Cloud Hosting Included"
-    ],
-    "addon": "Fast delivery in 2-3 business days",
-    "cta": "Choose Starter 01",
-    "order": 7
-  },
-  {
-    "id": "pkg-starter-02",
-    "name": "Starter 02",
-    "price": "Rs. 35,000/-",
-    "originalPrice": "Rs. 45,000/-",
-    "priceNum": 35000,
-    "tag": "Promo Offer",
-    "category": "corporate",
-    "featured": false,
-    "popular": false,
-    "description": "Clean 2-page website for growing services and portfolio showcases.",
-    "features": [
-      "2-Pages Website Architecture",
-      "1 Professional Business Email Account",
-      "Mobile Touch Optimized",
-      "Contact Form & WhatsApp Lead Capture",
-      "Basic SEO Meta Configuration",
-      "🎁 Free Cloud Hosting & SSL"
-    ],
-    "addon": "Priority 1-Month Support",
-    "cta": "Choose Starter 02",
     "order": 8
   },
   {
@@ -737,8 +749,9 @@ const DEFAULT_PACKAGES = [
     "price": "Rs. 45,000/-",
     "originalPrice": "Rs. 57,500/-",
     "priceNum": 45000,
-    "tag": "Corporate",
+    "tag": "Corporate Special",
     "category": "corporate",
+    "sectionTitle": "Corporate & International Web Design Packages",
     "featured": false,
     "popular": false,
     "description": "4-page corporate presentation built for modern companies and agencies.",
@@ -747,6 +760,7 @@ const DEFAULT_PACKAGES = [
       "1 Professional Business Email Account",
       "Full Control Admin Panel",
       "Contact & Quotation Request Forms",
+      "Google Map Location & Free SSL",
       "Standard Google SEO Setup",
       "🚀 High-Speed Cloud Server Deployment"
     ],
@@ -760,18 +774,20 @@ const DEFAULT_PACKAGES = [
     "price": "Rs. 60,000/-",
     "originalPrice": "Rs. 75,000/-",
     "priceNum": 60000,
-    "tag": "Corporate Popular",
+    "tag": "Most Popular",
     "category": "corporate",
+    "sectionTitle": "Corporate & International Web Design Packages",
     "featured": true,
     "popular": true,
-    "description": "10-page complete business website with 3 business email accounts and SEO.",
+    "description": "10-page complete business website with 3 business email accounts & rich UI features.",
     "features": [
       "10-Pages Corporate Website",
       "3 Professional Business Email Accounts",
-      "Custom UI/UX Design System",
+      "Header Slider, Layer Slider & Parallax Effects",
+      "Google Map Location & Mobile Chat System",
       "Full SEO & Google Search Console Setup",
       "Self-Manageable Admin Panel",
-      "Social Media & WhatsApp CRM Integration",
+      "Customer Generation Strategy Pro",
       "2 Months Free Priority Maintenance",
       "🚀 High-Performance Global Cloud Hosting"
     ],
@@ -787,16 +803,18 @@ const DEFAULT_PACKAGES = [
     "priceNum": 99000,
     "tag": "High Impact",
     "category": "corporate",
+    "sectionTitle": "Corporate & International Web Design Packages",
     "featured": false,
     "popular": false,
-    "description": "20-page full corporate portal with 5 business email accounts and advanced SEO.",
+    "description": "20-page full corporate portal with 5 business emails & advanced interactive sliders.",
     "features": [
       "20-Pages Extensive Corporate Architecture",
       "5 Professional Business Email Accounts",
+      "Multilayer Slider & Animated Image Carousel",
+      "Mega Menu, Hover & Scroll Effects",
       "Advanced Speed & Caching Layer",
       "Full Control Dynamic Admin Dashboard",
       "Meta Pixel & GA4 Analytics Setup",
-      "Interactive Lead & Booking Systems",
       "3 Months Dedicated Priority Support",
       "🚀 Enterprise Cloud Server Deployment"
     ],
@@ -812,12 +830,14 @@ const DEFAULT_PACKAGES = [
     "priceNum": 125000,
     "tag": "Enterprise",
     "category": "corporate",
+    "sectionTitle": "Corporate & International Web Design Packages",
     "featured": false,
     "popular": false,
-    "description": "30-page enterprise powerhouse with 10 business emails and maximum security.",
+    "description": "30-page enterprise powerhouse with 10 business emails & DDoS security shield.",
     "features": [
       "30-Pages Comprehensive Web Portal",
       "10 Professional Business Email Accounts",
+      "Layer Slider, Mega Menu & Video Backgrounds",
       "DDoS Shield & Advanced Cyber Security",
       "Full SEO & Rich Snippets Optimization",
       "Blog / News Publishing System",
@@ -837,9 +857,10 @@ const DEFAULT_PACKAGES = [
     "priceNum": 160000,
     "tag": "Flagship 2026",
     "category": "corporate",
+    "sectionTitle": "Corporate & International Web Design Packages",
     "featured": true,
     "popular": false,
-    "description": "All Platinum features + Next-Gen Ultra Modern 3D / Interactive Design & Animation.",
+    "description": "All Platinum features + Next-Gen Ultra Modern 3D / Interactive Design & Animations.",
     "features": [
       "All Features in Platinum Included",
       "Next-Gen Modern UI/UX (Three.js / 3D Bento Grid)",
@@ -861,12 +882,13 @@ const DEFAULT_PACKAGES = [
     "priceNum": 180000,
     "tag": "Wholesale & Trade",
     "category": "ecommerce",
+    "sectionTitle": "E-Commerce & Product Catalogue Solutions",
     "featured": false,
     "popular": false,
     "description": "Showcase unlimited product categories and receive direct wholesale & retail inquiries.",
     "features": [
       "Unlimited Product Catalogue Display",
-      "Direct WhatsApp / Email Quote Inquiries",
+      "Direct WhatsApp & Email Quote Inquiries",
       "Category Filtering & Instant Search",
       "Admin Inventory & Product Management",
       "5 Business Email Accounts",
@@ -880,10 +902,11 @@ const DEFAULT_PACKAGES = [
   {
     "id": "pkg-ecommerce-full",
     "name": "Full E-Commerce Platform",
-    "price": "Rs. 200,000/-",
-    "priceNum": 200000,
+    "price": "Start from Rs. 60,000/-",
+    "priceNum": 60000,
     "tag": "Enterprise Store",
     "category": "ecommerce",
+    "sectionTitle": "E-Commerce & Product Catalogue Solutions",
     "featured": true,
     "popular": false,
     "description": "Complete online store with shopping carts, PayHere card checkout, and order tracking.",
@@ -950,83 +973,109 @@ function parseBasePrice(priceStr) {
 
 function renderPackages(list, container) {
   container.innerHTML = '';
-  list.forEach((pkg, index) => {
-    const basePrice = parseBasePrice(pkg.price);
-    const card = document.createElement('div');
-    card.className = `pkg-card ${pkg.featured ? 'featured' : ''} reveal reveal-delay-${(index % 4) + 1}`;
-    card.id = `pkg_card_${pkg.id || index}`;
+  
+  // Group packages by section
+  const lowCostList = list.filter(p => p.category === 'low-cost' || (p.priceNum && p.priceNum <= 40000 && !p.category));
+  const corpList = list.filter(p => p.category === 'corporate' || (p.priceNum && p.priceNum > 40000 && p.category !== 'low-cost'));
+  const ecomList = list.filter(p => p.category === 'ecommerce');
 
-    const featuresHtml = (pkg.features || []).map(feat => `
-      <li class="pkg-feature-item">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-        <span>${feat}</span>
-      </li>
-    `).join('');
+  const sections = [
+    { title: "💡 Low-Cost Web Design Packages", desc: "High quality, affordable web solutions tailored for Sri Lankan startups, small businesses & personal sites.", items: lowCostList.length > 0 ? lowCostList : list.slice(0, 8) },
+    { title: "🏢 Corporate & International Web Design Packages", desc: "Enterprise-grade web portals with multi-department business email, rich sliders & full SEO suites.", items: corpList },
+    { title: "🛒 E-Commerce & Product Catalogue Solutions", desc: "Complete online store & catalogue platforms ready for PayHere, Visa, Mastercard & Koko installment payments.", items: ecomList }
+  ];
 
-    const addonsHtml = `
-      <div class="pkg-addons-box" style="margin: 16px 0; padding: 16px; background: #0d1527; border: 1px solid rgba(4,170,109,0.35); border-radius: 12px; text-align: left; box-shadow: 0 4px 16px rgba(0,0,0,0.2);">
-        <div style="font-size: 11px; font-weight: 800; color: #04AA6D; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; display:flex; align-items:center; gap:6px;">
-          <span>✨ Select Power Add-ons:</span>
-        </div>
-        <div style="display: flex; flex-direction: column; gap: 8px; font-size: 12px; color: #ffffff; font-weight: 600;">
-          <label style="display:flex; align-items:center; gap:8px; cursor:pointer; color:#ffffff !important;">
-            <input type="checkbox" class="pkg-addon-cb" data-pkg-id="${pkg.id || index}" data-name="+1 Extra Custom Page" data-price="1500" onchange="updatePkgTotal('${pkg.id || index}', ${basePrice}, '${pkg.name}')" accent-color="#04AA6D">
-            <span style="color:#ffffff !important;">📄 +1 Extra Page (+Rs. 1,500)</span>
-          </label>
-          <label style="display:flex; align-items:center; gap:8px; cursor:pointer; color:#ffffff !important;">
-            <input type="checkbox" class="pkg-addon-cb" data-pkg-id="${pkg.id || index}" data-name="PayHere Card Gateway" data-price="8000" onchange="updatePkgTotal('${pkg.id || index}', ${basePrice}, '${pkg.name}')" accent-color="#04AA6D">
-            <span style="color:#ffffff !important;">💳 PayHere Card Gateway (+Rs. 8,000)</span>
-          </label>
-          <label style="display:flex; align-items:center; gap:8px; cursor:pointer; color:#ffffff !important;">
-            <input type="checkbox" class="pkg-addon-cb" data-pkg-id="${pkg.id || index}" data-name="Google Maps & Local SEO Setup" data-price="2500" onchange="updatePkgTotal('${pkg.id || index}', ${basePrice}, '${pkg.name}')" accent-color="#04AA6D">
-            <span style="color:#ffffff !important;">📍 Google Maps & Local SEO (+Rs. 2,500)</span>
-          </label>
-          <label style="display:flex; align-items:center; gap:8px; cursor:pointer; color:#ffffff !important;">
-            <input type="checkbox" class="pkg-addon-cb" data-pkg-id="${pkg.id || index}" data-name="Sinhala + English Dual Language" data-price="5000" onchange="updatePkgTotal('${pkg.id || index}', ${basePrice}, '${pkg.name}')" accent-color="#04AA6D">
-            <span style="color:#ffffff !important;">🗣️ Sinhala + English Dual (+Rs. 5,000)</span>
-          </label>
-          <label style="display:flex; align-items:center; gap:8px; cursor:pointer; color:#ffffff !important;">
-            <input type="checkbox" class="pkg-addon-cb" data-pkg-id="${pkg.id || index}" data-name="Core Web Vitals 99+ Speed Boost" data-price="2000" onchange="updatePkgTotal('${pkg.id || index}', ${basePrice}, '${pkg.name}')" accent-color="#04AA6D">
-            <span style="color:#ffffff !important;">⚡ 99+ PageSpeed Boost (+Rs. 2,000)</span>
-          </label>
-          <label style="display:flex; align-items:center; gap:8px; cursor:pointer; color:#ffffff !important;">
-            <input type="checkbox" class="pkg-addon-cb" data-pkg-id="${pkg.id || index}" data-name="Custom Brand Logo & Favicon" data-price="3500" onchange="updatePkgTotal('${pkg.id || index}', ${basePrice}, '${pkg.name}')" accent-color="#04AA6D">
-            <span style="color:#ffffff !important;">🎨 Custom Brand Logo (+Rs. 3,500)</span>
-          </label>
-        </div>
-      </div>
+  sections.forEach(sec => {
+    if (!sec.items || sec.items.length === 0) return;
+
+    const secHeader = document.createElement('div');
+    secHeader.className = 'pkg-section-header reveal';
+    secHeader.style.cssText = 'grid-column: 1 / -1; margin-top: 36px; margin-bottom: 20px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 16px;';
+    secHeader.innerHTML = `
+      <h2 style="font-family:'Space Grotesk',sans-serif; font-size: 1.8rem; font-weight: 800; color: #fff; margin-bottom: 6px; display:flex; align-items:center; gap:10px;">${sec.title}</h2>
+      <p style="color: #94a3b8; font-size: 0.95rem; margin: 0;">${sec.desc}</p>
     `;
+    container.appendChild(secHeader);
 
-    const hostingNote = basePrice <= 10000 
-      ? '<div style="font-size:11px; color:#04AA6D; font-weight:700; margin-bottom:12px;">🎁 100% Free Cloud Hosting Included</div>' 
-      : '<div style="font-size:11px; color:#38bdf8; font-weight:700; margin-bottom:12px;">🚀 High-Performance Cloud Deployment Included</div>';
+    sec.items.forEach((pkg, index) => {
+      const basePrice = parseBasePrice(pkg.price);
+      const card = document.createElement('div');
+      card.className = `pkg-card ${pkg.featured ? 'featured' : ''} reveal reveal-delay-${(index % 4) + 1}`;
+      card.id = `pkg_card_${pkg.id || index}`;
 
-    card.innerHTML = `
-      <div class="pkg-badge-wrap">
-        <span class="pkg-badge ${pkg.featured ? 'featured-badge' : ''}">${pkg.tag || 'Package'}</span>
-        <div class="pkg-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            ${pkg.name.toLowerCase().includes('commerce') ? '<circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>' : '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>'}
-          </svg>
+      const featuresHtml = (pkg.features || []).map(feat => `
+        <li class="pkg-feature-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>${feat}</span>
+        </li>
+      `).join('');
+
+      const addonsHtml = `
+        <div class="pkg-addons-box" style="margin: 16px 0; padding: 16px; background: #0d1527; border: 1px solid rgba(4,170,109,0.35); border-radius: 12px; text-align: left; box-shadow: 0 4px 16px rgba(0,0,0,0.2);">
+          <div style="font-size: 11px; font-weight: 800; color: #04AA6D; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; display:flex; align-items:center; gap:6px;">
+            <span>✨ Select Power Add-ons:</span>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 8px; font-size: 12px; color: #ffffff; font-weight: 600;">
+            <label style="display:flex; align-items:center; gap:8px; cursor:pointer; color:#ffffff !important;">
+              <input type="checkbox" class="pkg-addon-cb" data-pkg-id="${pkg.id || index}" data-name="+1 Extra Custom Page" data-price="1500" onchange="updatePkgTotal('${pkg.id || index}', ${basePrice}, '${pkg.name}')" accent-color="#04AA6D">
+              <span style="color:#ffffff !important;">📄 +1 Extra Page (+Rs. 1,500)</span>
+            </label>
+            <label style="display:flex; align-items:center; gap:8px; cursor:pointer; color:#ffffff !important;">
+              <input type="checkbox" class="pkg-addon-cb" data-pkg-id="${pkg.id || index}" data-name="PayHere Card Gateway" data-price="8000" onchange="updatePkgTotal('${pkg.id || index}', ${basePrice}, '${pkg.name}')" accent-color="#04AA6D">
+              <span style="color:#ffffff !important;">💳 PayHere Card Gateway (+Rs. 8,000)</span>
+            </label>
+            <label style="display:flex; align-items:center; gap:8px; cursor:pointer; color:#ffffff !important;">
+              <input type="checkbox" class="pkg-addon-cb" data-pkg-id="${pkg.id || index}" data-name="Google Maps & Local SEO Setup" data-price="2500" onchange="updatePkgTotal('${pkg.id || index}', ${basePrice}, '${pkg.name}')" accent-color="#04AA6D">
+              <span style="color:#ffffff !important;">📍 Google Maps & Local SEO (+Rs. 2,500)</span>
+            </label>
+            <label style="display:flex; align-items:center; gap:8px; cursor:pointer; color:#ffffff !important;">
+              <input type="checkbox" class="pkg-addon-cb" data-pkg-id="${pkg.id || index}" data-name="Sinhala + English Dual Language" data-price="5000" onchange="updatePkgTotal('${pkg.id || index}', ${basePrice}, '${pkg.name}')" accent-color="#04AA6D">
+              <span style="color:#ffffff !important;">🗣️ Sinhala + English Dual (+Rs. 5,000)</span>
+            </label>
+            <label style="display:flex; align-items:center; gap:8px; cursor:pointer; color:#ffffff !important;">
+              <input type="checkbox" class="pkg-addon-cb" data-pkg-id="${pkg.id || index}" data-name="Core Web Vitals 99+ Speed Boost" data-price="2000" onchange="updatePkgTotal('${pkg.id || index}', ${basePrice}, '${pkg.name}')" accent-color="#04AA6D">
+              <span style="color:#ffffff !important;">⚡ 99+ PageSpeed Boost (+Rs. 2,000)</span>
+            </label>
+            <label style="display:flex; align-items:center; gap:8px; cursor:pointer; color:#ffffff !important;">
+              <input type="checkbox" class="pkg-addon-cb" data-pkg-id="${pkg.id || index}" data-name="Custom Brand Logo & Favicon" data-price="3500" onchange="updatePkgTotal('${pkg.id || index}', ${basePrice}, '${pkg.name}')" accent-color="#04AA6D">
+              <span style="color:#ffffff !important;">🎨 Custom Brand Logo (+Rs. 3,500)</span>
+            </label>
+          </div>
         </div>
-      </div>
-      <h3 class="pkg-name">${pkg.name}</h3>
-      <p class="pkg-desc">${pkg.description || ''}</p>
-      <div class="pkg-price-wrap">
-        <div class="pkg-price" id="price_display_${pkg.id || index}">${pkg.price}</div>
-      </div>
-      ${hostingNote}
-      <ul class="pkg-features">
-        ${featuresHtml}
-      </ul>
-      ${addonsHtml}
-      <button onclick="orderPackageWhatsApp('${pkg.id || index}', ${basePrice}, '${pkg.name}')" class="pkg-btn" style="width:100%; border:none; cursor:pointer; font-family:inherit; font-size:0.95rem; font-weight:800; display:inline-flex; align-items:center; justify-content:center; gap:8px;">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
-        <span>${pkg.cta || 'Choose ' + pkg.name}</span> &rarr;
-      </button>
-    `;
+      `;
 
-    container.appendChild(card);
+      const hostingNote = basePrice <= 10000 
+        ? '<div style="font-size:11px; color:#04AA6D; font-weight:700; margin-bottom:12px;">🎁 100% Free Cloud Hosting Included</div>' 
+        : '<div style="font-size:11px; color:#38bdf8; font-weight:700; margin-bottom:12px;">🚀 High-Performance Cloud Deployment Included</div>';
+
+      const originalPriceHtml = pkg.originalPrice 
+        ? `<div style="font-size:12px; color:#94a3b8; text-decoration:line-through; font-weight:600; margin-bottom:2px;">Original: ${pkg.originalPrice}</div>` 
+        : '';
+
+      card.innerHTML = `
+        <div class="pkg-badge-wrap">
+          <span class="pkg-badge ${pkg.featured ? 'featured-badge' : ''}">${pkg.tag || 'Package'}</span>
+          <div class="pkg-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              ${pkg.name.toLowerCase().includes('commerce') ? '<circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>' : '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>'}
+            </svg>
+          </div>
+        </div>
+        <h3 class="pkg-name">${pkg.name}</h3>
+        <p class="pkg-desc">${pkg.description || ''}</p>
+        <div class="pkg-price-wrap">
+          ${originalPriceHtml}
+          <div class="pkg-price" id="price_display_${pkg.id || index}">${pkg.price}</div>
+        </div>
+        ${hostingNote}
+        <ul class="pkg-features">${featuresHtml}</ul>
+        ${addonsHtml}
+        <div class="pkg-addon-note">${pkg.addon || ''}</div>
+        <button onclick="dispatchPackageWhatsApp('${pkg.name}', ${basePrice}, '${pkg.id || index}')" class="btn btn-primary pkg-cta">${pkg.cta || 'Choose Plan'}</button>
+      `;
+
+      container.appendChild(card);
+    });
   });
 }
 
