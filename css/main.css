@@ -1280,27 +1280,30 @@ button, .btn, .btn-primary, .btn-secondary, a.cta-btn, .nav-link, select, input 
 }
 
 
+
 /* ══════════════════════════════════════════════════════
-   PERFECT HIGH-CONTRAST CARD TEXT VISIBILITY OVERRIDE
+   HIGH-CONTRAST DEEP BLACK TEXT ON WHITE CARDS
    ══════════════════════════════════════════════════════ */
 .pkg-card, .pkg-card.featured, div.pkg-card {
-  background: #0d1527 !important;
-  border: 1px solid rgba(4, 170, 109, 0.4) !important;
-  color: #ffffff !important;
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #0f172a !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06) !important;
 }
 
 .pkg-card.featured {
   border: 2px solid #04AA6D !important;
-  box-shadow: 0 10px 30px rgba(4, 170, 109, 0.3) !important;
+  box-shadow: 0 14px 35px rgba(4, 170, 109, 0.15) !important;
 }
 
 .pkg-card h3, .pkg-name, h3.pkg-name {
-  color: #ffffff !important;
+  color: #0f172a !important;
   font-weight: 800 !important;
 }
 
 .pkg-desc, p.pkg-desc {
-  color: #94a3b8 !important;
+  color: #475569 !important;
+  font-weight: 500 !important;
 }
 
 .pkg-price, div.pkg-price {
@@ -1313,14 +1316,14 @@ button, .btn, .btn-primary, .btn-secondary, a.cta-btn, .nav-link, select, input 
 }
 
 .pkg-feature-item, li.pkg-feature-item {
-  color: #ffffff !important;
-  font-weight: 600 !important;
+  color: #0f172a !important;
+  font-weight: 700 !important;
   font-size: 0.95rem !important;
 }
 
 .pkg-feature-item span, li.pkg-feature-item span {
-  color: #ffffff !important;
-  font-weight: 600 !important;
+  color: #0f172a !important;
+  font-weight: 700 !important;
   font-size: 0.95rem !important;
 }
 
@@ -1332,24 +1335,25 @@ button, .btn, .btn-primary, .btn-secondary, a.cta-btn, .nav-link, select, input 
 
 .pkg-section-header {
   grid-column: 1 / -1 !important;
-  background: #090e1a !important;
+  background: #ffffff !important;
   padding: 22px 28px !important;
   border-radius: 14px !important;
+  border: 1px solid #e2e8f0 !important;
   border-left: 5px solid #04AA6D !important;
   margin-top: 36px !important;
   margin-bottom: 24px !important;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.5) !important;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.04) !important;
 }
 
 .pkg-section-header h2 {
-  color: #ffffff !important;
+  color: #0f172a !important;
   font-size: 1.65rem !important;
   font-weight: 800 !important;
   margin-bottom: 6px !important;
 }
 
 .pkg-section-header p {
-  color: #cbd5e1 !important;
+  color: #475569 !important;
   font-size: 0.95rem !important;
   font-weight: 500 !important;
 }
