@@ -1121,3 +1121,57 @@ body {
 }
 
 
+
+
+/* ══════════════════════════════════════════════════════
+   100% ANDROID & MOBILE-FIRST OPTIMIZATIONS
+   Ultra-touch friendly, zero horizontal overflow, 
+   smooth inertia scrolling on Android WebKit
+   ══════════════════════════════════════════════════════ */
+html {
+  -webkit-text-size-adjust: 100%;
+  touch-action: manipulation;
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Touch targets (Minimum 48x48px for Android guidelines) */
+button, .btn, .btn-primary, .btn-secondary, a.cta-btn, .nav-link, select, input {
+  min-height: 44px;
+  touch-action: manipulation;
+}
+
+/* Android viewport card padding fixes */
+@media (max-width: 768px) {
+  .section {
+    padding: 48px 16px !important;
+  }
+  .bento {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+  .packages-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+  .pkg-card {
+    padding: 24px 20px !important;
+    border-radius: 18px !important;
+  }
+  .hero-title {
+    font-size: 2.2rem !important;
+    line-height: 1.2 !important;
+  }
+  .pricing-title {
+    font-size: 1.8rem !important;
+  }
+  /* Drawer menu smooth touch transitions */
+  .mobile-menu {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
