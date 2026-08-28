@@ -609,6 +609,7 @@ const DEFAULT_PACKAGES = [
     "popular": false,
     "description": "Custom UI design built for high conversions, lead generation & ad campaigns.",
     "features": [
+      "7 Pages Included",
       "Custom UI Design System",
       "Full Control Admin Dashboard",
       "Speed Optimization (95+ Mobile Score)",
@@ -634,6 +635,7 @@ const DEFAULT_PACKAGES = [
     "popular": true,
     "description": "Corporate-level web presence with advanced security, Google Analytics & SSL.",
     "features": [
+      "10 Pages Included",
       "Premium Corporate Design & Animations",
       "Google Analytics 4 & Meta Setup",
       "SSL Certificate & Security Shield",
@@ -661,7 +663,7 @@ const DEFAULT_PACKAGES = [
     "popular": false,
     "description": "High-impact single-page conversion landing page with business email.",
     "features": [
-      "1-Page High Converting Website",
+      "1-Page High Converting Landing Page",
       "1 Professional Business Email Account",
       "Mobile Responsive & Animations",
       "Google Map Location Setup",
@@ -686,7 +688,7 @@ const DEFAULT_PACKAGES = [
     "popular": false,
     "description": "Clean 2-page website for growing services and portfolio showcases with business email.",
     "features": [
-      "2-Pages Website Architecture",
+      "2-Pages Showcase Website",
       "1 Professional Business Email Account",
       "Header Slider & Image Carousel",
       "Mobile Chat System & Direct Calls",
@@ -711,7 +713,7 @@ const DEFAULT_PACKAGES = [
     "popular": false,
     "description": "Comprehensive 3-page business presentation with dedicated email & admin access.",
     "features": [
-      "3-Pages Full Website (Home, Services, Contact)",
+      "3-Pages Full Website",
       "1 Professional Business Email Account",
       "Self-Manageable Admin Panel",
       "Header Slider & Hover Effects",
@@ -735,6 +737,7 @@ const DEFAULT_PACKAGES = [
     "popular": false,
     "description": "Top-tier custom engineering tailored specifically for startup leaders.",
     "features": [
+      "12 Custom Pages Included",
       "Bespoke Custom UI/UX Engineering",
       "Core Web Vitals Optimization",
       "Custom Micro-Interactions & Animations",
@@ -760,9 +763,9 @@ const DEFAULT_PACKAGES = [
     "sectionDesc": "Established business & company website packages with custom UI, business emails & admin control.",
     "featured": false,
     "popular": false,
-    "description": "4-page corporate presentation built for modern companies and agencies.",
+    "description": "15-page corporate presentation built for modern companies and agencies.",
     "features": [
-      "4-Pages Custom Website",
+      "15 Custom Pages Included",
       "1 Professional Business Email Account",
       "Full Control Admin Panel",
       "Contact & Quotation Request Forms",
@@ -786,9 +789,9 @@ const DEFAULT_PACKAGES = [
     "sectionDesc": "Established business & company website packages with custom UI, business emails & admin control.",
     "featured": true,
     "popular": true,
-    "description": "10-page complete business website with 3 business email accounts & rich UI features.",
+    "description": "20-page complete business website with 3 business email accounts & rich UI features.",
     "features": [
-      "10-Pages Corporate Website",
+      "20 Custom Pages Included",
       "3 Professional Business Email Accounts",
       "Header Slider, Layer Slider & Parallax Effects",
       "Google Map Location & Mobile Chat System",
@@ -814,9 +817,9 @@ const DEFAULT_PACKAGES = [
     "sectionDesc": "Established business & company website packages with custom UI, business emails & admin control.",
     "featured": false,
     "popular": false,
-    "description": "20-page full corporate portal with 5 business emails & advanced interactive sliders.",
+    "description": "35-page full corporate portal with 5 business emails & advanced interactive sliders.",
     "features": [
-      "20-Pages Extensive Corporate Architecture",
+      "35 Enterprise Web Pages",
       "5 Professional Business Email Accounts",
       "Multilayer Slider & Animated Image Carousel",
       "Mega Menu, Hover & Scroll Effects",
@@ -842,9 +845,9 @@ const DEFAULT_PACKAGES = [
     "sectionDesc": "Established business & company website packages with custom UI, business emails & admin control.",
     "featured": false,
     "popular": false,
-    "description": "30-page enterprise powerhouse with 10 business emails & DDoS security shield.",
+    "description": "50-page enterprise powerhouse with 10 business emails & DDoS security shield.",
     "features": [
-      "30-Pages Comprehensive Web Portal",
+      "50 Enterprise Web Pages",
       "10 Professional Business Email Accounts",
       "Layer Slider, Mega Menu & Video Backgrounds",
       "DDoS Shield & Advanced Cyber Security",
@@ -870,9 +873,9 @@ const DEFAULT_PACKAGES = [
     "sectionDesc": "Built for export brands, multinational firms & global operations targeting international search markets.",
     "featured": false,
     "popular": false,
-    "description": "35-page international corporate web system with licensed Envato stock photos and SEO content.",
+    "description": "65-page international corporate web system with licensed stock photos and SEO writing.",
     "features": [
-      "35 Static & Dynamic Web Pages",
+      "65 International Web Pages",
       "News & Blog Publishing System",
       "Envato Stock Photos with Premium License ($33 Value)",
       "SEO Optimized Content Writing Included",
@@ -897,9 +900,9 @@ const DEFAULT_PACKAGES = [
     "sectionDesc": "Built for export brands, multinational firms & global operations targeting international search markets.",
     "featured": true,
     "popular": false,
-    "description": "40-page flagship modern design with micro-interactions, 3D elements & premium design plugins.",
+    "description": "80-page flagship modern design with micro-interactions, 3D elements & premium design plugins.",
     "features": [
-      "40 Web Pages Architecture",
+      "80 Next-Gen Web Pages",
       "Next-Gen 3D Elements & Micro-Interactions",
       "Uses Premium Design Plugins & Libraries",
       "SEO-Friendly Content Writing Included",
@@ -924,9 +927,9 @@ const DEFAULT_PACKAGES = [
     "sectionDesc": "Built for export brands, multinational firms & global operations targeting international search markets.",
     "featured": false,
     "popular": false,
-    "description": "45-page global enterprise solution designed to capture international search traffic in US, UK, EU & Asia.",
+    "description": "100-page global enterprise solution designed to capture international search traffic in US, UK, EU & Asia.",
     "features": [
-      "45 Web Pages Multi-Region Architecture",
+      "100 Global Web Pages Multi-Region",
       "Multi-Currency & Multi-Language Readiness",
       "Full Global SEO Target Configuration",
       "Licensed Stock Photography & Video Assets",
@@ -952,6 +955,7 @@ const DEFAULT_PACKAGES = [
     "popular": false,
     "description": "Showcase unlimited product categories and receive direct wholesale & retail inquiries.",
     "features": [
+      "Unlimited Product Pages Display",
       "Unlimited Product Catalogue Display",
       "Direct WhatsApp & Email Quote Inquiries",
       "Category Filtering & Instant Search",
@@ -977,6 +981,7 @@ const DEFAULT_PACKAGES = [
     "popular": false,
     "description": "Complete online store with shopping carts, PayHere card checkout, and order tracking.",
     "features": [
+      "Unlimited Product Pages & Store Front",
       "Complete Shopping Cart & Checkout System",
       "PayHere / Master / Visa / Koko Online Payments",
       "Order Management & Customer Invoicing",
