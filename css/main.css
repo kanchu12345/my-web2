@@ -1591,3 +1591,29 @@ html, body {
     width: 100% !important;
   }
 }
+
+
+/* ══════════════════════════════════════════════════════
+   3-COLUMN MAGAZINE BLOG GRID SHIELD (DESKTOP / LAPTOP)
+   ══════════════════════════════════════════════════════ */
+.blog-grid, .blog-grid-all {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 24px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+@media (max-width: 1100px) {
+  .blog-grid, .blog-grid-all {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 20px !important;
+  }
+}
+
+@media (max-width: 680px) {
+  .blog-grid, .blog-grid-all {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+}

@@ -364,7 +364,7 @@ async function loadBlogs() {
   grid.innerHTML = '<div style="color:rgba(255,255,255,0.4);text-align:center;padding:40px;grid-column:1/-1;">Loading articles...</div>';
   try {
     const data = await getBlogsData();
-    const articles = (data.articles || []).slice(0, 3);
+    const articles = (data.articles || []).slice(0, 6);
     if (articles.length === 0) throw new Error('empty');
     renderBlogs(articles.map(a => ({...a, url: articlePath(a.id)})), grid);
   } catch(e) {
