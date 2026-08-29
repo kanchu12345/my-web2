@@ -281,24 +281,25 @@ document.getElementById('loginForm').addEventListener('submit',async function(e)
   const pw=document.getElementById('pwInput').value;
   if(!email||!pw){showErr('Please enter your email and password.');return;}
 
-  // MASTER ADMIN BYPASS (Instant Access without Firebase)
-  const isMasterUser = (
-    email === 'admin@infiniteweb.dev' || 
-    email === 'infinitedesign768@gmail.com' || 
-    email === 'admin' ||
-    email === 'admin@gmail.com'
-  );
-  const isMasterPw = (
-    pw === 'infinite@2026' || 
-    pw === 'admin123' || 
-    pw === 'admin'
-  );
+  // MASTER ADMIN BYPASS — SHA-256 Hashed Password Verification
+  const MASTER_EMAILS = ['admin@infiniteweb.dev', 'infinitedesign768@gmail.com'];
+  const MASTER_PW_HASH = '333fe30337224d8542b5c68bd18545a930ffd641a43eda24a3a4b196a66c0e3b';
+  
+  async function sha256(str) {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+  }
+
+  const pwHash = await sha256(pw);
+  const isMasterUser = MASTER_EMAILS.includes(email);
+  const isMasterPw = (pwHash === MASTER_PW_HASH);
 
   if (isMasterUser && isMasterPw) {
     sessionStorage.setItem('infinite_admin_auth', 'true');
     localStorage.setItem('infinite_admin_auth', 'true');
-    localStorage.setItem('infinite_admin_user', JSON.stringify({ email: 'infinitedesign768@gmail.com', role: 'Super Admin' }));
+    localStorage.setItem('infinite_admin_user', JSON.stringify({ email: email, role: 'Super Admin' }));
     localStorage.removeItem('id_attempts');
+    logLogin(email, 'master-success');
     window.location.href = 'dashboard.html';
     return;
   }

@@ -16,7 +16,7 @@
 <script>
   const isAuth = localStorage.getItem('infinite_admin_auth') === 'true' || sessionStorage.getItem('infinite_admin_auth') === 'true';
   if (!isAuth) {
-    
+    window.location.replace('login.html');
   }
 </script>
 </head>
