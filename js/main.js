@@ -289,31 +289,33 @@ function renderFallbackProjects(grid){
     card.target = '_blank';
     card.rel = 'noopener';
     card.className = 'proj-card reveal';
-    card.style.cssText = 'text-decoration:none; display:block; height:250px; border-radius:16px; overflow:hidden; position:relative; background:' + (p.bg || '#1e293b') + '; border:1px solid rgba(255,255,255,0.12); box-shadow:0 10px 30px rgba(0,0,0,0.4); transition:all 0.35s ease;';
-    card.onmouseover = function() { this.style.transform='translateY(-8px) scale(1.02)'; this.style.borderColor='#04AA6D'; this.style.boxShadow='0 20px 40px rgba(4,170,109,0.3)'; };
-    card.onmouseout = function() { this.style.transform='none'; this.style.borderColor='rgba(255,255,255,0.12)'; this.style.boxShadow='0 10px 30px rgba(0,0,0,0.4)'; };
+    card.style.cssText = 'text-decoration:none; display:block; min-height:280px; height:100%; border-radius:18px; overflow:hidden; position:relative; background:' + (p.bg || '#1e293b') + '; border:1px solid rgba(255,255,255,0.15); box-shadow:0 12px 35px rgba(0,0,0,0.5); transition:all 0.35s ease; width:100%; box-sizing:border-box;';
+    card.onmouseover = function() { this.style.transform='translateY(-6px) scale(1.01)'; this.style.borderColor='#04AA6D'; this.style.boxShadow='0 20px 40px rgba(4,170,109,0.3)'; };
+    card.onmouseout = function() { this.style.transform='none'; this.style.borderColor='rgba(255,255,255,0.15)'; this.style.boxShadow='0 12px 35px rgba(0,0,0,0.5)'; };
 
     card.innerHTML = `
-      <div style="width:100%; height:100%; position:relative; overflow:hidden;">
-        <img src="https://s0.wp.com/mshots/v1/${encodeURIComponent(p.url)}?w=650&h=480" alt="${p.title}" style="width:100%; height:100%; object-fit:cover; opacity:0.9; transition:transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'" onerror="this.style.display='none'">
+      <div style="width:100%; height:100%; position:relative; overflow:hidden; display:flex; flex-direction:column; justify-content:space-between; min-height:280px;">
+        <img src="https://s0.wp.com/mshots/v1/${encodeURIComponent(p.url)}?w=650&h=480" alt="${p.title}" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0.85; transition:transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="this.style.display='none'">
         
         <!-- Top Status Badge -->
-        <div style="position:absolute; top:14px; left:14px; background:rgba(4,170,109,0.95); backdrop-filter:blur(10px); color:#ffffff; padding:5px 12px; border-radius:50px; font-size:11px; font-weight:800; display:flex; align-items:center; gap:6px; box-shadow:0 4px 14px rgba(0,0,0,0.4); letter-spacing:0.02em;">
-          <span style="width:7px; height:7px; background:#fff; border-radius:50%; display:inline-block; box-shadow:0 0 6px #fff;"></span>
-          <span>Completed & Live</span>
-        </div>
+        <div style="position:relative; z-index:2; display:flex; justify-content:space-between; align-items:center; padding:14px;">
+          <div style="background:rgba(4,170,109,0.95); backdrop-filter:blur(10px); color:#ffffff; padding:6px 12px; border-radius:50px; font-size:11px; font-weight:800; display:inline-flex; align-items:center; gap:6px; box-shadow:0 4px 14px rgba(0,0,0,0.4); letter-spacing:0.02em;">
+            <span style="width:7px; height:7px; background:#fff; border-radius:50%; display:inline-block; box-shadow:0 0 6px #fff;"></span>
+            <span>Completed & Live</span>
+          </div>
 
-        <!-- Top Right External Link Icon -->
-        <div style="position:absolute; top:14px; right:14px; background:rgba(11,15,25,0.85); border:1px solid rgba(255,255,255,0.2); border-radius:50%; width:34px; height:34px; display:flex; align-items:center; justify-content:center; color:#04AA6D; backdrop-filter:blur(10px); box-shadow:0 4px 12px rgba(0,0,0,0.3);">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+          <!-- Top Right External Link Icon -->
+          <div style="background:rgba(8,12,22,0.85); border:1px solid rgba(255,255,255,0.25); border-radius:50%; width:34px; height:34px; display:flex; align-items:center; justify-content:center; color:#04AA6D; backdrop-filter:blur(10px); box-shadow:0 4px 12px rgba(0,0,0,0.4);">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+          </div>
         </div>
 
         <!-- Bottom Details Overlay -->
-        <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(8,12,22,0.98) 0%, rgba(8,12,22,0.65) 45%, transparent 100%); padding:20px; display:flex; flex-direction:column; justify-content:flex-end;">
-          <span style="font-weight:900; color:#ffffff; font-size:18px; margin-bottom:4px; letter-spacing:-0.01em; text-shadow:0 2px 8px rgba(0,0,0,0.8);">${p.title}</span>
-          <div style="display:flex; align-items:center; justify-content:space-between;">
-            <span style="font-size:11px; color:#04AA6D; letter-spacing:0.08em; text-transform:uppercase; font-weight:800;">${p.category}</span>
-            <span style="font-size:12px; color:#38bdf8; font-weight:700; display:flex; align-items:center; gap:4px;">Visit Site ↗</span>
+        <div style="position:relative; z-index:2; background:linear-gradient(to top, rgba(8,12,22,0.98) 0%, rgba(8,12,22,0.85) 60%, transparent 100%); padding:18px 16px 16px; margin-top:auto; width:100%; box-sizing:border-box;">
+          <span style="font-weight:900; color:#ffffff; font-size:1.15rem; display:block; margin-bottom:6px; letter-spacing:-0.01em; text-shadow:0 2px 8px rgba(0,0,0,0.8); line-height:1.25;">${p.title}</span>
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:nowrap; width:100%;">
+            <span style="font-size:0.75rem; color:#04AA6D; letter-spacing:0.06em; text-transform:uppercase; font-weight:800; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:70%; flex-shrink:1;">${p.category}</span>
+            <span style="font-size:0.8rem; color:#38bdf8; font-weight:800; display:inline-flex; align-items:center; gap:3px; flex-shrink:0; white-space:nowrap;">Visit Site ↗</span>
           </div>
         </div>
       </div>`;

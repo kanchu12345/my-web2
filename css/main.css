@@ -1557,3 +1557,37 @@ html, body {
     padding: 12px !important;
   }
 }
+
+
+/* ══════════════════════════════════════════════════════
+   GLOBAL BODY BACKGROUND & PROJECT GRID SHIELD
+   ══════════════════════════════════════════════════════ */
+html, body {
+  background-color: #080c16 !important;
+  background: #080c16 !important;
+  color: #ffffff !important;
+  width: 100% !important;
+  max-width: 100vw !important;
+  overflow-x: hidden !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.proj-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
+  gap: 20px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+@media (max-width: 768px) {
+  .proj-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+  .proj-card {
+    min-height: 280px !important;
+    width: 100% !important;
+  }
+}
