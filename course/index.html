@@ -161,12 +161,12 @@
     </a>
     <ul class="nav-links">
       <li><a href="../index.html">Home</a></li>
-      <li><a href="portfolio.html">Projects</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="services.html">Services</a></li>
-      <li><a href="blogs.html">Blogs</a></li>
-      <li><a href="tutorials.html" class="active" style="color:#04AA6D;">Tutorials</a></li>
-      <li><a href="contact.html">Contact</a></li>
+      <li><a href="projects">Projects</a></li>
+      <li><a href="about">About</a></li>
+      <li><a href="services">Services</a></li>
+      <li><a href="blogs">Blogs</a></li>
+      <li><a href="tutorials" class="active" style="color:#04AA6D;">Tutorials</a></li>
+      <li><a href="contact">Contact</a></li>
     </ul>
     <div class="nav-actions">
       <a href="https://wa.me/94789714912" class="nav-cta" target="_blank">Let's Talk</a>
@@ -181,7 +181,7 @@
         <!-- Injected via JS -->
       </ul>
       <div style="margin-top: 40px;">
-        <a href="tutorials.html" style="color: #04AA6D; text-decoration: none; font-weight: 600;">← Back to Courses</a>
+        <a href="tutorials" style="color: #04AA6D; text-decoration: none; font-weight: 600;">← Back to Courses</a>
       </div>
     </aside>
 
@@ -218,7 +218,7 @@
       const courseId = urlParams.get('course');
       
       if (!courseId) {
-        document.getElementById('loader').innerHTML = 'No course specified. <a href="tutorials.html">Go back</a>';
+        document.getElementById('loader').innerHTML = 'No course specified. <a href="tutorials">Go back</a>';
         return;
       }
 
@@ -240,7 +240,7 @@
         loadChapter(0);
         
       } catch (err) {
-        document.getElementById('loader').innerHTML = 'Error loading course data. <a href="tutorials.html">Go back</a>';
+        document.getElementById('loader').innerHTML = 'Error loading course data. <a href="tutorials">Go back</a>';
         console.error(err);
       }
 
