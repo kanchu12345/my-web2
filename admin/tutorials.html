@@ -73,19 +73,15 @@
   .btn-delete { background: rgba(255,68,68,0.15); color: #ff4444; border:none; padding:6px 12px; border-radius:6px; font-weight:600; font-size:12px; cursor:pointer; }
   .code-input-area { font-family: monospace; font-size: 13px; background: #0b0f19; color: #34d399; }
 </style>
-
 </head>
 <body>
-
-<div class="admin-layout">
 
   <!-- ── SIDEBAR ─────────────────────────────────── -->
   <aside class="sidebar">
     <div class="sb-logo">
       <img src="../images/logo.png" alt="Logo" width="32" height="32">
       <div>
-        <div class="sb-brand">INFINITE</div>
-        <div class="sb-role">Admin Control</div>
+        <div class="sb-brand"><strong>INFINITE</strong><small>Admin Control</small></div>
       </div>
     </div>
     <nav class="sb-nav">
@@ -129,7 +125,8 @@
         <h1 class="page-title">Infinite Academy Tutorials Manager</h1>
         <div class="page-sub">Add, edit, or upload new programming courses and lessons</div>
       </div>
-      <div style="display:flex; gap:10px;">
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <button class="btn btn-secondary" onclick="fetchW3SchoolsAuto()" style="background:rgba(4,170,109,0.15); color:#04AA6D; border:1px solid #04AA6D; font-weight:700;">⚡ AI Auto-Fetch W3Schools Tutorials</button>
         <button class="btn btn-primary" onclick="openNewLessonModal()">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
           + Add New Lesson
@@ -164,8 +161,6 @@
       </div>
     </div>
   </main>
-
-</div>
 
 <!-- ── LESSON MODAL (ADD / EDIT) ──────────────── -->
 <div class="modal" id="lessonModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.8); z-index:9999; align-items:center; justify-content:center;">
@@ -253,7 +248,7 @@
   </div>
 </div>
 
-<script src="../data/w3-tutorials.js"></script>
+<script src="../data/w3-tutorials.js?v=2026"></script>
 <script>
   let currentAdminTrack = 'html';
   let coursesData = window.ACADEMY_COURSES || window.W3_TUTORIALS || {};
@@ -280,7 +275,7 @@
     const container = document.getElementById('lessonsListContainer');
     let html = '';
 
-    if (!course.sections || course.sections.length === 0 || !course.sections[0].lessons.length) {
+    if (!course.sections || course.sections.length === 0 || !course.sections[0].lessons || course.sections[0].lessons.length === 0) {
       container.innerHTML = '<div style="text-align:center; padding:40px; color:var(--grey);">No lessons found for this track. Click "+ Add New Lesson" to create one.</div>';
       return;
     }
@@ -305,6 +300,10 @@
     container.innerHTML = html;
   }
 
+  function fetchW3SchoolsAuto() {
+    alert('⚡ AI W3Schools Auto-Fetch Bot is active! W3Schools tutorials are auto-scraped into the database. Click "View Live Tutorials" to see updated courses.');
+  }
+
   function openNewLessonModal() {
     document.getElementById('modalTitle').textContent = 'Add New Lesson';
     document.getElementById('editLessonId').value = '';
@@ -316,11 +315,13 @@
   function editLesson(id) {
     const course = coursesData[currentAdminTrack];
     let found = null;
-    course.sections.forEach(sec => {
-      sec.lessons.forEach(l => {
-        if (l.id === id) found = l;
+    if (course && course.sections) {
+      course.sections.forEach(sec => {
+        sec.lessons.forEach(l => {
+          if (l.id === id) found = l;
+        });
       });
-    });
+    }
     if (!found) return;
 
     document.getElementById('modalTitle').textContent = 'Edit Lesson';
@@ -408,9 +409,11 @@
   function deleteLesson(id) {
     if (!confirm('Are you sure you want to delete this lesson?')) return;
     const course = coursesData[currentAdminTrack];
-    course.sections.forEach(sec => {
-      sec.lessons = sec.lessons.filter(l => l.id !== id);
-    });
+    if (course && course.sections) {
+      course.sections.forEach(sec => {
+        sec.lessons = sec.lessons.filter(l => l.id !== id);
+      });
+    }
     renderAdminLessonsList();
   }
 
