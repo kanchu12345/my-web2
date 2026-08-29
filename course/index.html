@@ -3,305 +3,462 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Course Viewer | Infinite Academy</title>
-  <link rel="stylesheet" href="../css/main.css?v=10">
-  <link rel="icon" type="image/png" href="../images/logo.png">
+  <title>W3-Style Interactive Tutorial Viewer | Infinite Academy</title>
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <link rel="stylesheet" href="css/main.css?v=15">
+
   <style>
-    body { background: #fdfdfd; color: #333; }
-    .course-layout {
-      display: grid;
-      grid-template-columns: 280px 1fr;
-      gap: 40px;
-      margin-top: 100px;
-      padding-bottom: 80px;
+    /* W3SCHOOLS EXACT THEME STYLING */
+    :root {
+      --w3-green: #04AA6D;
+      --w3-dark: #282A35;
+      --w3-sidebar-bg: #E7E9EB;
+      --w3-text-dark: #000000;
+      --w3-border: #cccccc;
     }
-    @media (max-width: 900px) {
-      .course-layout { grid-template-columns: 1fr; }
+
+    body {
+      background-color: #ffffff !important;
+      color: #000000 !important;
+      font-family: Verdana, sans-serif !important;
+      margin: 0;
+      padding: 0;
     }
-    .course-sidebar {
-      background: #fff;
-      border-right: 1px solid #e0e0e0;
-      padding-right: 24px;
+
+    /* ── W3 Top Header Bar ────────────────────────────────────────── */
+    .w3-navbar {
+      background-color: #282A35 !important;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      height: 52px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
-    .sidebar-title {
+    .w3-brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 800;
       font-size: 1.1rem;
+    }
+
+    /* ── W3 Sub-Navbar (Course Tabs) ─────────────────────────────── */
+    .w3-course-nav {
+      background-color: #282A35;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      align-items: center;
+      overflow-x: auto;
+      white-space: nowrap;
+      padding: 0 8px;
+      position: sticky;
+      top: 52px;
+      z-index: 999;
+    }
+    .w3-tab-btn {
+      color: #ffffff;
+      text-decoration: none;
+      padding: 10px 18px;
+      font-size: 14px;
       font-weight: 700;
-      margin-bottom: 20px;
-      color: #1a1a1a;
       text-transform: uppercase;
       letter-spacing: 0.05em;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      transition: background 0.2s;
     }
-    .chapter-list {
+    .w3-tab-btn:hover {
+      background-color: #000000;
+      color: #ffffff;
+    }
+    .w3-tab-btn.active {
+      background-color: #04AA6D !important;
+      color: #ffffff !important;
+    }
+
+    /* ── Main W3 Layout Container ───────────────────────────────── */
+    .w3-container-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      min-height: calc(100vh - 94px);
+    }
+    @media (max-width: 850px) {
+      .w3-container-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ── W3 Left Sidebar Navigation ─────────────────────────────── */
+    .w3-sidebar {
+      background-color: #E7E9EB;
+      border-right: 1px solid #d9d9d9;
+      padding: 16px 0;
+      overflow-y: auto;
+      max-height: calc(100vh - 94px);
+      position: sticky;
+      top: 94px;
+    }
+    .w3-sidebar-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: #616161;
+      text-transform: uppercase;
+      padding: 0 16px 10px;
+      letter-spacing: 0.06em;
+      border-bottom: 1px solid #d0d0d0;
+      margin-bottom: 8px;
+    }
+    .w3-sidebar-list {
       list-style: none;
       padding: 0;
       margin: 0;
     }
-    .chapter-item { margin-bottom: 8px; }
-    .chapter-link {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 10px 16px;
-      border-radius: 8px;
-      color: #555;
+    .w3-sidebar-item a {
+      display: block;
+      padding: 7px 16px;
+      color: #000000;
       text-decoration: none;
-      font-size: 0.95rem;
-      transition: all 0.2s;
-      cursor: pointer;
-      border: none;
-      background: transparent;
-      width: 100%;
-      text-align: left;
+      font-size: 14px;
+      line-height: 1.4;
+      transition: background 0.15s;
     }
-    .chapter-link:hover {
-      background: #f0f0f0;
-      color: #1a1a1a;
+    .w3-sidebar-item a:hover {
+      background-color: #ccc;
+      color: #000;
     }
-    .chapter-link.active {
-      background: rgba(4, 170, 109, 0.1);
-      color: #04AA6D;
-      font-weight: 600;
+    .w3-sidebar-item a.active {
+      background-color: #04AA6D !important;
+      color: #ffffff !important;
+      font-weight: bold;
+      border-left: 5px solid #026943;
     }
-    .course-content { max-width: 800px; }
-    .lesson-header {
-      margin-bottom: 40px;
-      padding-bottom: 24px;
-      border-bottom: 1px solid #e0e0e0;
+
+    /* ── W3 Main Lesson Content Area ─────────────────────────────── */
+    .w3-main-content {
+      padding: 30px 40px;
+      max-width: 900px;
     }
-    .lesson-title {
-      font-size: 2.5rem;
-      font-weight: 800;
-      color: #1a1a1a;
-      margin-bottom: 16px;
+    @media (max-width: 600px) {
+      .w3-main-content {
+        padding: 20px 16px;
+      }
     }
-    .lesson-meta {
-      display: flex;
-      gap: 16px;
-      color: #777;
-      font-size: 0.9rem;
-    }
-    .lesson-body h2 {
-      font-size: 1.8rem;
-      color: #1a1a1a;
-      margin: 40px 0 16px;
-    }
-    .lesson-body p {
-      font-size: 1.05rem;
-      line-height: 1.7;
-      color: #444;
-      margin-bottom: 20px;
-    }
-    .code-block {
-      background: #282A35;
-      border-radius: 12px;
-      padding: 20px;
-      margin: 24px 0;
-      overflow-x: auto;
-    }
-    .code-block code {
-      font-family: 'Courier New', Courier, monospace;
-      font-size: 0.95rem;
-      color: #f8f8f2;
-    }
-    .code-tag { color: #ff79c6; }
-    .code-attr { color: #50fa7b; }
-    .code-val { color: #f1fa8c; }
-    
-    .callout {
-      background: #e8f5e9;
-      border-left: 4px solid #04AA6D;
-      padding: 20px;
-      border-radius: 0 8px 8px 0;
-      margin: 24px 0;
-    }
-    .callout-title {
-      font-weight: 700;
-      color: #04AA6D;
-      margin-bottom: 8px;
-    }
-    .nav { background: #282A35; } 
-    
-    .nav-buttons {
-      margin-top: 60px;
+
+    /* Next / Previous Buttons Bar */
+    .w3-nav-bar-buttons {
       display: flex;
       justify-content: space-between;
+      align-items: center;
+      margin: 16px 0 28px;
     }
-    .btn-nav {
-      background: #04AA6D;
-      color: #fff;
-      padding: 12px 24px;
-      border-radius: 8px;
+    .w3-btn-green {
+      background-color: #04AA6D !important;
+      color: #ffffff !important;
+      padding: 10px 22px;
+      border-radius: 5px;
       text-decoration: none;
-      font-weight: 600;
-      cursor: pointer;
+      font-weight: 800;
+      font-size: 15px;
       border: none;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+      transition: background 0.2s;
     }
-    .btn-nav:disabled {
-      background: #ccc;
+    .w3-btn-green:hover {
+      background-color: #038c59 !important;
+    }
+    .w3-btn-green:disabled {
+      background-color: #cccccc !important;
       cursor: not-allowed;
+      box-shadow: none;
     }
-    .btn-nav-prev {
-      background: transparent;
-      color: #888;
+
+    /* Lesson Main Title & Headers */
+    .w3-lesson-h1 {
+      font-size: 40px;
+      font-weight: 700;
+      margin: 0 0 16px;
+      color: #000000;
     }
-    .btn-nav-prev:hover:not(:disabled) {
-      color: #333;
+    .w3-intro-p {
+      font-size: 17px;
+      line-height: 1.6;
+      color: #333333;
+      margin-bottom: 24px;
+    }
+
+    /* W3 Example Box */
+    .w3-example-box {
+      background-color: #E7E9EB;
+      border-left: 4px solid #04AA6D;
+      padding: 20px;
+      margin: 24px 0;
+      border-radius: 4px;
+    }
+    .w3-example-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #000;
+    }
+    .w3-code-wrapper {
+      background-color: #ffffff;
+      border-left: 4px solid #04AA6D;
+      padding: 16px;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 15px;
+      color: #000;
+      overflow-x: auto;
+      margin-bottom: 16px;
+      border-radius: 4px;
+    }
+    .w3-try-btn {
+      background-color: #04AA6D;
+      color: #fff;
+      padding: 10px 20px;
+      font-size: 15px;
+      font-weight: 700;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .w3-try-btn:hover {
+      background-color: #038c59;
+    }
+
+    /* Live Playground Modal */
+    .playground-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      z-index: 2000;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    .playground-modal.open {
+      display: flex;
+      flex-direction: column;
     }
   </style>
 </head>
 <body>
-  <!-- NAVIGATION -->
-  <nav class="nav" id="mainNav" role="navigation">
-    <a href="../index.html" class="nav-logo">
-      <img src="../images/logo.png" alt="Infinite Design Logo" width="48" height="48">
-      <div class="nav-brand">
-        <strong>INFINITE</strong>
-        <small>Creative Web Design</small>
-      </div>
+
+  <!-- 1. W3 TOP NAVBAR -->
+  <header class="w3-navbar">
+    <a href="index.html" class="w3-brand-logo">
+      <img src="images/logo.png" alt="Infinite Logo" width="34" height="34">
+      <span>INFINITE ACADEMY</span>
     </a>
-    <ul class="nav-links">
-      <li><a href="../index.html">Home</a></li>
-      <li><a href="projects">Projects</a></li>
-      <li><a href="about">About</a></li>
-      <li><a href="services">Services</a></li>
-      <li><a href="blogs">Blogs</a></li>
-      <li><a href="tutorials" class="active" style="color:#04AA6D;">Tutorials</a></li>
-      <li><a href="contact">Contact</a></li>
-    </ul>
-    <div class="nav-actions">
-      <a href="https://wa.me/94789714912" class="nav-cta" target="_blank">Let's Talk</a>
+    <div>
+      <a href="tutorials" style="color:#fff; text-decoration:none; font-weight:700; font-size:14px; margin-right:16px;">📚 All Courses</a>
+      <a href="index.html" style="color:#04AA6D; text-decoration:none; font-weight:800; font-size:14px;">Infinite Home &rarr;</a>
     </div>
+  </header>
+
+  <!-- 2. W3 COURSE TABS (HTML, CSS, JS, PYTHON, SQL...) -->
+  <nav class="w3-course-nav" id="w3CourseTabs">
+    <!-- Populated by JS -->
   </nav>
 
-  <div class="section-inner course-layout" id="app" style="display: none;">
-    <!-- SIDEBAR -->
-    <aside class="course-sidebar">
-      <h3 class="sidebar-title" id="courseTitle">Loading...</h3>
-      <ul class="chapter-list" id="chapterList">
+  <!-- 3. W3 2-COLUMN LAYOUT (SIDEBAR + MAIN CONTENT) -->
+  <div class="w3-container-layout">
+    
+    <!-- LEFT SIDEBAR -->
+    <aside class="w3-sidebar">
+      <div class="w3-sidebar-title" id="w3SidebarTitle">HTML TUTORIAL</div>
+      <ul class="w3-sidebar-list" id="w3SidebarList">
         <!-- Injected via JS -->
       </ul>
-      <div style="margin-top: 40px;">
-        <a href="tutorials" style="color: #04AA6D; text-decoration: none; font-weight: 600;">← Back to Courses</a>
-      </div>
     </aside>
 
-    <!-- CONTENT -->
-    <main class="course-content">
-      <header class="lesson-header">
-        <h1 class="lesson-title" id="lessonTitle">Loading...</h1>
-        <div class="lesson-meta" id="lessonMeta">
-          <span>Module X of Y</span>
-          <span>•</span>
-          <span>X min read</span>
+    <!-- MAIN LESSON READING AREA -->
+    <main class="w3-main-content">
+      
+      <!-- Top Nav Buttons -->
+      <div class="w3-nav-bar-buttons">
+        <button class="w3-btn-green" id="btnPrevTop" onclick="navigateLesson(-1)">&❮ Previous</button>
+        <button class="w3-btn-green" id="btnNextTop" onclick="navigateLesson(1)">Next ❯</button>
+      </div>
+
+      <!-- Main Lesson Header & Content -->
+      <h1 class="w3-lesson-h1" id="w3LessonH1">HTML Introduction</h1>
+      <hr style="border:none; border-top:1px solid #e0e0e0; margin-bottom:20px;">
+
+      <div id="w3LessonBody" class="w3-intro-p">
+        <!-- Dynamic Lesson Body -->
+      </div>
+
+      <!-- Interactive W3 Code Example Box -->
+      <div class="w3-example-box" id="w3ExampleBox">
+        <div class="w3-example-title">Example</div>
+        <div class="w3-code-wrapper" id="w3CodeDisplay">
+          &lt;!DOCTYPE html&gt;<br>
+          &lt;html&gt;<br>
+          &lt;body&gt;<br>
+          &nbsp;&nbsp;&lt;h1&gt;My First Heading&lt;/h1&gt;<br>
+          &nbsp;&nbsp;&lt;p&gt;My first paragraph.&lt;/p&gt;<br>
+          &lt;/body&gt;<br>
+          &lt;/html&gt;
         </div>
-      </header>
-      
-      <div class="lesson-body" id="lessonBody">
-        <!-- Content injected via JS -->
+        <button class="w3-try-btn" onclick="openPlayground()">Try it Yourself ❯</button>
       </div>
-      
-      <div class="nav-buttons">
-        <button class="btn-nav btn-nav-prev" id="btnPrev">&larr; Previous</button>
-        <button class="btn-nav" id="btnNext">Next Chapter &rarr;</button>
+
+      <!-- Bottom Nav Buttons -->
+      <div class="w3-nav-bar-buttons" style="margin-top:40px;">
+        <button class="w3-btn-green" id="btnPrevBottom" onclick="navigateLesson(-1)">&❮ Previous</button>
+        <button class="w3-btn-green" id="btnNextBottom" onclick="navigateLesson(1)">Next ❯</button>
       </div>
+
     </main>
-  </div>
-  
-  <div id="loader" style="text-align: center; margin-top: 150px; font-size: 1.2rem; color: #888;">
-    Loading course data...
+
   </div>
 
-  <script src="../js/main.js" defer></script>
+  <!-- LIVE CODE PLAYGROUND MODAL -->
+  <div class="playground-modal" id="playgroundModal">
+    <div style="display:flex; justify-content:space-between; align-items:center; color:#fff; padding-bottom:12px;">
+      <strong style="font-size:18px;">⚡ W3-Style Live Code Editor & Runner</strong>
+      <button onclick="closePlayground()" style="background:#e74c3c; color:#fff; border:none; padding:6px 14px; border-radius:4px; font-weight:bold; cursor:pointer;">Close Editor ✖</button>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; height:calc(100% - 40px);">
+      <textarea id="playgroundCode" style="width:100%; height:100%; background:#1e1e1e; color:#04AA6D; font-family:monospace; padding:16px; border-radius:6px; border:1px solid #333; font-size:14px; outline:none; box-sizing:border-box;"></textarea>
+      <iframe id="playgroundPreview" style="width:100%; height:100%; background:#ffffff; border-radius:6px; border:none; box-sizing:border-box;"></iframe>
+    </div>
+  </div>
+
+  <script src="data/w3-tutorials.js?v=2026"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', async () => {
-      const urlParams = new URLSearchParams(window.location.search);
-      const courseId = urlParams.get('course');
-      
-      if (!courseId) {
-        document.getElementById('loader').innerHTML = 'No course specified. <a href="tutorials">Go back</a>';
-        return;
-      }
+    let currentCourseKey = 'html';
+    let currentLessonIndex = 0;
+    let currentLessonsList = [];
 
-      let courseData = null;
-      let currentChapterIndex = 0;
+    document.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const cParam = params.get('course') || 'html';
+      const lIndex = parseInt(params.get('lesson') || '0', 10);
 
-      try {
-        const res = await fetch(`data/${courseId}-course.json?v=${new Date().getTime()}`);
-        if (!res.ok) throw new Error('Course not found');
-        courseData = await res.json();
-        
-        document.getElementById('loader').style.display = 'none';
-        document.getElementById('app').style.display = 'grid';
-        
-        document.title = courseData.title + ' | Infinite Academy';
-        document.getElementById('courseTitle').textContent = courseData.title;
-        
-        renderSidebar();
-        loadChapter(0);
-        
-      } catch (err) {
-        document.getElementById('loader').innerHTML = 'Error loading course data. <a href="tutorials">Go back</a>';
-        console.error(err);
-      }
-
-      function renderSidebar() {
-        const list = document.getElementById('chapterList');
-        list.innerHTML = '';
-        courseData.chapters.forEach((chapter, index) => {
-          const li = document.createElement('li');
-          li.className = 'chapter-item';
-          const btn = document.createElement('button');
-          btn.className = 'chapter-link';
-          btn.textContent = chapter.title;
-          btn.onclick = () => loadChapter(index);
-          li.appendChild(btn);
-          list.appendChild(li);
-        });
-      }
-
-      function loadChapter(index) {
-        if (index < 0 || index >= courseData.chapters.length) return;
-        currentChapterIndex = index;
-        
-        const chapter = courseData.chapters[index];
-        document.getElementById('lessonTitle').textContent = chapter.title;
-        document.getElementById('lessonMeta').innerHTML = `
-          <span>Module ${index + 1} of ${courseData.chapters.length}</span>
-          <span>•</span>
-          <span>${chapter.readTime || '10 min read'}</span>
-        `;
-        document.getElementById('lessonBody').innerHTML = chapter.content;
-        
-        // Update sidebar active state
-        const links = document.querySelectorAll('.chapter-link');
-        links.forEach((l, idx) => {
-          if (idx === index) l.classList.add('active');
-          else l.classList.remove('active');
-        });
-        
-        // Update nav buttons
-        const btnPrev = document.getElementById('btnPrev');
-        const btnNext = document.getElementById('btnNext');
-        
-        btnPrev.disabled = (index === 0);
-        btnNext.textContent = (index === courseData.chapters.length - 1) ? 'Finish Course' : 'Next Chapter →';
-        
-        // Scroll to top
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-
-      document.getElementById('btnPrev').addEventListener('click', () => {
-        loadChapter(currentChapterIndex - 1);
-      });
-
-      document.getElementById('btnNext').addEventListener('click', () => {
-        if (currentChapterIndex < courseData.chapters.length - 1) {
-          loadChapter(currentChapterIndex + 1);
-        } else {
-          window.location.href = 'tutorials.html';
-        }
-      });
+      initCourses(cParam, lIndex);
     });
+
+    function initCourses(courseKey, lessonIdx) {
+      const courses = window.ACADEMY_COURSES || {};
+      if (!courses[courseKey]) courseKey = 'html';
+      currentCourseKey = courseKey;
+
+      // 1. Render Top Course Tabs
+      const tabsNav = document.getElementById('w3CourseTabs');
+      tabsNav.innerHTML = '';
+      for (const k in courses) {
+        const btn = document.createElement('button');
+        btn.className = 'w3-tab-btn' + (k === courseKey ? ' active' : '');
+        btn.textContent = courses[k].name || k.toUpperCase();
+        btn.onclick = () => switchCourse(k);
+        tabsNav.appendChild(btn);
+      }
+
+      // 2. Flatten Lessons for this Course
+      const cObj = courses[courseKey];
+      currentLessonsList = [];
+      (cObj.sections || []).forEach(sec => {
+        (sec.lessons || []).forEach(l => {
+          currentLessonsList.push(l);
+        });
+      });
+
+      // 3. Render Sidebar Navigation Tree
+      const sideTitle = document.getElementById('w3SidebarTitle');
+      sideTitle.textContent = (cObj.name || courseKey).toUpperCase() + ' TUTORIAL';
+
+      const sideList = document.getElementById('w3SidebarList');
+      sideList.innerHTML = '';
+      currentLessonsList.forEach((l, idx) => {
+        const li = document.createElement('li');
+        li.className = 'w3-sidebar-item';
+        const a = document.createElement('a');
+        a.href = '#';
+        a.textContent = l.title;
+        a.className = (idx === lessonIdx ? 'active' : '');
+        a.onclick = (e) => {
+          e.preventDefault();
+          loadLesson(idx);
+        };
+        li.appendChild(a);
+        sideList.appendChild(li);
+      });
+
+      loadLesson(lessonIdx);
+    }
+
+    function switchCourse(key) {
+      initCourses(key, 0);
+    }
+
+    function loadLesson(idx) {
+      if (idx < 0 || idx >= currentLessonsList.length) return;
+      currentLessonIndex = idx;
+      const lesson = currentLessonsList[idx];
+
+      document.title = lesson.title + ' | W3 Tutorial | Infinite Academy';
+      document.getElementById('w3LessonH1').textContent = lesson.title;
+      document.getElementById('w3LessonBody').innerHTML = lesson.content || '<p>Lesson content loading...</p>';
+
+      // Update Example Box Code
+      if (lesson.code) {
+        document.getElementById('w3ExampleBox').style.display = 'block';
+        document.getElementById('w3CodeDisplay').textContent = lesson.code;
+        document.getElementById('playgroundCode').value = lesson.code;
+      } else {
+        document.getElementById('w3ExampleBox').style.display = 'none';
+      }
+
+      // Update Sidebar Active Links
+      const links = document.querySelectorAll('.w3-sidebar-item a');
+      links.forEach((l, i) => {
+        if (i === idx) l.classList.add('active');
+        else l.classList.remove('active');
+      });
+
+      // Scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function navigateLesson(dir) {
+      const nextIdx = currentLessonIndex + dir;
+      if (nextIdx >= 0 && nextIdx < currentLessonsList.length) {
+        loadLesson(nextIdx);
+      }
+    }
+
+    function openPlayground() {
+      const modal = document.getElementById('playgroundModal');
+      modal.classList.add('open');
+      runPlayground();
+
+      document.getElementById('playgroundCode').oninput = runPlayground;
+    }
+
+    function closePlayground() {
+      document.getElementById('playgroundModal').classList.remove('open');
+    }
+
+    function runPlayground() {
+      const code = document.getElementById('playgroundCode').value;
+      const iframe = document.getElementById('playgroundPreview');
+      const doc = iframe.contentDocument || iframe.contentWindow.document;
+      doc.open();
+      doc.write(code);
+      doc.close();
+    }
   </script>
 </body>
 </html>
