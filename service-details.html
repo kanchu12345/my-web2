@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Service & Package Specifications | Infinite Creative Web Design</title>
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <link rel="stylesheet" href="css/main.css?v=25">
+
+  <style>
+    body {
+      background-color: #080c16 !important;
+      color: #ffffff !important;
+    }
+    .detail-card {
+      background: linear-gradient(135deg, #131b2e 0%, #0b0f19 100%);
+      border: 1px solid rgba(4,170,109,0.35);
+      border-radius: 24px;
+      padding: 40px 32px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+      margin-bottom: 40px;
+    }
+    .spec-list {
+      list-style: none;
+      padding: 0;
+      margin: 20px 0;
+    }
+    .spec-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 16px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 10px;
+      margin-bottom: 10px;
+      color: #cbd5e1;
+      font-size: 0.95rem;
+    }
+    .spec-item strong {
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="nav" id="mainNav" role="navigation">
+    <a href="index.html" class="nav-logo">
+      <img src="images/logo.png" alt="Infinite Design Logo" width="48" height="48">
+      <div class="nav-brand"><strong>INFINITE</strong><small>Creative Web Design</small></div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="packages">Packages</a></li>
+      <li><a href="projects">Projects</a></li>
+      <li><a href="about">About</a></li>
+      <li><a href="services" class="active" style="color:#04AA6D;">Services</a></li>
+      <li><a href="blogs">Blogs</a></li>
+      <li><a href="tutorials">Tutorials</a></li>
+      <li><a href="contact">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="https://wa.me/94789714912" class="nav-cta" target="_blank" rel="noopener">💬 Let's Talk</a>
+    </div>
+  </nav>
+
+  <!-- MAIN DETAIL CONTAINER -->
+  <section class="section" style="padding-top: 120px; padding-bottom: 60px;">
+    <div class="section-inner" style="max-width: 900px;">
+      
+      <a href="services" style="display:inline-flex; align-items:center; gap:8px; color:#04AA6D; text-decoration:none; font-weight:800; font-size:0.95rem; margin-bottom:24px;">
+        &larr; Back to All Services & Packages
+      </a>
+
+      <div class="detail-card" id="detailContainer">
+        <div style="color:rgba(255,255,255,0.5); text-align:center; padding:40px;">Loading Service Specifications...</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="background:#070a12; border-top:1px solid rgba(255,255,255,0.08); padding:40px 20px; text-align:center; color:#94a3b8; font-size:0.9rem;">
+    <p>&copy; 2026 Infinite Creative Web Design. All rights reserved. Direct Lines: +94 78 971 4912 | +94 71 884 6214</p>
+  </footer>
+
+  <script>
+    const SERVICES_DATA = {
+      "web-design": {
+        title: "🌐 Bespoke Web Design & Web Applications",
+        category: "Primary Web Engineering",
+        price: "Starting from LKR 5,000/- to LKR 60,000+",
+        tagline: "Custom HTML5, PHP, Hotel Booking Systems, Taxi Platforms, ERPs & Interactive Quote Calculators.",
+        specs: [
+          "<strong>Hotel Booking Systems:</strong> Real-time room availability, seasonal tariff pricing, guest reservation forms & PayHere checkout.",
+          "<strong>Taxi & Chauffeur Platforms:</strong> Instant distance calculator, vehicle fleet selection, WhatsApp driver dispatch & booking confirmation.",
+          "<strong>ERP & Business Dashboards:</strong> Automated inventory tracking, client invoice PDFs, sales reports & role-based admin controls.",
+          "<strong>100% Mobile & Android Optimized:</strong> Sub-second loading speed (95+ Google PageSpeed score) with smooth micro-animations.",
+          "<strong>Free Cloud Hosting Included:</strong> Zero monthly server charges for Starter & Standard tiers."
+        ],
+        whatsapp: "Hello! I am interested in Bespoke Web Design & Web Application Services."
+      },
+      "mobile-apps": {
+        title: "📱 Mobile App Development (Flutter & Native)",
+        category: "Cross-Platform Mobile Apps",
+        price: "Custom Package Scopes Available",
+        tagline: "Flutter Cross-Platform Apps for Taxi Booking, Food Delivery, E-Commerce & Customer Portals.",
+        specs: [
+          "<strong>Flutter Cross-Platform Codebase:</strong> Deploy seamlessly on both iOS App Store and Google Play Store with a single codebase.",
+          "<strong>Taxi & Delivery Driver Apps:</strong> Live GPS location tracking, push notifications, fare estimation & driver assignment.",
+          "<strong>E-Commerce Mobile Apps:</strong> Fast product catalog browsing, one-tap cart checkout & local payment gateway integration.",
+          "<strong>Offline Sync & Caching:</strong> Fast performance even on low 3G mobile networks across Sri Lanka.",
+          "<strong>Dedicated App Store Publishing:</strong> Full assistance with Apple Developer & Google Play Console submissions."
+        ],
+        whatsapp: "Hello! I am interested in Mobile App Development Services."
+      },
+      "ecommerce": {
+        title: "🛒 E-Commerce & PayHere Integration",
+        category: "Online Store Solutions",
+        price: "Full Store Package — LKR 60,000/-",
+        tagline: "PayHere, Commercial Bank, HNB, COD, Automated Invoices & Stock Tracking.",
+        specs: [
+          "<strong>Sri Lankan Payment Gateways:</strong> PayHere, WebXPay, Commercial Bank, HNB, Sampath, Direct Bank Transfer & Cash on Delivery.",
+          "<strong>Automated Order Management:</strong> Instant PDF invoice generation, email notifications & WhatsApp order receipts.",
+          "<strong>Inventory & Stock Control:</strong> Low stock alerts, variant tracking (sizes, colors), and product search filters.",
+          "<strong>Coupon & Discount Engine:</strong> Create promotional promo codes, percentage discounts & free shipping rules.",
+          "<strong>High-Security SSL & DDoS Shield:</strong> Cloudflare protection ensuring 100% safe customer transaction data."
+        ],
+        whatsapp: "Hello! I am interested in E-Commerce Store & Payment Gateway Services."
+      },
+      "maintenance": {
+        title: "🛠️ Website Maintenance & Redesign",
+        category: "Website Optimization & Care",
+        price: "Free Redesign Promotions Available",
+        tagline: "Modernization for legacy websites, 24/7 technical support & daily cloud backups.",
+        specs: [
+          "<strong>Free Legacy Redesign Promotion:</strong> Upgrade outdated older websites to modern glassmorphic designs at zero extra cost.",
+          "<strong>24/7 Technical Support & Uptime:</strong> Constant uptime monitoring, broken link fixes & emergency troubleshooting.",
+          "<strong>Automated Cloud Backups:</strong> Daily/weekly off-site backups ensuring zero data loss risk.",
+          "<strong>Speed & Core Web Vitals Boost:</strong> Image compression, code minification & server caching for sub-second load times.",
+          "<strong>Security Hardening:</strong> Malware scanning, firewall protection & SSL renewal management."
+        ],
+        whatsapp: "Hello! I am interested in Website Maintenance & Redesign Services."
+      },
+      "branding": {
+        title: "🎨 Logo Design & Brand Identity",
+        category: "Graphic Design & Branding",
+        price: "Starting from LKR 3,500/-",
+        tagline: "Vector logos, corporate stationery & social media branding kits.",
+        specs: [
+          "<strong>Custom Vector Logo Design:</strong> Clean, memorable logo concepts with full source files (AI, EPS, SVG, PNG).",
+          "<strong>Corporate Identity Suite:</strong> Business cards, letterheads, email signatures & brand color palette guidelines.",
+          "<strong>Social Media Branding Kit:</strong> Facebook cover banners, Instagram profile assets & promo templates.",
+          "<strong>Favicon & App Icon Pack:</strong> Multi-resolution web favicons for browser tabs and mobile home screens."
+        ],
+        whatsapp: "Hello! I am interested in Logo Design & Branding Services."
+      },
+      "seo": {
+        title: "🚀 SEO Sri Lanka & Google Maps Setup",
+        category: "Search Engine Optimization",
+        price: "Included in Standard & Corporate Packages",
+        tagline: "On-Page SEO, Schema JSON-LD, 1-Click Search Console Indexing & Google Business Profile.",
+        specs: [
+          "<strong>Google #1 Ranking Strategy:</strong> Local Sri Lanka keyword optimization targeting buyer search terms.",
+          "<strong>Google Business Profile & Maps Pin:</strong> Complete Google My Business setup, map pin verification & review link integration.",
+          "<strong>Schema JSON-LD Structured Data:</strong> Rich snippets for business address, telephone, price range & star ratings.",
+          "<strong>Instant Search Console Indexing:</strong> Direct sitemap submission for immediate indexing within 24 hours."
+        ],
+        whatsapp: "Hello! I am interested in SEO Sri Lanka & Google Maps Ranking Services."
+      }
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get('id') || 'web-design';
+      const container = document.getElementById('detailContainer');
+      const data = SERVICES_DATA[id] || SERVICES_DATA['web-design'];
+
+      document.title = data.title + " | Infinite Creative";
+
+      let specsHtml = '';
+      data.specs.forEach(s => {
+        specsHtml += `<li class="spec-item"><span style="color:#04AA6D; font-size:18px;">✓</span> <div>${s}</div></li>`;
+      });
+
+      container.innerHTML = `
+        <div style="font-size:12px; font-weight:800; color:#04AA6D; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:8px;">${data.category}</div>
+        <h1 style="font-size:clamp(1.8rem, 3.5vw, 2.5rem); font-weight:900; color:#fff; margin:0 0 12px;">${data.title}</h1>
+        <div style="font-size:1.4rem; font-weight:800; color:#38bdf8; margin-bottom:16px;">${data.price}</div>
+        <p style="font-size:1.05rem; color:#cbd5e1; line-height:1.6; margin-bottom:28px;">${data.tagline}</p>
+
+        <h3 style="color:#fff; font-size:1.2rem; font-weight:800; margin-bottom:14px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:8px;">
+          Full Package Specifications & Features:
+        </h3>
+        
+        <ul class="spec-list">
+          ${specsHtml}
+        </ul>
+
+        <div style="margin-top:32px; display:flex; gap:16px; flex-wrap:wrap;">
+          <a href="https://wa.me/94789714912?text=${encodeURIComponent(data.whatsapp)}" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:8px; background:#04AA6D; color:#fff; font-weight:800; padding:14px 28px; border-radius:10px; text-decoration:none; box-shadow:0 8px 24px rgba(4,170,109,0.35);">
+            💬 Order / Inquire on WhatsApp Direct
+          </a>
+          <a href="tel:+94789714912" style="display:inline-flex; align-items:center; gap:8px; background:rgba(56,189,248,0.15); border:1px solid #38bdf8; color:#38bdf8; font-weight:800; padding:14px 28px; border-radius:10px; text-decoration:none;">
+            📞 Call Us: +94 78 971 4912
+          </a>
+        </div>
+      `;
+    });
+  </script>
+</body>
+</html>
