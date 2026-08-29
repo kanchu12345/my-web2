@@ -3,674 +3,222 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Digital Services & Web Development Solutions | Infinite Creative</title>
-  <meta name="description" content="Explore complete digital services in Sri Lanka: Custom Web Design, E-Commerce Stores, Mobile Apps, SEO Sri Lanka, Business Email Hosting & Google Maps Local SEO.">
-  <link rel="stylesheet" href="css/main.css?v=2026">
-  <script src="js/analytics-tracker.js" defer></script>
+  <title>Our Services | Infinite Creative Web Design</title>
+  <meta name="description" content="High-converting web design, e-commerce platforms, mobile app development, SEO Sri Lanka, logo branding, and social media Meta ad boost packages.">
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <link rel="stylesheet" href="css/main.css?v=30">
+  <style>
+    body { background-color: #080c16 !important; color: #ffffff !important; }
+    .service-card-compact {
+      background: #131b2e;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.35s ease;
+    }
+    .service-card-compact:hover {
+      border-color: #04AA6D;
+      transform: translateY(-6px);
+      box-shadow: 0 16px 35px rgba(4,170,109,0.25);
+    }
+  </style>
 </head>
 <body>
-      <!-- ══ NAVIGATION ══════════════════════════════ -->
+
+  <!-- NAVIGATION -->
   <nav class="nav" id="mainNav" role="navigation">
     <a href="index.html" class="nav-logo">
-      <img src="images/logo.png" alt="Infinite Design Logo" width="44" height="44">
+      <img src="images/logo.png" alt="Infinite Design Logo" width="48" height="48">
       <div class="nav-brand"><strong>INFINITE</strong><small>Creative Web Design</small></div>
     </a>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="packages">Packages</a></li>
-      <li><a href="projects/index.html">Projects</a></li>
+      <li><a href="projects">Projects</a></li>
       <li><a href="about">About</a></li>
-      <li><a href="services">Services</a></li>
-      <li><a href="blogs/index.html">Blogs</a></li>
+      <li><a href="services" class="active" style="color:#04AA6D;">Services</a></li>
+      <li><a href="blogs">Blogs</a></li>
       <li><a href="tutorials">Tutorials</a></li>
       <li><a href="contact">Contact</a></li>
     </ul>
     <div class="nav-actions">
-      <div class="nav-status"><span class="status-dot"></span><span class="status-text">Available for Projects</span></div>
-      <a href="https://wa.me/94789714912" class="nav-cta" target="_blank" rel="noopener">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-        Let's Talk
-      </a>
+      <a href="https://wa.me/94789714912" class="nav-cta" target="_blank" rel="noopener">💬 Let's Talk</a>
     </div>
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
   </nav>
 
-  <div class="mobile-menu glass" id="mobileMenu" aria-hidden="true">
-    <a href="index.html" class="mm-link">Home</a>
-    <a href="packages" class="mm-link">Packages</a>
-    <a href="projects/index.html" class="mm-link">Projects</a>
-    <a href="about" class="mm-link">About</a>
-    <a href="services" class="mm-link">Services</a>
-    <a href="blogs/index.html" class="mm-link">Blogs</a>
-    <a href="tutorials" class="mm-link">Tutorials</a>
-    <a href="contact" class="mm-link">Contact</a>
-    <a href="https://wa.me/94789714912" class="mm-link mm-cta" target="_blank">💬 Let's Talk</a>
-  </div>
-    </a>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="packages">Packages</a></li>
-      <li><a href="projects/index.html">Projects</a></li>
-      <li><a href="about">About</a></li>
-      <li><a href="services">Services</a></li>
-      <li><a href="blogs/index.html">Blogs</a></li>
-      <li><a href="tutorials">Tutorials</a></li>
-      <li><a href="contact">Contact</a></li>
-    </ul>
-    <div class="nav-actions">
-      <div class="nav-status"><span class="status-dot"></span><span class="status-text">Available for Projects</span></div>
-      <a href="https://wa.me/94789714912" class="nav-cta" target="_blank" rel="noopener">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-        Let's Talk
-      </a>
-    </div>
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
-  </nav>
-
-  <div class="mobile-menu glass" id="mobileMenu" aria-hidden="true">
-    <a href="index.html" class="mm-link">Home</a>
-    <a href="packages" class="mm-link">Packages</a>
-    <a href="projects/index.html" class="mm-link">Projects</a>
-    <a href="about" class="mm-link">About</a>
-    <a href="services" class="mm-link">Services</a>
-    <a href="blogs/index.html" class="mm-link">Blogs</a>
-    <a href="tutorials" class="mm-link">Tutorials</a>
-    <a href="contact" class="mm-link">Contact</a>
-    <a href="https://wa.me/94789714912" class="mm-link mm-cta" target="_blank">💬 Let's Talk</a>
-  </div>
-
-  <!-- Hero Section -->
-  <section class="section" style="padding-top:140px; padding-bottom:40px; text-align:center;">
+  <!-- HERO HEADER -->
+  <section class="section" style="padding-top: 120px; padding-bottom: 20px;">
     <div class="section-inner">
-      <div class="section-eyebrow">Our Full Digital Suite</div>
-      <h1 class="hero-title" style="max-width:850px; margin:0 auto 16px;">
-        High-Converting Web Development & Digital Growth Services
-      </h1>
-      <p class="pricing-subtitle" style="max-width:720px; margin:0 auto 36px; color:#cbd5e1;">
-        Empowering Sri Lankan startups, SMEs and international brands with cutting-edge web engineering, e-commerce platforms, mobile apps, and search engine dominance.
-      </p>
+      <div class="bento">
+        <div class="b-cell reveal" style="grid-column: 1 / -1; background: linear-gradient(135deg, #131b2e 0%, #0b0f19 100%); border: 1px solid rgba(4,170,109,0.4); border-radius: 24px; padding: 48px 36px; text-align: center;">
+          <div class="section-eyebrow" style="color:#04AA6D; margin-bottom: 12px;">Full-Spectrum Digital Services</div>
+          <h1 style="font-size: clamp(2rem, 4vw, 3rem); color:#fff; margin-bottom: 16px; font-weight:900;">
+            High-Converting Web Design & <span style="color:#04AA6D;">Digital Growth Services</span>
+          </h1>
+          <p style="font-size: 1.1rem; max-width: 800px; margin: 0 auto; color:#cbd5e1; line-height:1.6;">
+            Empowering Sri Lankan startups, SMEs, and international brands with cutting-edge web engineering, e-commerce platforms, mobile apps, logo branding, and search engine dominance.
+          </p>
+        </div>
+      </div>
     </div>
   </section>
 
-
-    
-    
-  <!-- ══ WEBSLK-STYLE DETAILED SERVICES INTRODUCTION SECTION ══ -->
-  <section class="section" id="service-overview" style="padding-top:40px; padding-bottom:40px;">
+  <!-- 🌐 SERVICES GRID WITH AUTOMATIC PACKAGES REDIRECTION ══ -->
+  <section class="section" style="padding-top:20px; padding-bottom:60px;">
     <div class="section-inner">
-      <div class="b-cell reveal" style="background:#090e1a !important; border:1px solid rgba(4,170,109,0.35) !important; border-radius:24px; padding:48px 36px; box-shadow:0 16px 40px rgba(0,0,0,0.5);">
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:24px;">
         
-        <div style="text-align:center; max-width:850px; margin:0 auto 40px;">
-          <span style="display:inline-block; font-size:11px; font-weight:800; color:#04AA6D; background:rgba(4,170,109,0.15); border:1px solid rgba(4,170,109,0.3); padding:6px 16px; border-radius:50px; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:14px;">
-            Full-Spectrum Digital Agency • Sri Lanka & International
-          </span>
-          <h1 style="font-family:var(--font-disp); font-size:clamp(2rem, 4vw, 3rem); font-weight:900; color:#ffffff !important; margin:0 0 16px; line-height:1.2;">
-            Premier Web Design & <span style="color:#04AA6D;">Digital Engineering Services</span>
-          </h1>
-          <p style="font-size:1.1rem; color:#cbd5e1 !important; line-height:1.7;">
-            We are one of the fastest-growing web design and digital technology companies in Sri Lanka. Having built over 150+ high-performing websites and web applications for clients across Sri Lanka, the UK, US, Dubai, and Australia, we deliver cutting-edge digital solutions tailored to elevate your business revenue.
-          </p>
-        </div>
-
-        <!-- Detailed Service Breakdown Grid (WebSLK-Style Cards) -->
-        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:28px;">
-          
-          <!-- 1. Web Design & Custom Web Applications -->
-          <div style="background:#131b2e; border:1px solid rgba(255,255,255,0.08); border-radius:18px; padding:28px; transition:transform 0.3s ease;">
+        <!-- 1. Bespoke Web Design & Apps -->
+        <div class="service-card-compact">
+          <div>
             <div style="width:48px; height:48px; border-radius:12px; background:rgba(4,170,109,0.15); border:1px solid rgba(4,170,109,0.4); display:flex; align-items:center; justify-content:center; color:#04AA6D; margin-bottom:18px;">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
             </div>
-            <h3 style="color:#ffffff !important; font-size:1.35rem; font-weight:800; margin-bottom:10px;">Bespoke Web Design & Web Apps</h3>
-            <p style="color:#94a3b8 !important; font-size:0.92rem; line-height:1.65; margin-bottom:16px;">
-              We primarily design high-quality bespoke websites and custom web-based applications. Our engineering portfolio spans <strong>hotel booking engines, taxi reservation portals, ERP systems, delivery management dashboards, and interactive quote systems</strong> built with modern HTML5, PHP, and JavaScript frameworks.
+            <h3 style="color:#ffffff !important; font-size:1.4rem; font-weight:800; margin-bottom:10px;">🌐 Bespoke Web Design & Web Apps</h3>
+            <p style="color:#cbd5e1 !important; font-size:0.95rem; line-height:1.65; margin-bottom:18px;">
+              High-converting custom web design, hotel booking engines, taxi platforms, ERP systems, delivery dashboards & interactive quote calculators.
             </p>
-            <div style="color:#04AA6D; font-weight:700; font-size:0.85rem;">✓ 100% Mobile & Android Responsive</div>
+            <div style="color:#04AA6D; font-weight:700; font-size:0.85rem; margin-bottom:20px;">✓ 100% Mobile & Android Friendly • Free Cloud Hosting</div>
           </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <a href="packages#web-design-packages" style="flex:1; text-align:center; background:#04AA6D; color:#fff; font-weight:800; padding:12px; border-radius:8px; text-decoration:none; box-shadow:0 6px 20px rgba(4,170,109,0.3);">
+              See Web Packages & Pricing &rarr;
+            </a>
+            <a href="service-details?id=web-design" style="background:rgba(56,189,248,0.1); border:1px solid #38bdf8; color:#38bdf8; font-weight:800; padding:12px; border-radius:8px; text-decoration:none;">Specs &rarr;</a>
+          </div>
+        </div>
 
-          <!-- 2. Mobile App Development -->
-          <div style="background:#131b2e; border:1px solid rgba(255,255,255,0.08); border-radius:18px; padding:28px;">
+        <!-- 2. Mobile App Development -->
+        <div class="service-card-compact">
+          <div>
             <div style="width:48px; height:48px; border-radius:12px; background:rgba(56,189,248,0.15); border:1px solid rgba(56,189,248,0.4); display:flex; align-items:center; justify-content:center; color:#38bdf8; margin-bottom:18px;">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
             </div>
-            <h3 style="color:#ffffff !important; font-size:1.35rem; font-weight:800; margin-bottom:10px;">Mobile App Development</h3>
-            <p style="color:#94a3b8 !important; font-size:0.92rem; line-height:1.65; margin-bottom:16px;">
-              We build cross-platform mobile apps (Flutter, iOS, Android) for Sri Lankan businesses. From <strong>ride-hailing taxi apps and food delivery platforms to custom e-commerce mobile stores</strong>, we provide seamless mobile user experiences with instant push notifications.
+            <h3 style="color:#ffffff !important; font-size:1.4rem; font-weight:800; margin-bottom:10px;">📱 Mobile App Development</h3>
+            <p style="color:#cbd5e1 !important; font-size:0.95rem; line-height:1.65; margin-bottom:18px;">
+              Flutter cross-platform apps for Taxi booking, Food Delivery, E-Commerce stores & corporate customer portals.
             </p>
-            <div style="color:#38bdf8; font-weight:700; font-size:0.85rem;">✓ iOS & Android Play Store Ready</div>
+            <div style="color:#38bdf8; font-weight:700; font-size:0.85rem; margin-bottom:20px;">✓ iOS & Android Play Store Ready</div>
           </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <a href="packages#mobile-apps-packages" style="flex:1; text-align:center; background:#38bdf8; color:#fff; font-weight:800; padding:12px; border-radius:8px; text-decoration:none;">
+              See App Packages & Pricing &rarr;
+            </a>
+            <a href="service-details?id=mobile-apps" style="background:rgba(56,189,248,0.1); border:1px solid #38bdf8; color:#38bdf8; font-weight:800; padding:12px; border-radius:8px; text-decoration:none;">Specs &rarr;</a>
+          </div>
+        </div>
 
-          <!-- 3. E-Commerce & PayHere Integration -->
-          <div style="background:#131b2e; border:1px solid rgba(255,255,255,0.08); border-radius:18px; padding:28px;">
+        <!-- 3. E-Commerce & PayHere Integration -->
+        <div class="service-card-compact">
+          <div>
             <div style="width:48px; height:48px; border-radius:12px; background:rgba(167,139,250,0.15); border:1px solid rgba(167,139,250,0.4); display:flex; align-items:center; justify-content:center; color:#a78bfa; margin-bottom:18px;">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
             </div>
-            <h3 style="color:#ffffff !important; font-size:1.35rem; font-weight:800; margin-bottom:10px;">E-Commerce & Payment Gateways</h3>
-            <p style="color:#94a3b8 !important; font-size:0.92rem; line-height:1.65; margin-bottom:16px;">
-              E-commerce is booming in Sri Lanka. We build high-performing online stores integrated with <strong>PayHere, Commercial Bank, HNB, WebXPay, Sampath, Direct Bank Transfer, and Cash on Delivery (COD)</strong> at highly affordable rates.
+            <h3 style="color:#ffffff !important; font-size:1.4rem; font-weight:800; margin-bottom:10px;">🛒 E-Commerce & PayHere Integration</h3>
+            <p style="color:#cbd5e1 !important; font-size:0.95rem; line-height:1.65; margin-bottom:18px;">
+              Complete online stores integrated with PayHere, Commercial Bank, HNB, COD, automated PDF invoices & stock tracking.
             </p>
-            <div style="color:#a78bfa; font-weight:700; font-size:0.85rem;">✓ Automated Invoices & Stock Sync</div>
+            <div style="color:#a78bfa; font-weight:700; font-size:0.85rem; margin-bottom:20px;">✓ Automated Invoices & Stock Control</div>
           </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <a href="packages#ecommerce-packages" style="flex:1; text-align:center; background:#a78bfa; color:#fff; font-weight:800; padding:12px; border-radius:8px; text-decoration:none;">
+              See E-Commerce Packages &rarr;
+            </a>
+            <a href="service-details?id=ecommerce" style="background:rgba(167,139,250,0.1); border:1px solid #a78bfa; color:#a78bfa; font-weight:800; padding:12px; border-radius:8px; text-decoration:none;">Specs &rarr;</a>
+          </div>
+        </div>
 
-          <!-- 4. Website Maintenance & Redesign -->
-          <div style="background:#131b2e; border:1px solid rgba(255,255,255,0.08); border-radius:18px; padding:28px;">
+        <!-- 4. Website Maintenance & Redesign -->
+        <div class="service-card-compact">
+          <div>
             <div style="width:48px; height:48px; border-radius:12px; background:rgba(250,204,21,0.15); border:1px solid rgba(250,204,21,0.4); display:flex; align-items:center; justify-content:center; color:#facc15; margin-bottom:18px;">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
             </div>
-            <h3 style="color:#ffffff !important; font-size:1.35rem; font-weight:800; margin-bottom:10px;">Website Maintenance & Redesign</h3>
-            <p style="color:#94a3b8 !important; font-size:0.92rem; line-height:1.65; margin-bottom:16px;">
-              As a special promotion, we offer <strong>free redesign consultations for older websites</strong> using modern glassmorphic designs. We also provide complete monthly maintenance, security monitoring, content updates, and 24/7 technical support.
+            <h3 style="color:#ffffff !important; font-size:1.4rem; font-weight:800; margin-bottom:10px;">🛠️ Website Maintenance & Redesign</h3>
+            <p style="color:#cbd5e1 !important; font-size:0.95rem; line-height:1.65; margin-bottom:18px;">
+              Free redesign promotions for legacy websites, performance optimization, 24/7 technical support & daily cloud backups.
             </p>
-            <div style="color:#facc15; font-weight:700; font-size:0.85rem;">✓ 24/7 Technical Support & Backups</div>
+            <div style="color:#facc15; font-weight:700; font-size:0.85rem; margin-bottom:20px;">✓ 24/7 Technical Support & Backups</div>
           </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <a href="packages#web-design-packages" style="flex:1; text-align:center; background:#facc15; color:#000; font-weight:800; padding:12px; border-radius:8px; text-decoration:none;">
+              See Redesign Offers &rarr;
+            </a>
+            <a href="service-details?id=maintenance" style="background:rgba(250,204,21,0.1); border:1px solid #facc15; color:#facc15; font-weight:800; padding:12px; border-radius:8px; text-decoration:none;">Specs &rarr;</a>
+          </div>
+        </div>
 
-          <!-- 5. Logo Design & Graphic Branding -->
-          <div style="background:#131b2e; border:1px solid rgba(255,255,255,0.08); border-radius:18px; padding:28px;">
+        <!-- 5. Logo Design & Brand Identity -->
+        <div class="service-card-compact">
+          <div>
             <div style="width:48px; height:48px; border-radius:12px; background:rgba(236,72,153,0.15); border:1px solid rgba(236,72,153,0.4); display:flex; align-items:center; justify-content:center; color:#ec4899; margin-bottom:18px;">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>
             </div>
-            <h3 style="color:#ffffff !important; font-size:1.35rem; font-weight:800; margin-bottom:10px;">Logo Design & Brand Identity</h3>
-            <p style="color:#94a3b8 !important; font-size:0.92rem; line-height:1.65; margin-bottom:16px;">
-              We began our business as an advertising agency specializing in graphic design. We create <strong>memorable brand logos, vector identity suites, business stationery, promotional banners, and social media brand kits</strong> that elevate brand authority.
+            <h3 style="color:#ffffff !important; font-size:1.4rem; font-weight:800; margin-bottom:10px;">🎨 Logo Design & Brand Identity</h3>
+            <p style="color:#cbd5e1 !important; font-size:0.95rem; line-height:1.65; margin-bottom:18px;">
+              Vector logos, corporate stationery, favicons, email signatures & social media branding kits.
             </p>
-            <div style="color:#ec4899; font-weight:700; font-size:0.85rem;">✓ High-Res Vector & Print Files</div>
+            <div style="color:#ec4899; font-weight:700; font-size:0.85rem; margin-bottom:20px;">✓ High-Res Vector & Print Files</div>
           </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <a href="packages#branding-packages" style="flex:1; text-align:center; background:#ec4899; color:#fff; font-weight:800; padding:12px; border-radius:8px; text-decoration:none;">
+              See Branding Packages &rarr;
+            </a>
+            <a href="service-details?id=branding" style="background:rgba(236,72,153,0.1); border:1px solid #ec4899; color:#ec4899; font-weight:800; padding:12px; border-radius:8px; text-decoration:none;">Specs &rarr;</a>
+          </div>
+        </div>
 
-          <!-- 6. Google SEO & Local Business Listing -->
-          <div style="background:#131b2e; border:1px solid rgba(255,255,255,0.08); border-radius:18px; padding:28px;">
+        <!-- 6. SEO Sri Lanka & Google Maps Setup -->
+        <div class="service-card-compact">
+          <div>
             <div style="width:48px; height:48px; border-radius:12px; background:rgba(4,170,109,0.15); border:1px solid rgba(4,170,109,0.4); display:flex; align-items:center; justify-content:center; color:#04AA6D; margin-bottom:18px;">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
             </div>
-            <h3 style="color:#ffffff !important; font-size:1.35rem; font-weight:800; margin-bottom:10px;">SEO Sri Lanka & Google Business</h3>
-            <p style="color:#94a3b8 !important; font-size:0.92rem; line-height:1.65; margin-bottom:16px;">
-              Get found by local Sri Lankan buyers searching on Google. We provide <strong>On-Page SEO, Schema JSON-LD structured data, instant Google Search Console indexing, and Google Business Profile (Maps Location Pin) setup</strong> to rank #1.
+            <h3 style="color:#ffffff !important; font-size:1.4rem; font-weight:800; margin-bottom:10px;">🚀 SEO Sri Lanka & Google Maps Setup</h3>
+            <p style="color:#cbd5e1 !important; font-size:0.95rem; line-height:1.65; margin-bottom:18px;">
+              On-Page SEO, Schema JSON-LD, 1-Click Search Console Indexing & Google Business Profile (Maps Pin).
             </p>
-            <div style="color:#04AA6D; font-weight:700; font-size:0.85rem;">✓ Rank #1 on Google Search & Maps</div>
+            <div style="color:#04AA6D; font-weight:700; font-size:0.85rem; margin-bottom:20px;">✓ Rank #1 on Google Search & Maps</div>
           </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <a href="packages#seo-packages" style="flex:1; text-align:center; background:#04AA6D; color:#fff; font-weight:800; padding:12px; border-radius:8px; text-decoration:none;">
+              See SEO Packages & Pricing &rarr;
+            </a>
+            <a href="service-details?id=seo" style="background:rgba(4,170,109,0.1); border:1px solid #04AA6D; color:#04AA6D; font-weight:800; padding:12px; border-radius:8px; text-decoration:none;">Specs &rarr;</a>
+          </div>
+        </div>
 
+        <!-- 7. Social Media Meta Ads Boost -->
+        <div class="service-card-compact">
+          <div>
+            <div style="width:48px; height:48px; border-radius:12px; background:rgba(56,189,248,0.15); border:1px solid rgba(56,189,248,0.4); display:flex; align-items:center; justify-content:center; color:#38bdf8; margin-bottom:18px;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </div>
+            <h3 style="color:#ffffff !important; font-size:1.4rem; font-weight:800; margin-bottom:10px;">📢 Social Media & Meta Ads Boost</h3>
+            <p style="color:#cbd5e1 !important; font-size:0.95rem; line-height:1.65; margin-bottom:18px;">
+              Targeted Meta (FB & IG) ad campaign packages (LKR 2,500 – 36,500) for maximum reach & direct WhatsApp lead inquiries.
+            </p>
+            <div style="color:#38bdf8; font-weight:700; font-size:0.85rem; margin-bottom:20px;">✓ Direct WhatsApp Leads & Sales Calls</div>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <a href="packages#digital-marketing-packages" style="flex:1; text-align:center; background:#38bdf8; color:#fff; font-weight:800; padding:12px; border-radius:8px; text-decoration:none;">
+              See Meta Ads Boost Packages &rarr;
+            </a>
+            <a href="packages#digital-marketing-packages" style="background:rgba(56,189,248,0.1); border:1px solid #38bdf8; color:#38bdf8; font-weight:800; padding:12px; border-radius:8px; text-decoration:none;">Specs &rarr;</a>
+          </div>
         </div>
 
       </div>
     </div>
   </section>
 
-
-    <!-- ══ 1. PRIMARY WEBSITE DESIGN & DEVELOPMENT PACKAGES (FIRST) ══ -->
-    <div class="bento" style="margin-bottom:48px;" id="web-design-packages">
-      <div class="b-cell reveal" style="grid-column: 1 / -1; background: linear-gradient(135deg, #0d1527 0%, #080d18 100%) !important; border: 1px solid rgba(4,170,109,0.4) !important; border-radius: 20px; padding: 40px 24px;">
-        
-        <div style="text-align:center; max-width:800px; margin:0 auto 32px;">
-          <div style="display:inline-flex; align-items:center; gap:8px; background:rgba(4,170,109,0.15); border:1px solid rgba(4,170,109,0.4); border-radius:50px; padding:6px 16px; margin-bottom:12px;">
-            <span style="width:8px; height:8px; border-radius:50%; background:#04AA6D; box-shadow:0 0 8px #04AA6D;"></span>
-            <span style="color:#04AA6D; font-weight:800; font-size:0.8rem; letter-spacing:0.08em; text-transform:uppercase;">Primary Service • Custom Web Development</span>
-          </div>
-          <h2 style="font-size: clamp(1.8rem, 3.5vw, 2.5rem); font-weight:900; color:#ffffff !important; margin:0 0 10px;">
-            High-Converting Website Design <span style="color:#04AA6D;">Packages</span>
-          </h2>
-          <p style="color:#cbd5e1 !important; font-size:1rem; line-height:1.6;">
-            Tailored, ultra-fast web solutions with 100% Mobile Responsiveness, Free SSL, Google Indexing & PayHere Card Payment Gateways.
-          </p>
-        </div>
-
-        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
-          
-          <!-- Web Pkg 1: Starter -->
-          <div style="background:#131b2e; border:1px solid rgba(255,255,255,0.1); border-radius:16px; padding:24px; display:flex; flex-direction:column; justify-content:space-between;">
-            <div>
-              <span style="font-size:10px; font-weight:800; color:#94a3b8; background:rgba(255,255,255,0.08); padding:4px 10px; border-radius:20px; text-transform:uppercase;">Budget Hero</span>
-              <h3 style="color:#ffffff !important; font-size:1.4rem; font-weight:900; margin:10px 0 4px;">Starter Essential</h3>
-              <div style="font-size:1.8rem; font-weight:900; color:#04AA6D; margin-bottom:12px;">LKR 5,000/-</div>
-              <p style="color:#94a3b8; font-size:0.85rem; margin-bottom:14px;">Essential low-cost web package for personal sites, small shops & instant online presence.</p>
-              
-              <ul style="color:#cbd5e1 !important; font-size:0.88rem; line-height:1.7; padding-left:18px; margin-bottom:14px;">
-                <li><strong>3 Pages Included</strong> (Home, About, Contact)</li>
-                <li><strong>100% Mobile & Android Friendly UI</strong></li>
-                <li>Direct WhatsApp Chat & Instant Call Button</li>
-                <li>🎁 <strong>100% Free Cloud Hosting</strong> (Zero Monthly Fees)</li>
-              </ul>
-
-              <!-- Expandable details -->
-              <div id="details-web-1" style="display:none; color:#cbd5e1; font-size:0.85rem; padding-top:10px; border-top:1px dashed rgba(255,255,255,0.15); margin-bottom:14px;">
-                <li>Social Media Links & Share Icons</li>
-                <li>Header Banner & Sub-second Speed Optimization</li>
-                <li>Google Maps Location Pin Integration</li>
-                <li>📄 Need more pages? Add extra pages for Rs. 1,500/- each.</li>
-              </div>
-              
-              <button onclick="toggleDetails('details-web-1', this)" style="background:none; border:none; color:#38bdf8; font-weight:700; font-size:0.8rem; cursor:pointer; padding:0; margin-bottom:16px; display:inline-flex; align-items:center; gap:4px;">
-                <span>See More Details</span> <span>▼</span>
-              </button>
-            </div>
-
-            <a href="https://wa.me/94789714912?text=Hello!%20I%20want%20to%20order%20Starter%20Essential%20Web%20Package%20(LKR%205,000)" target="_blank" rel="noopener" style="display:block; text-align:center; background:rgba(4,170,109,0.15); border:1px solid #04AA6D; color:#04AA6D; font-weight:800; padding:10px 16px; border-radius:8px; text-decoration:none;">Choose Starter 5K &rarr;</a>
-          </div>
-
-          <!-- Web Pkg 2: Standard Business (Featured) -->
-          <div style="background:linear-gradient(135deg, #131b2e 0%, #0b0f19 100%); border:2px solid #04AA6D; border-radius:16px; padding:24px; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 10px 30px rgba(4,170,109,0.25);">
-            <div>
-              <span style="font-size:10px; font-weight:800; color:#ffffff; background:#04AA6D; padding:4px 12px; border-radius:20px; text-transform:uppercase;">Best Value • Most Popular</span>
-              <h3 style="color:#ffffff !important; font-size:1.4rem; font-weight:900; margin:10px 0 4px;">Standard Business</h3>
-              <div style="font-size:1.8rem; font-weight:900; color:#04AA6D; margin-bottom:12px;">LKR 10,000/-</div>
-              <p style="color:#94a3b8; font-size:0.85rem; margin-bottom:14px;">Solid 5-page business website with self-manageable admin control panel & local SEO.</p>
-
-              <ul style="color:#cbd5e1 !important; font-size:0.88rem; line-height:1.7; padding-left:18px; margin-bottom:14px;">
-                <li><strong>5 Pages Included</strong></li>
-                <li><strong>Self-Manageable Admin Panel Access</strong></li>
-                <li>Contact Form & Google Maps Location Pin</li>
-                <li>Basic Google Local SEO & Social Media Icons</li>
-                <li>🎁 <strong>100% Free Cloud Hosting</strong> (Zero Monthly Fees)</li>
-              </ul>
-
-              <!-- Expandable details -->
-              <div id="details-web-2" style="display:none; color:#cbd5e1; font-size:0.85rem; padding-top:10px; border-top:1px dashed rgba(255,255,255,0.15); margin-bottom:14px;">
-                <li>Mobile Responsive Layout & Micro-Animations</li>
-                <li>1 Month Free Maintenance & Technical Support</li>
-                <li>Domain Linking & Custom Business Email Setup</li>
-                <li>📄 Add extra pages for Rs. 1,500/- per page.</li>
-              </div>
-
-              <button onclick="toggleDetails('details-web-2', this)" style="background:none; border:none; color:#38bdf8; font-weight:700; font-size:0.8rem; cursor:pointer; padding:0; margin-bottom:16px; display:inline-flex; align-items:center; gap:4px;">
-                <span>See More Details</span> <span>▼</span>
-              </button>
-            </div>
-
-            <a href="https://wa.me/94789714912?text=Hello!%20I%20want%20to%20order%20Standard%20Business%20Web%20Package%20(LKR%2010,000)" target="_blank" rel="noopener" style="display:block; text-align:center; background:#04AA6D; color:#ffffff !important; font-weight:800; padding:12px 16px; border-radius:8px; text-decoration:none; box-shadow:0 6px 20px rgba(4,170,109,0.35);">Choose Standard 10K &rarr;</a>
-          </div>
-
-          <!-- Web Pkg 3: Advanced Growth -->
-          <div style="background:#131b2e; border:1px solid rgba(255,255,255,0.1); border-radius:16px; padding:24px; display:flex; flex-direction:column; justify-content:space-between;">
-            <div>
-              <span style="font-size:10px; font-weight:800; color:#38bdf8; background:rgba(56,189,248,0.15); padding:4px 10px; border-radius:20px; text-transform:uppercase;">Growth Pro</span>
-              <h3 style="color:#ffffff !important; font-size:1.4rem; font-weight:900; margin:10px 0 4px;">Advanced Growth</h3>
-              <div style="font-size:1.8rem; font-weight:900; color:#38bdf8; margin-bottom:12px;">LKR 15,000/-</div>
-              <p style="color:#94a3b8; font-size:0.85rem; margin-bottom:14px;">Custom UI design built for high conversions, lead generation & ad campaigns.</p>
-
-              <ul style="color:#cbd5e1 !important; font-size:0.88rem; line-height:1.7; padding-left:18px; margin-bottom:14px;">
-                <li><strong>7 Custom Designed Pages</strong></li>
-                <li><strong>Custom Conversion UI System & Admin Panel</strong></li>
-                <li>Speed Optimization (95+ Mobile Score)</li>
-                <li>Meta Pixel & WhatsApp Lead Capture</li>
-                <li>🚀 <strong>High-Speed Cloud Server Deployment</strong></li>
-              </ul>
-
-              <!-- Expandable details -->
-              <div id="details-web-3" style="display:none; color:#cbd5e1; font-size:0.85rem; padding-top:10px; border-top:1px dashed rgba(255,255,255,0.15); margin-bottom:14px;">
-                <li>Interactive Contact & Inquiry Forms</li>
-                <li>Free Basic SEO & Analytics Setup</li>
-                <li>Priority 2-Month Technical Support included</li>
-              </div>
-
-              <button onclick="toggleDetails('details-web-3', this)" style="background:none; border:none; color:#38bdf8; font-weight:700; font-size:0.8rem; cursor:pointer; padding:0; margin-bottom:16px; display:inline-flex; align-items:center; gap:4px;">
-                <span>See More Details</span> <span>▼</span>
-              </button>
-            </div>
-
-            <a href="https://wa.me/94789714912?text=Hello!%20I%20want%20to%20order%20Advanced%20Growth%20Web%20Package%20(LKR%2015,000)" target="_blank" rel="noopener" style="display:block; text-align:center; background:rgba(56,189,248,0.15); border:1px solid #38bdf8; color:#38bdf8; font-weight:800; padding:10px 16px; border-radius:8px; text-decoration:none;">Choose Advanced 15K &rarr;</a>
-          </div>
-
-          <!-- Web Pkg 4: Corporate Professional -->
-          <div style="background:#131b2e; border:1px solid rgba(255,255,255,0.1); border-radius:16px; padding:24px; display:flex; flex-direction:column; justify-content:space-between;">
-            <div>
-              <span style="font-size:10px; font-weight:800; color:#facc15; background:rgba(250,204,21,0.15); padding:4px 10px; border-radius:20px; text-transform:uppercase;">Corporate</span>
-              <h3 style="color:#ffffff !important; font-size:1.4rem; font-weight:900; margin:10px 0 4px;">Corporate Professional</h3>
-              <div style="font-size:1.8rem; font-weight:900; color:#facc15; margin-bottom:12px;">LKR 20,000/-</div>
-              <p style="color:#94a3b8; font-size:0.85rem; margin-bottom:14px;">Corporate-level web presence with advanced security, Google Analytics & SSL.</p>
-
-              <ul style="color:#cbd5e1 !important; font-size:0.88rem; line-height:1.7; padding-left:18px; margin-bottom:14px;">
-                <li><strong>10 Pages Included</strong></li>
-                <li><strong>Premium Corporate Design & Micro-Animations</strong></li>
-                <li>Google Analytics 4 & Meta Setup</li>
-                <li>Free SSL Certificate & Security Shield</li>
-                <li>Full Google Local SEO Optimization</li>
-              </ul>
-
-              <!-- Expandable details -->
-              <div id="details-web-4" style="display:none; color:#cbd5e1; font-size:0.85rem; padding-top:10px; border-top:1px dashed rgba(255,255,255,0.15); margin-bottom:14px;">
-                <li>Customer Lead Generation Strategy</li>
-                <li>3 Months Dedicated Priority Support</li>
-                <li>🚀 High-Speed Cloud Server Deployment</li>
-              </div>
-
-              <button onclick="toggleDetails('details-web-4', this)" style="background:none; border:none; color:#38bdf8; font-weight:700; font-size:0.8rem; cursor:pointer; padding:0; margin-bottom:16px; display:inline-flex; align-items:center; gap:4px;">
-                <span>See More Details</span> <span>▼</span>
-              </button>
-            </div>
-
-            <a href="https://wa.me/94789714912?text=Hello!%20I%20want%20to%20order%20Corporate%20Professional%20Web%20Package%20(LKR%2020,000)" target="_blank" rel="noopener" style="display:block; text-align:center; background:rgba(250,204,21,0.15); border:1px solid #facc15; color:#facc15; font-weight:800; padding:10px 16px; border-radius:8px; text-decoration:none;">Choose Professional 20K &rarr;</a>
-          </div>
-
-          <!-- Web Pkg 5: E-Commerce Store -->
-          <div style="background:linear-gradient(135deg, #131b2e 0%, #0b0f19 100%); border:2px solid #a78bfa; border-radius:16px; padding:24px; display:flex; flex-direction:column; justify-content:space-between;">
-            <div>
-              <span style="font-size:10px; font-weight:800; color:#ffffff; background:#a78bfa; padding:4px 12px; border-radius:20px; text-transform:uppercase;">E-Commerce Store</span>
-              <h3 style="color:#ffffff !important; font-size:1.4rem; font-weight:900; margin:10px 0 4px;">Full E-Commerce Store</h3>
-              <div style="font-size:1.8rem; font-weight:900; color:#a78bfa; margin-bottom:12px;">LKR 60,000/-</div>
-              <p style="color:#94a3b8; font-size:0.85rem; margin-bottom:14px;">Complete online store with PayHere checkout, product catalog & inventory sync.</p>
-
-              <ul style="color:#cbd5e1 !important; font-size:0.88rem; line-height:1.7; padding-left:18px; margin-bottom:14px;">
-                <li><strong>Unlimited Product Catalog</strong></li>
-                <li><strong>PayHere & Credit/Debit Card Gateway Integration</strong></li>
-                <li>Order Management & Automated Invoice PDF</li>
-                <li>Shopping Cart & Cash on Delivery (COD) Setup</li>
-                <li>6 Months Dedicated Maintenance Support</li>
-              </ul>
-
-              <!-- Expandable details -->
-              <div id="details-web-5" style="display:none; color:#cbd5e1; font-size:0.85rem; padding-top:10px; border-top:1px dashed rgba(255,255,255,0.15); margin-bottom:14px;">
-                <li>Customer Account Management & Orders History</li>
-                <li>Inventory Stock Tracking & Low Stock Alerts</li>
-                <li>🚀 Ultra-Fast E-Commerce Hosting Environment</li>
-              </div>
-
-              <button onclick="toggleDetails('details-web-5', this)" style="background:none; border:none; color:#38bdf8; font-weight:700; font-size:0.8rem; cursor:pointer; padding:0; margin-bottom:16px; display:inline-flex; align-items:center; gap:4px;">
-                <span>See More Details</span> <span>▼</span>
-              </button>
-            </div>
-
-            <a href="https://wa.me/94789714912?text=Hello!%20I%20want%20to%20order%20E-Commerce%20Store%20Package%20(LKR%2060,000)" target="_blank" rel="noopener" style="display:block; text-align:center; background:#a78bfa; color:#ffffff !important; font-weight:800; padding:12px 16px; border-radius:8px; text-decoration:none;">Choose E-Commerce 60K &rarr;</a>
-          </div>
-
-        </div>
-
-      </div>
-    </div>
-
-    <!-- Toggle details script -->
-    <script>
-      function toggleDetails(id, btn) {
-        var el = document.getElementById(id);
-        if (el.style.display === "none" || !el.style.display) {
-          el.style.display = "block";
-          btn.innerHTML = '<span>Show Less</span> <span>▲</span>';
-        } else {
-          el.style.display = "none";
-          btn.innerHTML = '<span>See More Details</span> <span>▼</span>';
-        }
-      }
-    </script>
-
-
-    <!-- ══ 2. SOCIAL MEDIA & META AD BOOST PACKAGES SECTION (SECOND) ══ -->
-    <div class="bento" style="margin-bottom:48px;" id="digital-marketing-packages">
-      <div class="b-cell reveal" style="grid-column: 1 / -1; background: #090e1a !important; border: 1px solid rgba(4,170,109,0.35) !important; border-radius: 20px; padding: 40px 24px;">
-        
-        <div style="text-align:center; max-width:800px; margin:0 auto 32px;">
-          <div style="display:inline-flex; align-items:center; gap:8px; background:rgba(4,170,109,0.15); border:1px solid rgba(4,170,109,0.4); border-radius:50px; padding:6px 16px; margin-bottom:12px;">
-            <span style="width:8px; height:8px; border-radius:50%; background:#04AA6D; box-shadow:0 0 8px #04AA6D;"></span>
-            <span style="color:#04AA6D; font-weight:800; font-size:0.8rem; letter-spacing:0.08em; text-transform:uppercase;">Meta Ads & Social Media Boost Packages</span>
-          </div>
-          <h2 style="font-size: clamp(1.8rem, 3.5vw, 2.5rem); font-weight:900; color:#ffffff !important; margin:0 0 10px;">
-            Drive Direct WhatsApp Inquiries, Phone Calls & <span style="color:#04AA6D;">High Sales Leads</span>
-          </h2>
-          <p style="color:#cbd5e1 !important; font-size:1rem; line-height:1.6;">
-            Targeted Meta (Facebook & Instagram) ad campaign packages engineered for maximum audience reach and guaranteed customer inquiries in Sri Lanka.
-          </p>
-        </div>
-
-        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
-          
-          <!-- Boost 1: Mini Trial -->
-          <div style="background:#0d1527; border:1px solid rgba(255,255,255,0.1); border-radius:16px; padding:24px; display:flex; flex-direction:column; justify-content:space-between;">
-            <div>
-              <span style="font-size:10px; font-weight:800; color:#94a3b8; background:rgba(255,255,255,0.08); padding:4px 10px; border-radius:20px; text-transform:uppercase;">Mini Trial</span>
-              <h3 style="color:#ffffff !important; font-size:1.4rem; font-weight:900; margin:10px 0 4px;">Mini Trial Boost</h3>
-              <div style="font-size:1.8rem; font-weight:900; color:#04AA6D; margin-bottom:12px;">LKR 2,500/-</div>
-              <ul style="color:#cbd5e1 !important; font-size:0.88rem; line-height:1.7; padding-left:18px; margin-bottom:18px;">
-                <li><strong>Estimated Reach:</strong> 2,500 – 5,000 people</li>
-                <li><strong>Goal:</strong> Quick Post Test, Page Likes & Basic Engagement</li>
-                <li><strong>Targeting:</strong> City/Town Level & Age Selection</li>
-                <li>Performance summary report included</li>
-              </ul>
-            </div>
-            <a href="https://wa.me/94789714912?text=Hello!%20I%20want%20to%20order%20Mini%20Trial%20Boost%20(LKR%202,500)" target="_blank" rel="noopener" style="display:block; text-align:center; background:rgba(4,170,109,0.15); border:1px solid #04AA6D; color:#04AA6D; font-weight:800; padding:10px 16px; border-radius:8px; text-decoration:none;">Choose Mini 2.5K &rarr;</a>
-          </div>
-
-          <!-- Boost 2: Starter Reach -->
-          <div style="background:#0d1527; border:1px solid rgba(255,255,255,0.1); border-radius:16px; padding:24px; display:flex; flex-direction:column; justify-content:space-between;">
-            <div>
-              <span style="font-size:10px; font-weight:800; color:#38bdf8; background:rgba(56,189,248,0.15); padding:4px 10px; border-radius:20px; text-transform:uppercase;">Local Reach</span>
-              <h3 style="color:#ffffff !important; font-size:1.4rem; font-weight:900; margin:10px 0 4px;">Starter Reach Boost</h3>
-              <div style="font-size:1.8rem; font-weight:900; color:#38bdf8; margin-bottom:12px;">LKR 4,000/-</div>
-              <ul style="color:#cbd5e1 !important; font-size:0.88rem; line-height:1.7; padding-left:18px; margin-bottom:18px;">
-                <li><strong>Estimated Reach:</strong> 6,000 – 12,000 people</li>
-                <li><strong>Goal:</strong> Local Brand Awareness & Post Engagement</li>
-                <li><strong>Targeting:</strong> Location, Age & Basic Interests</li>
-                <li>WhatsApp & Messenger direct button setup</li>
-              </ul>
-            </div>
-            <a href="https://wa.me/94789714912?text=Hello!%20I%20want%20to%20order%20Starter%20Reach%20Boost%20(LKR%204,000)" target="_blank" rel="noopener" style="display:block; text-align:center; background:rgba(56,189,248,0.15); border:1px solid #38bdf8; color:#38bdf8; font-weight:800; padding:10px 16px; border-radius:8px; text-decoration:none;">Choose Starter 4K &rarr;</a>
-          </div>
-
-          <!-- Boost 3: Growth Boost (Featured) -->
-          <div style="background:linear-gradient(135deg, #0d1527 0%, #080d18 100%); border:2px solid #04AA6D; border-radius:16px; padding:24px; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 10px 30px rgba(4,170,109,0.25);">
-            <div>
-              <span style="font-size:10px; font-weight:800; color:#ffffff; background:#04AA6D; padding:4px 12px; border-radius:20px; text-transform:uppercase;">Most Recommended</span>
-              <h3 style="color:#ffffff !important; font-size:1.4rem; font-weight:900; margin:10px 0 4px;">Growth Boost</h3>
-              <div style="font-size:1.8rem; font-weight:900; color:#04AA6D; margin-bottom:12px;">LKR 6,500/-</div>
-              <ul style="color:#cbd5e1 !important; font-size:0.88rem; line-height:1.7; padding-left:18px; margin-bottom:18px;">
-                <li><strong>Estimated Reach:</strong> 15,000 – 30,000 people</li>
-                <li><strong>Goal:</strong> Direct WhatsApp Inquiries & Quality Leads</li>
-                <li><strong>Targeting:</strong> Precise Interest & Buyer Behavior</li>
-                <li>A/B split testing & ad copywriting included</li>
-              </ul>
-            </div>
-            <a href="https://wa.me/94789714912?text=Hello!%20I%20want%20to%20order%20Growth%20Boost%20(LKR%206,500)" target="_blank" rel="noopener" style="display:block; text-align:center; background:#04AA6D; color:#ffffff !important; font-weight:800; padding:12px 16px; border-radius:8px; text-decoration:none; box-shadow:0 6px 20px rgba(4,170,109,0.35);">Choose Growth 6.5K &rarr;</a>
-          </div>
-
-          <!-- Boost 4: Power Scale -->
-          <div style="background:#0d1527; border:1px solid rgba(255,255,255,0.1); border-radius:16px; padding:24px; display:flex; flex-direction:column; justify-content:space-between;">
-            <div>
-              <span style="font-size:10px; font-weight:800; color:#facc15; background:rgba(250,204,21,0.15); padding:4px 10px; border-radius:20px; text-transform:uppercase;">High Scale</span>
-              <h3 style="color:#ffffff !important; font-size:1.4rem; font-weight:900; margin:10px 0 4px;">Power Scale Boost</h3>
-              <div style="font-size:1.8rem; font-weight:900; color:#facc15; margin-bottom:12px;">LKR 11,500/-</div>
-              <ul style="color:#cbd5e1 !important; font-size:0.88rem; line-height:1.7; padding-left:18px; margin-bottom:18px;">
-                <li><strong>Estimated Reach:</strong> 35,000 – 70,000+ people</li>
-                <li><strong>Goal:</strong> High Lead Volume, Sales Inquiries & Web Clicks</li>
-                <li><strong>Targeting:</strong> Advanced Multi-Audience & High-Intent</li>
-                <li>Video & Carousel multi-ad creative setup</li>
-              </ul>
-            </div>
-            <a href="https://wa.me/94789714912?text=Hello!%20I%20want%20to%20order%20Power%20Scale%20Boost%20(LKR%2011,500)" target="_blank" rel="noopener" style="display:block; text-align:center; background:rgba(250,204,21,0.15); border:1px solid #facc15; color:#facc15; font-weight:800; padding:10px 16px; border-radius:8px; text-decoration:none;">Choose Power 11.5K &rarr;</a>
-          </div>
-
-          <!-- Boost 5: Pro Business -->
-          <div style="background:linear-gradient(135deg, #0d1527 0%, #080d18 100%); border:2px solid #38bdf8; border-radius:16px; padding:24px; display:flex; flex-direction:column; justify-content:space-between;">
-            <div>
-              <span style="font-size:10px; font-weight:800; color:#ffffff; background:#38bdf8; padding:4px 12px; border-radius:20px; text-transform:uppercase;">Pro Enterprise</span>
-              <h3 style="color:#ffffff !important; font-size:1.4rem; font-weight:900; margin:10px 0 4px;">Pro Business Scale</h3>
-              <div style="font-size:1.8rem; font-weight:900; color:#38bdf8; margin-bottom:12px;">LKR 21,500/-</div>
-              <ul style="color:#cbd5e1 !important; font-size:0.88rem; line-height:1.7; padding-left:18px; margin-bottom:18px;">
-                <li><strong>Estimated Reach:</strong> 75,000 – 150,000+ people</li>
-                <li><strong>Goal:</strong> Nationwide Visibility & Max Message Leads</li>
-                <li><strong>Targeting:</strong> Multi-Ad Setup, Custom Audiences & Retargeting</li>
-                <li>Meta Pixel conversion tracking & automated bot</li>
-              </ul>
-            </div>
-            <a href="https://wa.me/94789714912?text=Hello!%20I%20want%20to%20order%20Pro%20Business%20Scale%20(LKR%2021,500)" target="_blank" rel="noopener" style="display:block; text-align:center; background:#38bdf8; color:#ffffff !important; font-weight:800; padding:12px 16px; border-radius:8px; text-decoration:none;">Choose Pro 21.5K &rarr;</a>
-          </div>
-
-          <!-- Boost 6: Ultimate Enterprise -->
-          <div style="background:#0d1527; border:1px solid rgba(255,255,255,0.1); border-radius:16px; padding:24px; display:flex; flex-direction:column; justify-content:space-between;">
-            <div>
-              <span style="font-size:10px; font-weight:800; color:#a78bfa; background:rgba(167,139,250,0.15); padding:4px 10px; border-radius:20px; text-transform:uppercase;">Massive Scale</span>
-              <h3 style="color:#ffffff !important; font-size:1.4rem; font-weight:900; margin:10px 0 4px;">Ultimate Enterprise</h3>
-              <div style="font-size:1.8rem; font-weight:900; color:#a78bfa; margin-bottom:12px;">LKR 36,500/-</div>
-              <ul style="color:#cbd5e1 !important; font-size:0.88rem; line-height:1.7; padding-left:18px; margin-bottom:18px;">
-                <li><strong>Estimated Reach:</strong> 150,000 – 300,000+ people</li>
-                <li><strong>Goal:</strong> Continuous High-Scale Sales Funnel & Massive Reach</li>
-                <li><strong>Targeting:</strong> Full Multi-Platform, Lookalike & Custom Retargeting</li>
-                <li>24/7 priority campaign manager & ROI tuning</li>
-              </ul>
-            </div>
-            <a href="https://wa.me/94789714912?text=Hello!%20I%20want%20to%20order%20Ultimate%20Enterprise%20(LKR%2036,500)" target="_blank" rel="noopener" style="display:block; text-align:center; background:rgba(167,139,250,0.15); border:1px solid #a78bfa; color:#a78bfa; font-weight:800; padding:10px 16px; border-radius:8px; text-decoration:none;">Choose Ultimate 36.5K &rarr;</a>
-          </div>
-
-        </div>
-
-      </div>
-    </div>
-
-  <!-- 8 Core Services Grid -->
-  <section class="section" style="padding-top:20px;">
-    <div class="section-inner">
-      <div class="bento" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:24px;">
-        
-        <!-- Service 1: Custom Web Design -->
-        <div class="b-cell reveal" style="background:#0b1120; border:1px solid rgba(4,170,109,0.35); border-radius:18px; padding:32px;">
-          <div style="font-size:36px; margin-bottom:16px;">💻</div>
-          <h2 style="font-size:1.4rem; font-weight:800; color:#ffffff; margin-bottom:10px;">Custom Website Design & Development</h2>
-          <p style="color:#cbd5e1; font-size:0.95rem; line-height:1.6; margin-bottom:18px;">
-            Unique, fast-loading, mobile-friendly websites built with HTML5, PHP, WordPress or React. Tailored to captivate your audience and rank high on Google.
-          </p>
-          <ul style="color:#e2e8f0; font-size:0.9rem; line-height:1.8; margin-bottom:20px; padding-left:20px;">
-            <li>100% Android & iPhone Responsive</li>
-            <li>Self-Manageable Admin Control Panel</li>
-            <li>Free Cloud Hosting (5K & 10K Tiers)</li>
-            <li>Free SSL & Security Shield</li>
-          </ul>
-          <a href="packages" style="color:#04AA6D; font-weight:700; font-size:0.95rem; text-decoration:none;">Explore Web Packages &rarr;</a>
-        </div>
-
-        <!-- Service 2: E-Commerce Platforms -->
-        <div class="b-cell reveal" style="background:#0b1120; border:1px solid rgba(0,170,255,0.35); border-radius:18px; padding:32px;">
-          <div style="font-size:36px; margin-bottom:16px;">🛒</div>
-          <h2 style="font-size:1.4rem; font-weight:800; color:#ffffff; margin-bottom:10px;">E-Commerce & Online Stores</h2>
-          <p style="color:#cbd5e1; font-size:0.95rem; line-height:1.6; margin-bottom:18px;">
-            Full-featured online stores equipped with shopping carts, inventory management, automated order alerts, and local payment gateway integration.
-          </p>
-          <ul style="color:#e2e8f0; font-size:0.9rem; line-height:1.8; margin-bottom:20px; padding-left:20px;">
-            <li>PayHere, Visa, Master, Koko Payments</li>
-            <li>Stock & Order Management Panel</li>
-            <li>Automated WhatsApp Order Alerts</li>
-            <li>Coupon Codes & Discount Engine</li>
-          </ul>
-          <a href="packages" style="color:#38bdf8; font-weight:700; font-size:0.95rem; text-decoration:none;">View E-Commerce Tiers &rarr;</a>
-        </div>
-
-        <!-- Service 3: Mobile Apps -->
-        <div class="b-cell reveal" style="background:#0b1120; border:1px solid rgba(168,85,247,0.35); border-radius:18px; padding:32px;">
-          <div style="font-size:36px; margin-bottom:16px;">📱</div>
-          <h2 style="font-size:1.4rem; font-weight:800; color:#ffffff; margin-bottom:10px;">Mobile Application Development</h2>
-          <p style="color:#cbd5e1; font-size:0.95rem; line-height:1.6; margin-bottom:18px;">
-            High-performance cross-platform Android and iOS mobile applications designed to turn your business idea into a seamless mobile experience.
-          </p>
-          <ul style="color:#e2e8f0; font-size:0.9rem; line-height:1.8; margin-bottom:20px; padding-left:20px;">
-            <li>Native Android & Apple iOS Support</li>
-            <li>Fast Development Cycles & Testing</li>
-            <li>Push Notifications & API Backend</li>
-            <li>Play Store & App Store Publishing</li>
-          </ul>
-          <a href="https://wa.me/94789714912?text=Hello!%20I%20am%20interested%20in%20Mobile%20App%20Development." style="color:#c084fc; font-weight:700; font-size:0.95rem; text-decoration:none;">Consult App Project &rarr;</a>
-        </div>
-
-        <!-- Service 4: SEO Sri Lanka -->
-        <div class="b-cell reveal" style="background:#0b1120; border:1px solid rgba(234,179,8,0.35); border-radius:18px; padding:32px;">
-          <div style="font-size:36px; margin-bottom:16px;">🚀</div>
-          <h2 style="font-size:1.4rem; font-weight:800; color:#ffffff; margin-bottom:10px;">SEO & Google Search Dominance</h2>
-          <p style="color:#cbd5e1; font-size:0.95rem; line-height:1.6; margin-bottom:18px;">
-            Comprehensive search engine optimization services to rank your company on Google Page #1, attracting steady streams of organic traffic.
-          </p>
-          <ul style="color:#e2e8f0; font-size:0.9rem; line-height:1.8; margin-bottom:20px; padding-left:20px;">
-            <li>Targeted Keyword Research & On-Page SEO</li>
-            <li>Google Search Console & Sitemap Submission</li>
-            <li>Schema.org JSON-LD Rich Snippets</li>
-            <li>Core Web Vitals 90+ Speed Optimization</li>
-          </ul>
-          <a href="packages" style="color:#facc15; font-weight:700; font-size:0.95rem; text-decoration:none;">Get SEO Package &rarr;</a>
-        </div>
-
-        <!-- Service 5: Business Email Hosting -->
-        <div class="b-cell reveal" style="background:#0b1120; border:1px solid rgba(4,170,109,0.35); border-radius:18px; padding:32px;">
-          <div style="font-size:36px; margin-bottom:16px;">📧</div>
-          <h2 style="font-size:1.4rem; font-weight:800; color:#ffffff; margin-bottom:10px;">Professional Business Email Hosting</h2>
-          <p style="color:#cbd5e1; font-size:0.95rem; line-height:1.6; margin-bottom:18px;">
-            Establish corporate trust with official @yourdomain.com email addresses synced seamlessly across Outlook, Gmail, and Android phones.
-          </p>
-          <ul style="color:#e2e8f0; font-size:0.9rem; line-height:1.8; margin-bottom:20px; padding-left:20px;">
-            <li>Custom @yourdomain.com Email Addresses</li>
-            <li>Webmail Access on Android & Mobile</li>
-            <li>Anti-Spam & Virus Protection Shield</li>
-            <li>99.9% Server Uptime Guarantee</li>
-          </ul>
-          <a href="packages" style="color:#04AA6D; font-weight:700; font-size:0.95rem; text-decoration:none;">Order Business Emails &rarr;</a>
-        </div>
-
-        <!-- Service 6: Google Business & Local Maps -->
-        <div class="b-cell reveal" style="background:#0b1120; border:1px solid rgba(239,68,68,0.35); border-radius:18px; padding:32px;">
-          <div style="font-size:36px; margin-bottom:16px;">📍</div>
-          <h2 style="font-size:1.4rem; font-weight:800; color:#ffffff; margin-bottom:10px;">Google Business Profile & Local SEO</h2>
-          <p style="color:#cbd5e1; font-size:0.95rem; line-height:1.6; margin-bottom:18px;">
-            Claim, verify and optimize your Google Maps profile so nearby customers find your business phone number, address, and 5-star reviews instantly.
-          </p>
-          <ul style="color:#e2e8f0; font-size:0.9rem; line-height:1.8; margin-bottom:20px; padding-left:20px;">
-            <li>Google Maps Pin Claiming & Verification</li>
-            <li>5-Star Review Generation Strategy</li>
-            <li>Business Hours & Contact Info Sync</li>
-            <li>Increases Direct Phone Calls & Walk-ins</li>
-          </ul>
-          <a href="packages" style="color:#f87171; font-weight:700; font-size:0.95rem; text-decoration:none;">Setup Google Maps &rarr;</a>
-        </div>
-
-        <!-- Service 7: Website Maintenance -->
-        <div class="b-cell reveal" style="background:#0b1120; border:1px solid rgba(56,189,248,0.35); border-radius:18px; padding:32px;">
-          <div style="font-size:36px; margin-bottom:16px;">🛠️</div>
-          <h2 style="font-size:1.4rem; font-weight:800; color:#ffffff; margin-bottom:10px;">Website Maintenance & Care</h2>
-          <p style="color:#cbd5e1; font-size:0.95rem; line-height:1.6; margin-bottom:18px;">
-            Hassle-free website maintenance, monthly content updates, automated cloud backups, security scanning, and 24/7 uptime monitoring.
-          </p>
-          <ul style="color:#e2e8f0; font-size:0.9rem; line-height:1.8; margin-bottom:20px; padding-left:20px;">
-            <li>Monthly Content & Product Updates</li>
-            <li>Automated Daily / Weekly Cloud Backups</li>
-            <li>Malware Removal & Security Monitoring</li>
-            <li>Zero Downtime Guarantee</li>
-          </ul>
-          <a href="packages" style="color:#38bdf8; font-weight:700; font-size:0.95rem; text-decoration:none;">Subscribe Maintenance &rarr;</a>
-        </div>
-
-        <!-- Service 8: Logo & Brand Identity -->
-        <div class="b-cell reveal" style="background:#0b1120; border:1px solid rgba(168,85,247,0.35); border-radius:18px; padding:32px;">
-          <div style="font-size:36px; margin-bottom:16px;">🎨</div>
-          <h2 style="font-size:1.4rem; font-weight:800; color:#ffffff; margin-bottom:10px;">Logo & Brand Identity Suite</h2>
-          <p style="color:#cbd5e1; font-size:0.95rem; line-height:1.6; margin-bottom:18px;">
-            Professional vector logo design, brand guidelines, social media cover artwork, and web icon suites that make your business stand out.
-          </p>
-          <ul style="color:#e2e8f0; font-size:0.9rem; line-height:1.8; margin-bottom:20px; padding-left:20px;">
-            <li>3 Custom Vector Logo Concepts</li>
-            <li>High-Res AI, EPS, SVG & PNG Files</li>
-            <li>Favicons & Web Icon Suite</li>
-            <li>Social Media Profile & Cover Banners</li>
-          </ul>
-          <a href="packages" style="color:#c084fc; font-weight:700; font-size:0.95rem; text-decoration:none;">Get Custom Logo &rarr;</a>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- Solid Audit CTA Banner -->
-  <section class="section" style="padding-top:40px; padding-bottom:60px;">
-    <div class="section-inner">
-      <div class="b-cell reveal" style="background:#090e1a !important; border:2px solid #04AA6D !important; border-radius:20px; padding:40px 24px; text-align:center; box-shadow:0 20px 40px rgba(0,0,0,0.6);">
-        <div style="display:inline-block; background:rgba(4,170,109,0.25); border:1px solid #04AA6D; color:#04AA6D; font-size:0.75rem; font-weight:900; text-transform:uppercase; letter-spacing:0.1em; padding:6px 16px; border-radius:50px; margin-bottom:14px;">
-          Free Growth Consultation
-        </div>
-        <h2 style="font-size:clamp(1.6rem, 3.5vw, 2.3rem); color:#ffffff !important; font-weight:900; margin-bottom:12px; text-shadow:0 2px 4px rgba(0,0,0,0.9);">
-          Need a Custom Solution for Your Business?
-        </h2>
-        <p style="font-size:1.05rem; max-width:680px; margin:0 auto 24px; color:#f1f5f9 !important; line-height:1.6; font-weight:500;">
-          Speak directly with our chief website architects. We will evaluate your business goals and structure the perfect digital strategy completely free.
-        </p>
-        <a href="https://wa.me/94789714912?text=Hello%20Infinite%20Creative!%20I%20need%20a%20free%20consultation%20for%20my%20digital%20project." target="_blank" rel="noopener" class="nav-cta" style="display:inline-flex; align-items:center; justify-content:center; gap:10px; padding:14px 30px; font-size:1.05rem; font-weight:800; border-radius:10px; text-decoration:none; background:#04AA6D; color:#ffffff !important; box-shadow:0 8px 24px rgba(4,170,109,0.4);">
-          <span>Talk on WhatsApp &rarr;</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer style="background:#080c16; border-top:1px solid rgba(255,255,255,0.08); padding:40px 0; text-align:center; color:#94a3b8; font-size:0.9rem;">
-    <div class="section-inner">
-      <p>© 2026 Infinite Creative Web Design & Digital Engineering. All Rights Reserved.</p>
-    </div>
+  <!-- FOOTER -->
+  <footer style="background:#070a12; border-top:1px solid rgba(255,255,255,0.08); padding:40px 20px; text-align:center; color:#94a3b8; font-size:0.9rem;">
+    <p>&copy; 2026 Infinite Creative Web Design. All rights reserved. Direct Lines: +94 78 971 4912 | +94 71 884 6214</p>
   </footer>
+
 </body>
 </html>
