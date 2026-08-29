@@ -1413,3 +1413,147 @@ button, .btn, .btn-primary, .btn-secondary, a.cta-btn, .nav-link, select, input 
     padding: 24px 16px !important;
   }
 }
+
+
+/* ══════════════════════════════════════════════════════
+   MASTER MOBILE CENTERING, ALIGNMENT & OVERFLOW SHIELD
+   ══════════════════════════════════════════════════════ */
+html, body {
+  width: 100% !important;
+  max-width: 100vw !important;
+  overflow-x: hidden !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-radius: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box !important;
+}
+
+/* Failsafe header style for .site-header & .nav */
+.site-header, .nav {
+  position: fixed !important;
+  top: 12px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: calc(100% - 24px) !important;
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  z-index: 9999 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 10px 16px !important;
+  background: rgba(8, 12, 22, 0.92) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important;
+}
+
+.header-inner {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.main-nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+@media (max-width: 992px) {
+  .main-nav {
+    display: none !important;
+  }
+}
+
+/* Container & Section Mobile Centering */
+.section, section {
+  width: 100% !important;
+  max-width: 100vw !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+}
+
+.section-inner, .container {
+  width: 100% !important;
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  padding-left: 16px !important;
+  padding-right: 16px !important;
+  box-sizing: border-box !important;
+}
+
+/* Bento & Grid Mobile Alignment */
+@media (max-width: 768px) {
+  .site-header, .nav {
+    width: calc(100% - 20px) !important;
+    top: 8px !important;
+    padding: 8px 14px !important;
+  }
+  
+  .hero-main {
+    padding: 28px 16px !important;
+    text-align: center !important;
+  }
+
+  .hero-tagline, .pricing-subtitle, .section-subtitle {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: center !important;
+  }
+
+  .hero-btns {
+    justify-content: center !important;
+    width: 100% !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+
+  .hero-btns .btn, .hero-btns a {
+    width: 100% !important;
+    text-align: center !important;
+    justify-content: center !important;
+  }
+
+  .bento {
+    grid-template-columns: 1fr !important;
+    width: 100% !important;
+    gap: 16px !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  .b-cell, .pkg-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 24px 16px !important;
+  }
+
+  .pkg-section-header {
+    text-align: center !important;
+    padding: 18px 14px !important;
+  }
+
+  .pkg-section-header h2 {
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
+  /* Code terminal mobile fit */
+  .hero-code-terminal {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    font-size: 0.78rem !important;
+    padding: 12px !important;
+  }
+}
