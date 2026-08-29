@@ -1165,13 +1165,14 @@ function parseBasePrice(priceStr) {
 function renderPackages(list, container) {
   container.innerHTML = '';
   
-  // Group packages by 5 topics
+  // Group packages by topics with explicit Section IDs for smooth scrolling
   const topics = [
-    { key: 'low-cost', title: '💡 Low-Cost Web Design Packages', desc: 'High quality, affordable web solutions tailored for Sri Lankan startups, small businesses & personal sites.' },
-    { key: 'corporate', title: '🏢 Standard Corporate Packages', desc: 'Established business & company website packages with custom UI, business emails & admin control.' },
-    { key: 'international', title: '🌍 International & Premium Web Design Packages', desc: 'Built for export brands, multinational firms & global operations targeting international search markets.' },
-    { key: 'ecommerce', title: '🛒 E-Commerce & Product Catalogue Solutions', desc: 'Complete online store & catalogue platforms ready for PayHere, Visa, Mastercard & Koko installment payments.' },
-    { key: 'services', title: '🛠️ Specialized Digital Services & Business Add-Ons', desc: 'Standalone digital solutions to upgrade your brand reputation, search rank, email & maintenance.' }
+    { key: 'low-cost', id: 'web-design-packages', title: '💡 Low-Cost Web Design Packages', desc: 'High quality, affordable web solutions tailored for Sri Lankan startups, small businesses & personal sites.' },
+    { key: 'corporate', id: 'corporate-packages', title: '🏢 Standard Corporate Packages', desc: 'Established business & company website packages with custom UI, business emails & admin control.' },
+    { key: 'international', id: 'international-packages', title: '🌍 International & Premium Web Design Packages', desc: 'Built for export brands, multinational firms & global operations targeting international search markets.' },
+    { key: 'ecommerce', id: 'ecommerce-packages', title: '🛒 E-Commerce & Product Catalogue Solutions', desc: 'Complete online store & catalogue platforms ready for PayHere, Visa, Mastercard & Koko installment payments.' },
+    { key: 'marketing', id: 'digital-marketing-packages', title: '📢 Social Media & Meta Ads Boost Packages', desc: 'Targeted Meta (Facebook & Instagram) ad campaign packages engineered for maximum reach & direct WhatsApp lead inquiries in Sri Lanka.' },
+    { key: 'services', id: 'digital-services-packages', title: '🛠️ Specialized Digital Services & Business Add-Ons', desc: 'Standalone digital solutions to upgrade your brand reputation, search rank, email & maintenance.' }
   ];
 
   topics.forEach(t => {
@@ -1180,6 +1181,7 @@ function renderPackages(list, container) {
 
     const secHeader = document.createElement('div');
     secHeader.className = 'pkg-section-header reveal';
+    secHeader.id = t.id || (t.key + '-packages');
     secHeader.style.cssText = 'grid-column: 1 / -1; margin-top: 36px; margin-bottom: 20px; text-align: left; background: #ffffff !important; padding: 20px 24px; border-radius: 14px; border: 1px solid #e2e8f0; border-left: 5px solid #04AA6D; box-shadow: 0 4px 16px rgba(0,0,0,0.04);';
     secHeader.innerHTML = `
       <h2 style="font-family:'Space Grotesk', sans-serif; font-size: 1.6rem; font-weight: 800; color: #0f172a !important; margin-bottom: 6px; display:flex; align-items:center; gap:10px;">${t.title}</h2>
