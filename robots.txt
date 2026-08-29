@@ -1,6 +1,7 @@
 User-agent: *
 Allow: /
 Disallow: /admin/
-Disallow: /backend/
+Disallow: /scratch/
+Disallow: /.system_generated/
 
 Sitemap: https://infiniteweb.dev/sitemap.xml

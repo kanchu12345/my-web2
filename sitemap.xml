@@ -2,61 +2,70 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+                            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+  
   <!-- Homepage -->
   <url>
     <loc>https://infiniteweb.dev/</loc>
-    <lastmod>2026-08-28</lastmod>
+    <lastmod>2026-08-29</lastmod>
     <changefreq>daily</changefreq>
-    <priority>1.00</priority>
+    <priority>1.0</priority>
   </url>
-  <!-- Packages & Pricing -->
+
+  <!-- Web Design & Digital Marketing Packages -->
   <url>
     <loc>https://infiniteweb.dev/packages</loc>
-    <lastmod>2026-08-28</lastmod>
+    <lastmod>2026-08-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
   </url>
-  <!-- Completed Projects -->
-  <url>
-    <loc>https://infiniteweb.dev/projects</loc>
-    <lastmod>2026-08-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <!-- Services -->
+
+  <!-- Services Overview -->
   <url>
     <loc>https://infiniteweb.dev/services</loc>
-    <lastmod>2026-08-28</lastmod>
+    <lastmod>2026-08-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
-  <!-- Tech Blogs -->
+
+  <!-- Portfolio & Completed Projects -->
+  <url>
+    <loc>https://infiniteweb.dev/projects</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- About Company & Story -->
+  <url>
+    <loc>https://infiniteweb.dev/about</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- Sri Lanka Tech News & Blog -->
   <url>
     <loc>https://infiniteweb.dev/blogs</loc>
-    <lastmod>2026-08-28</lastmod>
+    <lastmod>2026-08-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.90</priority>
   </url>
-  <!-- Coding Tutorials -->
+
+  <!-- Developer Academy & Coding Tutorials -->
   <url>
     <loc>https://infiniteweb.dev/tutorials</loc>
-    <lastmod>2026-08-28</lastmod>
+    <lastmod>2026-08-29</lastmod>
     <changefreq>daily</changefreq>
-    <priority>0.85</priority>
+    <priority>0.90</priority>
   </url>
-  <!-- About Agency -->
-  <url>
-    <loc>https://infiniteweb.dev/about</loc>
-    <lastmod>2026-08-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
-  </url>
-  <!-- Contact & Tangalle Office -->
+
+  <!-- Contact & Direct Consultation -->
   <url>
     <loc>https://infiniteweb.dev/contact</loc>
-    <lastmod>2026-08-28</lastmod>
+    <lastmod>2026-08-29</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
+    <priority>0.85</priority>
   </url>
+
 </urlset>
