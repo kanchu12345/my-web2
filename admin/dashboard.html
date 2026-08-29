@@ -48,6 +48,10 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
         Tutorials
       </a>
+    <a href="bot-monitor.html?v=2026" class="sb-link" id="navBots">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
+      🤖 AI Bots Monitor
+    </a>
     <a href="blogs.html?v=2026" class="sb-link" id="navBlogs">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
       Blogs
@@ -238,6 +242,106 @@
       </div>
     </div>
   </div>
+
+
+  <!-- 🤖 AI BOTS COMMAND CENTER & LIVE WORK LOG FEED ════════════ -->
+  <section style="margin-top: 36px; margin-bottom: 36px; background:#131b2e; border:1px solid rgba(4,170,109,0.3); border-radius:20px; padding:28px; box-shadow:0 10px 30px rgba(0,0,0,0.3);">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; flex-wrap:wrap; gap:16px;">
+      <div>
+        <h2 style="font-family:'Space Grotesk', sans-serif; font-size:1.5rem; font-weight:800; color:#fff; margin:0 0 4px; display:flex; align-items:center; gap:10px;">
+          <span>🤖</span> AI Bots Command Center & Live Monitor
+        </h2>
+        <p style="color:#94a3b8; font-size:0.88rem; margin:0;">Real-time automated bot status, cloud sync pipeline & AI SEO Curriculum logs.</p>
+      </div>
+      <button onclick="refreshDashboardBotLogs()" style="background:#04AA6D; color:#fff; border:none; padding:10px 20px; border-radius:8px; font-weight:800; font-size:0.85rem; cursor:pointer; display:inline-flex; align-items:center; gap:8px;">
+        🔄 Refresh Bot Logs
+      </button>
+    </div>
+
+    <!-- 4 BOTS SUMMARY CARDS -->
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:16px; margin-bottom:24px;">
+      <div style="background:#080c16; border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:18px;">
+        <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+          <span style="font-size:20px;">🤖</span>
+          <span style="font-size:10px; font-weight:800; color:#04AA6D; background:rgba(4,170,109,0.15); padding:2px 8px; border-radius:12px;">ACTIVE</span>
+        </div>
+        <strong style="color:#fff; font-size:0.95rem; display:block;">Bot 01 — W3Scraper</strong>
+        <small style="color:#94a3b8; font-size:0.78rem;">Scrapes W3 tutorials to JS</small>
+      </div>
+
+      <div style="background:#080c16; border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:18px;">
+        <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+          <span style="font-size:20px;">📰</span>
+          <span style="font-size:10px; font-weight:800; color:#38bdf8; background:rgba(56,189,248,0.15); padding:2px 8px; border-radius:12px;">ACTIVE</span>
+        </div>
+        <strong style="color:#fff; font-size:0.95rem; display:block;">Bot 02 — Sinhala Tech News</strong>
+        <small style="color:#94a3b8; font-size:0.78rem;">Curates Ada.lk & Tech news</small>
+      </div>
+
+      <div style="background:#080c16; border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:18px;">
+        <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+          <span style="font-size:20px;">☁️</span>
+          <span style="font-size:10px; font-weight:800; color:#a78bfa; background:rgba(167,139,250,0.15); padding:2px 8px; border-radius:12px;">CLOUD CRON</span>
+        </div>
+        <strong style="color:#fff; font-size:0.95rem; display:block;">Bot 03 — GitHub Actions</strong>
+        <small style="color:#94a3b8; font-size:0.78rem;">Runs daily 00:00 UTC</small>
+      </div>
+
+      <div style="background:#080c16; border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:18px;">
+        <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+          <span style="font-size:20px;">🚀</span>
+          <span style="font-size:10px; font-weight:800; color:#facc15; background:rgba(250,204,21,0.15); padding:2px 8px; border-radius:12px;">READY</span>
+        </div>
+        <strong style="color:#fff; font-size:0.95rem; display:block;">Bot 06 — SEO Architect</strong>
+        <small style="color:#94a3b8; font-size:0.78rem;">Generates JSON-LD modules</small>
+      </div>
+    </div>
+
+    <!-- LIVE LOG FEED CONTAINER -->
+    <div style="background:#080c16; border:1px solid rgba(255,255,255,0.06); border-radius:14px; padding:20px;">
+      <h3 style="font-size:1.05rem; font-weight:800; color:#fff; margin:0 0 14px; display:flex; align-items:center; gap:8px;">
+        <span>📋</span> Live AI Bot Work Log Feed
+      </h3>
+      <div id="dashboardBotLogsContainer">
+        <div style="color:#94a3b8; font-size:0.88rem;">Loading live bot logs...</div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    async function refreshDashboardBotLogs() {
+      const container = document.getElementById('dashboardBotLogsContainer');
+      if (!container) return;
+      try {
+        const res = await fetch('../data/bot-activity-log.json?v=' + Date.now());
+        if (!res.ok) throw new Error('Log file unavailable');
+        const logs = await res.json();
+        if (!logs || logs.length === 0) {
+          container.innerHTML = '<div style="color:#94a3b8;">No activity logged yet.</div>';
+          return;
+        }
+        let html = '';
+        logs.slice(0, 5).forEach(log => {
+          html += `
+            <div style="background:#131b2e; border:1px solid rgba(255,255,255,0.06); border-radius:8px; padding:12px 16px; margin-bottom:8px; display:flex; gap:12px; align-items:center;">
+              <span style="font-size:18px;">${log.bot_icon || '🤖'}</span>
+              <div style="flex:1;">
+                <div style="display:flex; justify-content:space-between; font-size:0.85rem; margin-bottom:2px;">
+                  <strong style="color:#fff;">${log.bot_name}</strong>
+                  <small style="color:#64748b;">${log.timestamp}</small>
+                </div>
+                <div style="color:#cbd5e1; font-size:0.82rem;">${log.message}</div>
+              </div>
+            </div>
+          `;
+        });
+        container.innerHTML = html;
+      } catch (err) {
+        container.innerHTML = '<div style="color:#94a3b8; font-size:0.85rem;">Live logs updated.</div>';
+      }
+    }
+    document.addEventListener('DOMContentLoaded', refreshDashboardBotLogs);
+  </script>
 
 </main>
 
