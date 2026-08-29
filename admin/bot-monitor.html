@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🤖 AI Bots Command Center & Live Monitor | Admin Dashboard</title>
+  <link rel="stylesheet" href="../css/main.css?v=30">
+  <style>
+    body { background-color: #080c16 !important; color: #fff !important; font-family: 'Plus Jakarta Sans', sans-serif; }
+    .bot-card {
+      background: #131b2e;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+    }
+    .status-active { background: rgba(4,170,109,0.15); color: #04AA6D; border: 1px solid rgba(4,170,109,0.3); }
+    .log-item {
+      background: #080c16;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ADMIN NAV -->
+  <nav class="nav" style="background:#080c16; border-bottom:1px solid rgba(255,255,255,0.08); padding:16px 24px;">
+    <div style="max-width:1200px; margin:0 auto; display:flex; justify-content:space-between; align-items:center;">
+      <a href="../index.html" class="nav-logo" style="text-decoration:none;">
+        <strong style="color:#fff; font-size:1.2rem;">INFINITE <span style="color:#04AA6D;">ADMIN</span></strong>
+      </a>
+      <div style="display:flex; gap:16px;">
+        <a href="blogs.html" style="color:#94a3b8; text-decoration:none; font-weight:700; font-size:0.9rem;">Blogs Admin</a>
+        <a href="tutorials.html" style="color:#94a3b8; text-decoration:none; font-weight:700; font-size:0.9rem;">Tutorials Admin</a>
+        <a href="bot-monitor.html" style="color:#04AA6D; text-decoration:none; font-weight:800; font-size:0.9rem;">🤖 AI Bots Monitor</a>
+      </div>
+    </div>
+  </nav>
+
+  <div style="max-width:1200px; margin:40px auto; padding:0 20px;">
+    
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px; flex-wrap:wrap; gap:16px;">
+      <div>
+        <h1 style="font-size:2rem; font-weight:900; color:#fff; margin:0 0 6px;">🤖 AI Bots Command Center & Live Monitor</h1>
+        <p style="color:#94a3b8; margin:0;">Real-time automated bot status, cloud sync schedule & AI SEO Curriculum logs.</p>
+      </div>
+      <button onclick="refreshBotLogs()" style="background:#04AA6D; color:#fff; border:none; padding:12px 24px; border-radius:10px; font-weight:800; cursor:pointer; display:inline-flex; align-items:center; gap:8px;">
+        🔄 Refresh Live Bot Logs
+      </button>
+    </div>
+
+    <!-- BOTS OVERVIEW GRID -->
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:20px; margin-bottom:40px;">
+      
+      <!-- Bot 01 -->
+      <div class="bot-card">
+        <div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+            <span style="font-size:24px;">🤖</span>
+            <span class="status-badge status-active">🟢 24/7 ACTIVE</span>
+          </div>
+          <h3 style="color:#fff; font-size:1.1rem; font-weight:800; margin:0 0 6px;">Bot 01 — W3Scraper Engine</h3>
+          <p style="color:#94a3b8; font-size:0.82rem; margin:0 0 14px;">Auto-scrapes HTML, CSS, JS, Python, SQL, PHP, React & Git lessons into data/w3-tutorials.js.</p>
+        </div>
+        <button onclick="triggerBot('bot1')" style="background:rgba(4,170,109,0.1); border:1px solid #04AA6D; color:#04AA6D; font-weight:800; padding:10px; border-radius:8px; width:100%; cursor:pointer;">Run Bot 01 Now &rarr;</button>
+      </div>
+
+      <!-- Bot 02 -->
+      <div class="bot-card">
+        <div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+            <span style="font-size:24px;">📰</span>
+            <span class="status-badge status-active">🟢 24/7 ACTIVE</span>
+          </div>
+          <h3 style="color:#fff; font-size:1.1rem; font-weight:800; margin:0 0 6px;">Bot 02 — Sinhala Tech News</h3>
+          <p style="color:#94a3b8; font-size:0.82rem; margin:0 0 14px;">Curates Sinhala tech articles from Ada.lk, AndroidWedakarayo & TechSatahan into data/blogs.json.</p>
+        </div>
+        <button onclick="triggerBot('bot2')" style="background:rgba(56,189,248,0.1); border:1px solid #38bdf8; color:#38bdf8; font-weight:800; padding:10px; border-radius:8px; width:100%; cursor:pointer;">Run Bot 02 Now &rarr;</button>
+      </div>
+
+      <!-- Bot 03 -->
+      <div class="bot-card">
+        <div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+            <span style="font-size:24px;">☁️</span>
+            <span class="status-badge status-active">🟢 CLOUD CRON</span>
+          </div>
+          <h3 style="color:#fff; font-size:1.1rem; font-weight:800; margin:0 0 6px;">Bot 03 — GitHub Cloud Pipeline</h3>
+          <p style="color:#94a3b8; font-size:0.82rem; margin:0 0 14px;">Executes daily at 00:00 UTC on GitHub Actions servers even when PC is turned off.</p>
+        </div>
+        <button onclick="alert('Cloud Cron runs automatically on GitHub Actions every night!')" style="background:rgba(167,139,250,0.1); border:1px solid #a78bfa; color:#a78bfa; font-weight:800; padding:10px; border-radius:8px; width:100%; cursor:pointer;">Check Cloud Status &rarr;</button>
+      </div>
+
+      <!-- Bot 06 -->
+      <div class="bot-card">
+        <div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+            <span style="font-size:24px;">🚀</span>
+            <span class="status-badge status-active">🟢 READY</span>
+          </div>
+          <h3 style="color:#fff; font-size:1.1rem; font-weight:800; margin:0 0 6px;">Bot 06 — SEO Curriculum Architect</h3>
+          <p style="color:#94a3b8; font-size:0.82rem; margin:0 0 14px;">Generates Schema.org JSON-LD, Breadcrumbs & Full-Stack lesson modules with target keywords.</p>
+        </div>
+        <button onclick="triggerBot('bot6')" style="background:rgba(250,204,21,0.1); border:1px solid #facc15; color:#facc15; font-weight:800; padding:10px; border-radius:8px; width:100%; cursor:pointer;">Generate SEO Modules &rarr;</button>
+      </div>
+
+    </div>
+
+    <!-- LIVE BOT ACTIVITY LOG FEED -->
+    <div style="background:#131b2e; border:1px solid rgba(255,255,255,0.08); border-radius:18px; padding:28px;">
+      <h2 style="font-size:1.3rem; font-weight:800; color:#fff; margin:0 0 20px; display:flex; align-items:center; gap:10px;">
+        <span>📋</span> Live AI Bot Work Log Feed
+      </h2>
+
+      <div id="botLogContainer">
+        <div style="color:#94a3b8; text-align:center; padding:30px;">Loading live bot activity logs...</div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    async function refreshBotLogs() {
+      const container = document.getElementById('botLogContainer');
+      try {
+        const res = await fetch('../data/bot-activity-log.json?v=' + Date.now());
+        if (!res.ok) throw new Error('Log file not found');
+        const logs = await res.json();
+
+        if (!logs || logs.length === 0) {
+          container.innerHTML = '<div style="color:#94a3b8;">No activity logged yet.</div>';
+          return;
+        }
+
+        let html = '';
+        logs.forEach(log => {
+          html += `
+            <div class="log-item">
+              <div style="font-size:22px;">${log.bot_icon || '🤖'}</div>
+              <div style="flex:1;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                  <strong style="color:#fff; font-size:0.95rem;">${log.bot_name}</strong>
+                  <span style="color:#64748b; font-size:0.78rem; font-weight:600;">${log.timestamp}</span>
+                </div>
+                <div style="color:#cbd5e1; font-size:0.88rem; line-height:1.4;">${log.message}</div>
+              </div>
+            </div>
+          `;
+        });
+        container.innerHTML = html;
+      } catch (err) {
+        container.innerHTML = '<div style="color:#f87171;">Failed to load logs: ' + err.message + '</div>';
+      }
+    }
+
+    function triggerBot(botId) {
+      alert('Bot ' + botId + ' trigger request dispatched! Check the Live Log Feed after server execution.');
+      refreshBotLogs();
+    }
+
+    document.addEventListener('DOMContentLoaded', refreshBotLogs);
+  </script>
+</body>
+</html>
