@@ -712,5 +712,52 @@
     "addon": "Maximum scale package for dominant market leaders.",
     "cta": "Choose Ultimate 36.5K",
     "order": 6
+  },
+  {
+    "id": "pkg-app-basic",
+    "name": "Basic Mobile App",
+    "price": "Rs. 75,000/-",
+    "priceNum": 75000,
+    "tag": "Mobile App",
+    "topic": "mobile-apps",
+    "sectionTitle": "📱 Mobile App Development Packages",
+    "sectionDesc": "Cross-platform Flutter mobile applications for iOS & Android play store deployment.",
+    "featured": false,
+    "popular": false,
+    "description": "Essential mobile application for businesses, catalogs & appointment bookings.",
+    "features": [
+      "Cross-Platform iOS & Android App",
+      "Flutter Architecture & Clean UI",
+      "Push Notifications Integration",
+      "WhatsApp Direct Chat & Inquiries",
+      "Google Play Store & App Store Publishing Assistance"
+    ],
+    "addon": "Ideal for service catalogs & customer portals.",
+    "cta": "Choose Basic App",
+    "order": 17.5
+  },
+  {
+    "id": "pkg-app-pro",
+    "name": "Custom Enterprise App",
+    "price": "Rs. 150,000/-",
+    "priceNum": 150000,
+    "tag": "Enterprise App",
+    "topic": "mobile-apps",
+    "sectionTitle": "📱 Mobile App Development Packages",
+    "sectionDesc": "Cross-platform Flutter mobile applications for iOS & Android play store deployment.",
+    "featured": true,
+    "popular": true,
+    "description": "Advanced custom mobile app for taxi booking, food delivery, e-commerce & live tracking.",
+    "features": [
+      "Full Taxi / Delivery / E-Commerce System",
+      "Live GPS Location Tracking & Maps",
+      "PayHere & Card Gateway Payment Integration",
+      "Customer & Driver / Merchant Admin Panels",
+      "Automated Push Notifications & Order Alerts",
+      "6 Months Dedicated Mobile Maintenance Support"
+    ],
+    "addon": "Full custom backend & database included.",
+    "cta": "Choose Enterprise App",
+    "order": 17.8
   }
 ]

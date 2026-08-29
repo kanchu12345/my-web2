@@ -1171,6 +1171,7 @@ function renderPackages(list, container) {
     { key: 'corporate', id: 'corporate-packages', title: '🏢 Standard Corporate Packages', desc: 'Established business & company website packages with custom UI, business emails & admin control.' },
     { key: 'international', id: 'international-packages', title: '🌍 International & Premium Web Design Packages', desc: 'Built for export brands, multinational firms & global operations targeting international search markets.' },
     { key: 'ecommerce', id: 'ecommerce-packages', title: '🛒 E-Commerce & Product Catalogue Solutions', desc: 'Complete online store & catalogue platforms ready for PayHere, Visa, Mastercard & Koko installment payments.' },
+    { key: 'mobile-apps', id: 'mobile-apps-packages', title: '📱 Mobile App Development Packages', desc: 'Cross-platform Flutter mobile applications for iOS & Android play store deployment.' },
     { key: 'marketing', id: 'digital-marketing-packages', title: '📢 Social Media & Meta Ads Boost Packages', desc: 'Targeted Meta (Facebook & Instagram) ad campaign packages engineered for maximum reach & direct WhatsApp lead inquiries in Sri Lanka.' },
     { key: 'services', id: 'digital-services-packages', title: '🛠️ Specialized Digital Services & Business Add-Ons', desc: 'Standalone digital solutions to upgrade your brand reputation, search rank, email & maintenance.' }
   ];
@@ -1195,71 +1196,66 @@ function renderPackages(list, container) {
       card.className = `pkg-card ${pkg.featured ? 'featured' : ''} reveal reveal-delay-${(index % 4) + 1}`;
       card.id = `pkg_card_${pkg.id || index}`;
       
-      // White card background with solid deep black text
-      card.style.cssText = 'background: #ffffff !important; border: 1px solid #e2e8f0 !important; border-radius: 16px; padding: 32px 24px; display: flex; flex-direction: column; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.06); color: #0f172a !important;';
+      // Sleek Compact International Standard Card Height
+      card.style.cssText = 'background: #ffffff !important; border: 1px solid #e2e8f0 !important; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; position: relative; box-shadow: 0 8px 24px rgba(0,0,0,0.06); color: #0f172a !important; min-height: 380px; box-sizing: border-box;';
 
-      const featuresHtml = (pkg.features || []).map(feat => `
-        <li class="pkg-feature-item" style="display:flex; align-items:flex-start; gap:10px; font-size:0.95rem; color:#0f172a !important; line-height:1.4; font-weight:700;">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#04AA6D" stroke-width="2.8" style="min-width:18px; width:18px; height:18px; margin-top:2px;"><polyline points="20 6 9 17 4 12"/></svg>
-          <span style="color:#0f172a !important; font-weight:700 !important; font-size:0.95rem !important;">${feat}</span>
+      const allFeats = pkg.features || [];
+      const topFeats = allFeats.slice(0, 3);
+      const moreFeats = allFeats.slice(3);
+
+      const topFeatsHtml = topFeats.map(feat => `
+        <li class="pkg-feature-item" style="display:flex; align-items:flex-start; gap:8px; font-size:0.88rem; color:#0f172a !important; line-height:1.4; font-weight:700; margin-bottom:8px;">
+          <svg style="flex-shrink:0; margin-top:2px;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#04AA6D" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>${feat}</span>
         </li>
       `).join('');
 
-      const addonsHtml = `
-        <div class="pkg-addons-box" style="margin: 16px 0; padding: 16px; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 12px; text-align: left; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
-          <div style="font-size: 11px; font-weight: 800; color: #04AA6D; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; display:flex; align-items:center; gap:6px;">
-            <span>✨ Select Optional Add-ons:</span>
-          </div>
-          <div style="display: flex; flex-direction: column; gap: 8px; font-size: 12px; color: #0f172a; font-weight: 700;">
-            <label style="display:flex; align-items:center; gap:8px; cursor:pointer; color:#0f172a !important;">
-              <input type="checkbox" class="pkg-addon-cb" data-pkg-id="${pkg.id || index}" data-name="+1 Extra Custom Page" data-price="1500" onchange="updatePkgTotal('${pkg.id || index}', ${basePrice}, '${pkg.name}')" accent-color="#04AA6D">
-              <span style="color:#0f172a !important; font-weight:700;">📄 +1 Extra Page (+Rs. 1,500)</span>
-            </label>
-            <label style="display:flex; align-items:center; gap:8px; cursor:pointer; color:#0f172a !important;">
-              <input type="checkbox" class="pkg-addon-cb" data-pkg-id="${pkg.id || index}" data-name="PayHere Card Gateway" data-price="8000" onchange="updatePkgTotal('${pkg.id || index}', ${basePrice}, '${pkg.name}')" accent-color="#04AA6D">
-              <span style="color:#0f172a !important; font-weight:700;">💳 PayHere Card Gateway (+Rs. 8,000)</span>
-            </label>
-            <label style="display:flex; align-items:center; gap:8px; cursor:pointer; color:#0f172a !important;">
-              <input type="checkbox" class="pkg-addon-cb" data-pkg-id="${pkg.id || index}" data-name="Google Maps & Local SEO Setup" data-price="2500" onchange="updatePkgTotal('${pkg.id || index}', ${basePrice}, '${pkg.name}')" accent-color="#04AA6D">
-              <span style="color:#0f172a !important; font-weight:700;">📍 Google Maps & Local SEO (+Rs. 2,500)</span>
-            </label>
-            <label style="display:flex; align-items:center; gap:8px; cursor:pointer; color:#0f172a !important;">
-              <input type="checkbox" class="pkg-addon-cb" data-pkg-id="${pkg.id || index}" data-name="Sinhala + English Dual Language" data-price="5000" onchange="updatePkgTotal('${pkg.id || index}', ${basePrice}, '${pkg.name}')" accent-color="#04AA6D">
-              <span style="color:#0f172a !important; font-weight:700;">🗣️ Sinhala + English Dual (+Rs. 5,000)</span>
-            </label>
-          </div>
-        </div>
-      `;
+      const moreFeatsHtml = moreFeats.map(feat => `
+        <li class="pkg-feature-item" style="display:flex; align-items:flex-start; gap:8px; font-size:0.85rem; color:#334155 !important; line-height:1.4; font-weight:600; margin-bottom:8px;">
+          <svg style="flex-shrink:0; margin-top:2px;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>${feat}</span>
+        </li>
+      `).join('');
 
-      // ONLY 5000 and 10000 packages get Free Cloud Hosting badge!
-      const hostingNote = basePrice <= 10000 
-        ? '<div style="font-size:12px; color:#04AA6D; font-weight:800; margin-bottom:12px; padding:6px 12px; background:rgba(4,170,109,0.1); border-radius:6px; border:1px solid rgba(4,170,109,0.3); display:inline-block;">🎁 100% Free Cloud Hosting Included</div>' 
-        : '';
-
-      const originalPriceHtml = pkg.originalPrice 
-        ? `<div style="font-size:12px; color:#64748b; text-decoration:line-through; font-weight:600; margin-bottom:2px;">Original: ${pkg.originalPrice}</div>` 
-        : '';
+      const moreContainerId = `more_feats_${pkg.id || index}`;
 
       card.innerHTML = `
-        <div class="pkg-badge-wrap">
-          <span class="pkg-badge ${pkg.featured ? 'featured-badge' : ''}" style="background:rgba(4,170,109,0.12); color:#04AA6D; font-weight:700;">${pkg.tag || 'Package'}</span>
-          <div class="pkg-icon" style="background:rgba(4,170,109,0.1); color:#04AA6D; width:36px; height:36px; border-radius:10px; display:flex; align-items:center; justify-content:center;">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#04AA6D" stroke-width="2">
-              ${pkg.name.toLowerCase().includes('commerce') ? '<circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>' : '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>'}
-            </svg>
+        <div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+            <span style="font-size:10px; font-weight:800; color:#04AA6D; background:rgba(4,170,109,0.12); padding:3px 10px; border-radius:20px; text-transform:uppercase; letter-spacing:0.05em;">${pkg.tag || 'Popular'}</span>
+            ${pkg.featured ? '<span style="font-size:14px;">⭐</span>' : ''}
           </div>
+          
+          <h3 style="font-family:'Space Grotesk', sans-serif; font-size:1.35rem; font-weight:800; color:#0f172a !important; margin:0 0 4px;">${pkg.name}</h3>
+          
+          <div style="margin-bottom:12px;">
+            <span style="font-size:1.6rem; font-weight:900; color:#04AA6D;">${pkg.price}</span>
+            ${pkg.originalPrice ? `<span style="font-size:0.85rem; color:#94a3b8; text-decoration:line-through; margin-left:6px;">${pkg.originalPrice}</span>` : ''}
+          </div>
+
+          <p style="font-size:0.82rem; color:#475569 !important; margin:0 0 14px; line-height:1.4; font-weight:500;">${pkg.description || ''}</p>
+
+          <ul style="list-style:none; padding:0; margin:0 0 10px;">
+            ${topFeatsHtml}
+          </ul>
+
+          ${moreFeats.length > 0 ? `
+            <div id="${moreContainerId}" style="display:none; padding-top:8px; border-top:1px dashed #e2e8f0; margin-bottom:10px;">
+              <ul style="list-style:none; padding:0; margin:0;">
+                ${moreFeatsHtml}
+              </ul>
+            </div>
+            <button onclick="togglePkgMore('${moreContainerId}', this)" style="background:none; border:none; color:#0284c7; font-weight:800; font-size:0.78rem; cursor:pointer; padding:0; margin-bottom:14px; display:inline-flex; align-items:center; gap:4px;">
+              <span>See More Details</span> <span>▼</span>
+            </button>
+          ` : ''}
         </div>
-        <h3 class="pkg-name" style="font-size:1.4rem; font-weight:800; color:#0f172a !important; margin-bottom:6px;">${pkg.name}</h3>
-        <p class="pkg-desc" style="color:#475569 !important; font-size:0.9rem; margin-bottom:16px;">${pkg.description || ''}</p>
-        <div class="pkg-price-wrap" style="padding:12px 0; border-top:1px dashed #e2e8f0; border-bottom:1px dashed #e2e8f0; margin-bottom:16px;">
-          ${originalPriceHtml}
-          <div class="pkg-price" id="price_display_${pkg.id || index}" style="font-size:1.75rem; font-weight:800; color:#04AA6D !important;">${pkg.price}</div>
+
+        <div style="margin-top:auto; padding-top:12px;">
+          <a href="https://wa.me/94789714912?text=${encodeURIComponent('Hello! I want to order ' + pkg.name + ' (' + pkg.price + ')')}" target="_blank" rel="noopener" style="display:block; text-align:center; background:#04AA6D; color:#ffffff !important; font-weight:800; padding:10px 16px; border-radius:8px; text-decoration:none; box-shadow:0 4px 14px rgba(4,170,109,0.3); font-size:0.88rem;">
+            ${pkg.cta || 'Choose Package'} &rarr;
+          </a>
         </div>
-        ${hostingNote}
-        <ul class="pkg-features" style="margin:16px 0; padding:0; list-style:none; display:flex; flex-direction:column; gap:10px;">${featuresHtml}</ul>
-        ${addonsHtml}
-        <div class="pkg-addon-note" style="font-size:12px; color:#64748b; margin-bottom:14px;">${pkg.addon || ''}</div>
-        <button onclick="dispatchPackageWhatsApp('${pkg.name}', ${basePrice}, '${pkg.id || index}')" class="btn btn-primary pkg-cta" style="width:100%; padding:12px; font-weight:700; background:#04AA6D; color:#ffffff; border:none; border-radius:8px; cursor:pointer;">${pkg.cta || 'Choose Plan'}</button>
       `;
 
       container.appendChild(card);
@@ -1474,3 +1470,16 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 })();
 
+
+
+function togglePkgMore(id, btn) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  if (el.style.display === 'none' || !el.style.display) {
+    el.style.display = 'block';
+    btn.innerHTML = '<span>Show Less</span> <span>▲</span>';
+  } else {
+    el.style.display = 'none';
+    btn.innerHTML = '<span>See More Details</span> <span>▼</span>';
+  }
+}
