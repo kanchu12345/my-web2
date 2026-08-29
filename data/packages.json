@@ -172,11 +172,32 @@
       "Header Slider & Hover Effects",
       "Google Map & Mobile Chat System",
       "Free Basic SEO & Speed Boost",
-      "🚀 High-Speed Cloud Server Deployment"
+      "🚀 High-Speed Cloud Server Deployment",
+      "💳 PayHere & Credit/Debit Card Gateway Included",
+      "🗣️ Sinhala + English Dual Language Support Included"
     ],
     "addon": "Free Logo & Favicon Styling included",
     "cta": "Choose Starter 03",
-    "order": 7
+    "order": 7,
+    "hasAdvancedAddons": true,
+    "addonsList": [
+      {
+        "name": "⚡ 99+ PageSpeed Core Web Vitals Optimization",
+        "price": 3500
+      },
+      {
+        "name": "🔐 Advanced Cyber DDoS Shield & Firewall",
+        "price": 4500
+      },
+      {
+        "name": "🤖 WhatsApp AI Instant Lead Auto-Responder Bot",
+        "price": 6000
+      },
+      {
+        "name": "🎨 Custom Brand Logo & Stationery Vector Suite",
+        "price": 5000
+      }
+    ]
   },
   {
     "id": "pkg-business-pro",
@@ -198,11 +219,33 @@
       "Full SEO & Conversion Suite",
       "Advanced Role-Based Admin Panel",
       "Automated Daily Cloud Backups & SSL",
-      "6 Months Extended Dedicated Support"
+      "6 Months Extended Dedicated Support",
+      "💳 PayHere & Credit/Debit Card Gateway Included",
+      "📍 Google Maps Location & Local SEO Setup Included",
+      "🗣️ Sinhala + English Dual Language Support Included"
     ],
     "addon": "Free Minor Updates for 6 Months",
     "cta": "Choose Business Pro",
-    "order": 8
+    "order": 8,
+    "hasAdvancedAddons": true,
+    "addonsList": [
+      {
+        "name": "⚡ 99+ PageSpeed Core Web Vitals Optimization",
+        "price": 3500
+      },
+      {
+        "name": "🔐 Advanced Cyber DDoS Shield & Firewall",
+        "price": 4500
+      },
+      {
+        "name": "🤖 WhatsApp AI Instant Lead Auto-Responder Bot",
+        "price": 6000
+      },
+      {
+        "name": "🎨 Custom Brand Logo & Stationery Vector Suite",
+        "price": 5000
+      }
+    ]
   },
   {
     "id": "pkg-starter-corp",
@@ -225,11 +268,32 @@
       "Contact & Quotation Request Forms",
       "Google Map Location & Free SSL",
       "Standard Google SEO Setup",
-      "1 Month Free Maintenance & Support"
+      "1 Month Free Maintenance & Support",
+      "💳 PayHere & Credit/Debit Card Gateway Included",
+      "🗣️ Sinhala + English Dual Language Support Included"
     ],
     "addon": "Add extra pages for Rs. 1,500/- per page",
     "cta": "Choose Starter Corp",
-    "order": 9
+    "order": 9,
+    "hasAdvancedAddons": true,
+    "addonsList": [
+      {
+        "name": "⚡ 99+ PageSpeed Core Web Vitals Optimization",
+        "price": 3500
+      },
+      {
+        "name": "🔐 Advanced Cyber DDoS Shield & Firewall",
+        "price": 4500
+      },
+      {
+        "name": "🤖 WhatsApp AI Instant Lead Auto-Responder Bot",
+        "price": 6000
+      },
+      {
+        "name": "🎨 Custom Brand Logo & Stationery Vector Suite",
+        "price": 5000
+      }
+    ]
   },
   {
     "id": "pkg-silver-corp",
@@ -252,11 +316,32 @@
       "Google Map Location & QR Code Setup",
       "Full SEO & Google Search Console Setup",
       "Customer Generation Strategy Pro",
-      "2 Months Free Priority Maintenance"
+      "2 Months Free Priority Maintenance",
+      "💳 PayHere & Credit/Debit Card Gateway Included",
+      "🗣️ Sinhala + English Dual Language Support Included"
     ],
     "addon": "Dual Language Support (Sinhala + English) available",
     "cta": "Choose Silver Corp",
-    "order": 10
+    "order": 10,
+    "hasAdvancedAddons": true,
+    "addonsList": [
+      {
+        "name": "⚡ 99+ PageSpeed Core Web Vitals Optimization",
+        "price": 3500
+      },
+      {
+        "name": "🔐 Advanced Cyber DDoS Shield & Firewall",
+        "price": 4500
+      },
+      {
+        "name": "🤖 WhatsApp AI Instant Lead Auto-Responder Bot",
+        "price": 6000
+      },
+      {
+        "name": "🎨 Custom Brand Logo & Stationery Vector Suite",
+        "price": 5000
+      }
+    ]
   },
   {
     "id": "pkg-gold-corp",
@@ -280,11 +365,32 @@
       "Full Control Dynamic Admin Dashboard",
       "Meta Pixel & GA4 Analytics Setup",
       "PayHere / Online Card Gateway Ready",
-      "3 Months Dedicated VIP Support"
+      "3 Months Dedicated VIP Support",
+      "📍 Google Maps Location & Local SEO Setup Included",
+      "🗣️ Sinhala + English Dual Language Support Included"
     ],
     "addon": "Includes PayHere / Online Card Gateway option",
     "cta": "Choose Gold Corp",
-    "order": 11
+    "order": 11,
+    "hasAdvancedAddons": true,
+    "addonsList": [
+      {
+        "name": "⚡ 99+ PageSpeed Core Web Vitals Optimization",
+        "price": 3500
+      },
+      {
+        "name": "🔐 Advanced Cyber DDoS Shield & Firewall",
+        "price": 4500
+      },
+      {
+        "name": "🤖 WhatsApp AI Instant Lead Auto-Responder Bot",
+        "price": 6000
+      },
+      {
+        "name": "🎨 Custom Brand Logo & Stationery Vector Suite",
+        "price": 5000
+      }
+    ]
   },
   {
     "id": "pkg-platinum-corp",
@@ -307,11 +413,33 @@
       "Full SEO & Rich Snippets Optimization",
       "Blog / News Publishing Automation",
       "Custom Admin Panel for Team Multi-Users",
-      "6 Months Comprehensive Priority Support"
+      "6 Months Comprehensive Priority Support",
+      "💳 PayHere & Credit/Debit Card Gateway Included",
+      "📍 Google Maps Location & Local SEO Setup Included",
+      "🗣️ Sinhala + English Dual Language Support Included"
     ],
     "addon": "VIP Account Manager Support included",
     "cta": "Choose Platinum Powerhouse",
-    "order": 12
+    "order": 12,
+    "hasAdvancedAddons": true,
+    "addonsList": [
+      {
+        "name": "⚡ 99+ PageSpeed Core Web Vitals Optimization",
+        "price": 3500
+      },
+      {
+        "name": "🔐 Advanced Cyber DDoS Shield & Firewall",
+        "price": 4500
+      },
+      {
+        "name": "🤖 WhatsApp AI Instant Lead Auto-Responder Bot",
+        "price": 6000
+      },
+      {
+        "name": "🎨 Custom Brand Logo & Stationery Vector Suite",
+        "price": 5000
+      }
+    ]
   },
   {
     "id": "pkg-premium-global",
@@ -334,11 +462,33 @@
       "SEO-Friendly Content Writing Included",
       "Mega Menu, Video Backgrounds & Parallax Effects",
       "Global Multi-Region CDN Deployment",
-      "1 Year Dedicated Maintenance & Care"
+      "1 Year Dedicated Maintenance & Care",
+      "💳 PayHere & Credit/Debit Card Gateway Included",
+      "📍 Google Maps Location & Local SEO Setup Included",
+      "🗣️ Sinhala + English Dual Language Support Included"
     ],
     "addon": "Additional page: Rs. 8,000/- per page",
     "cta": "Choose Premium Global",
-    "order": 13
+    "order": 13,
+    "hasAdvancedAddons": true,
+    "addonsList": [
+      {
+        "name": "⚡ 99+ PageSpeed Core Web Vitals Optimization",
+        "price": 3500
+      },
+      {
+        "name": "🔐 Advanced Cyber DDoS Shield & Firewall",
+        "price": 4500
+      },
+      {
+        "name": "🤖 WhatsApp AI Instant Lead Auto-Responder Bot",
+        "price": 6000
+      },
+      {
+        "name": "🎨 Custom Brand Logo & Stationery Vector Suite",
+        "price": 5000
+      }
+    ]
   },
   {
     "id": "pkg-premium-modern",
@@ -361,11 +511,33 @@
       "Envato Licensed Stock Photography",
       "AI Search Engine Optimization (AEO/GEO)",
       "SEO Content Writing Included",
-      "1 Year Dedicated VIP Concierge Support"
+      "1 Year Dedicated VIP Concierge Support",
+      "💳 PayHere & Credit/Debit Card Gateway Included",
+      "📍 Google Maps Location & Local SEO Setup Included",
+      "🗣️ Sinhala + English Dual Language Support Included"
     ],
     "addon": "Additional page: Rs. 8,000/- per page",
     "cta": "Choose Premium Modern",
-    "order": 14
+    "order": 14,
+    "hasAdvancedAddons": true,
+    "addonsList": [
+      {
+        "name": "⚡ 99+ PageSpeed Core Web Vitals Optimization",
+        "price": 3500
+      },
+      {
+        "name": "🔐 Advanced Cyber DDoS Shield & Firewall",
+        "price": 4500
+      },
+      {
+        "name": "🤖 WhatsApp AI Instant Lead Auto-Responder Bot",
+        "price": 6000
+      },
+      {
+        "name": "🎨 Custom Brand Logo & Stationery Vector Suite",
+        "price": 5000
+      }
+    ]
   },
   {
     "id": "pkg-premium-international",
@@ -388,11 +560,33 @@
       "Licensed Stock Photography & Video Assets",
       "Enterprise Security & Cyber Shield Guard",
       "Dedicated Senior Account Manager",
-      "🚀 High-Performance Edge Server Deployment"
+      "🚀 High-Performance Edge Server Deployment",
+      "💳 PayHere & Credit/Debit Card Gateway Included",
+      "📍 Google Maps Location & Local SEO Setup Included",
+      "🗣️ Sinhala + English Dual Language Support Included"
     ],
     "addon": "Additional page: Rs. 8,000/- per page",
     "cta": "Choose Premium International",
-    "order": 15
+    "order": 15,
+    "hasAdvancedAddons": true,
+    "addonsList": [
+      {
+        "name": "⚡ 99+ PageSpeed Core Web Vitals Optimization",
+        "price": 3500
+      },
+      {
+        "name": "🔐 Advanced Cyber DDoS Shield & Firewall",
+        "price": 4500
+      },
+      {
+        "name": "🤖 WhatsApp AI Instant Lead Auto-Responder Bot",
+        "price": 6000
+      },
+      {
+        "name": "🎨 Custom Brand Logo & Stationery Vector Suite",
+        "price": 5000
+      }
+    ]
   },
   {
     "id": "pkg-product-catalogue",
@@ -413,11 +607,33 @@
       "Admin Inventory & Product Management",
       "5 Business Email Accounts",
       "Google Merchant / Product Schema SEO",
-      "🚀 High-Speed Cloud Server Deployment"
+      "🚀 High-Speed Cloud Server Deployment",
+      "💳 PayHere & Credit/Debit Card Gateway Included",
+      "📍 Google Maps Location & Local SEO Setup Included",
+      "🗣️ Sinhala + English Dual Language Support Included"
     ],
     "addon": "Conditions Apply",
     "cta": "Choose Product Catalogue",
-    "order": 16
+    "order": 16,
+    "hasAdvancedAddons": true,
+    "addonsList": [
+      {
+        "name": "⚡ 99+ PageSpeed Core Web Vitals Optimization",
+        "price": 3500
+      },
+      {
+        "name": "🔐 Advanced Cyber DDoS Shield & Firewall",
+        "price": 4500
+      },
+      {
+        "name": "🤖 WhatsApp AI Instant Lead Auto-Responder Bot",
+        "price": 6000
+      },
+      {
+        "name": "🎨 Custom Brand Logo & Stationery Vector Suite",
+        "price": 5000
+      }
+    ]
   },
   {
     "id": "pkg-ecommerce-full",
@@ -439,11 +655,32 @@
       "Stock & Inventory Management Panel",
       "Coupon Codes, Discounts & Flash Sales",
       "6 Months Dedicated E-Commerce Support",
-      "🚀 High-Security Cloud Server with SSL & DDoS Guard"
+      "🚀 High-Security Cloud Server with SSL & DDoS Guard",
+      "📍 Google Maps Location & Local SEO Setup Included",
+      "🗣️ Sinhala + English Dual Language Support Included"
     ],
     "addon": "Conditions Apply",
     "cta": "Choose Full E-Commerce",
-    "order": 17
+    "order": 17,
+    "hasAdvancedAddons": true,
+    "addonsList": [
+      {
+        "name": "⚡ 99+ PageSpeed Core Web Vitals Optimization",
+        "price": 3500
+      },
+      {
+        "name": "🔐 Advanced Cyber DDoS Shield & Firewall",
+        "price": 4500
+      },
+      {
+        "name": "🤖 WhatsApp AI Instant Lead Auto-Responder Bot",
+        "price": 6000
+      },
+      {
+        "name": "🎨 Custom Brand Logo & Stationery Vector Suite",
+        "price": 5000
+      }
+    ]
   },
   {
     "id": "pkg-service-email",
@@ -463,11 +700,33 @@
       "IMAP / POP3 / SMTP Support (Outlook & Mobile Sync)",
       "Advanced Spam & Virus Protection",
       "99.9% Server Uptime Guarantee",
-      "Free Migration from Old Email Host"
+      "Free Migration from Old Email Host",
+      "💳 PayHere & Credit/Debit Card Gateway Included",
+      "📍 Google Maps Location & Local SEO Setup Included",
+      "🗣️ Sinhala + English Dual Language Support Included"
     ],
     "addon": "Per 5 Accounts setup",
     "cta": "Get Email Hosting",
-    "order": 18
+    "order": 18,
+    "hasAdvancedAddons": true,
+    "addonsList": [
+      {
+        "name": "⚡ 99+ PageSpeed Core Web Vitals Optimization",
+        "price": 3500
+      },
+      {
+        "name": "🔐 Advanced Cyber DDoS Shield & Firewall",
+        "price": 4500
+      },
+      {
+        "name": "🤖 WhatsApp AI Instant Lead Auto-Responder Bot",
+        "price": 6000
+      },
+      {
+        "name": "🎨 Custom Brand Logo & Stationery Vector Suite",
+        "price": 5000
+      }
+    ]
   },
   {
     "id": "pkg-service-seo",
@@ -487,11 +746,33 @@
       "Google Search Console & Sitemap Submission",
       "Google Analytics 4 Tracking Setup",
       "Schema.org Rich Snippets JSON-LD",
-      "Speed Optimization (90+ Core Web Vitals)"
+      "Speed Optimization (90+ Core Web Vitals)",
+      "💳 PayHere & Credit/Debit Card Gateway Included",
+      "📍 Google Maps Location & Local SEO Setup Included",
+      "🗣️ Sinhala + English Dual Language Support Included"
     ],
     "addon": "Monthly SEO Growth Reports provided",
     "cta": "Boost Google Ranking",
-    "order": 19
+    "order": 19,
+    "hasAdvancedAddons": true,
+    "addonsList": [
+      {
+        "name": "⚡ 99+ PageSpeed Core Web Vitals Optimization",
+        "price": 3500
+      },
+      {
+        "name": "🔐 Advanced Cyber DDoS Shield & Firewall",
+        "price": 4500
+      },
+      {
+        "name": "🤖 WhatsApp AI Instant Lead Auto-Responder Bot",
+        "price": 6000
+      },
+      {
+        "name": "🎨 Custom Brand Logo & Stationery Vector Suite",
+        "price": 5000
+      }
+    ]
   },
   {
     "id": "pkg-service-gmb",
@@ -511,11 +792,32 @@
       "Business Information & Hours Optimization",
       "5-Star Review Generation Strategy",
       "Product / Service Catalogue Upload",
-      "Local Citation & NAP Consistency"
+      "Local Citation & NAP Consistency",
+      "💳 PayHere & Credit/Debit Card Gateway Included",
+      "🗣️ Sinhala + English Dual Language Support Included"
     ],
     "addon": "Increases local phone calls & walk-ins",
     "cta": "Setup Google Maps",
-    "order": 20
+    "order": 20,
+    "hasAdvancedAddons": true,
+    "addonsList": [
+      {
+        "name": "⚡ 99+ PageSpeed Core Web Vitals Optimization",
+        "price": 3500
+      },
+      {
+        "name": "🔐 Advanced Cyber DDoS Shield & Firewall",
+        "price": 4500
+      },
+      {
+        "name": "🤖 WhatsApp AI Instant Lead Auto-Responder Bot",
+        "price": 6000
+      },
+      {
+        "name": "🎨 Custom Brand Logo & Stationery Vector Suite",
+        "price": 5000
+      }
+    ]
   },
   {
     "id": "pkg-service-maintenance",
@@ -535,11 +837,33 @@
       "Security Scanning & Malware Protection",
       "Plugin & Core Engine Updates",
       "Uptime & Speed Monitoring",
-      "Priority Technical Support"
+      "Priority Technical Support",
+      "💳 PayHere & Credit/Debit Card Gateway Included",
+      "📍 Google Maps Location & Local SEO Setup Included",
+      "🗣️ Sinhala + English Dual Language Support Included"
     ],
     "addon": "Zero downtime guarantee",
     "cta": "Get Maintenance Care",
-    "order": 21
+    "order": 21,
+    "hasAdvancedAddons": true,
+    "addonsList": [
+      {
+        "name": "⚡ 99+ PageSpeed Core Web Vitals Optimization",
+        "price": 3500
+      },
+      {
+        "name": "🔐 Advanced Cyber DDoS Shield & Firewall",
+        "price": 4500
+      },
+      {
+        "name": "🤖 WhatsApp AI Instant Lead Auto-Responder Bot",
+        "price": 6000
+      },
+      {
+        "name": "🎨 Custom Brand Logo & Stationery Vector Suite",
+        "price": 5000
+      }
+    ]
   },
   {
     "id": "pkg-service-logo",
@@ -559,11 +883,33 @@
       "Transparent Background PNG Variations",
       "Favicon & Web Icon Suite",
       "Social Media Profile & Cover Banners",
-      "Brand Color Palette & Typography Guidelines"
+      "Brand Color Palette & Typography Guidelines",
+      "💳 PayHere & Credit/Debit Card Gateway Included",
+      "📍 Google Maps Location & Local SEO Setup Included",
+      "🗣️ Sinhala + English Dual Language Support Included"
     ],
     "addon": "100% Original Vector Artwork",
     "cta": "Get Custom Logo",
-    "order": 22
+    "order": 22,
+    "hasAdvancedAddons": true,
+    "addonsList": [
+      {
+        "name": "⚡ 99+ PageSpeed Core Web Vitals Optimization",
+        "price": 3500
+      },
+      {
+        "name": "🔐 Advanced Cyber DDoS Shield & Firewall",
+        "price": 4500
+      },
+      {
+        "name": "🤖 WhatsApp AI Instant Lead Auto-Responder Bot",
+        "price": 6000
+      },
+      {
+        "name": "🎨 Custom Brand Logo & Stationery Vector Suite",
+        "price": 5000
+      }
+    ]
   },
   {
     "id": "pkg-boost-mini",
@@ -730,11 +1076,33 @@
       "Flutter Architecture & Clean UI",
       "Push Notifications Integration",
       "WhatsApp Direct Chat & Inquiries",
-      "Google Play Store & App Store Publishing Assistance"
+      "Google Play Store & App Store Publishing Assistance",
+      "💳 PayHere & Credit/Debit Card Gateway Included",
+      "📍 Google Maps Location & Local SEO Setup Included",
+      "🗣️ Sinhala + English Dual Language Support Included"
     ],
     "addon": "Ideal for service catalogs & customer portals.",
     "cta": "Choose Basic App",
-    "order": 17.5
+    "order": 17.5,
+    "hasAdvancedAddons": true,
+    "addonsList": [
+      {
+        "name": "⚡ 99+ PageSpeed Core Web Vitals Optimization",
+        "price": 3500
+      },
+      {
+        "name": "🔐 Advanced Cyber DDoS Shield & Firewall",
+        "price": 4500
+      },
+      {
+        "name": "🤖 WhatsApp AI Instant Lead Auto-Responder Bot",
+        "price": 6000
+      },
+      {
+        "name": "🎨 Custom Brand Logo & Stationery Vector Suite",
+        "price": 5000
+      }
+    ]
   },
   {
     "id": "pkg-app-pro",
@@ -754,10 +1122,31 @@
       "PayHere & Card Gateway Payment Integration",
       "Customer & Driver / Merchant Admin Panels",
       "Automated Push Notifications & Order Alerts",
-      "6 Months Dedicated Mobile Maintenance Support"
+      "6 Months Dedicated Mobile Maintenance Support",
+      "📍 Google Maps Location & Local SEO Setup Included",
+      "🗣️ Sinhala + English Dual Language Support Included"
     ],
     "addon": "Full custom backend & database included.",
     "cta": "Choose Enterprise App",
-    "order": 17.8
+    "order": 17.8,
+    "hasAdvancedAddons": true,
+    "addonsList": [
+      {
+        "name": "⚡ 99+ PageSpeed Core Web Vitals Optimization",
+        "price": 3500
+      },
+      {
+        "name": "🔐 Advanced Cyber DDoS Shield & Firewall",
+        "price": 4500
+      },
+      {
+        "name": "🤖 WhatsApp AI Instant Lead Auto-Responder Bot",
+        "price": 6000
+      },
+      {
+        "name": "🎨 Custom Brand Logo & Stationery Vector Suite",
+        "price": 5000
+      }
+    ]
   }
 ]
