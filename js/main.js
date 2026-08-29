@@ -2067,3 +2067,70 @@ function togglePkgMore(id, btn) {
     btn.innerHTML = '<span>See More Details</span> <span>▼</span>';
   }
 }
+
+
+function calculateFullEstimate() {
+  const tierSelect = document.getElementById('calcTier');
+  const extraPagesSelect = document.getElementById('calcExtraPages');
+  const totalDisplay = document.getElementById('calcTotalDisplay');
+  const badge = document.getElementById('calcHostingBadge');
+  
+  if (!tierSelect || !totalDisplay) return;
+
+  const basePrice = parseInt(tierSelect.value, 10) || 5000;
+  const extraPages = parseInt(extraPagesSelect ? extraPagesSelect.value : 0, 10) || 0;
+  const extraPagesPrice = extraPages * 1500;
+
+  let addonsTotal = 0;
+  const checkboxes = document.querySelectorAll('.calc-addon-check:checked');
+  checkboxes.forEach(cb => {
+    addonsTotal += parseInt(cb.dataset.price || 0, 10);
+  });
+
+  const grandTotal = basePrice + extraPagesPrice + addonsTotal;
+  totalDisplay.innerText = 'Rs. ' + grandTotal.toLocaleString('en-US') + '/-';
+
+  if (badge) {
+    if (basePrice <= 15000) {
+      badge.style.display = 'flex';
+    } else {
+      badge.style.display = 'none';
+    }
+  }
+}
+
+function dispatchFullWhatsAppQuote() {
+  const tierSelect = document.getElementById('calcTier');
+  const extraPagesSelect = document.getElementById('calcExtraPages');
+  const totalDisplay = document.getElementById('calcTotalDisplay');
+  
+  if (!tierSelect) return;
+
+  const tierOption = tierSelect.options[tierSelect.selectedIndex];
+  const tierName = tierOption ? (tierOption.dataset.name || tierOption.text) : 'Web Package';
+  const extraPages = extraPagesSelect ? extraPagesSelect.value : '0';
+  
+  let selectedAddons = [];
+  document.querySelectorAll('.calc-addon-check:checked').forEach(cb => {
+    selectedAddons.push(cb.dataset.name);
+  });
+
+  const totalStr = totalDisplay ? totalDisplay.innerText : '';
+
+  let msg = `Hello Infinite Creative! I used your Instant Investment Estimator and would like to order:\n\n`;
+  msg += `📌 Selected Package: ${tierName}\n`;
+  if (parseInt(extraPages) > 0) {
+    msg += `📄 Extra Custom Pages: +${extraPages} Pages\n`;
+  }
+  if (selectedAddons.length > 0) {
+    msg += `⚡ Power Add-Ons: ${selectedAddons.join(', ')}\n`;
+  }
+  msg += `💰 Calculated Total: ${totalStr}\n\n`;
+  msg += `Please confirm turnaround time and payment options!`;
+
+  window.open(`https://wa.me/94789714912?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  calculateFullEstimate();
+});
