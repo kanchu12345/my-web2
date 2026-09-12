@@ -220,6 +220,11 @@ onAuthStateChanged(auth, user => {
         <textarea class="form-control" id="formLessonContent" rows="6" required placeholder="<p class='lead'>Flexbox is a 1-dimensional layout model...</p>"></textarea>
       </div>
 
+            <div class="form-group">
+        <label>Sinhala Explanation (content_si) — Explanations only, preserve code in English</label>
+        <textarea class="form-control" id="formLessonContentSi" rows="5" placeholder="<p class='lead'>Explanatory text in Sinhala...</p>"></textarea>
+      </div>
+
       <div class="form-group">
         <label>Interactive Code Example (Runs in Live Playground) *</label>
         <textarea class="form-control code-input-area" id="formLessonCode" rows="8" required placeholder="<!DOCTYPE html>&#10;<html>..."></textarea>
@@ -369,6 +374,7 @@ onAuthStateChanged(auth, user => {
     document.getElementById('formLessonSummary').value = found.summary || '';
     document.getElementById('formLessonReadTime').value = found.readTime || '5 min read';
     document.getElementById('formLessonContent').value = found.content || '';
+    document.getElementById('formLessonContentSi').value = found.content_si || '';
     document.getElementById('formLessonCode').value = found.code || '';
     document.getElementById('formLessonTakeaways').value = (found.keyTakeaways || []).join('\n');
 
@@ -399,6 +405,7 @@ onAuthStateChanged(auth, user => {
     const summary = document.getElementById('formLessonSummary').value;
     const readTime = document.getElementById('formLessonReadTime').value;
     const content = document.getElementById('formLessonContent').value;
+    const contentSi = document.getElementById('formLessonContentSi').value;
     const code = document.getElementById('formLessonCode').value;
     const takeaways = document.getElementById('formLessonTakeaways').value.split('\n').filter(Boolean);
 
@@ -413,6 +420,7 @@ onAuthStateChanged(auth, user => {
       summary: summary,
       readTime: readTime,
       content: content,
+      content_si: contentSi,
       code: code,
       keyTakeaways: takeaways
     };
