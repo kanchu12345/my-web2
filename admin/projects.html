@@ -121,7 +121,21 @@ onAuthStateChanged(auth, user => {
           </select>
         </div>
 
-                <div class="form-field">
+        <div class="form-field" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);padding:12px 14px;border-radius:10px;margin-bottom:14px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+            <label class="form-label" for="pFeatured" style="margin-bottom:0;cursor:pointer;display:flex;align-items:center;gap:8px;font-weight:700;color:#facc15;">
+              <input type="checkbox" id="pFeatured" style="width:18px;height:18px;accent-color:#facc15;cursor:pointer;">
+              ⭐ Feature on Homepage (Top 6)
+            </label>
+            <div id="featuredOrderWrap" style="display:none;align-items:center;gap:6px;">
+              <label for="pFeaturedOrder" style="font-size:11px;color:var(--grey);margin-bottom:0;">Order (1-6):</label>
+              <input type="number" id="pFeaturedOrder" class="form-input" min="1" max="50" value="1" style="width:65px;padding:4px 8px;font-size:12px;text-align:center;">
+            </div>
+          </div>
+          <small style="color:var(--grey);font-size:11px;margin-top:6px;display:block;">Featured projects appear first on the homepage portfolio grid in the specified order.</small>
+        </div>
+
+        <div class="form-field">
           <label class="form-label" for="pTags" style="color:#38bdf8; font-weight:600;">Add tags</label>
           <input type="text" id="pTags" class="form-input" placeholder="Enter tags separated by comma or semicolon" style="border-radius:10px; border:1px solid rgba(56,189,248,0.4); padding:10px 14px;">
         </div>
@@ -156,23 +170,31 @@ onAuthStateChanged(auth, user => {
 <div class="toast" id="toast"><div class="toast-dot"></div><span id="toastMsg"></span></div>
 
 <!-- ════════════════════════════════════════════════════
-     INLINE SCRIPT — NO ES MODULE IMPORT
-     Works with or without Firebase. Loads projects.json directly.
+     FIRESTORE + LOCAL CACHE PROJECTS MODULE
+     Full CRUD with Homepage Featured Badges & Ordering
      ════════════════════════════════════════════════════ -->
-<script>
+<script type="module">
+import { 
+  auth, onAuthStateChanged, signOut,
+  db, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, serverTimestamp 
+} from '../js/firebase-config.js';
+
 (function(){
   'use strict';
 
-  /* ── Master Admin Auth ── */
-  var storedUser = {};
-  try { storedUser = JSON.parse(localStorage.getItem('infinite_admin_user') || '{}'); } catch(e){}
-  var email = storedUser.email || 'infinitedesign768@gmail.com';
-  var emEl = document.getElementById('sbEmail');
-  var avEl = document.getElementById('sbAvatar');
-  if (emEl) emEl.textContent = email;
-  if (avEl) avEl.textContent = email[0].toUpperCase();
+  /* ── Auth State & Sidebar ── */
+  onAuthStateChanged(auth, user => {
+    if (user) {
+      const email = user.email || 'infinitedesign768@gmail.com';
+      const emEl = document.getElementById('sbEmail');
+      const avEl = document.getElementById('sbAvatar');
+      if (emEl) emEl.textContent = email;
+      if (avEl) avEl.textContent = email[0].toUpperCase();
+    }
+  });
 
-  document.getElementById('logoutBtn').addEventListener('click', function(){
+  document.getElementById('logoutBtn').addEventListener('click', async () => {
+    try { await signOut(auth); } catch(e){}
     localStorage.removeItem('infinite_admin_auth');
     sessionStorage.removeItem('infinite_admin_auth');
     window.location.href = 'login.html';
@@ -180,16 +202,25 @@ onAuthStateChanged(auth, user => {
 
   /* ── Toast ── */
   function toast(msg, type){
-    var t = document.getElementById('toast');
-    var m = document.getElementById('toastMsg');
+    const t = document.getElementById('toast');
+    const m = document.getElementById('toastMsg');
     if (!t || !m) return;
     t.className = 'toast show toast-' + (type || 'ok');
     m.textContent = msg;
-    setTimeout(function(){ t.classList.remove('show'); }, 3200);
+    setTimeout(() => { t.classList.remove('show'); }, 3200);
   }
 
   function sanitise(str){
     return String(str || '').replace(/[<>&"']/g, '').trim();
+  }
+
+  /* ── Featured Checkbox Toggle ── */
+  const featCheck = document.getElementById('pFeatured');
+  const featOrderWrap = document.getElementById('featuredOrderWrap');
+  if (featCheck && featOrderWrap) {
+    featCheck.addEventListener('change', function(){
+      featOrderWrap.style.display = this.checked ? 'flex' : 'none';
+    });
   }
 
   /* ── Auto-Preview from URL ── */
@@ -198,24 +229,23 @@ onAuthStateChanged(auth, user => {
     url = url.trim();
     if (url.indexOf('http') !== 0) return;
 
-    var mockupUrl = 'https://s0.wp.com/mshots/v1/' + encodeURIComponent(url) + '?w=650&h=480';
+    const mockupUrl = 'https://s0.wp.com/mshots/v1/' + encodeURIComponent(url) + '?w=650&h=480';
 
-    var imgUrlInput = document.getElementById('pImgUrl');
-    var imgPrev = document.getElementById('imgPreview');
-    var noPrevText = document.getElementById('noPreviewText');
-    var titleInput = document.getElementById('pTitle');
+    const imgUrlInput = document.getElementById('pImgUrl');
+    const imgPrev = document.getElementById('imgPreview');
+    const noPrevText = document.getElementById('noPreviewText');
+    const titleInput = document.getElementById('pTitle');
 
     if (imgUrlInput) imgUrlInput.value = mockupUrl;
     if (imgPrev) { imgPrev.src = mockupUrl; imgPrev.style.display = 'block'; }
     if (noPrevText) noPrevText.style.display = 'none';
 
-    // Auto-fill title if empty
     if (titleInput && !titleInput.value.trim()) {
       try {
-        var u = new URL(url);
-        var name = u.hostname.replace('www.', '').split('.')[0];
+        const u = new URL(url);
+        let name = u.hostname.replace('www.', '').split('.')[0];
         if (u.hostname.indexOf('github.io') !== -1) {
-          var pathPart = u.pathname.replace(/\//g, '');
+          const pathPart = u.pathname.replace(/\//g, '');
           if (pathPart) name = pathPart.replace(/[-_]/g, ' ');
         }
         titleInput.value = name.charAt(0).toUpperCase() + name.slice(1);
@@ -225,82 +255,125 @@ onAuthStateChanged(auth, user => {
     toast('Auto-generated live preview!', 'ok');
   }
 
-  var urlInput = document.getElementById('pUrl');
-  urlInput.addEventListener('input', function(){ if (this.value.indexOf('http') === 0) generatePreview(this.value); });
-  urlInput.addEventListener('paste', function(){ var self = this; setTimeout(function(){ generatePreview(self.value); }, 80); });
-  document.getElementById('autoPreviewBtn').addEventListener('click', function(){
-    var val = urlInput.value.trim();
-    if (!val) { toast('Enter a website link first', 'err'); return; }
-    generatePreview(val);
-  });
+  const urlInput = document.getElementById('pUrl');
+  if (urlInput) {
+    urlInput.addEventListener('input', function(){ if (this.value.indexOf('http') === 0) generatePreview(this.value); });
+    urlInput.addEventListener('paste', function(){ const self = this; setTimeout(() => { generatePreview(self.value); }, 80); });
+  }
+  const autoPrevBtn = document.getElementById('autoPreviewBtn');
+  if (autoPrevBtn && urlInput) {
+    autoPrevBtn.addEventListener('click', function(){
+      const val = urlInput.value.trim();
+      if (!val) { toast('Enter a website link first', 'err'); return; }
+      generatePreview(val);
+    });
+  }
 
   /* ══════════════════════════════════════════════
-     LOAD PROJECTS — from data/projects.json (NO Firebase needed)
+     LOAD PROJECTS — Firestore First + JSON / Local Storage
      ══════════════════════════════════════════════ */
-  function loadProjects(){
-    var list = document.getElementById('projList');
-    var cnt = document.getElementById('projCount');
+  let currentProjects = [];
+
+  async function loadProjects(){
+    const list = document.getElementById('projList');
+    const cnt = document.getElementById('projCount');
     if (!list) return;
 
-    list.innerHTML = '<div class="no-projects">Loading projects&hellip;</div>';
+    list.innerHTML = '<div class="no-projects">Loading projects from Firestore&hellip;</div>';
 
-    fetch('../data/projects.json')
-      .then(function(res){ return res.json(); })
-      .then(function(jsonItems){
-        if (!Array.isArray(jsonItems)) jsonItems = [];
+    let fbProjects = [];
+    let jsonProjects = [];
+    let localProjects = [];
 
-        // Also get any custom-added items from localStorage
-        var custom = [];
-        try { custom = JSON.parse(localStorage.getItem('infinite_custom_projects') || '[]'); } catch(e){}
-
-        // Merge: custom first, then JSON
-        var combined = custom.concat(jsonItems);
-
-        // Deduplicate by URL
-        var seen = {};
-        var unique = [];
-        combined.forEach(function(p){
-          var key = (p.url || p.title || '').toLowerCase().trim();
-          if (key && !seen[key]) {
-            seen[key] = true;
-            unique.push(p);
-          }
+    // 1. Fetch from Firestore
+    try {
+      const snap = await getDocs(collection(db, 'projects'));
+      if (!snap.empty) {
+        snap.forEach(docSnap => {
+          fbProjects.push({ id: docSnap.id, ...docSnap.data(), _source: 'firestore' });
         });
+      }
+    } catch(err){
+      console.warn('Firestore fetch notice:', err.message);
+    }
 
-        if (cnt) cnt.textContent = '(' + unique.length + ')';
+    // 2. Fetch baseline data/projects.json
+    try {
+      const res = await fetch('../data/projects.json');
+      const data = await res.json();
+      if (Array.isArray(data)) {
+        jsonProjects = data.map((p, i) => ({ id: 'json_' + i, ...p, _source: 'json' }));
+      }
+    } catch(e){}
 
-        list.innerHTML = '';
-        if (unique.length === 0) {
-          list.innerHTML = '<div class="no-projects">No projects found. Add your first project below.</div>';
-          return;
-        }
+    // 3. Fetch custom projects from localStorage
+    try {
+      localProjects = JSON.parse(localStorage.getItem('infinite_custom_projects') || '[]');
+    } catch(e){}
 
-        unique.forEach(function(p){
-          list.appendChild(makeListItem(p));
-        });
-      })
-      .catch(function(err){
-        console.error('Failed to load projects.json:', err);
-        list.innerHTML = '<div class="no-projects">Could not load projects. Check data/projects.json file.</div>';
-      });
+    // Combine: Firestore docs first, then local, then baseline JSON
+    const merged = [...fbProjects, ...localProjects, ...jsonProjects];
+    const seen = new Set();
+    const unique = [];
+
+    merged.forEach(p => {
+      const key = (p.url || p.title || '').toLowerCase().trim();
+      if (key && !seen.has(key)) {
+        seen.add(key);
+        unique.push(p);
+      }
+    });
+
+    // Auto-Sort: Featured first by featuredOrder ascending, then newest non-featured
+    unique.sort((a, b) => {
+      const aFeat = !!a.featured;
+      const bFeat = !!b.featured;
+      if (aFeat && !bFeat) return -1;
+      if (!aFeat && bFeat) return 1;
+      if (aFeat && bFeat) {
+        return (Number(a.featuredOrder) || 99) - (Number(b.featuredOrder) || 99);
+      }
+      const aTime = a.createdAt?.seconds || 0;
+      const bTime = b.createdAt?.seconds || 0;
+      return bTime - aTime;
+    });
+
+    currentProjects = unique;
+    if (cnt) cnt.textContent = '(' + unique.length + ')';
+
+    list.innerHTML = '';
+    if (unique.length === 0) {
+      list.innerHTML = '<div class="no-projects">No projects found. Add your first project below.</div>';
+      return;
+    }
+
+    unique.forEach(p => {
+      list.appendChild(makeListItem(p));
+    });
   }
 
   function makeListItem(p){
-    var div = document.createElement('div');
+    const div = document.createElement('div');
     div.className = 'proj-list-item';
     div.style.padding = '12px 14px';
     div.style.alignItems = 'center';
 
-    var safeImage = (p.image || '').replace(/["'<>]/g, '');
-    var previewSrc = safeImage || (p.url ? 'https://s0.wp.com/mshots/v1/' + encodeURIComponent(p.url) + '?w=650&h=480' : '');
-    var shortUrl = (p.url || '').replace('https://', '').replace('http://', '');
+    const safeImage = (p.image || '').replace(/["'<>]/g, '');
+    const previewSrc = safeImage || (p.url ? 'https://s0.wp.com/mshots/v1/' + encodeURIComponent(p.url) + '?w=650&h=480' : '');
+    let shortUrl = (p.url || '').replace('https://', '').replace('http://', '');
     if (shortUrl.length > 35) shortUrl = shortUrl.substring(0, 35) + '...';
+
+    const featuredBadge = p.featured
+      ? `<span style="background:rgba(234,179,8,0.2);color:#eab308;border:1px solid rgba(234,179,8,0.4);padding:2px 8px;border-radius:12px;font-size:10px;font-weight:800;display:inline-flex;align-items:center;gap:4px;margin-left:6px;">⭐ FEATURED (#${p.featuredOrder || 1})</span>`
+      : '';
 
     div.innerHTML =
       '<img class="proj-thumb" src="' + previewSrc + '" alt="' + sanitise(p.title) + '" onerror="this.style.background=\'#1e293b\'" style="width:64px;height:48px;border-radius:6px;object-fit:cover;background:#1e293b;flex-shrink:0;">' +
       '<div class="proj-info" style="flex:1;margin-left:12px;min-width:0;">' +
-        '<div class="proj-name" style="font-weight:700;color:#fff;font-size:14px;">' + sanitise(p.title) + '</div>' +
-        '<div class="proj-cat" style="font-size:12px;color:#04AA6D;font-weight:600;">' + sanitise(p.category || 'Web Design') + '</div>' +
+        '<div class="proj-name" style="font-weight:700;color:#fff;font-size:14px;display:flex;align-items:center;flex-wrap:wrap;gap:4px;">' + 
+          sanitise(p.title) + featuredBadge + 
+        '</div>' +
+        '<div class="proj-cat" style="font-size:12px;color:#04AA6D;font-weight:600;margin-top:2px;">' + sanitise(p.category || 'Web Design') + '</div>' +
         (p.url ? '<a href="' + encodeURI(p.url || '') + '" target="_blank" rel="noopener" style="font-size:11px;color:var(--grey);text-decoration:none;display:inline-block;margin-top:2px;">&#128279; ' + sanitise(shortUrl) + '</a>' : '') +
       '</div>' +
       '<div class="proj-actions" style="display:flex;gap:6px;flex-shrink:0;">' +
@@ -308,62 +381,89 @@ onAuthStateChanged(auth, user => {
         '<button class="btn-del" style="background:rgba(255,68,68,0.15);color:#ff4444;border:none;padding:5px 10px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;">Delete</button>' +
       '</div>';
 
-    div.querySelector('.btn-edit').addEventListener('click', function(){ editProject(p); });
-    div.querySelector('.btn-del').addEventListener('click', function(){ deleteProject(p); });
+    div.querySelector('.btn-edit').addEventListener('click', () => editProject(p));
+    div.querySelector('.btn-del').addEventListener('click', () => deleteProject(p));
     return div;
   }
 
   /* ── Refresh button ── */
-  document.getElementById('refreshBtn').addEventListener('click', function(){
-    loadProjects();
-    toast('Project list refreshed!', 'ok');
-  });
+  const refreshBtn = document.getElementById('refreshBtn');
+  if (refreshBtn) {
+    refreshBtn.addEventListener('click', () => {
+      loadProjects();
+      toast('Project list refreshed!', 'ok');
+    });
+  }
 
-  /* ── Form Submit ── */
-  document.getElementById('projForm').addEventListener('submit', function(e){
+  /* ── Form Submit (Firestore First) ── */
+  document.getElementById('projForm').addEventListener('submit', async function(e){
     e.preventDefault();
-    var title = sanitise(document.getElementById('pTitle').value);
-    var cat = sanitise(document.getElementById('pCategory').value);
-    var desc = sanitise(document.getElementById('pDesc').value);
-    var url = document.getElementById('pUrl').value.trim();
-    var imgUrl = document.getElementById('pImgUrl').value.trim();
-    var editId = document.getElementById('editId').value;
+    const title = sanitise(document.getElementById('pTitle').value);
+    const cat = sanitise(document.getElementById('pCategory').value);
+    const desc = sanitise(document.getElementById('pDesc').value);
+    const tags = sanitise(document.getElementById('pTags').value);
+    const url = document.getElementById('pUrl').value.trim();
+    const imgUrl = document.getElementById('pImgUrl').value.trim();
+    const editId = document.getElementById('editId').value;
+    const isFeatured = document.getElementById('pFeatured').checked;
+    const featuredOrder = parseInt(document.getElementById('pFeaturedOrder').value, 10) || 1;
 
     if (!title || !cat) { toast('Please fill Title and Category.', 'err'); return; }
 
-    var finalImg = imgUrl || (url ? 'https://s0.wp.com/mshots/v1/' + encodeURIComponent(url) + '?w=650&h=480' : '');
+    const submitBtn = document.getElementById('submitBtn');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Saving to Cloud…';
 
-    var projectData = {
-      id: editId || 'proj_' + Date.now(),
+    const finalImg = imgUrl || (url ? 'https://s0.wp.com/mshots/v1/' + encodeURIComponent(url) + '?w=650&h=480' : '');
+
+    const projectData = {
       title: title,
       category: cat,
       description: desc,
+      tags: tags,
       url: url,
       image: finalImg,
-      bg: '#0f172a'
+      bg: '#0f172a',
+      featured: isFeatured,
+      featuredOrder: isFeatured ? featuredOrder : 99,
+      updatedAt: serverTimestamp()
     };
 
-    // Save to localStorage
-    var custom = [];
-    try { custom = JSON.parse(localStorage.getItem('infinite_custom_projects') || '[]'); } catch(e){}
-    if (editId) {
-      custom = custom.map(function(p){ return (p.id === editId || p.url === url) ? projectData : p; });
-    } else {
-      custom.unshift(projectData);
+    try {
+      if (editId && !editId.startsWith('json_') && !editId.startsWith('proj_local_')) {
+        await updateDoc(doc(db, 'projects', editId), projectData);
+      } else {
+        projectData.createdAt = serverTimestamp();
+        const newDoc = await addDoc(collection(db, 'projects'), projectData);
+        projectData.id = newDoc.id;
+      }
+      toast(editId ? 'Project updated in Firestore!' : 'Project saved to Firestore & Portfolio!', 'ok');
+    } catch(err) {
+      console.warn('Firestore write fallback to local storage:', err.message);
+      // Fallback cache
+      let custom = [];
+      try { custom = JSON.parse(localStorage.getItem('infinite_custom_projects') || '[]'); } catch(e){}
+      if (editId) {
+        custom = custom.map(p => (p.id === editId || p.url === url) ? { ...projectData, id: editId } : p);
+      } else {
+        projectData.id = 'proj_local_' + Date.now();
+        custom.unshift(projectData);
+      }
+      localStorage.setItem('infinite_custom_projects', JSON.stringify(custom));
+      toast('Saved locally (Firestore offline/rules sync)', 'ok');
+    } finally {
+      submitBtn.disabled = false;
+      resetForm();
+      loadProjects();
     }
-    localStorage.setItem('infinite_custom_projects', JSON.stringify(custom));
-
-    toast(editId ? 'Project updated!' : 'New Project added to Portfolio!', 'ok');
-    resetForm();
-    loadProjects();
-
-    // Also try Firestore in background (non-blocking)
-    tryFirestoreSave(projectData, editId);
   });
 
   function resetForm(){
     document.getElementById('projForm').reset();
     document.getElementById('editId').value = '';
+    document.getElementById('pFeatured').checked = false;
+    document.getElementById('pFeaturedOrder').value = 1;
+    document.getElementById('featuredOrderWrap').style.display = 'none';
     document.getElementById('formTitle').textContent = 'Add New Design / Project';
     document.getElementById('submitBtn').textContent = 'Add Project to Portfolio';
     document.getElementById('cancelEdit').style.display = 'none';
@@ -372,16 +472,22 @@ onAuthStateChanged(auth, user => {
   }
 
   function editProject(p){
-    document.getElementById('editId').value = p.id || p.title || '';
+    document.getElementById('editId').value = p.id || '';
     document.getElementById('pTitle').value = p.title || '';
     document.getElementById('pCategory').value = p.category || '';
     document.getElementById('pUrl').value = p.url || '';
     document.getElementById('pDesc').value = p.description || '';
+    document.getElementById('pTags').value = p.tags || '';
     document.getElementById('pImgUrl').value = p.image || '';
 
-    var prev = document.getElementById('imgPreview');
-    var noPrev = document.getElementById('noPreviewText');
-    var imgSrc = p.image || (p.url ? 'https://s0.wp.com/mshots/v1/' + encodeURIComponent(p.url) + '?w=650&h=480' : '');
+    const isFeat = !!p.featured;
+    document.getElementById('pFeatured').checked = isFeat;
+    document.getElementById('pFeaturedOrder').value = p.featuredOrder || 1;
+    document.getElementById('featuredOrderWrap').style.display = isFeat ? 'flex' : 'none';
+
+    const prev = document.getElementById('imgPreview');
+    const noPrev = document.getElementById('noPreviewText');
+    const imgSrc = p.image || (p.url ? 'https://s0.wp.com/mshots/v1/' + encodeURIComponent(p.url) + '?w=650&h=480' : '');
     if (imgSrc) {
       prev.src = imgSrc;
       prev.style.display = 'block';
@@ -396,33 +502,25 @@ onAuthStateChanged(auth, user => {
 
   document.getElementById('cancelEdit').addEventListener('click', resetForm);
 
-  function deleteProject(p){
+  async function deleteProject(p){
     if (!confirm('Delete "' + (p.title || 'this project') + '"? This cannot be undone.')) return;
-    var custom = [];
-    try { custom = JSON.parse(localStorage.getItem('infinite_custom_projects') || '[]'); } catch(e){}
-    custom = custom.filter(function(item){ return item.url !== p.url && item.title !== p.title; });
-    localStorage.setItem('infinite_custom_projects', JSON.stringify(custom));
+    try {
+      if (p.id && !p.id.startsWith('json_') && !p.id.startsWith('proj_local_')) {
+        await deleteDoc(doc(db, 'projects', p.id));
+      }
+    } catch(err){
+      console.warn('Firestore delete error:', err.message);
+    }
+    
+    // Also remove from localStorage cache if present
+    try {
+      let custom = JSON.parse(localStorage.getItem('infinite_custom_projects') || '[]');
+      custom = custom.filter(item => item.url !== p.url && item.title !== p.title && item.id !== p.id);
+      localStorage.setItem('infinite_custom_projects', JSON.stringify(custom));
+    } catch(e){}
+
     toast('Project removed.', 'ok');
     loadProjects();
-  }
-
-  /* ── Optional Firestore background sync (non-blocking) ── */
-  function tryFirestoreSave(data, editId){
-    import('../js/firebase-config.js').then(function(fb){
-      if (editId && editId.indexOf('proj_') !== 0) {
-        fb.updateDoc(fb.doc(fb.db, 'projects', editId), {
-          title: data.title, category: data.category, description: data.description,
-          url: data.url, image: data.image, updatedAt: fb.serverTimestamp()
-        }).catch(function(){});
-      } else {
-        fb.addDoc(fb.collection(fb.db, 'projects'), {
-          title: data.title, category: data.category, description: data.description,
-          url: data.url, image: data.image, createdAt: fb.serverTimestamp()
-        }).catch(function(){});
-      }
-    }).catch(function(){
-      // Firebase offline — data already saved to localStorage
-    });
   }
 
   /* ── INIT: Load projects immediately ── */

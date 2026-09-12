@@ -116,217 +116,263 @@ function showToast(msg){
   setTimeout(()=>t.classList.remove('show'),3500);
 }
 
-/* ── Load projects from Firebase ───────────────── */
-async function loadProjects(){
-  const grid=document.getElementById('projGrid');
-  if(!grid)return;
-  try{
-    const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 3000));
-    const fetchPromise = (async () => {
-      const prefix = rootPath();
-      const {db,collection,getDocs}=await import(prefix + 'js/firebase-config.js');
-      return await getDocs(collection(db,'projects'));
-    })();
-    const snap=await Promise.race([fetchPromise, timeoutPromise]);
-    if(!snap || snap.empty){renderFallbackProjects(grid);return;}
-    grid.innerHTML='';
-    snap.forEach(function(d){
-      const p={id:d.id,...d.data()};
-      grid.appendChild(makeCard(p));
-    });
-  }catch(e){
-    console.warn('Projects fallback active:', e.message);
-    renderFallbackProjects(grid);
+/* ── Unified Project Card Generator ───────────────── */
+function makeProjectCard(p){
+  const card = document.createElement('a');
+  card.href = p.url || '#';
+  if (p.url) {
+    card.target = '_blank';
+    card.rel = 'noopener';
   }
-}
+  card.className = 'proj-card reveal';
+  card.style.cssText = 'text-decoration:none; display:block; min-height:280px; height:100%; border-radius:18px; overflow:hidden; position:relative; background:' + (p.bg || '#1e293b') + '; border:1px solid rgba(255,255,255,0.15); box-shadow:0 12px 35px rgba(0,0,0,0.5); transition:all 0.35s ease; width:100%; box-sizing:border-box;';
+  card.onmouseover = function() { this.style.transform='translateY(-6px) scale(1.01)'; this.style.borderColor='#04AA6D'; this.style.boxShadow='0 20px 40px rgba(4,170,109,0.3)'; };
+  card.onmouseout = function() { this.style.transform='none'; this.style.borderColor='rgba(255,255,255,0.15)'; this.style.boxShadow='0 12px 35px rgba(0,0,0,0.5)'; };
 
-function makeCard(p){
-  const card=document.createElement('div');
-  card.className='proj-card';
-  card.innerHTML=`
-    <img class="proj-img" src="${p.image||''}" alt="${p.title||'Project'}" loading="lazy">
-    <div class="proj-overlay">
-      <div class="proj-title">${p.title||''}</div>
-      <div class="proj-tag">${p.category||''}</div>
+  const safeImage = (p.image || '').replace(/["'<>]/g, '');
+  const previewSrc = safeImage || (p.url ? 'https://s0.wp.com/mshots/v1/' + encodeURIComponent(p.url) + '?w=650&h=480' : '');
+
+  const badgeHtml = p.featured
+    ? `<div style="background:rgba(234,179,8,0.95); backdrop-filter:blur(10px); color:#000; padding:6px 12px; border-radius:50px; font-size:11px; font-weight:800; display:inline-flex; align-items:center; gap:5px; box-shadow:0 4px 14px rgba(0,0,0,0.4); letter-spacing:0.02em;">
+        <span>⭐</span>
+        <span>Featured</span>
+      </div>`
+    : `<div style="background:rgba(4,170,109,0.95); backdrop-filter:blur(10px); color:#ffffff; padding:6px 12px; border-radius:50px; font-size:11px; font-weight:800; display:inline-flex; align-items:center; gap:6px; box-shadow:0 4px 14px rgba(0,0,0,0.4); letter-spacing:0.02em;">
+        <span style="width:7px; height:7px; background:#fff; border-radius:50%; display:inline-block; box-shadow:0 0 6px #fff;"></span>
+        <span>Completed & Live</span>
+      </div>`;
+
+  card.innerHTML = `
+    <div style="width:100%; height:100%; position:relative; overflow:hidden; display:flex; flex-direction:column; justify-content:space-between; min-height:280px;">
+      <img src="${previewSrc}" alt="${p.title || 'Project'}" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0.85; transition:transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="this.style.display='none'">
+      
+      <!-- Top Status Badge -->
+      <div style="position:relative; z-index:2; display:flex; justify-content:space-between; align-items:center; padding:14px;">
+        ${badgeHtml}
+        <!-- Top Right External Link Icon -->
+        <div style="background:rgba(8,12,22,0.85); border:1px solid rgba(255,255,255,0.25); border-radius:50%; width:34px; height:34px; display:flex; align-items:center; justify-content:center; color:#04AA6D; backdrop-filter:blur(10px); box-shadow:0 4px 12px rgba(0,0,0,0.4);">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+        </div>
+      </div>
+
+      <!-- Bottom Details Overlay -->
+      <div style="position:relative; z-index:2; background:linear-gradient(to top, rgba(8,12,22,0.98) 0%, rgba(8,12,22,0.85) 60%, transparent 100%); padding:18px 16px 16px; margin-top:auto; width:100%; box-sizing:border-box;">
+        <span style="font-weight:900; color:#ffffff; font-size:1.15rem; display:block; margin-bottom:6px; letter-spacing:-0.01em; text-shadow:0 2px 8px rgba(0,0,0,0.8); line-height:1.25;">${p.title}</span>
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:nowrap; width:100%;">
+          <span style="font-size:0.75rem; color:#04AA6D; letter-spacing:0.06em; text-transform:uppercase; font-weight:800; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:70%; flex-shrink:1;">${p.category || 'Web Design'}</span>
+          <span style="font-size:0.8rem; color:#38bdf8; font-weight:800; display:inline-flex; align-items:center; gap:3px; flex-shrink:0; white-space:nowrap;">Visit Site ↗</span>
+        </div>
+      </div>
     </div>`;
-  card.addEventListener('click',function(){openModal(p);});
   return card;
 }
 
-function renderFallbackProjects(grid){
-  const demos = [
-  {
-    "title": "Zap Ceylon",
-    "category": "Conglomerate & Global Trade",
-    "url": "https://kanchu12345.github.io/ZAP-CEYLON-/",
-    "description": "Premier diversified Sri Lankan conglomerate portal spanning global trade, Ceylon gems & spices, construction, finance, and digital innovation.",
-    "bg": "#0f172a"
-  },
-  {
-    "title": "Hiri Surf School",
-    "category": "Tourism & Beach Academy",
-    "url": "https://hirisurfschool.com/",
-    "description": "Premier surf school and tropical resort booking platform in Hiriketiya, Sri Lanka with custom booking workflows.",
-    "bg": "#0284c7"
-  },
-  {
-    "title": "VeloCharts",
-    "category": "FinTech & Market Analytics",
-    "url": "https://velocharts.com/?v=2",
-    "description": "Next-generation financial market charting platform, real-time crypto & stock analytics, and automated trading algorithms.",
-    "bg": "#042f2e"
-  },
-  {
-    "title": "Hela Invest",
-    "category": "Finance & Investment Advisory",
-    "url": "https://helainvest.com/",
-    "description": "Premier Sri Lankan investment advisory portal, wealth growth management, and financial project funding platform.",
-    "bg": "#1e1b4b"
-  },
-  {
-    "title": "Tourio LK",
-    "category": "Travel & Destination Booking",
-    "url": "https://tourio.lk/",
-    "description": "Comprehensive Sri Lanka travel booking platform, custom vacation packages, hotel stays, and curated adventure tours.",
-    "bg": "#042f2e"
-  },
-  {
-    "title": "Many To One AMS",
-    "category": "Corporate Association Platform",
-    "url": "https://manytooneams.com/",
-    "description": "Enterprise Association Management Software (AMS) platform engineered for non-profit organizations and member institutions.",
-    "bg": "#0f172a"
-  },
-  {
-    "title": "Shanthi Weda Madhura",
-    "category": "Ayurveda & Luxury Wellness",
-    "url": "https://shanthiwedamadura.com",
-    "description": "Traditional Sri Lankan Ayurvedic hospital, medicinal wellness retreats, and international patient booking.",
-    "bg": "#064e3b"
-  },
-  {
-    "title": "Versells Lanka",
-    "category": "Corporate Web App",
-    "url": "https://versellslanka.com",
-    "description": "Enterprise agricultural technology & electric fencing engineering portal with interactive quote generator.",
-    "bg": "#0b1329"
-  },
-  {
-    "title": "Perx Lanka",
-    "category": "Corporate & Engineering Solutions",
-    "url": "http://perxlanka.com/",
-    "description": "Specialized industrial engineering, equipment supply, and corporate enterprise solutions in Sri Lanka.",
-    "bg": "#1e3a8a"
-  },
-  {
-    "title": "Lanka Sunrays",
-    "category": "E-commerce & Export",
-    "url": "https://lankasunrays.lk",
-    "description": "Solar water pumping solutions & solar engineering store with PayHere checkout and export catalog.",
-    "bg": "#1c1917"
-  },
-  {
-    "title": "Centennial Leo Club",
-    "category": "Non-Profit Community",
-    "url": "https://richmondleos.org",
-    "description": "Official community platform for youth leadership, projects, and district news for Richmond College Leos.",
-    "bg": "#172554"
-  },
-  {
-    "title": "Nations Trust Holdings",
-    "category": "Finance & UK Investment",
-    "url": "https://nationstrustholdingslondon.com",
-    "description": "Global migration consultancy, UK wealth management, and overseas education advisory portal.",
-    "bg": "#1e1b4b"
-  },
-  {
-    "title": "Enlyt Partners",
-    "category": "Strategic Consulting",
-    "url": "https://enlytpartners.com",
-    "description": "Executive leadership consulting, organizational excellence, and business transformation architecture.",
-    "bg": "#0f172a"
-  },
-  {
-    "title": "GPS Lanka Travels",
-    "category": "Travel & Tourism",
-    "url": "https://gpslankatravels.com",
-    "description": "Bespoke Sri Lanka island tours, wildlife safari itineraries, and instant private chauffeur booking.",
-    "bg": "#042f2e"
-  },
-  {
-    "title": "Tropica Flavours",
-    "category": "FMCG & Brand",
-    "url": "https://tropicaflavours.com",
-    "description": "Pure Ceylon spice exports, certified organic vanilla, and worldwide wholesale distributor network.",
-    "bg": "#312e81"
-  },
-  {
-    "title": "DD Lanka Tours",
-    "category": "Destination Travel",
-    "url": "https://ddlankatours.lk/",
-    "description": "Cultural heritage round-tours, luxury hotel reservations, and custom Sri Lanka vacation packages.",
-    "bg": "#14532d"
-  },
-  {
-    "title": "VITES Secure Auth 2026",
-    "category": "Cybersecurity Web App",
-    "url": "https://kanchu12345.github.io/VITES/vites-secure-auth-2026.html",
-    "description": "Advanced cryptographic biometric and OTP authentication portal with 256-bit security.",
-    "bg": "#1e293b"
-  },
-  {
-    "title": "VITES Cloud Platform",
-    "category": "Cloud Infrastructure",
-    "url": "https://kanchu12345.github.io/VITES/",
-    "description": "High-availability cloud computing and microservices management console.",
-    "bg": "#0f172a"
-  }
-];
+function renderProjectsList(grid, projects){
+  if (!grid) return;
   grid.innerHTML = '';
-  
-  // Check if we are on projects/portfolio page vs homepage
+  const sorted = [...projects].sort((a, b) => {
+    const aFeat = !!a.featured;
+    const bFeat = !!b.featured;
+    if (aFeat && !bFeat) return -1;
+    if (!aFeat && bFeat) return 1;
+    if (aFeat && bFeat) {
+      return (Number(a.featuredOrder) || 99) - (Number(b.featuredOrder) || 99);
+    }
+    const aTime = a.createdAt?.seconds || 0;
+    const bTime = b.createdAt?.seconds || 0;
+    return bTime - aTime;
+  });
+
   const pName = window.location.pathname.toLowerCase();
   const isPortfolioPage = pName.includes('portfolio') || pName.includes('projects');
-  const list = isPortfolioPage ? demos : demos.slice(0, 6);
+  const displayList = isPortfolioPage ? sorted : sorted.slice(0, 6);
 
-  list.forEach(function(p, index){
-    const card = document.createElement('a');
-    card.href = p.url;
-    card.target = '_blank';
-    card.rel = 'noopener';
-    card.className = 'proj-card reveal';
-    card.style.cssText = 'text-decoration:none; display:block; min-height:280px; height:100%; border-radius:18px; overflow:hidden; position:relative; background:' + (p.bg || '#1e293b') + '; border:1px solid rgba(255,255,255,0.15); box-shadow:0 12px 35px rgba(0,0,0,0.5); transition:all 0.35s ease; width:100%; box-sizing:border-box;';
-    card.onmouseover = function() { this.style.transform='translateY(-6px) scale(1.01)'; this.style.borderColor='#04AA6D'; this.style.boxShadow='0 20px 40px rgba(4,170,109,0.3)'; };
-    card.onmouseout = function() { this.style.transform='none'; this.style.borderColor='rgba(255,255,255,0.15)'; this.style.boxShadow='0 12px 35px rgba(0,0,0,0.5)'; };
-
-    card.innerHTML = `
-      <div style="width:100%; height:100%; position:relative; overflow:hidden; display:flex; flex-direction:column; justify-content:space-between; min-height:280px;">
-        <img src="https://s0.wp.com/mshots/v1/${encodeURIComponent(p.url)}?w=650&h=480" alt="${p.title}" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0.85; transition:transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="this.style.display='none'">
-        
-        <!-- Top Status Badge -->
-        <div style="position:relative; z-index:2; display:flex; justify-content:space-between; align-items:center; padding:14px;">
-          <div style="background:rgba(4,170,109,0.95); backdrop-filter:blur(10px); color:#ffffff; padding:6px 12px; border-radius:50px; font-size:11px; font-weight:800; display:inline-flex; align-items:center; gap:6px; box-shadow:0 4px 14px rgba(0,0,0,0.4); letter-spacing:0.02em;">
-            <span style="width:7px; height:7px; background:#fff; border-radius:50%; display:inline-block; box-shadow:0 0 6px #fff;"></span>
-            <span>Completed & Live</span>
-          </div>
-
-          <!-- Top Right External Link Icon -->
-          <div style="background:rgba(8,12,22,0.85); border:1px solid rgba(255,255,255,0.25); border-radius:50%; width:34px; height:34px; display:flex; align-items:center; justify-content:center; color:#04AA6D; backdrop-filter:blur(10px); box-shadow:0 4px 12px rgba(0,0,0,0.4);">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-          </div>
-        </div>
-
-        <!-- Bottom Details Overlay -->
-        <div style="position:relative; z-index:2; background:linear-gradient(to top, rgba(8,12,22,0.98) 0%, rgba(8,12,22,0.85) 60%, transparent 100%); padding:18px 16px 16px; margin-top:auto; width:100%; box-sizing:border-box;">
-          <span style="font-weight:900; color:#ffffff; font-size:1.15rem; display:block; margin-bottom:6px; letter-spacing:-0.01em; text-shadow:0 2px 8px rgba(0,0,0,0.8); line-height:1.25;">${p.title}</span>
-          <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:nowrap; width:100%;">
-            <span style="font-size:0.75rem; color:#04AA6D; letter-spacing:0.06em; text-transform:uppercase; font-weight:800; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:70%; flex-shrink:1;">${p.category}</span>
-            <span style="font-size:0.8rem; color:#38bdf8; font-weight:800; display:inline-flex; align-items:center; gap:3px; flex-shrink:0; white-space:nowrap;">Visit Site ↗</span>
-          </div>
-        </div>
-      </div>`;
-    grid.appendChild(card);
+  displayList.forEach(p => {
+    grid.appendChild(makeProjectCard(p));
   });
+}
+
+function getDemoProjects(){
+  return [
+    {
+      "title": "Zap Ceylon",
+      "category": "Conglomerate & Global Trade",
+      "url": "https://kanchu12345.github.io/ZAP-CEYLON-/",
+      "description": "Premier diversified Sri Lankan conglomerate portal spanning global trade, Ceylon gems & spices, construction, finance, and digital innovation.",
+      "bg": "#0f172a",
+      "featured": true,
+      "featuredOrder": 1
+    },
+    {
+      "title": "Hiri Surf School (Hiriketiya)",
+      "category": "Tourism & Beach Academy",
+      "url": "https://hirisurfschool.com/",
+      "description": "Premier surf school and tropical resort booking platform in Hiriketiya, Sri Lanka with custom booking workflows.",
+      "bg": "#0284c7",
+      "featured": true,
+      "featuredOrder": 2
+    },
+    {
+      "title": "VeloCharts",
+      "category": "FinTech & Market Analytics",
+      "url": "https://velocharts.com/?v=2",
+      "description": "Next-generation financial market charting platform, real-time crypto & stock analytics, and automated trading algorithms.",
+      "bg": "#042f2e",
+      "featured": true,
+      "featuredOrder": 3
+    },
+    {
+      "title": "Hela Invest",
+      "category": "Finance & Investment Advisory",
+      "url": "https://helainvest.com/",
+      "description": "Premier Sri Lankan investment advisory portal, wealth growth management, and financial project funding platform.",
+      "bg": "#1e1b4b",
+      "featured": true,
+      "featuredOrder": 4
+    },
+    {
+      "title": "Tourio LK",
+      "category": "Travel & Destination Booking",
+      "url": "https://tourio.lk/",
+      "description": "Comprehensive Sri Lanka travel booking platform, custom vacation packages, hotel stays, and curated adventure tours.",
+      "bg": "#042f2e",
+      "featured": true,
+      "featuredOrder": 5
+    },
+    {
+      "title": "Many To One AMS",
+      "category": "Corporate Association Platform",
+      "url": "https://manytooneams.com/",
+      "description": "Enterprise Association Management Software (AMS) platform engineered for non-profit organizations and member institutions.",
+      "bg": "#0f172a",
+      "featured": true,
+      "featuredOrder": 6
+    },
+    {
+      "title": "Shanthi Weda Madhura",
+      "category": "Ayurveda & Luxury Wellness",
+      "url": "https://shanthiwedamadura.com",
+      "description": "Traditional Sri Lankan Ayurvedic hospital, medicinal wellness retreats, and international patient booking.",
+      "bg": "#064e3b"
+    },
+    {
+      "title": "Versells Lanka",
+      "category": "Corporate Web App",
+      "url": "https://versellslanka.com",
+      "description": "Enterprise agricultural technology & electric fencing engineering portal with interactive quote generator.",
+      "bg": "#0b1329"
+    },
+    {
+      "title": "Perx Lanka",
+      "category": "Corporate & Engineering Solutions",
+      "url": "http://perxlanka.com/",
+      "description": "Specialized industrial engineering, equipment supply, and corporate enterprise solutions in Sri Lanka.",
+      "bg": "#1e3a8a"
+    },
+    {
+      "title": "Lanka Sunrays",
+      "category": "E-commerce & Export",
+      "url": "https://lankasunrays.lk",
+      "description": "Solar water pumping solutions & solar engineering store with PayHere checkout and export catalog.",
+      "bg": "#1c1917"
+    },
+    {
+      "title": "Centennial Leo Club",
+      "category": "Non-Profit Community",
+      "url": "https://richmondleos.org",
+      "description": "Official community platform for youth leadership, projects, and district news for Richmond College Leos.",
+      "bg": "#172554"
+    },
+    {
+      "title": "Nations Trust Holdings",
+      "category": "Finance & UK Investment",
+      "url": "https://nationstrustholdingslondon.com",
+      "description": "Global migration consultancy, UK wealth management, and overseas education advisory portal.",
+      "bg": "#1e1b4b"
+    },
+    {
+      "title": "Enlyt Partners",
+      "category": "Strategic Consulting",
+      "url": "https://enlytpartners.com",
+      "description": "Executive leadership consulting, organizational excellence, and business transformation architecture.",
+      "bg": "#0f172a"
+    },
+    {
+      "title": "GPS Lanka Travels",
+      "category": "Travel & Tourism",
+      "url": "https://gpslankatravels.com",
+      "description": "Bespoke Sri Lanka island tours, wildlife safari itineraries, and instant private chauffeur booking.",
+      "bg": "#042f2e"
+    },
+    {
+      "title": "Tropica Flavours",
+      "category": "FMCG & Brand",
+      "url": "https://tropicaflavours.com",
+      "description": "Pure Ceylon spice exports, certified organic vanilla, and worldwide wholesale distributor network.",
+      "bg": "#312e81"
+    },
+    {
+      "title": "DD Lanka Tours",
+      "category": "Destination Travel",
+      "url": "https://ddlankatours.lk/",
+      "description": "Cultural heritage round-tours, luxury hotel reservations, and custom Sri Lanka vacation packages.",
+      "bg": "#14532d"
+    },
+    {
+      "title": "VITES Secure Auth 2026",
+      "category": "Cybersecurity Web App",
+      "url": "https://kanchu12345.github.io/VITES/vites-secure-auth-2026.html",
+      "description": "Advanced cryptographic biometric and OTP authentication portal with 256-bit security.",
+      "bg": "#1e293b"
+    },
+    {
+      "title": "VITES Cloud Platform",
+      "category": "Cloud Infrastructure",
+      "url": "https://kanchu12345.github.io/VITES/",
+      "description": "High-availability cloud computing and microservices management console.",
+      "bg": "#0f172a"
+    }
+  ];
+}
+
+async function loadProjectsFromJSON(grid){
+  const prefix = rootPath();
+  try {
+    const res = await fetch(prefix + 'data/projects.json');
+    const data = await res.json();
+    if (Array.isArray(data) && data.length > 0) {
+      renderProjectsList(grid, data);
+      return;
+    }
+  } catch(e){}
+  renderProjectsList(grid, getDemoProjects());
+}
+
+/* ── Load projects from Firebase ───────────────── */
+async function loadProjects(){
+  const grid = document.getElementById('projGrid');
+  if (!grid) return;
+  try {
+    const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 3000));
+    const fetchPromise = (async () => {
+      const prefix = rootPath();
+      const { db, collection, getDocs } = await import(prefix + 'js/firebase-config.js');
+      return await getDocs(collection(db, 'projects'));
+    })();
+    const snap = await Promise.race([fetchPromise, timeoutPromise]);
+    if (!snap || snap.empty) {
+      loadProjectsFromJSON(grid);
+      return;
+    }
+    const items = [];
+    snap.forEach(function(d){
+      items.push({ id: d.id, ...d.data() });
+    });
+    renderProjectsList(grid, items);
+  } catch(e){
+    console.warn('Projects fallback active:', e.message);
+    loadProjectsFromJSON(grid);
+  }
 }
 
 /* ── Blog System: Reads from data/blogs.json (auto-updated by GitHub Actions) */

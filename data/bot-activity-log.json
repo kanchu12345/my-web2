@@ -1,5 +1,19 @@
 [
   {
+    "timestamp": "2026-09-12 16:56:37",
+    "bot_name": "Bot 02 — Tech Blog Curator",
+    "bot_icon": "📰",
+    "status": "SUCCESS",
+    "message": "Curated tech articles. Verified English ratio: 100.0% (Minimum standard: 80%). Canonical Article schemas up to date."
+  },
+  {
+    "timestamp": "2026-09-12 16:56:29",
+    "bot_name": "Bot 01 — Coding Lessons Engine",
+    "bot_icon": "🤖",
+    "status": "SUCCESS",
+    "message": "Curriculum verified (11 lessons, 3 bilingual). Strictly preserved 44+ English reserved programming keywords according to glossary rules."
+  },
+  {
     "timestamp": "2026-09-12 12:21:09",
     "bot_name": "Bot 01 — Coding Lessons Engine",
     "bot_icon": "🤖",

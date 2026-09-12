@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Bebas+Neue&display=swap');
+/* Google Fonts loaded via HTML <head> <link> tags for optimal FCP & zero render-blocking */
 
 /* ═══════════════════════════════════════
    DESIGN TOKENS
@@ -65,7 +65,7 @@ body::after{
 /* ── Floating Code Decorations ── */
 .code-bg{
   position:fixed;inset:0;
-  pointer-events:none;z-index:1;
+  pointer-events:none;z-index:0;
   overflow:hidden;
 }
 .code-float{
@@ -92,12 +92,16 @@ body::after{
 .code-float .cc{color:rgba(100,100,100,0.4);font-style:italic;}
 
 /* Positions — scattered across the page */
-.code-float-1{top:6%;left:1%;transform:rotate(-2deg);}
+.code-float-1{top:14%;left:1%;transform:rotate(-2deg);max-width:280px;}
 .code-float-2{top:22%;right:0.5%;transform:rotate(1.5deg);animation-delay:-4s;}
 .code-float-3{top:50%;left:0.5%;transform:rotate(-1deg);animation-delay:-8s;}
 .code-float-4{top:68%;right:1%;transform:rotate(2deg);animation-delay:-12s;}
 .code-float-5{top:38%;left:2%;transform:rotate(0.5deg);animation-delay:-6s;}
 .code-float-6{top:85%;right:2%;transform:rotate(-1.5deg);animation-delay:-15s;}
+
+@media (max-width: 900px) {
+  .code-float { display: none !important; }
+}
 
 @keyframes codeDrift{
   0%{transform:translateY(0px) rotate(-2deg);}
@@ -291,7 +295,7 @@ body::after{
 /* ═══════════════════════════════════════
    SECTION HEADERS
 ═══════════════════════════════════════ */
-.section{padding:80px 24px;position:relative;z-index:1;}
+.section{padding:80px 24px;position:relative;z-index:2;}
 .section-inner{max-width:1200px;margin:0 auto;}
 .section-eyebrow{
   display:inline-flex;align-items:center;gap:10px;
