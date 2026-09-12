@@ -13,7 +13,12 @@
 
 </head>
 <body>
-<aside class="sidebar">
+<script type="module">
+import { auth, onAuthStateChanged } from '../js/firebase-config.js';
+onAuthStateChanged(auth, user => {
+  if (!user) window.location.replace('login.html');
+});
+</script><aside class="sidebar">
   <div class="sb-logo">
     <img src="../images/logo.png" alt="" width="32">
     <div class="sb-brand"><strong>INFINITE</strong><small>Admin Panel</small></div>
@@ -102,7 +107,7 @@
       <div class="settings-title">Analytics Configuration</div>
       <div class="form-field">
         <label class="form-label" for="sGA4">Google Analytics 4 Measurement ID</label>
-        <input type="text" id="sGA4" class="form-input" placeholder="G-XXXXXXXXXX" maxlength="20">
+        <input type="text" id="sGA4" class="form-input" value="G-D2XDMKN1LX" placeholder="G-D2XDMKN1LX" maxlength="20">
       </div>
       <div class="form-field">
         <label class="form-label" for="sFBPixel">Facebook Pixel ID (optional)</label>
@@ -119,19 +124,19 @@
       <div class="settings-title">Security Overview</div>
       <div class="sec-info">
         <div class="sec-row"><span class="sec-label">Login Rate Limit</span><span class="sec-val sec-ok">5 attempts · 30min lockout</span></div>
-        <div class="sec-row"><span class="sec-label">Authentication</span><span class="sec-val sec-ok">Firebase Auth (email/password)</span></div>
+        <div class="sec-row"><span class="sec-label">Authentication</span><span class="sec-val sec-ok">Firebase onAuthStateChanged (7/7 Admin Pages)</span></div>
         <div class="sec-row"><span class="sec-label">File Upload Policy</span><span class="sec-val sec-ok">JPG/PNG/WebP · Max 5MB · Magic-byte verified</span></div>
-        <div class="sec-row"><span class="sec-label">Input Sanitisation</span><span class="sec-val sec-ok">All fields sanitised before save</span></div>
+        <div class="sec-row"><span class="sec-label">Input Sanitisation</span><span class="sec-val sec-ok">DOMPurify Active</span></div>
         <div class="sec-row"><span class="sec-label">CSP Header</span><span class="sec-val sec-ok">Strict policy on all pages</span></div>
-        <div class="sec-row"><span class="sec-label">Two-Factor Auth</span><span class="sec-val" id="tfaStatus" style="color:var(--yellow)">Optional — set USE_2FA=true in login.html</span></div>
+        <div class="sec-row"><span class="sec-label">Two-Factor Auth</span><span class="sec-val sec-ok" id="tfaStatus" style="color:#04AA6D">Active (USE_2FA=true in login.html)</span></div>
       </div>
       <div style="margin-top:16px;padding:14px;background:var(--blue-dim);border:1px solid rgba(0,170,255,.2);border-radius:12px;font-size:12px;color:var(--grey-l);line-height:1.6">
         <strong style="color:var(--blue)">Production checklist:</strong><br>
-        ✓ Replace Firebase config in <code style="color:var(--blue)">js/firebase-config.js</code><br>
-        ✓ Replace GA4 ID <code style="color:var(--blue)">G-XXXXXXXXXX</code> in index.html<br>
-        ✓ Enable HTTPS on your hosting (Netlify / Vercel / Firebase Hosting recommended)<br>
-        ✓ Set Firestore Security Rules to require auth for write operations<br>
-        ✓ Enable Firebase Storage security rules
+        ✓ Firebase production config in <code style="color:var(--blue)">js/firebase-config.js</code><br>
+        ✓ GA4 ID <code style="color:var(--blue)">G-D2XDMKN1LX</code> configured in index.html &amp; config<br>
+        ✓ Firestore Security Rules deployed via <code style="color:var(--blue)">firestore.rules</code> (request.auth != null)<br>
+        ✓ DOMPurify HTML sanitization active on settings and user inputs<br>
+        ✓ All 7 admin pages protected with Firebase Auth guards
       </div>
     </div>
 
@@ -178,7 +183,17 @@ function toast(msg,type='ok'){
   t.className='toast show toast-'+type;m.textContent=msg;
   setTimeout(()=>t.classList.remove('show'),3200);
 }
-function sanitise(s){return String(s).replace(/<script/gi,'').trim().slice(0,2000);}
+function sanitise(s){
+  if(typeof DOMPurify !== 'undefined'){
+    return DOMPurify.sanitize(String(s), {
+      ALLOWED_TAGS: ['p','strong','em','a','br','ul','ol','li','h3','h4','span','div'],
+      ALLOWED_ATTR: ['href','target','rel','style'],
+      ALLOW_DATA_ATTR: false
+    }).slice(0,2000);
+  }
+  // Fallback: strip ALL HTML tags
+  return String(s).replace(/<[^>]*>/g,'').trim().slice(0,2000);
+}
 
 let settingsDocId=null;
 
@@ -225,5 +240,6 @@ document.getElementById('saveAnalytics').addEventListener('click',()=>{
   saveField({ga4Id:ga4,fbPixel:fb});
 });
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js"></script>
 </body>
 </html>

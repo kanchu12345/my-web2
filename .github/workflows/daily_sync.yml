@@ -26,18 +26,22 @@ jobs:
           python -m pip install --upgrade pip
           pip install beautifulsoup4
 
-      - name: Run W3Schools Tutorials Auto-Sync Bot
+      - name: Run Coding Tutorials Auto-Sync Bot
         run: |
-          python scratch/sync_w3schools_tutorials.py || true
+          python scripts/sync_tutorials.py || true
 
-      - name: Run Sinhala Tech Blogs Auto-Sync Bot
+      - name: Run Tech Blogs Auto-Sync Bot
         run: |
-          python scratch/sync_all_sinhala_tech_sources.py || true
+          python scripts/sync_tech_blogs.py || true
+
+      - name: Run AI SEO Curriculum Architect Bot
+        run: |
+          python sync_ai_curriculum_seo_bot.py || true
 
       - name: Commit and Push Updates to GitHub Pages
         run: |
           git config --global user.name "Infinite Cloud Bot"
           git config --global user.email "bot@infiniteweb.dev"
-          git add data/w3-tutorials.js data/blogs.json || true
-          git commit -m "Automated 24/7 Daily Cloud Sync (W3Schools & Sinhala Tech News)" || true
+          git add data/ || true
+          git commit -m "Automated 24/7 Daily Cloud Sync (Tutorials, Blogs & SEO Modules)" || true
           git push origin main || true

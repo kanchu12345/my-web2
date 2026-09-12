@@ -460,5 +460,28 @@
       doc.close();
     }
   </script>
+  <script type="module">
+    import { db, collection, getDocs } from './js/firebase-config.js';
+    async function syncFirestoreTutorials() {
+      try {
+        const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 3000));
+        const fetchPromise = getDocs(collection(db, 'tutorials'));
+        const snap = await Promise.race([fetchPromise, timeoutPromise]);
+        if (snap && !snap.empty) {
+          window.ACADEMY_COURSES = window.ACADEMY_COURSES || {};
+          snap.forEach(d => {
+            window.ACADEMY_COURSES[d.id] = d.data();
+          });
+          const params = new URLSearchParams(window.location.search);
+          const cParam = params.get('course') || currentCourseKey || 'html';
+          const lIndex = currentLessonIndex || 0;
+          initCourses(cParam, lIndex);
+        }
+      } catch (err) {
+        console.warn('Tutorials offline/cache fallback active:', err.message);
+      }
+    }
+    syncFirestoreTutorials();
+  </script>
 </body>
 </html>

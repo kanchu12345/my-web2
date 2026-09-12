@@ -75,7 +75,12 @@
 </style>
 </head>
 <body>
-
+<script type="module">
+import { auth, onAuthStateChanged } from '../js/firebase-config.js';
+onAuthStateChanged(auth, user => {
+  if (!user) window.location.replace('login.html');
+});
+</script>
   <!-- ── SIDEBAR ─────────────────────────────────── -->
   <aside class="sidebar">
     <div class="sb-logo">
@@ -256,19 +261,44 @@
   </div>
 </div>
 
+<div class="toast" id="toast"><div class="toast-dot"></div><span id="toastMsg"></span></div>
+
 <script src="../data/w3-tutorials.js?v=2026"></script>
-<script>
+<script type="module">
+  import { db, collection, getDocs, doc, setDoc } from '../js/firebase-config.js';
+
   let currentAdminTrack = 'html';
   let coursesData = window.ACADEMY_COURSES || window.W3_TUTORIALS || {};
 
+  function toast(msg, type='ok'){
+    const t=document.getElementById('toast'), m=document.getElementById('toastMsg');
+    if(!t) return alert(msg);
+    t.className='toast show toast-'+type; m.textContent=msg;
+    setTimeout(()=>t.classList.remove('show'), 3200);
+  }
+
+  async function loadFirestoreTutorials() {
+    try {
+      const snap = await getDocs(collection(db, 'tutorials'));
+      snap.forEach(docSnap => {
+        coursesData[docSnap.id] = docSnap.data();
+      });
+      renderAdminLessonsList();
+    } catch (err) {
+      console.warn('Firestore tutorials load fallback:', err);
+    }
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     renderAdminLessonsList();
+    loadFirestoreTutorials();
+    document.getElementById('lessonForm').addEventListener('submit', saveLesson);
   });
 
   function switchAdminTrack(trackKey) {
     currentAdminTrack = trackKey;
     document.querySelectorAll('.track-btn').forEach(b => {
-      b.classList.toggle('active', b.getAttribute('onclick').includes(trackKey));
+      b.classList.toggle('active', b.getAttribute('onclick')?.includes(trackKey));
     });
     renderAdminLessonsList();
   }
@@ -277,7 +307,7 @@
     const course = coursesData[currentAdminTrack];
     if (!course) return;
 
-    document.getElementById('currentTrackTitle').textContent = course.name + ' Lessons';
+    document.getElementById('currentTrackTitle').textContent = (course.name || currentAdminTrack.toUpperCase()) + ' Lessons';
     document.getElementById('currentTrackDesc').textContent = course.tagline || 'Manage course lessons and code playgrounds';
 
     const container = document.getElementById('lessonsListContainer');
@@ -288,8 +318,8 @@
       return;
     }
 
-    course.sections.forEach((sec, sIdx) => {
-      sec.lessons.forEach((l, lIdx) => {
+    course.sections.forEach((sec) => {
+      (sec.lessons || []).forEach((l) => {
         html += `
           <div class="lesson-card-item">
             <div>
@@ -325,7 +355,7 @@
     let found = null;
     if (course && course.sections) {
       course.sections.forEach(sec => {
-        sec.lessons.forEach(l => {
+        (sec.lessons || []).forEach(l => {
           if (l.id === id) found = l;
         });
       });
@@ -361,7 +391,7 @@
     document.getElementById('lessonModal').style.display = 'none';
   }
 
-  function saveLesson(e) {
+  async function saveLesson(e) {
     e.preventDefault();
     const trackKey = document.getElementById('formTrackKey').value;
     const lessonId = document.getElementById('editLessonId').value || ('lesson_' + Date.now());
@@ -396,33 +426,52 @@
       };
     }
 
-    const course = coursesData[trackKey];
-    if (course) {
-      if (!course.sections || course.sections.length === 0) {
-        course.sections = [{ title: course.name + ' Tutorial', lessons: [] }];
-      }
-      const existingIdx = course.sections[0].lessons.findIndex(l => l.id === lessonId);
-      if (existingIdx !== -1) {
-        course.sections[0].lessons[existingIdx] = newLessonObj;
-      } else {
-        course.sections[0].lessons.push(newLessonObj);
-      }
+    let course = coursesData[trackKey];
+    if (!course) {
+      course = { name: trackKey.toUpperCase(), sections: [] };
+      coursesData[trackKey] = course;
+    }
+    if (!course.sections || course.sections.length === 0) {
+      course.sections = [{ title: (course.name || trackKey) + ' Tutorial', lessons: [] }];
+    }
+    const existingIdx = course.sections[0].lessons.findIndex(l => l.id === lessonId);
+    if (existingIdx !== -1) {
+      course.sections[0].lessons[existingIdx] = newLessonObj;
+    } else {
+      course.sections[0].lessons.push(newLessonObj);
     }
 
     closeLessonModal();
     renderAdminLessonsList();
-    alert('Lesson saved successfully! Click "Export JSON Database" to download or sync.');
+
+    // Persist to Firestore
+    try {
+      await setDoc(doc(db, 'tutorials', trackKey), course);
+      toast('Lesson saved and published to Firestore!', 'ok');
+    } catch (err) {
+      console.error('Firestore save error:', err);
+      toast('Saved locally (Firestore write: ' + err.message + ')', 'warn');
+    }
   }
 
-  function deleteLesson(id) {
+  async function deleteLesson(id) {
     if (!confirm('Are you sure you want to delete this lesson?')) return;
     const course = coursesData[currentAdminTrack];
     if (course && course.sections) {
       course.sections.forEach(sec => {
-        sec.lessons = sec.lessons.filter(l => l.id !== id);
+        sec.lessons = (sec.lessons || []).filter(l => l.id !== id);
       });
     }
     renderAdminLessonsList();
+
+    // Persist to Firestore
+    try {
+      await setDoc(doc(db, 'tutorials', currentAdminTrack), course);
+      toast('Lesson deleted from live database.', 'ok');
+    } catch (err) {
+      console.error('Firestore delete error:', err);
+      toast('Deleted locally (Firestore write: ' + err.message + ')', 'warn');
+    }
   }
 
   function exportTutorialsJSON() {
@@ -432,6 +481,15 @@
     dlAnchor.setAttribute("download", "w3-tutorials.json");
     dlAnchor.click();
   }
+
+  // Bind globals for HTML event attributes
+  window.switchAdminTrack = switchAdminTrack;
+  window.openNewLessonModal = openNewLessonModal;
+  window.closeLessonModal = closeLessonModal;
+  window.editLesson = editLesson;
+  window.deleteLesson = deleteLesson;
+  window.exportTutorialsJSON = exportTutorialsJSON;
+  window.fetchW3SchoolsAuto = fetchW3SchoolsAuto;
 </script>
 
 </body>

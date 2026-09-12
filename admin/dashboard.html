@@ -13,15 +13,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
 <link rel="stylesheet" href="../css/admin.css">
-<script>
-  const isAuth = localStorage.getItem('infinite_admin_auth') === 'true' || sessionStorage.getItem('infinite_admin_auth') === 'true';
-  if (!isAuth) {
-    window.location.replace('login.html');
-  }
-</script>
 </head>
 <body>
-
+<script type="module">
+import { auth, onAuthStateChanged } from '../js/firebase-config.js';
+onAuthStateChanged(auth, user => {
+  if (!user) window.location.replace('login.html');
+});
+</script>
 <!-- ── SIDEBAR ─────────────────────────────────── -->
 <aside class="sidebar" id="sidebar">
   <div class="sb-logo">

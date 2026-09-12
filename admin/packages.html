@@ -79,7 +79,12 @@
 
 </head>
 <body>
-<aside class="sidebar">
+<script type="module">
+import { auth, onAuthStateChanged } from '../js/firebase-config.js';
+onAuthStateChanged(auth, user => {
+  if (!user) window.location.replace('login.html');
+});
+</script><aside class="sidebar">
   <div class="sb-logo">
     <img src="../images/logo.png" alt="" width="32">
     <div class="sb-brand"><strong>INFINITE</strong><small>Admin Panel</small></div>

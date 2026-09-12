@@ -13,7 +13,12 @@
 
 </head>
 <body>
-<aside class="sidebar">
+<script type="module">
+import { auth, onAuthStateChanged } from '../js/firebase-config.js';
+onAuthStateChanged(auth, user => {
+  if (!user) window.location.replace('login.html');
+});
+</script><aside class="sidebar">
   <div class="sb-logo">
     <img src="../images/logo.png" alt="" width="32">
     <div class="sb-brand"><strong>INFINITE</strong><small>Admin Panel</small></div>
@@ -322,7 +327,7 @@ document.getElementById('projForm').addEventListener('submit',async function(e){
     if(editId){
       const data={title,category:cat,description:desc,updatedAt:serverTimestamp()};
       if(imageUrl) data.image=imageUrl;
-      await updateDoc(doc(db,'projects',editId),data);
+      await updateDoc(doc(db,'blogs',editId),data);
       toast('Blog updated!','ok');
     }else{
       await addDoc(collection(db,'blogs'),{title,category:cat,description:desc,image:imageUrl,createdAt:serverTimestamp()});
@@ -363,7 +368,7 @@ document.getElementById('cancelEdit').addEventListener('click',resetForm);
 async function deleteBlog(id){
   if(!confirm('Delete this blog? This cannot be undone.'))return;
   try{
-    await deleteDoc(doc(db,'projects',id));
+    await deleteDoc(doc(db,'blogs',id));
     toast('Blog deleted.','ok');
     loadBlogs();
   }catch(e){toast('Delete failed: '+e.message,'err');}

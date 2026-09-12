@@ -121,15 +121,21 @@ async function loadProjects(){
   const grid=document.getElementById('projGrid');
   if(!grid)return;
   try{
-    const {db,collection,getDocs}=await import('./firebase-config.js');
-    const snap=await getDocs(collection(db,'projects'));
-    if(snap.empty){renderFallbackProjects(grid);return;}
+    const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 3000));
+    const fetchPromise = (async () => {
+      const prefix = rootPath();
+      const {db,collection,getDocs}=await import(prefix + 'js/firebase-config.js');
+      return await getDocs(collection(db,'projects'));
+    })();
+    const snap=await Promise.race([fetchPromise, timeoutPromise]);
+    if(!snap || snap.empty){renderFallbackProjects(grid);return;}
     grid.innerHTML='';
     snap.forEach(function(d){
       const p={id:d.id,...d.data()};
       grid.appendChild(makeCard(p));
     });
   }catch(e){
+    console.warn('Projects fallback active:', e.message);
     renderFallbackProjects(grid);
   }
 }
@@ -330,19 +336,53 @@ let _blogsCache = null;
 
 /* Helper: get relative path to root */
 function rootPath() {
-  return window.location.pathname.includes('/admin/') ? '../' : '';
+  const p = window.location.pathname;
+  if (p.includes('/admin/')) return '../';
+  // If in clean URL subdirectory (/projects/, /blogs/, /tutorials/, etc.)
+  const parts = p.split('/').filter(Boolean);
+  if (parts.length > 0 && !parts[parts.length - 1].includes('.')) {
+    return '../';
+  }
+  return '';
 }
 
 async function getBlogsData() {
   if (_blogsCache) return _blogsCache;
+  const prefix = rootPath();
+
+  // 1. Try Firestore blogs collection with 3s timeout
   try {
-    const prefix = rootPath();
-    const res = await fetch(prefix + 'data/blogs.json?v=' + Date.now());
+    const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 3000));
+    const fetchPromise = (async () => {
+      const {db, collection, getDocs}=await import(prefix + 'js/firebase-config.js');
+      const snap = await getDocs(collection(db, 'blogs'));
+      if (snap && !snap.empty) {
+        const articles = [];
+        snap.forEach(d => articles.push({ id: d.id, ...d.data() }));
+        return { articles };
+      }
+      return null;
+    })();
+    const fsData = await Promise.race([fetchPromise, timeoutPromise]);
+    if (fsData && fsData.articles && fsData.articles.length > 0) {
+      _blogsCache = fsData;
+      return _blogsCache;
+    }
+  } catch(err) {
+    // Firestore timed out or errored, fallback to JSON
+  }
+
+  // 2. Fetch data/blogs.json with 3s timeout
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 3000);
+    const res = await fetch(prefix + 'data/blogs.json?v=' + Date.now(), { signal: controller.signal });
+    clearTimeout(timeoutId);
     if (!res.ok) throw new Error('blogs.json not available');
     _blogsCache = await res.json();
     return _blogsCache;
   } catch(e) {
-    // If blogs.json not found, return hardcoded fallback
+    // 3. Guaranteed hardcoded fallback (never infinite loading)
     return {
       articles: [
         { id:'fb1', title:'The Future of Corporate Web Design in 2026', category:'Web Design', date:'May 2026', description:'Explore the latest trends in enterprise web development, focusing on performance, glassmorphism, and user experience.', image:'images/blog_1.png', body_html:'<p style="font-size:18px;line-height:1.8;color:rgba(255,255,255,0.8);">In 2026, enterprise web design is all about performance-first glassmorphism, AI-driven personalization, and immersive motion design. Infinite Creative Web Design leads the way in delivering these cutting-edge experiences to clients across Sri Lanka and internationally.</p>' },

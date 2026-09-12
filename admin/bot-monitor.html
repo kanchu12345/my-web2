@@ -27,20 +27,26 @@
       text-transform: uppercase;
     }
     .status-active { background: rgba(4,170,109,0.15); color: #04AA6D; border: 1px solid rgba(4,170,109,0.3); }
+    .status-stale { background: rgba(245,158,11,0.15); color: #f59e0b; border: 1px solid rgba(245,158,11,0.3); }
+    .status-error { background: rgba(239,68,68,0.15); color: #ef4444; border: 1px solid rgba(239,68,68,0.3); }
+    .bot-meta { font-size: 12px; color: #94a3b8; margin: 10px 0 16px; line-height: 1.5; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 10px; }
+    .bot-meta span { display: block; margin-bottom: 4px; }
     .log-item {
-      background: #080c16;
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 10px;
-      padding: 14px 18px;
-      margin-bottom: 10px;
       display: flex;
-      align-items: flex-start;
-      gap: 14px;
+      gap: 16px;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
     }
+    .log-item:last-child { border-bottom: none; }
   </style>
 </head>
 <body>
-
+<script type="module">
+import { auth, onAuthStateChanged } from '../js/firebase-config.js';
+onAuthStateChanged(auth, user => {
+  if (!user) window.location.replace('login.html');
+});
+</script>
   <!-- ADMIN NAV -->
   <nav class="nav" style="background:#080c16; border-bottom:1px solid rgba(255,255,255,0.08); padding:16px 24px;">
     <div style="max-width:1200px; margin:0 auto; display:flex; justify-content:space-between; align-items:center;">
@@ -60,7 +66,7 @@
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px; flex-wrap:wrap; gap:16px;">
       <div>
         <h1 style="font-size:2rem; font-weight:900; color:#fff; margin:0 0 6px;">🤖 AI Bots Command Center & Live Monitor</h1>
-        <p style="color:#94a3b8; margin:0;">Real-time automated bot status, cloud sync schedule & AI SEO Curriculum logs.</p>
+        <p style="color:#94a3b8; margin:0;">Real-time automated bot status, cloud sync schedule & verified activity audit logs.</p>
       </div>
       <button onclick="refreshBotLogs()" style="background:#04AA6D; color:#fff; border:none; padding:12px 24px; border-radius:10px; font-weight:800; cursor:pointer; display:inline-flex; align-items:center; gap:8px;">
         🔄 Refresh Live Bot Logs
@@ -75,12 +81,17 @@
         <div>
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
             <span style="font-size:24px;">🤖</span>
-            <span class="status-badge status-active">🟢 24/7 ACTIVE</span>
+            <span class="status-badge status-active" id="badgeBot1">🔍 CHECKING...</span>
           </div>
-          <h3 style="color:#fff; font-size:1.1rem; font-weight:800; margin:0 0 6px;">Bot 01 — W3Scraper Engine</h3>
-          <p style="color:#94a3b8; font-size:0.82rem; margin:0 0 14px;">Auto-scrapes HTML, CSS, JS, Python, SQL, PHP, React & Git lessons into data/w3-tutorials.js.</p>
+          <h3 style="color:#fff; font-size:1.1rem; font-weight:800; margin:0 0 6px;">Bot 01 — Coding Lessons Engine</h3>
+          <p style="color:#94a3b8; font-size:0.82rem; margin:0 0 10px;">Generates beginner-friendly coding lessons for HTML, CSS, JS, Python, SQL, React & Git.</p>
+          <div class="bot-meta">
+            <span>⏱️ <strong>Schedule:</strong> Daily at 00:00 UTC (05:30 AM SLT)</span>
+            <span>📡 <strong>Pipeline:</strong> GitHub Actions Cron Job</span>
+            <span id="lastRunBot1">⏳ <strong>Last Run:</strong> Checking logs...</span>
+          </div>
         </div>
-        <button onclick="triggerBot('bot1')" style="background:rgba(4,170,109,0.1); border:1px solid #04AA6D; color:#04AA6D; font-weight:800; padding:10px; border-radius:8px; width:100%; cursor:pointer;">Run Bot 01 Now &rarr;</button>
+        <a href="https://github.com/kanchu12345/my-web2/actions" target="_blank" rel="noopener" style="display:inline-block; text-align:center; background:rgba(4,170,109,0.1); border:1px solid #04AA6D; color:#04AA6D; font-weight:800; padding:10px; border-radius:8px; width:100%; text-decoration:none; box-sizing:border-box;">View GitHub Actions ↗</a>
       </div>
 
       <!-- Bot 02 -->
@@ -88,12 +99,17 @@
         <div>
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
             <span style="font-size:24px;">📰</span>
-            <span class="status-badge status-active">🟢 24/7 ACTIVE</span>
+            <span class="status-badge status-active" id="badgeBot2">🔍 CHECKING...</span>
           </div>
-          <h3 style="color:#fff; font-size:1.1rem; font-weight:800; margin:0 0 6px;">Bot 02 — Sinhala Tech News</h3>
-          <p style="color:#94a3b8; font-size:0.82rem; margin:0 0 14px;">Curates Sinhala tech articles from Ada.lk, AndroidWedakarayo & TechSatahan into data/blogs.json.</p>
+          <h3 style="color:#fff; font-size:1.1rem; font-weight:800; margin:0 0 6px;">Bot 02 — Tech Blog Curator</h3>
+          <p style="color:#94a3b8; font-size:0.82rem; margin:0 0 10px;">Curates original tech news & web development articles (min 80% English) with attribution.</p>
+          <div class="bot-meta">
+            <span>⏱️ <strong>Schedule:</strong> Every 2 days at 00:00 UTC</span>
+            <span>🌐 <strong>Target Ratio:</strong> 80%+ English / Original Content</span>
+            <span id="lastRunBot2">⏳ <strong>Last Run:</strong> Checking logs...</span>
+          </div>
         </div>
-        <button onclick="triggerBot('bot2')" style="background:rgba(56,189,248,0.1); border:1px solid #38bdf8; color:#38bdf8; font-weight:800; padding:10px; border-radius:8px; width:100%; cursor:pointer;">Run Bot 02 Now &rarr;</button>
+        <a href="https://github.com/kanchu12345/my-web2/actions" target="_blank" rel="noopener" style="display:inline-block; text-align:center; background:rgba(56,189,248,0.1); border:1px solid #38bdf8; color:#38bdf8; font-weight:800; padding:10px; border-radius:8px; width:100%; text-decoration:none; box-sizing:border-box;">View GitHub Actions ↗</a>
       </div>
 
       <!-- Bot 03 -->
@@ -101,12 +117,17 @@
         <div>
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
             <span style="font-size:24px;">☁️</span>
-            <span class="status-badge status-active">🟢 CLOUD CRON</span>
+            <span class="status-badge status-active" id="badgeBot3">🟢 CLOUD CRON</span>
           </div>
           <h3 style="color:#fff; font-size:1.1rem; font-weight:800; margin:0 0 6px;">Bot 03 — GitHub Cloud Pipeline</h3>
-          <p style="color:#94a3b8; font-size:0.82rem; margin:0 0 14px;">Executes daily at 00:00 UTC on GitHub Actions servers even when PC is turned off.</p>
+          <p style="color:#94a3b8; font-size:0.82rem; margin:0 0 10px;">Automated runner on GitHub Actions servers — executes reliably even when computer is powered off.</p>
+          <div class="bot-meta">
+            <span>⚙️ <strong>Config:</strong> .github/workflows/daily_sync.yml</span>
+            <span>🛡️ <strong>Security:</strong> SHA-pinned actions, write-restricted</span>
+            <span>⏱️ <strong>Next Run:</strong> Tomorrow 00:00 UTC</span>
+          </div>
         </div>
-        <button onclick="alert('Cloud Cron runs automatically on GitHub Actions every night!')" style="background:rgba(167,139,250,0.1); border:1px solid #a78bfa; color:#a78bfa; font-weight:800; padding:10px; border-radius:8px; width:100%; cursor:pointer;">Check Cloud Status &rarr;</button>
+        <a href="https://github.com/kanchu12345/my-web2/actions" target="_blank" rel="noopener" style="display:inline-block; text-align:center; background:rgba(167,139,250,0.1); border:1px solid #a78bfa; color:#a78bfa; font-weight:800; padding:10px; border-radius:8px; width:100%; text-decoration:none; box-sizing:border-box;">Check Cloud History ↗</a>
       </div>
 
       <!-- Bot 06 -->
@@ -114,12 +135,17 @@
         <div>
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
             <span style="font-size:24px;">🚀</span>
-            <span class="status-badge status-active">🟢 READY</span>
+            <span class="status-badge status-active" id="badgeBot6">🔍 CHECKING...</span>
           </div>
           <h3 style="color:#fff; font-size:1.1rem; font-weight:800; margin:0 0 6px;">Bot 06 — SEO Curriculum Architect</h3>
-          <p style="color:#94a3b8; font-size:0.82rem; margin:0 0 14px;">Generates Schema.org JSON-LD, Breadcrumbs & Full-Stack lesson modules with target keywords.</p>
+          <p style="color:#94a3b8; font-size:0.82rem; margin:0 0 10px;">Generates Schema.org JSON-LD, Breadcrumbs & Full-Stack lesson modules targeting search keywords.</p>
+          <div class="bot-meta">
+            <span>🎯 <strong>Output:</strong> data/ai-seo-curriculum.json</span>
+            <span>🔍 <strong>Target Keywords:</strong> Web Design Sri Lanka</span>
+            <span id="lastRunBot6">⏳ <strong>Last Run:</strong> Checking logs...</span>
+          </div>
         </div>
-        <button onclick="triggerBot('bot6')" style="background:rgba(250,204,21,0.1); border:1px solid #facc15; color:#facc15; font-weight:800; padding:10px; border-radius:8px; width:100%; cursor:pointer;">Generate SEO Modules &rarr;</button>
+        <a href="../data/ai-seo-curriculum.json" target="_blank" rel="noopener" style="display:inline-block; text-align:center; background:rgba(250,204,21,0.1); border:1px solid #facc15; color:#facc15; font-weight:800; padding:10px; border-radius:8px; width:100%; text-decoration:none; box-sizing:border-box;">View SEO JSON Output ↗</a>
       </div>
 
     </div>
@@ -147,6 +173,7 @@
 
         if (!logs || logs.length === 0) {
           container.innerHTML = '<div style="color:#94a3b8;">No activity logged yet.</div>';
+          updateBotStaleness([]);
           return;
         }
 
@@ -166,14 +193,48 @@
           `;
         });
         container.innerHTML = html;
+        updateBotStaleness(logs);
       } catch (err) {
         container.innerHTML = '<div style="color:#f87171;">Failed to load logs: ' + err.message + '</div>';
+        updateBotStaleness([]);
       }
     }
 
-    function triggerBot(botId) {
-      alert('Bot ' + botId + ' trigger request dispatched! Check the Live Log Feed after server execution.');
-      refreshBotLogs();
+    function updateBotStaleness(logs) {
+      const now = Date.now();
+      const STALE_THRESHOLD_MS = 48 * 60 * 60 * 1000; // 48 hours
+
+      function checkBot(botIdentifier, badgeId, lastRunId) {
+        const badge = document.getElementById(badgeId);
+        const lastRun = document.getElementById(lastRunId);
+        if (!badge || !lastRun) return;
+
+        const botLogs = logs.filter(l => (l.bot_name || '').toLowerCase().includes(botIdentifier.toLowerCase()));
+        if (botLogs.length === 0) {
+          badge.className = 'status-badge status-stale';
+          badge.textContent = '⚠️ NO RECENT LOGS';
+          lastRun.innerHTML = '⏳ <strong>Last Run:</strong> Never / No log recorded';
+          return;
+        }
+
+        const latest = botLogs[0];
+        const logDate = new Date(latest.timestamp.replace(' ', 'T'));
+        const ageMs = now - logDate.getTime();
+
+        lastRun.innerHTML = '⏳ <strong>Last Run:</strong> ' + latest.timestamp;
+
+        if (isNaN(ageMs) || ageMs > STALE_THRESHOLD_MS) {
+          badge.className = 'status-badge status-stale';
+          badge.textContent = '⚠️ STALE (>48h)';
+        } else {
+          badge.className = 'status-badge status-active';
+          badge.textContent = '🟢 ACTIVE';
+        }
+      }
+
+      checkBot('Bot 01', 'badgeBot1', 'lastRunBot1');
+      checkBot('Bot 02', 'badgeBot2', 'lastRunBot2');
+      checkBot('Bot 06', 'badgeBot6', 'lastRunBot6');
     }
 
     document.addEventListener('DOMContentLoaded', refreshBotLogs);
