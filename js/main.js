@@ -124,46 +124,53 @@ function makeProjectCard(p){
     card.target = '_blank';
     card.rel = 'noopener';
   }
-  card.className = 'proj-card reveal';
-  card.style.cssText = 'text-decoration:none; display:block; min-height:280px; height:100%; border-radius:18px; overflow:hidden; position:relative; background:' + (p.bg || '#1e293b') + '; border:1px solid rgba(255,255,255,0.15); box-shadow:0 12px 35px rgba(0,0,0,0.5); transition:all 0.35s ease; width:100%; box-sizing:border-box;';
-  card.onmouseover = function() { this.style.transform='translateY(-6px) scale(1.01)'; this.style.borderColor='#04AA6D'; this.style.boxShadow='0 20px 40px rgba(4,170,109,0.3)'; };
-  card.onmouseout = function() { this.style.transform='none'; this.style.borderColor='rgba(255,255,255,0.15)'; this.style.boxShadow='0 12px 35px rgba(0,0,0,0.5)'; };
+  card.className = 'browser-mockup-card reveal';
 
   const safeImage = (p.image || '').replace(/["'<>]/g, '');
-  const previewSrc = safeImage || (p.url ? 'https://s0.wp.com/mshots/v1/' + encodeURIComponent(p.url) + '?w=650&h=480' : '');
+  const previewSrc = safeImage || (p.url ? 'https://s0.wp.com/mshots/v1/' + encodeURIComponent(p.url) + '?w=800&h=500' : '');
+  
+  const cleanDomain = (p.url || 'infiniteweb.dev').replace(/^https?:\/\//, '').replace(/^www\./, '').split('/')[0];
 
   const badgeHtml = p.featured
-    ? `<div style="background:rgba(234,179,8,0.95); backdrop-filter:blur(10px); color:#000; padding:6px 12px; border-radius:50px; font-size:11px; font-weight:800; display:inline-flex; align-items:center; gap:5px; box-shadow:0 4px 14px rgba(0,0,0,0.4); letter-spacing:0.02em;">
+    ? `<div class="mockup-live-badge" style="color:#facc15; border-color:rgba(250,204,21,0.4);">
         <span>⭐</span>
         <span>Featured</span>
       </div>`
-    : `<div style="background:rgba(4,170,109,0.95); backdrop-filter:blur(10px); color:#ffffff; padding:6px 12px; border-radius:50px; font-size:11px; font-weight:800; display:inline-flex; align-items:center; gap:6px; box-shadow:0 4px 14px rgba(0,0,0,0.4); letter-spacing:0.02em;">
-        <span style="width:7px; height:7px; background:#fff; border-radius:50%; display:inline-block; box-shadow:0 0 6px #fff;"></span>
-        <span>Completed & Live</span>
+    : `<div class="mockup-live-badge">
+        <span class="mockup-live-dot"></span>
+        <span>Live & Active</span>
       </div>`;
 
   card.innerHTML = `
-    <div style="width:100%; height:100%; position:relative; overflow:hidden; display:flex; flex-direction:column; justify-content:space-between; min-height:280px;">
-      <img src="${previewSrc}" alt="${p.title || 'Project'}" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0.85; transition:transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="this.style.display='none'">
-      
-      <!-- Top Status Badge -->
-      <div style="position:relative; z-index:2; display:flex; justify-content:space-between; align-items:center; padding:14px;">
-        ${badgeHtml}
-        <!-- Top Right External Link Icon -->
-        <div style="background:rgba(8,12,22,0.85); border:1px solid rgba(255,255,255,0.25); border-radius:50%; width:34px; height:34px; display:flex; align-items:center; justify-content:center; color:#04AA6D; backdrop-filter:blur(10px); box-shadow:0 4px 12px rgba(0,0,0,0.4);">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-        </div>
+    <div class="mockup-chrome">
+      <div class="mockup-dots">
+        <span class="mockup-dot red"></span>
+        <span class="mockup-dot yellow"></span>
+        <span class="mockup-dot green"></span>
       </div>
-
-      <!-- Bottom Details Overlay -->
-      <div style="position:relative; z-index:2; background:linear-gradient(to top, rgba(8,12,22,0.98) 0%, rgba(8,12,22,0.85) 60%, transparent 100%); padding:18px 16px 16px; margin-top:auto; width:100%; box-sizing:border-box;">
-        <span style="font-weight:900; color:#ffffff; font-size:1.15rem; display:block; margin-bottom:6px; letter-spacing:-0.01em; text-shadow:0 2px 8px rgba(0,0,0,0.8); line-height:1.25;">${p.title}</span>
-        <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:nowrap; width:100%;">
-          <span style="font-size:0.75rem; color:#04AA6D; letter-spacing:0.06em; text-transform:uppercase; font-weight:800; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:70%; flex-shrink:1;">${p.category || 'Web Design'}</span>
-          <span style="font-size:0.8rem; color:#38bdf8; font-weight:800; display:inline-flex; align-items:center; gap:3px; flex-shrink:0; white-space:nowrap;">Visit Site ↗</span>
-        </div>
+      <div class="mockup-url-pill">
+        <span class="mockup-chrome-lock">🔒</span>
+        <span>${cleanDomain}</span>
       </div>
-    </div>`;
+      <div style="color:#94a3b8; font-size:12px;">↗</div>
+    </div>
+    <div class="mockup-img-wrap">
+      <img src="${previewSrc}" alt="${p.title || 'Project'} Website Preview" loading="lazy" onerror="this.style.display='none'">
+      ${badgeHtml}
+    </div>
+    <div class="mockup-body">
+      <h3 class="mockup-title">${p.title}</h3>
+      <div class="mockup-tags">
+        <span class="mockup-tag">${p.category || 'Business Website'}</span>
+        <span class="mockup-tag" style="color:#04AA6D; border-color:rgba(4,170,109,0.25);">Mobile First</span>
+      </div>
+      <p class="mockup-desc">${p.description || 'Modern, fast, mobile-friendly website designed for Sri Lankan businesses.'}</p>
+      <div class="mockup-cta-link">
+        <span>View Project</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </div>
+    </div>
+  `;
   return card;
 }
 
@@ -2383,4 +2390,62 @@ document.addEventListener('DOMContentLoaded', () => {
   if (document.getElementById('calcTier')) {
     calculateFullEstimate();
   }
+  initFaqAccordion();
+  initSmoothScroll();
 });
+
+/* ── Accessible Interactive FAQ Accordion ──────────────────────── */
+function initFaqAccordion() {
+  const items = document.querySelectorAll('.faq-item');
+  if (!items.length) return;
+
+  items.forEach(item => {
+    const btn = item.querySelector('.faq-question-btn');
+    if (!btn) return;
+
+    btn.addEventListener('click', () => {
+      const isAlreadyActive = item.classList.contains('active');
+
+      // Close all items
+      items.forEach(i => {
+        i.classList.remove('active');
+        const b = i.querySelector('.faq-question-btn');
+        if (b) b.setAttribute('aria-expanded', 'false');
+      });
+
+      // Toggle current item
+      if (!isAlreadyActive) {
+        item.classList.add('active');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+
+    // Keyboard support: Enter / Space
+    btn.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        btn.click();
+      }
+    });
+  });
+}
+
+/* ── Smooth Scroll Helper for CTAs ─────────────────────────────── */
+function initSmoothScroll() {
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const targetId = this.getAttribute('href');
+      if (targetId === '#' || !targetId.startsWith('#')) return;
+      const targetEl = document.querySelector(targetId);
+      if (targetEl) {
+        e.preventDefault();
+        const navOffset = 80;
+        const targetPos = targetEl.getBoundingClientRect().top + window.pageYOffset - navOffset;
+        window.scrollTo({
+          top: targetPos,
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+}
