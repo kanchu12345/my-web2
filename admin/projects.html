@@ -311,30 +311,48 @@ import {
       localProjects = JSON.parse(localStorage.getItem('infinite_custom_projects') || '[]');
     } catch(e){}
 
-    // Combine: Firestore docs first, then local, then baseline JSON
+    function normalizeProjectSlug(p) {
+      if (!p) return '';
+      let urlStr = (p.url || '').trim().toLowerCase();
+      if (urlStr) {
+        urlStr = urlStr.replace(/^https?:\/\//, '').replace(/^www\./, '');
+        urlStr = urlStr.split(/[?#]/)[0];
+        urlStr = urlStr.replace(/\/+$/, '');
+        if (urlStr.length > 3) return urlStr;
+      }
+      const title = (p.title || '').toLowerCase()
+        .replace(/\(.*?\)/g, '')
+        .replace(/[^a-z0-9]/g, '')
+        .trim();
+      return title || (p.id || '');
+    }
+
+    // Combine: Firestore docs first (takes priority), then local, then baseline JSON
     const merged = [...fbProjects, ...localProjects, ...jsonProjects];
     const seen = new Set();
     const unique = [];
 
     merged.forEach(p => {
-      const key = (p.url || p.title || '').toLowerCase().trim();
-      if (key && !seen.has(key)) {
-        seen.add(key);
+      const slug = normalizeProjectSlug(p);
+      if (slug && !seen.has(slug)) {
+        seen.add(slug);
         unique.push(p);
       }
     });
 
-    // Auto-Sort: Featured first by featuredOrder ascending, then newest non-featured
+    // Auto-Sort: Featured first by featuredOrder ascending, then newest by timestamp
     unique.sort((a, b) => {
       const aFeat = !!a.featured;
       const bFeat = !!b.featured;
       if (aFeat && !bFeat) return -1;
       if (!aFeat && bFeat) return 1;
       if (aFeat && bFeat) {
-        return (Number(a.featuredOrder) || 99) - (Number(b.featuredOrder) || 99);
+        const aOrd = Number(a.featuredOrder) || 99;
+        const bOrd = Number(b.featuredOrder) || 99;
+        if (aOrd !== bOrd) return aOrd - bOrd;
       }
-      const aTime = a.createdAt?.seconds || 0;
-      const bTime = b.createdAt?.seconds || 0;
+      const aTime = a.createdAt?.seconds || (a._source === 'firestore' ? 9999999999 : 0);
+      const bTime = b.createdAt?.seconds || (b._source === 'firestore' ? 9999999999 : 0);
       return bTime - aTime;
     });
 

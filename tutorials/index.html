@@ -465,6 +465,33 @@
   </script>
   <script type="module">
     import { db, collection, getDocs } from '../js/firebase-config.js';
+
+    function mergeCourseData(localCourse, remoteCourse) {
+      if (!localCourse) return remoteCourse;
+      if (!remoteCourse) return localCourse;
+      const merged = { ...localCourse, ...remoteCourse };
+      if (Array.isArray(localCourse.sections) && Array.isArray(remoteCourse.sections)) {
+        merged.sections = remoteCourse.sections.map((remoteSec, secIdx) => {
+          const localSec = localCourse.sections[secIdx] || {};
+          const mergedSec = { ...localSec, ...remoteSec };
+          if (Array.isArray(localSec.lessons) && Array.isArray(remoteSec.lessons)) {
+            mergedSec.lessons = remoteSec.lessons.map((remoteLes, lesIdx) => {
+              const localLes = localSec.lessons.find(l => l.id && l.id === remoteLes.id) || localSec.lessons[lesIdx] || {};
+              return {
+                ...localLes,
+                ...remoteLes,
+                content_si: (remoteLes.content_si && remoteLes.content_si.trim().length > 0) ? remoteLes.content_si : (localLes.content_si || ''),
+                keyTakeaways: (remoteLes.keyTakeaways && remoteLes.keyTakeaways.length > 0) ? remoteLes.keyTakeaways : (localLes.keyTakeaways || []),
+                challenge: remoteLes.challenge || localLes.challenge || null
+              };
+            });
+          }
+          return mergedSec;
+        });
+      }
+      return merged;
+    }
+
     async function syncFirestoreTutorials() {
       try {
         const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 3000));
@@ -473,7 +500,9 @@
         if (snap && !snap.empty) {
           window.ACADEMY_COURSES = window.ACADEMY_COURSES || {};
           snap.forEach(d => {
-            window.ACADEMY_COURSES[d.id] = d.data();
+            const remote = d.data();
+            const local = window.ACADEMY_COURSES[d.id];
+            window.ACADEMY_COURSES[d.id] = mergeCourseData(local, remote);
           });
           const params = new URLSearchParams(window.location.search);
           const cParam = params.get('course') || currentCourseKey || 'html';

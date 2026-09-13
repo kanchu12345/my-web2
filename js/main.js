@@ -167,6 +167,24 @@ function makeProjectCard(p){
   return card;
 }
 
+function normalizeProjectSlug(p) {
+  if (!p) return '';
+  // 1. If URL present, extract domain and clean path
+  let urlStr = (p.url || '').trim().toLowerCase();
+  if (urlStr) {
+    urlStr = urlStr.replace(/^https?:\/\//, '').replace(/^www\./, '');
+    urlStr = urlStr.split(/[?#]/)[0]; // strip query & hash
+    urlStr = urlStr.replace(/\/+$/, ''); // strip trailing slash
+    if (urlStr.length > 3) return urlStr;
+  }
+  // 2. Normalize title (remove parenthetical location suffix, special chars)
+  const title = (p.title || '').toLowerCase()
+    .replace(/\(.*?\)/g, '')
+    .replace(/[^a-z0-9]/g, '')
+    .trim();
+  return title || (p.id || '');
+}
+
 function renderProjectsList(grid, projects){
   if (!grid) return;
   grid.innerHTML = '';
@@ -176,10 +194,12 @@ function renderProjectsList(grid, projects){
     if (aFeat && !bFeat) return -1;
     if (!aFeat && bFeat) return 1;
     if (aFeat && bFeat) {
-      return (Number(a.featuredOrder) || 99) - (Number(b.featuredOrder) || 99);
+      const aOrd = Number(a.featuredOrder) || 99;
+      const bOrd = Number(b.featuredOrder) || 99;
+      if (aOrd !== bOrd) return aOrd - bOrd;
     }
-    const aTime = a.createdAt?.seconds || 0;
-    const bTime = b.createdAt?.seconds || 0;
+    const aTime = a.createdAt?.seconds || (a._source === 'firestore' ? 9999999999 : 0);
+    const bTime = b.createdAt?.seconds || (b._source === 'firestore' ? 9999999999 : 0);
     return bTime - aTime;
   });
 
@@ -335,44 +355,63 @@ function getDemoProjects(){
   ];
 }
 
-async function loadProjectsFromJSON(grid){
-  const prefix = rootPath();
-  try {
-    const res = await fetch(prefix + 'data/projects.json');
-    const data = await res.json();
-    if (Array.isArray(data) && data.length > 0) {
-      renderProjectsList(grid, data);
-      return;
-    }
-  } catch(e){}
-  renderProjectsList(grid, getDemoProjects());
-}
-
-/* ── Load projects from Firebase ───────────────── */
+/* ── Load projects from Firebase & Baseline JSON (Deduplicated) ───────────────── */
 async function loadProjects(){
   const grid = document.getElementById('projGrid');
   if (!grid) return;
+  const prefix = rootPath();
+
+  let fbProjects = [];
+  let jsonProjects = [];
+  let localProjects = [];
+
+  // 1. Fetch from Firestore (3s timeout)
   try {
     const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 3000));
     const fetchPromise = (async () => {
-      const prefix = rootPath();
       const { db, collection, getDocs } = await import(prefix + 'js/firebase-config.js');
       return await getDocs(collection(db, 'projects'));
     })();
     const snap = await Promise.race([fetchPromise, timeoutPromise]);
-    if (!snap || snap.empty) {
-      loadProjectsFromJSON(grid);
-      return;
+    if (snap && !snap.empty) {
+      snap.forEach(function(d){
+        fbProjects.push({ id: d.id, ...d.data(), _source: 'firestore' });
+      });
     }
-    const items = [];
-    snap.forEach(function(d){
-      items.push({ id: d.id, ...d.data() });
-    });
-    renderProjectsList(grid, items);
   } catch(e){
-    console.warn('Projects fallback active:', e.message);
-    loadProjectsFromJSON(grid);
+    console.warn('Projects firestore notice:', e.message);
   }
+
+  // 2. Fetch baseline data/projects.json
+  try {
+    const res = await fetch(prefix + 'data/projects.json?v=' + Date.now());
+    const data = await res.json();
+    if (Array.isArray(data) && data.length > 0) {
+      jsonProjects = data.map((p, i) => ({ id: 'json_' + i, ...p, _source: 'json' }));
+    }
+  } catch(e){
+    jsonProjects = getDemoProjects().map((p, i) => ({ id: 'demo_' + i, ...p, _source: 'json' }));
+  }
+
+  // 3. Check localStorage for any offline admin saved projects
+  try {
+    localProjects = JSON.parse(localStorage.getItem('infinite_custom_projects') || '[]');
+  } catch(e){}
+
+  // Combine: Firestore first (takes precedence), then local, then baseline JSON
+  const merged = [...fbProjects, ...localProjects, ...jsonProjects];
+  const seen = new Set();
+  const unique = [];
+
+  merged.forEach(p => {
+    const slug = normalizeProjectSlug(p);
+    if (slug && !seen.has(slug)) {
+      seen.add(slug);
+      unique.push(p);
+    }
+  });
+
+  renderProjectsList(grid, unique);
 }
 
 /* ── Blog System: Reads from data/blogs.json (auto-updated by GitHub Actions) */
@@ -439,9 +478,16 @@ async function getBlogsData() {
   }
 }
 
-/* Helper: get relative path to article.html */
-function articlePath(id) {
-  return rootPath() + 'article.html?id=' + id;
+/* Helper: get relative path to article.html or custom article url */
+function articlePath(item) {
+  if (typeof item === 'object' && item !== null) {
+    if (item.url) {
+      if (item.url.startsWith('http://') || item.url.startsWith('https://')) return item.url;
+      return rootPath() + item.url.replace(/^\.?\//, '');
+    }
+    return rootPath() + 'article.html?id=' + (item.id || '');
+  }
+  return rootPath() + 'article.html?id=' + item;
 }
 
 async function loadBlogs() {
@@ -452,7 +498,7 @@ async function loadBlogs() {
     const data = await getBlogsData();
     const articles = (data.articles || []).slice(0, 6);
     if (articles.length === 0) throw new Error('empty');
-    renderBlogs(articles.map(a => ({...a, url: articlePath(a.id)})), grid);
+    renderBlogs(articles.map(a => ({...a, url: articlePath(a)})), grid);
   } catch(e) {
     grid.innerHTML = '<div style="color:rgba(255,255,255,0.4);text-align:center;padding:40px;grid-column:1/-1;">Articles loading soon...</div>';
   }
@@ -473,7 +519,7 @@ async function loadAllBlogs() {
     articles.forEach(a => {
       const cat = a.category || 'Uncategorized';
       if (!categorized[cat]) categorized[cat] = [];
-      categorized[cat].push({...a, url: articlePath(a.id)});
+      categorized[cat].push({...a, url: articlePath(a)});
     });
 
     const filterBar = document.getElementById('topicFilterBar');
@@ -2155,68 +2201,186 @@ function togglePkgMore(id, btn) {
 }
 
 
+let _calcCurrentTotal = 13500;
+let _calcAnimFrame = null;
+
+function animateTotalDisplay(target) {
+  const displayEl = document.getElementById('calcTotalDisplay');
+  if (!displayEl) return;
+
+  const start = _calcCurrentTotal;
+  const diff = target - start;
+  if (diff === 0) {
+    displayEl.textContent = 'Rs. ' + target.toLocaleString() + '/-';
+    return;
+  }
+
+  const duration = 280;
+  const startTime = performance.now();
+
+  if (_calcAnimFrame) cancelAnimationFrame(_calcAnimFrame);
+
+  function step(now) {
+    const elapsed = now - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const ease = progress * (2 - progress);
+    const current = Math.round(start + diff * ease);
+
+    displayEl.textContent = 'Rs. ' + current.toLocaleString() + '/-';
+
+    if (progress < 1) {
+      _calcAnimFrame = requestAnimationFrame(step);
+    } else {
+      _calcCurrentTotal = target;
+      displayEl.textContent = 'Rs. ' + target.toLocaleString() + '/-';
+    }
+  }
+
+  _calcAnimFrame = requestAnimationFrame(step);
+}
+
 function calculateFullEstimate() {
-  const tierSelect = document.getElementById('calcTier');
-  const extraPagesSelect = document.getElementById('calcExtraPages');
-  const totalDisplay = document.getElementById('calcTotalDisplay');
-  const badge = document.getElementById('calcHostingBadge');
+  const tierEl = document.getElementById('calcTier');
+  if (!tierEl) return;
+  const base = parseInt(tierEl.value, 10) || 5000;
+  const tierOption = tierEl.options[tierEl.selectedIndex];
+  const tierName = tierOption ? tierOption.getAttribute('data-name') : 'Standard Business';
   
-  if (!tierSelect || !totalDisplay) return;
+  const extraPagesEl = document.getElementById('calcExtraPages');
+  const extraPagesCount = parseInt(extraPagesEl ? extraPagesEl.value : 0, 10) || 0;
+  const extraPagesTotal = extraPagesCount * 1500;
 
-  const basePrice = parseInt(tierSelect.value, 10) || 5000;
-  const extraPages = parseInt(extraPagesSelect ? extraPagesSelect.value : 0, 10) || 0;
-  const extraPagesPrice = extraPages * 1500;
-
+  // Update Addon card active visual states
   let addonsTotal = 0;
-  const checkboxes = document.querySelectorAll('.calc-addon-check:checked');
-  checkboxes.forEach(cb => {
-    addonsTotal += parseInt(cb.dataset.price || 0, 10);
+  const selectedAddons = [];
+
+  document.querySelectorAll('.calc-addon-card').forEach(card => {
+    const cb = card.querySelector('.calc-addon-check');
+    if (!cb) return;
+    if (cb.checked) {
+      card.classList.add('active');
+      const p = parseInt(cb.dataset.price, 10) || 0;
+      addonsTotal += p;
+      selectedAddons.push({ name: cb.dataset.name, price: p });
+    } else {
+      card.classList.remove('active');
+    }
   });
 
-  const grandTotal = basePrice + extraPagesPrice + addonsTotal;
-  totalDisplay.innerText = 'Rs. ' + grandTotal.toLocaleString('en-US') + '/-';
+  const grandTotal = base + extraPagesTotal + addonsTotal;
+  animateTotalDisplay(grandTotal);
 
-  if (badge) {
-    if (basePrice <= 15000) {
-      badge.style.display = 'flex';
+  // Render Itemized Breakdown List
+  const listEl = document.getElementById('calcItemizedList');
+  if (listEl) {
+    let itemsHtml = `
+      <div class="calc-itemized-row">
+        <span class="calc-itemized-name">📦 ${tierName}</span>
+        <span class="calc-itemized-val">Rs. ${base.toLocaleString()}/-</span>
+      </div>
+    `;
+
+    if (extraPagesCount > 0) {
+      itemsHtml += `
+        <div class="calc-itemized-row">
+          <span class="calc-itemized-name">📄 +${extraPagesCount} Extra Custom Page(s)</span>
+          <span class="calc-itemized-val">+Rs. ${extraPagesTotal.toLocaleString()}/-</span>
+        </div>
+      `;
+    }
+
+    const isFreeHosting = base <= 10000;
+    itemsHtml += `
+      <div class="calc-itemized-row">
+        <span class="calc-itemized-name">${isFreeHosting ? '🎁 Free Fast Cloud Hosting' : '🚀 Enterprise Cloud Infrastructure'}</span>
+        <span class="calc-itemized-val free">FREE INCLUDED (Rs. 0/-)</span>
+      </div>
+    `;
+
+    selectedAddons.forEach(item => {
+      itemsHtml += `
+        <div class="calc-itemized-row">
+          <span class="calc-itemized-name">✨ ${item.name}</span>
+          <span class="calc-itemized-val">+Rs. ${item.price.toLocaleString()}/-</span>
+        </div>
+      `;
+    });
+
+    listEl.innerHTML = itemsHtml;
+  }
+
+  // Dynamic Hosting Indicator Badge
+  const hostingBadge = document.getElementById('calcHostingBadge');
+  if (hostingBadge) {
+    if (base <= 10000) {
+      hostingBadge.innerHTML = `
+        <span class="calc-hosting-icon">🎁</span>
+        <div>
+          <strong class="calc-hosting-title">100% Free Fast Cloud Hosting Included</strong>
+          <span class="calc-hosting-desc">Zero monthly server fees for Starter & Standard tiers.</span>
+        </div>
+      `;
     } else {
-      badge.style.display = 'none';
+      hostingBadge.innerHTML = `
+        <span class="calc-hosting-icon">🚀</span>
+        <div>
+          <strong class="calc-hosting-title" style="color:#38bdf8;">Enterprise High-Performance Cloud Included</strong>
+          <span class="calc-hosting-desc">High-concurrency traffic routing & zero-downtime SSD cloud infrastructure.</span>
+        </div>
+      `;
     }
   }
 }
 
 function dispatchFullWhatsAppQuote() {
-  const tierSelect = document.getElementById('calcTier');
-  const extraPagesSelect = document.getElementById('calcExtraPages');
-  const totalDisplay = document.getElementById('calcTotalDisplay');
+  const tierEl = document.getElementById('calcTier');
+  if (!tierEl) return;
+  const tierOption = tierEl.options[tierEl.selectedIndex];
+  const tierName = tierOption ? tierOption.getAttribute('data-name') : 'Standard Business';
+  const base = parseInt(tierEl.value, 10) || 5000;
   
-  if (!tierSelect) return;
+  const extraPagesEl = document.getElementById('calcExtraPages');
+  const extraPagesCount = parseInt(extraPagesEl ? extraPagesEl.value : 0, 10) || 0;
+  const extraPagesTotal = extraPagesCount * 1500;
 
-  const tierOption = tierSelect.options[tierSelect.selectedIndex];
-  const tierName = tierOption ? (tierOption.dataset.name || tierOption.text) : 'Web Package';
-  const extraPages = extraPagesSelect ? extraPagesSelect.value : '0';
-  
-  let selectedAddons = [];
+  const addons = [];
+  if (extraPagesCount > 0) {
+    addons.push('• +' + extraPagesCount + ' Extra Custom Pages (+Rs. ' + extraPagesTotal.toLocaleString() + '/-)');
+  }
+
+  let addonsTotal = 0;
   document.querySelectorAll('.calc-addon-check:checked').forEach(cb => {
-    selectedAddons.push(cb.dataset.name);
+    const p = parseInt(cb.dataset.price, 10);
+    addonsTotal += p;
+    addons.push('• ' + cb.dataset.name + ' (+Rs. ' + p.toLocaleString() + '/-)');
   });
 
-  const totalStr = totalDisplay ? totalDisplay.innerText : '';
+  const grandTotal = base + extraPagesTotal + addonsTotal;
 
-  let msg = `Hello Infinite Creative! I used your Instant Investment Estimator and would like to order:\n\n`;
-  msg += `📌 Selected Package: ${tierName}\n`;
-  if (parseInt(extraPages) > 0) {
-    msg += `📄 Extra Custom Pages: +${extraPages} Pages\n`;
+  let msg = '👋 Hello Infinite Creative Web Design!\n\n';
+  msg += '📦 *Selected Website Tier:* ' + tierName + ' (Base: Rs. ' + base.toLocaleString() + '/-)\n';
+  
+  if (base <= 10000) {
+    msg += '🎁 *Cloud Hosting:* 100% Free Fast Cloud Hosting Included (Rs. 0/-)\n';
+  } else {
+    msg += '🚀 *Cloud Server:* Enterprise High-Speed Cloud Deployment Included\n';
   }
-  if (selectedAddons.length > 0) {
-    msg += `⚡ Power Add-Ons: ${selectedAddons.join(', ')}\n`;
+  
+  if (addons.length > 0) {
+    msg += '\n✨ *Selected Power Add-ons:*\n' + addons.join('\n') + '\n';
+  } else {
+    msg += '\n✨ *Add-ons:* Standard Included Features\n';
   }
-  msg += `💰 Calculated Total: ${totalStr}\n\n`;
-  msg += `Please confirm turnaround time and payment options!`;
 
-  window.open(`https://wa.me/94789714912?text=${encodeURIComponent(msg)}`, '_blank');
+  msg += '\n💰 *Calculated Total Investment:* Rs. ' + grandTotal.toLocaleString() + '/-\n';
+  msg += '🚀 I would like to lock in this package quote. Please let me know how we can get started!';
+
+  const waUrl = 'https://wa.me/94789714912?text=' + encodeURIComponent(msg);
+  window.open(waUrl, '_blank');
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  calculateFullEstimate();
+  if (document.getElementById('calcTier')) {
+    calculateFullEstimate();
+  }
 });

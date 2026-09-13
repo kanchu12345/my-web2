@@ -443,7 +443,25 @@
       const sumEl = document.getElementById('lessonSummary');
       if (sumEl) sumEl.textContent = lesson.summary || '';
 
-      const contentHtml = (currentLang === 'si' && lesson.content_si) ? lesson.content_si : (lesson.content || '<p>Content loading...</p>');
+      let contentHtml = '';
+      if (currentLang === 'si') {
+        if (lesson.content_si && lesson.content_si.trim().length > 0) {
+          contentHtml = lesson.content_si;
+        } else {
+          console.warn('[Academy Translation Flag] Missing content_si for lesson:', lesson.id || lesson.title);
+          contentHtml = `
+            <div class="translation-fallback-banner" style="background:rgba(234,179,8,0.12); border:1.5px solid rgba(234,179,8,0.4); border-radius:12px; padding:16px 20px; margin-bottom:24px; display:flex; align-items:flex-start; gap:14px; box-shadow:0 4px 16px rgba(234,179,8,0.1);">
+              <span style="font-size:1.5rem; line-height:1; flex-shrink:0;">⚠️</span>
+              <div>
+                <strong style="color:#fde047; font-size:0.98rem; display:block; margin-bottom:4px;">සිංහල පරිවර්තනය සංස්කරණය වෙමින් පවතී (Sinhala Editorial Review in Progress)</strong>
+                <span style="color:#cbd5e1; font-size:0.86rem; line-height:1.5; display:block;">මෙම පාඩම සඳහා නිල සිංහල පැහැදිලි කිරීම කඩිනමින් එක් කෙරේ. තාක්ෂණික නිරවද්‍යතාවය තහවුරු කර ගැනීම සඳහා දැනට ඉංග්‍රීසි (English) මුල් පාඩම පහතින් දැක්වේ.</span>
+              </div>
+            </div>
+          ` + (lesson.content || '<p>Content loading...</p>');
+        }
+      } else {
+        contentHtml = lesson.content || '<p>Content loading...</p>';
+      }
       document.getElementById('lessonCoreConcept').innerHTML = contentHtml;
 
       if (lesson.code) {
@@ -613,6 +631,33 @@
   </script>
   <script type="module">
     import { db, collection, getDocs } from '../js/firebase-config.js';
+
+    function mergeCourseData(localCourse, remoteCourse) {
+      if (!localCourse) return remoteCourse;
+      if (!remoteCourse) return localCourse;
+      const merged = { ...localCourse, ...remoteCourse };
+      if (Array.isArray(localCourse.sections) && Array.isArray(remoteCourse.sections)) {
+        merged.sections = remoteCourse.sections.map((remoteSec, secIdx) => {
+          const localSec = localCourse.sections[secIdx] || {};
+          const mergedSec = { ...localSec, ...remoteSec };
+          if (Array.isArray(localSec.lessons) && Array.isArray(remoteSec.lessons)) {
+            mergedSec.lessons = remoteSec.lessons.map((remoteLes, lesIdx) => {
+              const localLes = localSec.lessons.find(l => l.id && l.id === remoteLes.id) || localSec.lessons[lesIdx] || {};
+              return {
+                ...localLes,
+                ...remoteLes,
+                content_si: (remoteLes.content_si && remoteLes.content_si.trim().length > 0) ? remoteLes.content_si : (localLes.content_si || ''),
+                keyTakeaways: (remoteLes.keyTakeaways && remoteLes.keyTakeaways.length > 0) ? remoteLes.keyTakeaways : (localLes.keyTakeaways || []),
+                challenge: remoteLes.challenge || localLes.challenge || null
+              };
+            });
+          }
+          return mergedSec;
+        });
+      }
+      return merged;
+    }
+
     async function syncFirestoreTutorials() {
       try {
         const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 3000));
@@ -621,7 +666,9 @@
         if (snap && !snap.empty) {
           window.ACADEMY_COURSES = window.ACADEMY_COURSES || {};
           snap.forEach(d => {
-            window.ACADEMY_COURSES[d.id] = d.data();
+            const remote = d.data();
+            const local = window.ACADEMY_COURSES[d.id];
+            window.ACADEMY_COURSES[d.id] = mergeCourseData(local, remote);
           });
           const params = new URLSearchParams(window.location.search);
           const cParam = params.get('course') || currentCourseKey || 'html';
