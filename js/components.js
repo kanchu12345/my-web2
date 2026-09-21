@@ -79,7 +79,8 @@
         '<div class="nav-actions">' +
           '<a href="https://wa.me/94789714912?text=Hello%20Infinite%20Creative!%20I%20would%20like%20to%20get%20a%20free%20quote%20for%20my%20business%20website." ' +
              'target="_blank" rel="noopener noreferrer" class="btn-nav-cta" aria-label="Get a Free Quote on WhatsApp">' +
-            '<span>💬 Free Quote</span>' +
+            '<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="margin-right:6px;"><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>' +
+            '<span>Free Quote</span>' +
           '</a>' +
           '<button class="nav-toggle" id="navToggleBtn" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="siteMobileMenu">' +
             '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>' +
@@ -97,8 +98,9 @@
       '<a href="' + PREFIX + 'about.html" class="mm-link ' + (isAbout ? 'active' : '') + '">About Us</a>' +
       '<a href="' + PREFIX + 'contact.html" class="mm-link ' + (isContact ? 'active' : '') + '">Contact Us</a>' +
       '<a href="https://wa.me/94789714912?text=Hello%20Infinite%20Creative!%20I%20would%20like%20to%20get%20a%20free%20quote%20for%20my%20business%20website." ' +
-         'target="_blank" rel="noopener noreferrer" class="mm-link mm-cta" style="background:#04AA6D;color:#fff;font-weight:800;text-align:center;margin-top:12px;border-radius:8px;padding:12px;">' +
-        '💬 Chat on WhatsApp' +
+         'target="_blank" rel="noopener noreferrer" class="mm-link mm-cta" style="background:#04AA6D;color:#fff;font-weight:800;text-align:center;margin-top:12px;border-radius:8px;padding:12px;display:flex;align-items:center;justify-content:center;gap:8px;">' +
+        '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>' +
+        '<span>Chat on WhatsApp</span>' +
       '</a>' +
     '</div>';
 
@@ -195,9 +197,9 @@
           '<div style="margin-top:18px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.08);">' +
             '<div style="font-size:12px;color:#94a3b8;margin-bottom:6px;font-weight:700;">Select Language / භාෂාව / மொழி:</div>' +
             '<div style="display:flex;gap:8px;flex-wrap:wrap;">' +
-              '<a href="' + PREFIX + 'index.html" style="font-size:12px;color:#04AA6D;font-weight:700;text-decoration:none;background:rgba(4,170,109,0.12);padding:3px 8px;border-radius:4px;" hreflang="en">🇬🇧 English</a>' +
-              '<a href="' + PREFIX + 'article/si-web-design-sri-lanka-2026.html" style="font-size:12px;color:#94a3b8;text-decoration:none;background:rgba(255,255,255,0.05);padding:3px 8px;border-radius:4px;" hreflang="si">🇱🇰 සිංහල</a>' +
-              '<a href="' + PREFIX + 'contact.html" style="font-size:12px;color:#94a3b8;text-decoration:none;background:rgba(255,255,255,0.05);padding:3px 8px;border-radius:4px;" hreflang="ta">🇱🇰 தமிழ்</a>' +
+              '<a href="' + PREFIX + 'index.html" class="locale-pill active" hreflang="en"><span>EN</span> English</a>' +
+              '<a href="' + PREFIX + 'article/si-web-design-sri-lanka-2026.html" class="locale-pill" hreflang="si"><span>SI</span> සිංහල</a>' +
+              '<a href="' + PREFIX + 'contact.html" class="locale-pill" hreflang="ta"><span>TA</span> தமிழ்</a>' +
             '</div>' +
           '</div>' +
         '</div>' +
@@ -212,7 +214,7 @@
             '<button id="btnCookieSettings" type="button" style="background:none;border:none;color:#38bdf8;font-size:12px;cursor:pointer;padding:0;text-decoration:underline;">Cookie Settings</button>' +
           '</div>' +
         '</div>' +
-        '<span class="footer-bottom-right">Crafted with ♥ in Sri Lanka • BestWeb.lk Rubric Certified</span>' +
+        '<span class="footer-bottom-right">Crafted with <svg width="12" height="12" viewBox="0 0 24 24" fill="#ef4444" aria-hidden="true" style="vertical-align:middle;display:inline-block;"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> in Sri Lanka • BestWeb.lk Rubric Certified</span>' +
       '</div>' +
     '</footer>';
 
@@ -257,7 +259,7 @@
     var bannerHTML = '<div id="infiniteCookieBanner" style="position:fixed;bottom:16px;left:16px;right:16px;max-width:960px;margin:0 auto;background:rgba(13,21,39,0.95);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(4,170,109,0.3);border-radius:16px;padding:20px 24px;box-shadow:0 12px 40px rgba(0,0,0,0.6);z-index:999999;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;">' +
       '<div style="flex:1;min-width:280px;">' +
         '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">' +
-          '<span style="font-size:18px;">🍪</span>' +
+          '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#facc15" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"/><path d="M8.5 8.5v.01"/><path d="M16 15.5v.01"/><path d="M12 12v.01"/><path d="M11 17v.01"/><path d="M7 14v.01"/></svg>' +
           '<strong style="color:#fff;font-size:15px;font-family:var(--font-disp,Space Grotesk,sans-serif);">Your Privacy & Cookie Choices</strong>' +
         '</div>' +
         '<p style="color:#cbd5e1;font-size:13px;line-height:1.5;margin:0;">' +
@@ -398,14 +400,15 @@
 
         if (res.ok) {
           form.innerHTML = '<div style="background:rgba(4,170,109,0.15);border:1px solid #04AA6D;border-radius:12px;padding:24px;text-align:center;">' +
-            '<div style="font-size:36px;margin-bottom:8px;">✅</div>' +
+            '<div style="display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:50%;background:rgba(4,170,109,0.2);margin-bottom:12px;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#04AA6D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></div>' +
             '<h4 style="color:#fff;font-size:1.2rem;margin:0 0 6px;">Thank You, ' + name + '!</h4>' +
             '<p style="color:#cbd5e1;font-size:0.95rem;margin:0 0 14px;line-height:1.5;">' +
               'Your inquiry has been securely delivered to Infinite Creative Web Design. Our senior designer will review your requirements and reach out within 2 business hours.' +
             '</p>' +
             '<a href="https://wa.me/94789714912?text=Hello%20Infinite%20Creative!%20I%20just%20submitted%20a%20project%20inquiry." ' +
                'target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:6px;background:#04AA6D;color:#fff;padding:8px 16px;border-radius:6px;font-weight:700;text-decoration:none;font-size:13px;">' +
-              '<span>💬 Instant Response on WhatsApp</span> &rarr;' +
+              '<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>' +
+              '<span>Instant Response on WhatsApp &rarr;</span>' +
             '</a>' +
           '</div>';
         } else {
@@ -415,7 +418,7 @@
         alert('Notice: Submission error (' + err.message + '). You can contact us directly via WhatsApp at +94 78 971 4912.');
         if (submitBtn) {
           submitBtn.disabled = false;
-          submitBtn.textContent = '🚀 Submit Project Inquiry';
+          submitBtn.textContent = 'Submit Project Inquiry';
         }
       }
     });

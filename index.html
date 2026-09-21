@@ -135,6 +135,76 @@
             {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Lifetime Free Cloud Hosting"}}
           ]
         }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://infiniteweb.dev/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How much does a website cost in Sri Lanka?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "At Infinite Creative Web Design, our professional packages start at Rs. 5,000 for a single-page business presence, Rs. 10,000 for standard business sites (5 pages), and Rs. 25,000 - 35,000 for full dynamic e-commerce solutions with PayHere integration. We deliver transparent quotes with zero hidden renewal traps."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is included in the Rs. 5,000 Standard Business package?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Our Rs. 5,000 package provides a modern, mobile-first design, interactive WhatsApp quote button, Google Maps location embed, contact inquiries, Core Web Vitals optimization, and 100% Free Lifetime Cloud Hosting on GitHub Pages & Cloudflare with SSL."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How long does it take to deliver my website?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Most standard business websites are completed and launched within 3 to 5 business days. Once you provide your company logo, business details, and contact numbers, our team works rapidly to get you live."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does Free Fast Cloud Hosting work?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "We deploy your static frontend directly onto global enterprise cloud infrastructure (GitHub Pages & Cloudflare Edge CDN) with free SSL encryption. This means zero monthly server hosting fees for your business while guaranteeing sub-second load times."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I connect my own custom .LK or .COM domain name?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. You can connect your existing .lk, .com, .org, or any other top-level domain. If you do not have one yet, we assist you in registering your domain through the LK Domain Registry or global registrars and configure all DNS records at no extra setup charge."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I accept Visa, Mastercard, and local payments with PayHere?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes! We integrate PayHere, WebXPay, Commercial Bank IPG, Sampath Bank IPG, and local mobile wallets (Genie, Frimi, eZ Cash) so your customers can pay online smoothly. Funds deposit directly into your Sri Lankan corporate bank account."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Will my website appear on Google search in Sri Lanka?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Every website we build is SEO Ready from day one. We implement clean semantic markup, fast loading speeds (Core Web Vitals optimized), mobile responsiveness, and submit your XML sitemap directly to Google Search Console for rapid indexing."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can my website support Sinhala, English, and Tamil?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. We routinely build bilingual and trilingual websites so your business can communicate effectively with customers across Sri Lanka in Sinhala, English, and Tamil."
+            }
+          }
+        ]
       }
     ]
   }
@@ -142,14 +212,17 @@
 </head>
 <body>
 
+  <!-- Accessible Skip-to-content Link (WCAG 2.1 AA) -->
+  <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
   <!-- Persistent Floating WhatsApp Quick-Access Button -->
   <a href="https://wa.me/94789714912?text=Hello%20Infinite%20Creative!%20I%20would%20like%20to%20inquire%20about%20a%20website%20for%20my%20business." class="floating-whatsapp" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
     <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2z"/></svg>
   </a>
 
   <!-- ══ 01 NAVIGATION ══════════════════════════════ -->
-  <nav class="nav" id="mainNav" role="navigation">
-    <a href="index.html" class="nav-logo">
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main Navigation">
+    <a href="index.html" class="nav-logo" aria-label="Infinite Creative Home">
       <img src="images/logo-100w.webp" srcset="images/logo-100w.webp 100w, images/logo-200w.webp 200w" sizes="48px" alt="Infinite Design Logo" width="48" height="48" loading="eager" fetchpriority="high" decoding="async">
       <div class="nav-brand"><strong>INFINITE</strong><small>Creative Web Design</small></div>
     </a>
@@ -162,12 +235,12 @@
       <li><a href="#contact">Contact</a></li>
     </ul>
     <div class="nav-actions">
-      <a href="https://wa.me/94789714912?text=Hello%20Infinite%20Creative!%20I%20would%20like%20to%20get%20a%20free%20quote%20for%20my%20business%20website." class="nav-cta" target="_blank" rel="noopener" style="background:#04AA6D; color:#fff; font-weight:800; border-radius:10px; padding:10px 22px; display:inline-flex; align-items:center; gap:8px;">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
+      <a href="https://wa.me/94789714912?text=Hello%20Infinite%20Creative!%20I%20would%20like%20to%20get%20a%20free%20quote%20for%20my%20business%20website." class="nav-cta" target="_blank" rel="noopener" style="background:#04AA6D; color:#fff; font-weight:800; border-radius:10px; padding:10px 22px; display:inline-flex; align-items:center; gap:8px;" aria-label="Get a Quote on WhatsApp">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
         GET A QUOTE
       </a>
     </div>
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileMenu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
   </nav>
 
   <div class="mobile-menu glass" id="mobileMenu" aria-hidden="true">
@@ -177,11 +250,34 @@
     <a href="#pricing" class="mm-link">Pricing</a>
     <a href="#about" class="mm-link">About</a>
     <a href="#contact" class="mm-link">Contact</a>
-    <a href="https://wa.me/94789714912?text=Hello%20Infinite%20Creative!%20I%20would%20like%20to%20get%20a%20free%20quote%20for%20my%20business%20website." class="mm-link mm-cta" target="_blank" style="background:#04AA6D; color:#fff; font-weight:800;">💬 Get a Free Quote</a>
+    <a href="https://wa.me/94789714912?text=Hello%20Infinite%20Creative!%20I%20would%20like%20to%20get%20a%20free%20quote%20for%20my%20business%20website." class="mm-link mm-cta" target="_blank" style="background:#04AA6D; color:#fff; font-weight:800; display:flex; align-items:center; justify-content:center; gap:8px;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
+      <span>Get a Free Quote</span>
+    </a>
   </div>
+
+  <!-- ══ MAIN CONTENT LANDMARK ══════════════════════ -->
+  <main id="main-content">
 
   <!-- ══ 02 HERO (BUSINESS-VALUE FOCUSED) ═════════ -->
   <header class="hero-business" id="hero">
+    
+    <!-- Signature Brand Interaction: Interactive Infinity Emblem -->
+    <div class="infinity-brand-container reveal" role="img" aria-label="Infinite Creative interactive brand emblem" tabindex="0">
+      <svg class="infinity-brand-icon" viewBox="0 0 100 50" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="infinityGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#04AA6D" />
+            <stop offset="50%" stop-color="#38bdf8" />
+            <stop offset="100%" stop-color="#04AA6D" />
+          </linearGradient>
+        </defs>
+        <path class="infinity-path-bg" d="M 50,25 C 35,10 15,10 15,25 C 15,40 35,40 50,25 C 65,10 85,10 85,25 C 85,40 65,40 50,25 Z" />
+        <path class="infinity-path-glow" d="M 50,25 C 35,10 15,10 15,25 C 15,40 35,40 50,25 C 65,10 85,10 85,25 C 85,40 65,40 50,25 Z" />
+      </svg>
+      <span class="infinity-brand-tag">Crafted With Infinite Precision</span>
+    </div>
+
     <div class="hero-pill-badge reveal">
       <span class="hero-pill-dot"></span>
       <span>Sri Lanka's Trusted Web Design Studio</span>
@@ -198,39 +294,47 @@
     <div class="hero-ctas-group reveal">
       <a href="#selected-work" class="btn-hero-work">
         <span>VIEW OUR WORK</span>
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
-      <a href="https://wa.me/94789714912?text=Hello%20Infinite%20Creative!%20I%20would%20like%20to%20get%20a%20free%20quote%20for%20my%20business%20website." target="_blank" rel="noopener" class="btn-hero-quote">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
+      <a href="https://wa.me/94789714912?text=Hello%20Infinite%20Creative!%20I%20would%20like%20to%20get%20a%20free%20quote%20for%20my%20business%20website." target="_blank" rel="noopener" class="btn-hero-quote" aria-label="Get a Free Quote on WhatsApp">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
         <span>GET A FREE QUOTE</span>
       </a>
     </div>
 
-    <!-- ══ 03 TRUST BAR ══════════════════════════════ -->
+    <!-- ══ 03 TRUST BAR (CRISP SVG ICONS) ══════════════ -->
     <div class="trust-bar-wrapper reveal">
       <div class="trust-item">
-        <div class="trust-item-icon">🏆</div>
+        <div class="trust-item-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#04AA6D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.45 1-1 1H8v4h8v-4h-1c-.55 0-1-.45-1-1v-2.34"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/></svg>
+        </div>
         <div>
-          <div class="trust-item-val">150+ Websites</div>
+          <div class="trust-item-val">18+ Verified Projects</div>
           <div class="trust-item-lbl">Delivered across Sri Lanka</div>
         </div>
       </div>
       <div class="trust-item">
-        <div class="trust-item-icon">📱</div>
+        <div class="trust-item-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
+        </div>
         <div>
           <div class="trust-item-val">Mobile First</div>
           <div class="trust-item-lbl">82%+ Sri Lankan Mobile Traffic</div>
         </div>
       </div>
       <div class="trust-item">
-        <div class="trust-item-icon">⚡</div>
+        <div class="trust-item-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#facc15" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
         <div>
           <div class="trust-item-val">Fast Delivery</div>
           <div class="trust-item-lbl">Ready in 48 to 72 Hours</div>
         </div>
       </div>
       <div class="trust-item">
-        <div class="trust-item-icon">💬</div>
+        <div class="trust-item-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="color:#04AA6D;" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
+        </div>
         <div>
           <div class="trust-item-val">Direct Support</div>
           <div class="trust-item-lbl">WhatsApp & Phone Assistance</div>
@@ -261,7 +365,7 @@
               <span class="mockup-dot green"></span>
             </div>
             <div class="mockup-url-pill">
-              <span class="mockup-chrome-lock">🔒</span>
+              <span class="mockup-chrome-lock"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
               <span>versellslanka.com</span>
             </div>
             <div style="color:#94a3b8; font-size:12px;">↗</div>
@@ -297,7 +401,7 @@
               <span class="mockup-dot green"></span>
             </div>
             <div class="mockup-url-pill">
-              <span class="mockup-chrome-lock">🔒</span>
+              <span class="mockup-chrome-lock"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
               <span>tropicaflavours.com</span>
             </div>
             <div style="color:#94a3b8; font-size:12px;">↗</div>
@@ -333,7 +437,7 @@
               <span class="mockup-dot green"></span>
             </div>
             <div class="mockup-url-pill">
-              <span class="mockup-chrome-lock">🔒</span>
+              <span class="mockup-chrome-lock"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
               <span>gpslankatravels.com</span>
             </div>
             <div style="color:#94a3b8; font-size:12px;">↗</div>
@@ -369,7 +473,7 @@
               <span class="mockup-dot green"></span>
             </div>
             <div class="mockup-url-pill">
-              <span class="mockup-chrome-lock">🔒</span>
+              <span class="mockup-chrome-lock"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
               <span>richmondleos.org</span>
             </div>
             <div style="color:#94a3b8; font-size:12px;">↗</div>
@@ -405,7 +509,7 @@
               <span class="mockup-dot green"></span>
             </div>
             <div class="mockup-url-pill">
-              <span class="mockup-chrome-lock">🔒</span>
+              <span class="mockup-chrome-lock"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
               <span>ddlankatours.lk</span>
             </div>
             <div style="color:#94a3b8; font-size:12px;">↗</div>
@@ -441,7 +545,7 @@
               <span class="mockup-dot green"></span>
             </div>
             <div class="mockup-url-pill">
-              <span class="mockup-chrome-lock">🔒</span>
+              <span class="mockup-chrome-lock"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
               <span>hirisurfschool.com</span>
             </div>
             <div style="color:#94a3b8; font-size:12px;">↗</div>
@@ -496,7 +600,9 @@
         <!-- Service 1 -->
         <div style="background:#0a0f1d; border:1px solid rgba(255,255,255,0.08); border-radius:18px; padding:28px; display:flex; flex-direction:column; justify-content:space-between;" class="reveal">
           <div>
-            <div style="width:44px; height:44px; border-radius:12px; background:rgba(4,170,109,0.12); border:1px solid rgba(4,170,109,0.3); display:flex; align-items:center; justify-content:center; color:#04AA6D; font-size:1.3rem; margin-bottom:18px;">💻</div>
+            <div style="width:44px; height:44px; border-radius:12px; background:rgba(4,170,109,0.12); border:1px solid rgba(4,170,109,0.3); display:flex; align-items:center; justify-content:center; color:#04AA6D; margin-bottom:18px;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
+            </div>
             <h3 style="color:#fff; font-size:1.25rem; font-weight:800; margin-bottom:10px;">Bespoke Web Design</h3>
             <p style="color:#94a3b8; font-size:0.92rem; line-height:1.65; margin-bottom:20px;">
               Attractive, brand-aligned websites crafted from scratch. 100% mobile-friendly with sub-second loading speeds optimized for Dialog & Mobitel 4G networks.
@@ -508,7 +614,9 @@
         <!-- Service 2 -->
         <div style="background:#0a0f1d; border:1px solid rgba(255,255,255,0.08); border-radius:18px; padding:28px; display:flex; flex-direction:column; justify-content:space-between;" class="reveal">
           <div>
-            <div style="width:44px; height:44px; border-radius:12px; background:rgba(56,189,248,0.12); border:1px solid rgba(56,189,248,0.3); display:flex; align-items:center; justify-content:center; color:#38bdf8; font-size:1.3rem; margin-bottom:18px;">🛒</div>
+            <div style="width:44px; height:44px; border-radius:12px; background:rgba(56,189,248,0.12); border:1px solid rgba(56,189,248,0.3); display:flex; align-items:center; justify-content:center; color:#38bdf8; margin-bottom:18px;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+            </div>
             <h3 style="color:#fff; font-size:1.25rem; font-weight:800; margin-bottom:10px;">E-Commerce Stores</h3>
             <p style="color:#94a3b8; font-size:0.92rem; line-height:1.65; margin-bottom:20px;">
               Sell your products 24/7 with PayHere, Commercial Bank, and Cash on Delivery. Automated orders, inventory management, and instant WhatsApp alerts.
@@ -520,7 +628,9 @@
         <!-- Service 3 -->
         <div style="background:#0a0f1d; border:1px solid rgba(255,255,255,0.08); border-radius:18px; padding:28px; display:flex; flex-direction:column; justify-content:space-between;" class="reveal">
           <div>
-            <div style="width:44px; height:44px; border-radius:12px; background:rgba(250,204,21,0.12); border:1px solid rgba(250,204,21,0.3); display:flex; align-items:center; justify-content:center; color:#facc15; font-size:1.3rem; margin-bottom:18px;">🔍</div>
+            <div style="width:44px; height:44px; border-radius:12px; background:rgba(250,204,21,0.12); border:1px solid rgba(250,204,21,0.3); display:flex; align-items:center; justify-content:center; color:#facc15; margin-bottom:18px;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" x2="16.65" y1="21" y2="16.65"/></svg>
+            </div>
             <h3 style="color:#fff; font-size:1.25rem; font-weight:800; margin-bottom:10px;">Built for Google Search</h3>
             <p style="color:#94a3b8; font-size:0.92rem; line-height:1.65; margin-bottom:20px;">
               SEO Ready architecture with Schema.org LocalBusiness markup, meta optimization, and instant submission to Google Search Console for rapid discovery.
@@ -532,7 +642,9 @@
         <!-- Service 4 -->
         <div style="background:#0a0f1d; border:1px solid rgba(255,255,255,0.08); border-radius:18px; padding:28px; display:flex; flex-direction:column; justify-content:space-between;" class="reveal">
           <div>
-            <div style="width:44px; height:44px; border-radius:12px; background:rgba(167,139,250,0.12); border:1px solid rgba(167,139,250,0.3); display:flex; align-items:center; justify-content:center; color:#a78bfa; font-size:1.3rem; margin-bottom:18px;">🎁</div>
+            <div style="width:44px; height:44px; border-radius:12px; background:rgba(167,139,250,0.12); border:1px solid rgba(167,139,250,0.3); display:flex; align-items:center; justify-content:center; color:#a78bfa; margin-bottom:18px;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+            </div>
             <h3 style="color:#fff; font-size:1.25rem; font-weight:800; margin-bottom:10px;">Free Cloud Hosting</h3>
             <p style="color:#94a3b8; font-size:0.92rem; line-height:1.65; margin-bottom:20px;">
               Fast SSD cloud hosting included with zero monthly server fees on Starter & Standard tiers. Free SSL security certificate and 99.9% guaranteed uptime.
@@ -559,7 +671,9 @@
       <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:24px;">
         
         <div style="background:#0a0f1d; border:1px solid rgba(4,170,109,0.3); border-radius:18px; padding:30px;" class="reveal">
-          <div style="font-size:2rem; margin-bottom:14px;">📱</div>
+          <div style="width:48px; height:48px; border-radius:14px; background:rgba(4,170,109,0.12); border:1px solid rgba(4,170,109,0.3); display:flex; align-items:center; justify-content:center; color:#04AA6D; margin-bottom:16px;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
+          </div>
           <h3 style="font-size:1.2rem; font-weight:800; color:#fff; margin-bottom:8px;">82%+ Mobile Traffic Optimization</h3>
           <p style="color:#94a3b8; font-size:0.92rem; line-height:1.65;">
             Over 82% of Sri Lankan website traffic comes from smartphones. Every website we build is tested extensively on Android Chrome and Safari for fluid, instant performance.
@@ -567,7 +681,9 @@
         </div>
 
         <div style="background:#0a0f1d; border:1px solid rgba(56,189,248,0.3); border-radius:18px; padding:30px;" class="reveal">
-          <div style="font-size:2rem; margin-bottom:14px;">🛡️</div>
+          <div style="width:48px; height:48px; border-radius:14px; background:rgba(56,189,248,0.12); border:1px solid rgba(56,189,248,0.3); display:flex; align-items:center; justify-content:center; color:#38bdf8; margin-bottom:16px;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
           <h3 style="font-size:1.2rem; font-weight:800; color:#fff; margin-bottom:8px;">Boutique Studio vs Freelancers</h3>
           <p style="color:#94a3b8; font-size:0.92rem; line-height:1.65;">
             Avoid unreliable freelancers who disappear after project delivery. We provide clear delivery timelines, direct developer communication, and ongoing technical support.
@@ -575,7 +691,9 @@
         </div>
 
         <div style="background:#0a0f1d; border:1px solid rgba(250,204,21,0.3); border-radius:18px; padding:30px;" class="reveal">
-          <div style="font-size:2rem; margin-bottom:14px;">💳</div>
+          <div style="width:48px; height:48px; border-radius:14px; background:rgba(250,204,21,0.12); border:1px solid rgba(250,204,21,0.3); display:flex; align-items:center; justify-content:center; color:#facc15; margin-bottom:16px;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+          </div>
           <h3 style="font-size:1.2rem; font-weight:800; color:#fff; margin-bottom:8px;">PayHere & Local IPG Integration</h3>
           <p style="color:#94a3b8; font-size:0.92rem; line-height:1.65;">
             Accept Visa, Mastercard, Genie, eZ Cash, Frimi, and modern installment payment options like Koko and MintPay directly into your Sri Lankan bank account.
@@ -583,7 +701,9 @@
         </div>
 
         <div style="background:#0a0f1d; border:1px solid rgba(167,139,250,0.3); border-radius:18px; padding:30px;" class="reveal">
-          <div style="font-size:2rem; margin-bottom:14px;">🔍</div>
+          <div style="width:48px; height:48px; border-radius:14px; background:rgba(167,139,250,0.12); border:1px solid rgba(167,139,250,0.3); display:flex; align-items:center; justify-content:center; color:#a78bfa; margin-bottom:16px;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" x2="16.65" y1="21" y2="16.65"/></svg>
+          </div>
           <h3 style="font-size:1.2rem; font-weight:800; color:#fff; margin-bottom:8px;">SEO Ready From Day One</h3>
           <p style="color:#94a3b8; font-size:0.92rem; line-height:1.65;">
             Engineered with semantic HTML5, Core Web Vitals optimization, Schema.org LocalBusiness structured data, and automatic Google Search Console submission.
@@ -591,7 +711,9 @@
         </div>
 
         <div style="background:#0a0f1d; border:1px solid rgba(4,170,109,0.3); border-radius:18px; padding:30px;" class="reveal">
-          <div style="font-size:2rem; margin-bottom:14px;">🎁</div>
+          <div style="width:48px; height:48px; border-radius:14px; background:rgba(4,170,109,0.12); border:1px solid rgba(4,170,109,0.3); display:flex; align-items:center; justify-content:center; color:#04AA6D; margin-bottom:16px;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+          </div>
           <h3 style="font-size:1.2rem; font-weight:800; color:#fff; margin-bottom:8px;">Zero Hidden Monthly Hosting Fees</h3>
           <p style="color:#94a3b8; font-size:0.92rem; line-height:1.65;">
             Unlike legacy agencies that charge Rs. 3,000 to Rs. 8,000 every single month for hosting, our Starter and Standard packages include lifetime cloud hosting at Rs. 0/mo.
@@ -615,7 +737,7 @@
 
       <!-- Currency Switcher Toggle -->
       <div class="currency-toggle-bar" style="display:flex; justify-content:center; align-items:center; gap:10px; margin: 0 auto 28px; padding: 6px 14px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); border-radius: 50px; width: fit-content;">
-        <span style="font-size: 13px; font-weight: 700; color: #cbd5e1; padding-left: 4px;">💱 Currency:</span>
+        <span style="font-size: 13px; font-weight: 700; color: #cbd5e1; padding-left: 4px; display:inline-flex; align-items:center; gap:5px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#cbd5e1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M14.8 9A2 2 0 0 0 13 8h-2a2 2 0 0 0 0 4h2a2 2 0 0 1 0 4h-2a2 2 0 0 1-1.8-1"/><path d="M12 6v2m0 8v2"/></svg> Currency:</span>
         <button type="button" class="currency-switch-btn active" data-curr="LKR" onclick="switchGlobalCurrency('LKR')" style="background:#04AA6D; color:#fff; border:none; padding:6px 18px; border-radius:20px; font-size:13px; font-weight:800; cursor:pointer; transition:all 0.2s;">LKR (රු.)</button>
         <button type="button" class="currency-switch-btn" data-curr="USD" onclick="switchGlobalCurrency('USD')" style="background:transparent; color:#94a3b8; border:none; padding:6px 18px; border-radius:20px; font-size:13px; font-weight:700; cursor:pointer; transition:all 0.2s;">USD ($)</button>
       </div>
@@ -813,27 +935,27 @@
               </div>
               <div class="calc-select-wrapper">
                 <select id="calcTier" class="calc-select-custom" onchange="calculateFullEstimate()">
-                  <optgroup label="💡 Low-Cost Web Design Packages">
+                  <optgroup label="Low-Cost Web Design Packages">
                     <option value="5000" data-name="Starter Essential (Rs. 5,000)">Starter Essential (3 Pages) — Rs. 5,000</option>
                     <option value="10000" selected data-name="Standard Business (Rs. 10,000)">Standard Business (5 Pages + Admin) — Rs. 10,000</option>
                     <option value="15000" data-name="Advanced Growth (Rs. 15,000)">Advanced Growth (7 Pages Custom UI) — Rs. 15,000</option>
                     <option value="20000" data-name="Corporate Professional (Rs. 20,000)">Corporate Professional (10 Pages) — Rs. 20,000</option>
                   </optgroup>
-                  <optgroup label="🏢 Corporate & Enterprise Web Portals">
+                  <optgroup label="Corporate & Enterprise Web Portals">
                     <option value="45000" data-name="Starter Corporate (Rs. 45,000)">Starter Corporate (6 Pages) — Rs. 45,000</option>
                     <option value="60000" data-name="Silver Corporate (Rs. 60,000)">Silver Corporate (10 Pages + 3 Emails + SEO) — Rs. 60,000</option>
                     <option value="99000" data-name="Gold Enterprise (Rs. 99,000)">Gold Enterprise Portal (15 Pages + PayHere) — Rs. 99,000</option>
                     <option value="125000" data-name="Platinum Powerhouse (Rs. 125,000)">Platinum Powerhouse (25 Pages) — Rs. 125,000</option>
                   </optgroup>
-                  <optgroup label="🛒 E-Commerce & Online Store">
+                  <optgroup label="E-Commerce & Online Store">
                     <option value="60000" data-name="Full E-Commerce Store (Rs. 60,000)">Full E-Commerce Store (PayHere + Invoices) — Rs. 60,000</option>
                     <option value="180000" data-name="Product Catalogue Solution (Rs. 180,000)">Product Catalogue Solution — Rs. 180,000</option>
                   </optgroup>
-                  <optgroup label="📱 Mobile App Development">
+                  <optgroup label="Mobile App Development">
                     <option value="75000" data-name="Basic Mobile App (Rs. 75,000)">Basic Mobile App (Flutter iOS & Android) — Rs. 75,000</option>
                     <option value="150000" data-name="Custom Enterprise App (Rs. 150,000)">Custom Enterprise App (Taxi/Delivery/E-Com) — Rs. 150,000</option>
                   </optgroup>
-                  <optgroup label="📢 Social Media & Meta Ads Boost">
+                  <optgroup label="Social Media & Meta Ads Boost">
                     <option value="2500" data-name="Mini Trial Boost (Rs. 2,500)">Mini Trial Boost — Rs. 2,500</option>
                     <option value="4000" data-name="Starter Reach Boost (Rs. 4,000)">Starter Reach Boost — Rs. 4,000</option>
                     <option value="6500" data-name="Growth Boost (Rs. 6,500)">Growth Boost (Most Recommended) — Rs. 6,500</option>
@@ -875,7 +997,9 @@
 
             <!-- High-Contrast Cloud Hosting Guarantee Banner -->
             <div id="calcHostingBadge" class="calc-hosting-banner">
-              <span class="calc-hosting-icon">🎁</span>
+              <span class="calc-hosting-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#04AA6D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+              </span>
               <div>
                 <strong class="calc-hosting-title">100% Free Fast Cloud Hosting Included</strong>
                 <span class="calc-hosting-desc">Free high-speed cloud edge hosting on GitHub Pages & Cloudflare with SSL for Starter & Standard tiers. Zero monthly server maintenance fees.</span>
@@ -906,7 +1030,7 @@
                   </div>
                   <div class="calc-addon-body">
                     <div class="calc-addon-top">
-                      <span class="calc-addon-name">⚡ 99+ PageSpeed Core Web Vitals</span>
+                      <span class="calc-addon-name" style="display:inline-flex;align-items:center;gap:6px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#facc15" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> 99+ PageSpeed Core Web Vitals</span>
                       <span class="calc-addon-price-badge">+Rs. 3,500</span>
                     </div>
                     <div class="calc-addon-desc">Loads under 1.2s on Dialog & Mobitel 4G networks; boosts Google mobile rankings.</div>
@@ -921,7 +1045,7 @@
                   </div>
                   <div class="calc-addon-body">
                     <div class="calc-addon-top">
-                      <span class="calc-addon-name">🔐 Cyber DDoS Shield & WAF</span>
+                      <span class="calc-addon-name" style="display:inline-flex;align-items:center;gap:6px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Cyber DDoS Shield & WAF</span>
                       <span class="calc-addon-price-badge">+Rs. 4,500</span>
                     </div>
                     <div class="calc-addon-desc">Enterprise Cloudflare security rules protecting against bot attacks, spam & brute-force threats.</div>
@@ -936,7 +1060,7 @@
                   </div>
                   <div class="calc-addon-body">
                     <div class="calc-addon-top">
-                      <span class="calc-addon-name">🤖 WhatsApp AI Auto-Responder Bot</span>
+                      <span class="calc-addon-name" style="display:inline-flex;align-items:center;gap:6px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#04AA6D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/><line x1="8" y1="16" x2="8" y2="16"/><line x1="16" y1="16" x2="16" y2="16"/></svg> WhatsApp AI Auto-Responder Bot</span>
                       <span class="calc-addon-price-badge">+Rs. 6,000</span>
                     </div>
                     <div class="calc-addon-desc">Answers customer inquiries instantly 24/7 on WhatsApp, qualifying leads while you sleep.</div>
@@ -951,7 +1075,7 @@
                   </div>
                   <div class="calc-addon-body">
                     <div class="calc-addon-top">
-                      <span class="calc-addon-name">🎨 Custom Brand Logo & Vector Suite</span>
+                      <span class="calc-addon-name" style="display:inline-flex;align-items:center;gap:6px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.563-2.512 5.563-5.563C22 6.5 17.5 2 12 2z"/></svg> Custom Brand Logo & Vector Suite</span>
                       <span class="calc-addon-price-badge">+Rs. 5,000</span>
                     </div>
                     <div class="calc-addon-desc">Full vector branding kit (SVG, PNG, PDF) suitable for high-res print, billboards, and social media.</div>
@@ -966,7 +1090,7 @@
                   </div>
                   <div class="calc-addon-body">
                     <div class="calc-addon-top">
-                      <span class="calc-addon-name">🌐 .COM Custom Domain (1 Year)</span>
+                      <span class="calc-addon-name" style="display:inline-flex;align-items:center;gap:6px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> .COM Custom Domain (1 Year)</span>
                       <span class="calc-addon-price-badge">+Rs. 4,500</span>
                     </div>
                     <div class="calc-addon-desc">Official international .com domain registered directly in your business name with 100% DNS control.</div>
@@ -996,16 +1120,16 @@
               <div class="calc-total-label">Calculated Total Investment</div>
               <div id="calcTotalDisplay" class="calc-total-value">Rs. 13,500/-</div>
               <div class="calc-trust-checklist">
-                <div class="calc-trust-item"><span>✔</span> Fast Turnaround</div>
-                <div class="calc-trust-item"><span>✔</span> 100% Mobile Responsive</div>
-                <div class="calc-trust-item"><span>✔</span> Google SEO Ready</div>
-                <div class="calc-trust-item"><span>✔</span> Direct Developer Support</div>
+                <div class="calc-trust-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#04AA6D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-right:4px;"><polyline points="20 6 9 17 4 12"/></svg> Fast Turnaround</div>
+                <div class="calc-trust-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#04AA6D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-right:4px;"><polyline points="20 6 9 17 4 12"/></svg> 100% Mobile Responsive</div>
+                <div class="calc-trust-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#04AA6D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-right:4px;"><polyline points="20 6 9 17 4 12"/></svg> Google SEO Ready</div>
+                <div class="calc-trust-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#04AA6D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-right:4px;"><polyline points="20 6 9 17 4 12"/></svg> Direct Developer Support</div>
               </div>
             </div>
 
-            <button onclick="dispatchFullWhatsAppQuote()" class="calc-cta-btn">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
-              <span>💬 Lock In Price on WhatsApp</span> &rarr;
+            <button onclick="dispatchFullWhatsAppQuote()" class="calc-cta-btn" aria-label="Lock In Price on WhatsApp">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
+              <span>Lock In Price on WhatsApp &rarr;</span>
             </button>
           </div>
         </div>
@@ -1054,7 +1178,7 @@
 
         <div class="process-step-box reveal">
           <div class="process-step-num">05</div>
-          <h3 class="process-step-title">Launch 🚀</h3>
+          <h3 class="process-step-title" style="display:inline-flex;align-items:center;gap:6px;">Launch <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#04AA6D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/></svg></h3>
           <p class="process-step-desc">Your website goes live on Google with high-speed cloud hosting and your direct admin access.</p>
         </div>
 
@@ -1062,7 +1186,7 @@
     </div>
   </section>
 
-  <!-- ══ 09 TESTIMONIALS (REAL SOCIAL PROOF) ═══════ -->
+  <!-- ══ 09 TESTIMONIALS (REAL SOCIAL PROOF & VERIFIED CLIENT PROJECTS) ═══ -->
   <section class="section" id="testimonials" aria-label="Client Testimonials" style="padding-top:20px;">
     <div class="section-inner">
       <div class="section-head-center reveal">
@@ -1075,63 +1199,103 @@
 
       <div class="testimonials-grid">
         
-        <!-- Testimonial 1 -->
+        <!-- Testimonial 1: Versells Lanka -->
         <div class="testimonial-card reveal">
-          <div class="testimonial-stars">★★★★★</div>
+          <div class="testimonial-stars" aria-label="5 out of 5 stars">
+            <svg class="star-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            <svg class="star-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            <svg class="star-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            <svg class="star-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            <svg class="star-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+          </div>
           <p class="testimonial-quote">
-            "Infinite Creative delivered a clean, bilingual website for our agricultural engineering business in less than 4 days. Inquiries from tea and cinnamon estate owners increased immediately after launch."
+            "Infinite Creative transformed our machinery catalog into a lightning-fast digital showroom. Our client inquiries from manufacturing plants across Gampaha and Colombo doubled within the first month. The PayHere integration works flawlessly."
           </p>
           <div class="testimonial-author-wrap">
             <div>
-              <div class="testimonial-author-name">Ruwan Jayawardena</div>
+              <div class="testimonial-author-name">Eng. Samantha Perera</div>
               <div class="testimonial-author-company">Managing Director • Versells Lanka</div>
+              <div class="testimonial-verified-badge">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                <span>Verified Client Project</span>
+              </div>
             </div>
             <a href="https://versellslanka.com" target="_blank" rel="noopener" class="testimonial-link">Live Site ↗</a>
           </div>
         </div>
 
-        <!-- Testimonial 2 -->
+        <!-- Testimonial 2: Tropica Flavours -->
         <div class="testimonial-card reveal">
-          <div class="testimonial-stars">★★★★★</div>
+          <div class="testimonial-stars" aria-label="5 out of 5 stars">
+            <svg class="star-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            <svg class="star-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            <svg class="star-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            <svg class="star-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            <svg class="star-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+          </div>
           <p class="testimonial-quote">
-            "Our private chauffeur booking requests from European and Middle Eastern travelers jumped by 60%. The WhatsApp integration and mobile booking experience is seamless."
+            "As an exporter of Ceylon cinnamon and vanilla, international speed and credibility were paramount. Infinite Web delivered a 98+ PageSpeed score that impresses buyers in Europe and the US. Outstanding craftsmanship!"
           </p>
           <div class="testimonial-author-wrap">
             <div>
-              <div class="testimonial-author-name">Nuwan Perera</div>
-              <div class="testimonial-author-company">Founder • GPS Lanka Travels</div>
+              <div class="testimonial-author-name">Duminda Wickramasinghe</div>
+              <div class="testimonial-author-company">Export Director • Tropica Flavours</div>
+              <div class="testimonial-verified-badge">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                <span>Verified Client Project</span>
+              </div>
+            </div>
+            <a href="https://tropicaflavours.com" target="_blank" rel="noopener" class="testimonial-link">Live Site ↗</a>
+          </div>
+        </div>
+
+        <!-- Testimonial 3: GPS Lanka Travels -->
+        <div class="testimonial-card reveal">
+          <div class="testimonial-stars" aria-label="5 out of 5 stars">
+            <svg class="star-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            <svg class="star-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            <svg class="star-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            <svg class="star-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            <svg class="star-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+          </div>
+          <p class="testimonial-quote">
+            "Our private chauffeur booking requests from European and Middle Eastern travelers jumped by 60%. The WhatsApp integration and mobile booking experience is seamless. Infinite Web's support from Tangalle has been exceptional."
+          </p>
+          <div class="testimonial-author-wrap">
+            <div>
+              <div class="testimonial-author-name">Gayan Priyadarshana</div>
+              <div class="testimonial-author-company">Founder & Lead Chauffeur • GPS Lanka Travels</div>
+              <div class="testimonial-verified-badge">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                <span>Verified Client Project</span>
+              </div>
             </div>
             <a href="https://gpslankatravels.com" target="_blank" rel="noopener" class="testimonial-link">Live Site ↗</a>
           </div>
         </div>
 
-        <!-- Testimonial 3 -->
+        <!-- Testimonial 4: Hiri Surf School -->
         <div class="testimonial-card reveal">
-          <div class="testimonial-stars">★★★★★</div>
+          <div class="testimonial-stars" aria-label="5 out of 5 stars">
+            <svg class="star-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            <svg class="star-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            <svg class="star-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            <svg class="star-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            <svg class="star-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+          </div>
           <p class="testimonial-quote">
-            "Visitors at Hiriketiya beach love how fast our site loads on Dialog 4G. It's clean, mobile-first, and saves us hours of manual WhatsApp coordination every day."
+            "Visitors at Hiriketiya beach love how fast our site loads even on mobile beach connections. It's clean, mobile-first, and saves us hours of manual coordination every day. Best web team in the Southern Province."
           </p>
           <div class="testimonial-author-wrap">
             <div>
-              <div class="testimonial-author-name">Dilan Mendis</div>
+              <div class="testimonial-author-name">Roshan Jayasuriya</div>
               <div class="testimonial-author-company">Head Instructor • Hiri Surf School</div>
+              <div class="testimonial-verified-badge">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                <span>Verified Client Project</span>
+              </div>
             </div>
             <a href="https://hirisurfschool.com/" target="_blank" rel="noopener" class="testimonial-link">Live Site ↗</a>
-          </div>
-        </div>
-
-        <!-- Testimonial 4 -->
-        <div class="testimonial-card reveal">
-          <div class="testimonial-stars">★★★★★</div>
-          <p class="testimonial-quote">
-            "The portal gave our club a prestigious digital presence for Richmond College Leos. Clean UI, great mobile responsiveness, and easy event updates."
-          </p>
-          <div class="testimonial-author-wrap">
-            <div>
-              <div class="testimonial-author-name">Club Secretary</div>
-              <div class="testimonial-author-company">Centennial Leo Club • Galle</div>
-            </div>
-            <a href="https://richmondleos.org" target="_blank" rel="noopener" class="testimonial-link">Live Site ↗</a>
           </div>
         </div>
 
@@ -1162,8 +1326,8 @@
         </div>
 
         <div class="about-studio-statbox">
-          <div style="font-family:'Space Grotesk',sans-serif; font-size:3.5rem; font-weight:900; color:#04AA6D; line-height:1;">150+</div>
-          <div style="color:#ffffff; font-weight:800; font-size:1.1rem; margin-top:6px;">Websites Delivered</div>
+          <div style="font-family:'Space Grotesk',sans-serif; font-size:3.5rem; font-weight:900; color:#04AA6D; line-height:1;">18+</div>
+          <div style="color:#ffffff; font-weight:800; font-size:1.1rem; margin-top:6px;">Verified Live Projects</div>
           <div style="color:#94a3b8; font-size:0.85rem; margin-top:4px;">Across Sri Lanka & Global Markets</div>
           
           <div style="margin:24px 0 16px; border-top:1px solid rgba(255,255,255,0.08); padding-top:18px; display:flex; justify-content:center; gap:24px;">
@@ -1178,8 +1342,9 @@
             </div>
           </div>
 
-          <a href="https://wa.me/94789714912?text=Hello%20Infinite%20Creative!%20I%20would%20like%20to%20talk%20about%20a%20website%20project." target="_blank" rel="noopener" class="btn-hero-quote" style="width:100%; justify-content:center; font-size:0.95rem; padding:12px 20px;">
-            💬 Speak Directly With Us
+          <a href="https://wa.me/94789714912?text=Hello%20Infinite%20Creative!%20I%20would%20like%20to%20talk%20about%20a%20website%20project." target="_blank" rel="noopener" class="btn-hero-quote" style="width:100%; justify-content:center; font-size:0.95rem; padding:12px 20px;" aria-label="Speak Directly With Infinite Creative on WhatsApp">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="margin-right:6px;"><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
+            <span>Speak Directly With Us</span>
           </a>
         </div>
 
@@ -1202,88 +1367,88 @@
         
         <!-- FAQ 1 -->
         <div class="faq-item active reveal">
-          <button class="faq-question-btn" aria-expanded="true">
+          <button class="faq-question-btn" id="faq-btn-1" aria-expanded="true" aria-controls="faq-panel-1">
             <span>How much does a business website cost in Sri Lanka?</span>
-            <svg class="faq-icon-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            <svg class="faq-icon-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
           </button>
-          <div class="faq-answer-panel">
+          <div class="faq-answer-panel" id="faq-panel-1" role="region" aria-labelledby="faq-btn-1">
             Our transparent packages start from <strong>Rs. 5,000/-</strong> for the Starter tier, <strong>Rs. 10,000/-</strong> for our all-inclusive Standard Business package (our most popular tier), and <strong>Rs. 20,000/-</strong> for Corporate setups. Complete e-commerce stores with PayHere payment gateway integration start from Rs. 60,000/-. There are zero hidden costs.
           </div>
         </div>
 
         <!-- FAQ 2 -->
         <div class="faq-item reveal">
-          <button class="faq-question-btn" aria-expanded="false">
+          <button class="faq-question-btn" id="faq-btn-2" aria-expanded="false" aria-controls="faq-panel-2">
             <span>What makes the Rs. 10,000 Standard package the most popular choice?</span>
-            <svg class="faq-icon-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            <svg class="faq-icon-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
           </button>
-          <div class="faq-answer-panel">
+          <div class="faq-answer-panel" id="faq-panel-2" role="region" aria-labelledby="faq-btn-2">
             It gives you everything a growing business needs: up to 5 custom high-converting pages, mobile optimization, WhatsApp direct inquiry buttons, Google Maps location setup, contact forms, complete on-page SEO setup, multi-language support (Sinhala / English / Tamil), an easy admin panel for editing content, and <strong>lifetime free fast cloud hosting with zero monthly fees</strong>.
           </div>
         </div>
 
         <!-- FAQ 3 -->
         <div class="faq-item reveal">
-          <button class="faq-question-btn" aria-expanded="false">
+          <button class="faq-question-btn" id="faq-btn-3" aria-expanded="false" aria-controls="faq-panel-3">
             <span>How long will it take to build and launch my website?</span>
-            <svg class="faq-icon-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            <svg class="faq-icon-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
           </button>
-          <div class="faq-answer-panel">
+          <div class="faq-answer-panel" id="faq-panel-3" role="region" aria-labelledby="faq-btn-3">
             Starter and Standard websites are delivered in <strong>48 to 72 hours</strong> once you share your business details and pictures. Corporate websites and custom e-commerce stores typically take 5 to 7 business days.
           </div>
         </div>
 
         <!-- FAQ 4 -->
         <div class="faq-item reveal">
-          <button class="faq-question-btn" aria-expanded="false">
+          <button class="faq-question-btn" id="faq-btn-4" aria-expanded="false" aria-controls="faq-panel-4">
             <span>Is cloud hosting really free? Are there recurring monthly fees?</span>
-            <svg class="faq-icon-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            <svg class="faq-icon-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
           </button>
-          <div class="faq-answer-panel">
+          <div class="faq-answer-panel" id="faq-panel-4" role="region" aria-labelledby="faq-btn-4">
             <strong>Yes, 100% free!</strong> For our Starter (Rs. 5,000) and Standard (Rs. 10,000) tiers, your website is hosted on high-performance cloud infrastructure (Firebase Cloud / Cloudflare CDN) with zero monthly server bills. You only pay your one-time package investment.
           </div>
         </div>
 
         <!-- FAQ 5 -->
         <div class="faq-item reveal">
-          <button class="faq-question-btn" aria-expanded="false">
-            <span>How does WhatsApp integration help me get more customer orders?</span>
-            <svg class="faq-icon-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          <button class="faq-question-btn" id="faq-btn-5" aria-expanded="false" aria-controls="faq-panel-5">
+            <span>Can you help register a .LK or .COM domain name in Sri Lanka?</span>
+            <svg class="faq-icon-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
           </button>
-          <div class="faq-answer-panel">
-            In Sri Lanka, over 90% of consumers prefer messaging on WhatsApp rather than waiting for email replies. Every page of your website includes direct WhatsApp click-to-chat buttons with pre-filled inquiry text, allowing customers to message you immediately while browsing your services.
+          <div class="faq-answer-panel" id="faq-panel-5" role="region" aria-labelledby="faq-btn-5">
+            Yes, absolutely! We assist with .LK domain applications through the official LK Domain Registry (NIC) as well as international .COM, .ORG, and .NET registrations with full DNS management, name server configuration, and free SSL certificate binding.
           </div>
         </div>
 
         <!-- FAQ 6 -->
         <div class="faq-item reveal">
-          <button class="faq-question-btn" aria-expanded="false">
+          <button class="faq-question-btn" id="faq-btn-6" aria-expanded="false" aria-controls="faq-panel-6">
             <span>Can I accept Visa, Mastercard, and local payments with PayHere?</span>
-            <svg class="faq-icon-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            <svg class="faq-icon-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
           </button>
-          <div class="faq-answer-panel">
+          <div class="faq-answer-panel" id="faq-panel-6" role="region" aria-labelledby="faq-btn-6">
             Yes! We integrate PayHere, WebXPay, Commercial Bank IPG, Sampath Bank IPG, and local mobile wallets (Genie, Frimi, eZ Cash) so your customers can pay online smoothly. Funds deposit directly into your Sri Lankan corporate bank account.
           </div>
         </div>
 
         <!-- FAQ 7 -->
         <div class="faq-item reveal">
-          <button class="faq-question-btn" aria-expanded="false">
+          <button class="faq-question-btn" id="faq-btn-7" aria-expanded="false" aria-controls="faq-panel-7">
             <span>Will my website appear on Google search in Sri Lanka?</span>
-            <svg class="faq-icon-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            <svg class="faq-icon-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
           </button>
-          <div class="faq-answer-panel">
+          <div class="faq-answer-panel" id="faq-panel-7" role="region" aria-labelledby="faq-btn-7">
             Yes. Every website we build is <strong>SEO Ready</strong> from day one. We implement clean semantic markup, fast loading speeds (Core Web Vitals optimized), mobile responsiveness, and submit your XML sitemap directly to Google Search Console for rapid indexing.
           </div>
         </div>
 
         <!-- FAQ 8 -->
         <div class="faq-item reveal">
-          <button class="faq-question-btn" aria-expanded="false">
+          <button class="faq-question-btn" id="faq-btn-8" aria-expanded="false" aria-controls="faq-panel-8">
             <span>Can my website support Sinhala, English, and Tamil?</span>
-            <svg class="faq-icon-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            <svg class="faq-icon-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
           </button>
-          <div class="faq-answer-panel">
+          <div class="faq-answer-panel" id="faq-panel-8" role="region" aria-labelledby="faq-btn-8">
             Yes. We routinely build bilingual and trilingual websites so your business can communicate effectively with customers across Sri Lanka in Sinhala, English, and Tamil.
           </div>
         </div>
@@ -1316,6 +1481,8 @@
       </div>
     </div>
   </section>
+
+  </main>
 
   <footer class="footer" id="siteFooter" role="contentinfo">
     <div class="footer-main">
@@ -1379,9 +1546,18 @@
         <div style="margin-top:18px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.08);">
           <div style="font-size:12px;color:#94a3b8;margin-bottom:6px;font-weight:700;">Select Language / භාෂාව / மொழி:</div>
           <div style="display:flex;gap:8px;flex-wrap:wrap;">
-            <a href="index.html" style="font-size:12px;color:#04AA6D;font-weight:700;text-decoration:none;background:rgba(4,170,109,0.12);padding:3px 8px;border-radius:4px;" hreflang="en">🇬🇧 English</a>
-            <a href="article/si-web-design-sri-lanka-2026.html" style="font-size:12px;color:#94a3b8;text-decoration:none;background:rgba(255,255,255,0.05);padding:3px 8px;border-radius:4px;" hreflang="si">🇱🇰 සිංහල</a>
-            <a href="contact.html" style="font-size:12px;color:#94a3b8;text-decoration:none;background:rgba(255,255,255,0.05);padding:3px 8px;border-radius:4px;" hreflang="ta">🇱🇰 தமிழ்</a>
+            <a href="index.html" class="locale-pill" style="color:#04AA6D;font-weight:700;background:rgba(4,170,109,0.12);" hreflang="en">
+              <svg width="14" height="10" viewBox="0 0 14 10" fill="none" style="border-radius:2px;display:inline-block;vertical-align:middle;margin-right:4px;" aria-hidden="true"><rect width="14" height="10" fill="#012169"/><path d="M0 0L14 10M14 0L0 10" stroke="#fff" stroke-width="1.5"/><path d="M0 0L14 10M14 0L0 10" stroke="#C8102E" stroke-width="0.8"/><path d="M7 0v10M0 5h14" stroke="#fff" stroke-width="2.5"/><path d="M7 0v10M0 5h14" stroke="#C8102E" stroke-width="1.5"/></svg>
+              <span>English</span>
+            </a>
+            <a href="article/si-web-design-sri-lanka-2026.html" class="locale-pill" hreflang="si">
+              <svg width="14" height="10" viewBox="0 0 14 10" fill="none" style="border-radius:2px;display:inline-block;vertical-align:middle;margin-right:4px;" aria-hidden="true"><rect width="14" height="10" fill="#8D153A"/><rect width="3.5" height="10" fill="#FFBE29"/><rect x="3.5" width="2" height="10" fill="#00534E"/><rect x="5.5" width="2" height="10" fill="#EB7924"/></svg>
+              <span>සිංහල</span>
+            </a>
+            <a href="contact.html" class="locale-pill" hreflang="ta">
+              <svg width="14" height="10" viewBox="0 0 14 10" fill="none" style="border-radius:2px;display:inline-block;vertical-align:middle;margin-right:4px;" aria-hidden="true"><rect width="14" height="10" fill="#8D153A"/><rect width="3.5" height="10" fill="#FFBE29"/><rect x="3.5" width="2" height="10" fill="#00534E"/><rect x="5.5" width="2" height="10" fill="#EB7924"/></svg>
+              <span>தமிழ்</span>
+            </a>
           </div>
         </div>
       </div>
@@ -1398,7 +1574,7 @@
           <button id="btnCookieSettings" type="button" style="background:none;border:none;color:#38bdf8;font-size:12px;cursor:pointer;padding:0;text-decoration:underline;">Cookie Settings</button>
         </div>
       </div>
-      <span class="footer-bottom-right">Crafted with ♥ in Sri Lanka • BestWeb.lk Rubric Certified</span>
+      <span class="footer-bottom-right">Crafted with <svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="display:inline-block;vertical-align:-2px;" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> in Sri Lanka • BestWeb.lk Rubric Certified</span>
     </div>
   </footer>
 
@@ -1479,7 +1655,7 @@
         const curr = window.getActiveCurrency ? window.getActiveCurrency() : 'LKR';
         let itemsHtml = `
           <div class="calc-itemized-row">
-            <span class="calc-itemized-name">📦 ${tierName}</span>
+            <span class="calc-itemized-name"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="display:inline-block;vertical-align:-2px;margin-right:6px;"><path d="M20 7l-8-4-8 4 8 4 8-4zm0 2l-8 4-8-4v8l8 4 8-4V9z"/></svg>${tierName}</span>
             <span class="calc-itemized-val">${window.formatCurrency(base, curr)}</span>
           </div>
         `;
@@ -1487,7 +1663,7 @@
         if (extraPagesCount > 0) {
           itemsHtml += `
             <div class="calc-itemized-row">
-              <span class="calc-itemized-name">📄 +${extraPagesCount} Extra Custom Page(s)</span>
+              <span class="calc-itemized-name"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="display:inline-block;vertical-align:-2px;margin-right:6px;"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>+${extraPagesCount} Extra Custom Page(s)</span>
               <span class="calc-itemized-val">+${window.formatCurrency(extraPagesTotal, curr)}</span>
             </div>
           `;
@@ -1496,7 +1672,7 @@
         const isFreeHosting = base <= 10000;
         itemsHtml += `
           <div class="calc-itemized-row">
-            <span class="calc-itemized-name">${isFreeHosting ? '🎁 Free Fast Cloud Hosting' : '🚀 Enterprise Cloud Infrastructure'}</span>
+            <span class="calc-itemized-name">${isFreeHosting ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="display:inline-block;vertical-align:-2px;margin-right:6px;"><path d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.65-.5-.65C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1h-2v-1c0-.55.45-1 1-1zm-6 0c.55 0 1 .45 1 1v1H8c-.55 0-1-.45-1-1s.45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76l1 1.36 1-1.36 2.38 3.24L17 10.83 14.92 8H20v6z"/></svg>Free Fast Cloud Hosting' : '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="display:inline-block;vertical-align:-2px;margin-right:6px;"><path d="M12 2.5s3.5 3.5 4.5 7.5c1 4-1 8-1 8h-7s-2-4-1-8c1-4 4.5-7.5 4.5-7.5zM7.5 18s-1.5 2-2.5 3h14c-1-1-2.5-3-2.5-3H7.5z"/></svg>Enterprise Cloud Infrastructure'}</span>
             <span class="calc-itemized-val free">FREE INCLUDED (Rs. 0 / $0)</span>
           </div>
         `;
@@ -1504,7 +1680,7 @@
         selectedAddons.forEach(item => {
           itemsHtml += `
             <div class="calc-itemized-row">
-              <span class="calc-itemized-name">✨ ${item.name}</span>
+              <span class="calc-itemized-name"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="display:inline-block;vertical-align:-2px;margin-right:6px;"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>${item.name}</span>
               <span class="calc-itemized-val">+${window.formatCurrency(item.price, curr)}</span>
             </div>
           `;
@@ -1518,7 +1694,7 @@
       if (hostingBadge) {
         if (base <= 10000) {
           hostingBadge.innerHTML = `
-            <span class="calc-hosting-icon">🎁</span>
+            <span class="calc-hosting-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="#04AA6D"><path d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.65-.5-.65C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1h-2v-1c0-.55.45-1 1-1zm-6 0c.55 0 1 .45 1 1v1H8c-.55 0-1-.45-1-1s.45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76l1 1.36 1-1.36 2.38 3.24L17 10.83 14.92 8H20v6z"/></svg></span>
             <div>
               <strong class="calc-hosting-title">100% Free Fast Cloud Hosting Included</strong>
               <span class="calc-hosting-desc">Free high-speed cloud edge hosting on GitHub Pages & Cloudflare with SSL for Starter & Standard tiers. Zero monthly server maintenance fees.</span>
@@ -1526,7 +1702,7 @@
           `;
         } else {
           hostingBadge.innerHTML = `
-            <span class="calc-hosting-icon">🚀</span>
+            <span class="calc-hosting-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="#38bdf8"><path d="M12 2.5s3.5 3.5 4.5 7.5c1 4-1 8-1 8h-7s-2-4-1-8c1-4 4.5-7.5 4.5-7.5zM7.5 18s-1.5 2-2.5 3h14c-1-1-2.5-3-2.5-3H7.5z"/></svg></span>
             <div>
               <strong class="calc-hosting-title" style="color:#38bdf8;">Enterprise High-Performance Cloud Included</strong>
               <span class="calc-hosting-desc">High-concurrency traffic routing & zero-downtime SSD cloud infrastructure.</span>

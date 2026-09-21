@@ -149,7 +149,7 @@ function makeProjectCard(p){
         <span class="mockup-dot green"></span>
       </div>
       <div class="mockup-url-pill">
-        <span class="mockup-chrome-lock">🔒</span>
+        <span class="mockup-chrome-lock"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
         <span>${cleanDomain}</span>
       </div>
       <div style="color:#94a3b8; font-size:12px;">↗</div>
