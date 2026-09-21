@@ -31,6 +31,7 @@
   <meta name="twitter:image" content="https://infiniteweb.dev/images/logo.png">
 
   <!-- Favicon -->
+  <link rel="icon" type="image/webp" href="images/logo-100w.webp">
   <link rel="icon" type="image/png" href="images/logo.png">
   <link rel="apple-touch-icon" href="images/logo.png">
 
@@ -38,8 +39,47 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Syne:wght@700;800;900&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/main.css?v=17">
-  <link rel="stylesheet" href="css/additions.css?v=17">
+  <style id="critical-css">
+    :root {
+      --bg: #f1f1f1; --bg-2: #ffffff; --bg-card: #ffffff;
+      --blue: #04AA6D; --blue-dim: rgba(4, 170, 109, 0.08); --blue-glow: rgba(4, 170, 109, 0.25);
+      --grey: #666666; --white: #282A35; --white-70: rgba(40, 42, 53, 0.7);
+      --glass: rgba(255, 255, 255, 0.7);
+      --font-sans: 'Inter', sans-serif; --font-disp: 'Space Grotesk', sans-serif; --font-kin: 'Bebas Neue', cursive;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; -webkit-font-smoothing: antialiased; }
+    body { background: #0a0f1d; color: #ffffff; font-family: var(--font-sans); overflow-x: hidden; line-height: 1.6; }
+    img { max-width: 100%; height: auto; display: block; }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; border: none; background: none; font: inherit; }
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(10, 15, 29, 0.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.08); height: 72px; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; }
+    .nav-inner { max-width: 1200px; width: 100%; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .nav-brand, .nav-logo { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1.25rem; letter-spacing: -0.02em; color: #ffffff; text-decoration: none; }
+    .nav-brand strong { font-family: var(--font-disp); font-size: 1.3rem; letter-spacing: 0.1em; color: #fff; }
+    .nav-brand small { display: block; font-size: 0.65rem; letter-spacing: 0.25em; color: #04AA6D; text-transform: uppercase; font-weight: 700; margin-top: -2px; }
+    .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+    .nav-link, .nav-links a { color: #cbd5e1; font-size: 0.95rem; font-weight: 600; text-decoration: none; transition: color 0.2s; }
+    .nav-link.active, .nav-links a.active, .nav-link:hover, .nav-links a:hover { color: #04AA6D; }
+    .nav-actions { display: flex; align-items: center; gap: 16px; }
+    .nav-cta, .btn-nav-cta { background: #04AA6D; color: #ffffff !important; font-weight: 800; border-radius: 10px; padding: 10px 22px; display: inline-flex; align-items: center; gap: 8px; font-size: 0.88rem; letter-spacing: 0.04em; text-decoration: none; }
+    .hero-business { padding: 120px 20px 56px; max-width: 1180px; margin: 0 auto; text-align: center; position: relative; }
+    .hero-pill-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(4, 170, 109, 0.12); border: 1px solid rgba(4, 170, 109, 0.35); border-radius: 50px; padding: 8px 20px; margin-bottom: 24px; font-size: 0.82rem; font-weight: 800; color: #04AA6D; text-transform: uppercase; letter-spacing: 0.08em; }
+    .hero-pill-dot { width: 8px; height: 8px; border-radius: 50%; background: #04AA6D; box-shadow: 0 0 10px #04AA6D; }
+    .hero-business-title { font-size: clamp(2.4rem, 5.5vw, 4rem); font-weight: 900; line-height: 1.12; letter-spacing: -0.03em; color: #ffffff; max-width: 960px; margin: 0 auto 24px; }
+    .hero-business-title .accent-gradient { background: linear-gradient(135deg, #04AA6D 0%, #38bdf8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero-business-subhead { font-size: clamp(1.08rem, 2.2vw, 1.28rem); color: #cbd5e1; line-height: 1.65; max-width: 720px; margin: 0 auto 40px; font-weight: 400; }
+    .hero-ctas-group { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; margin-bottom: 48px; }
+    .btn-hero-quote { background: #04AA6D; color: #ffffff !important; font-weight: 800; font-size: 1.05rem; padding: 16px 36px; border-radius: 12px; box-shadow: 0 8px 28px rgba(4, 170, 109, 0.45); text-decoration: none; display: inline-flex; align-items: center; gap: 10px; }
+    .btn-hero-work { background: rgba(255, 255, 255, 0.05); color: #ffffff !important; border: 1.5px solid rgba(255, 255, 255, 0.25); font-weight: 700; font-size: 1.05rem; padding: 16px 34px; border-radius: 12px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
+    .trust-bar-wrapper { background: #0a0f1d; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 18px; padding: 24px 32px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4); max-width: 1100px; margin: 0 auto; }
+    @media (max-width: 900px) { .nav-links { display: none; } .trust-bar-wrapper { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) { .trust-bar-wrapper { grid-template-columns: 1fr; } .hero-business { padding-top: 100px; } }
+  </style>
+  <link rel="preload" href="css/main.css?v=2026" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="css/main.css?v=2026"></noscript>
+  <link rel="preload" href="css/additions.css?v=2026" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="css/additions.css?v=2026"></noscript>
 
   <!-- Google Analytics (GA4) loaded conditionally via js/components.js upon explicit cookie consent -->
 
@@ -110,7 +150,7 @@
   <!-- ══ 01 NAVIGATION ══════════════════════════════ -->
   <nav class="nav" id="mainNav" role="navigation">
     <a href="index.html" class="nav-logo">
-      <img decoding="async" src="images/logo.png" alt="Infinite Design Logo" width="48" height="48">
+      <img src="images/logo-100w.webp" srcset="images/logo-100w.webp 100w, images/logo-200w.webp 200w" sizes="48px" alt="Infinite Design Logo" width="48" height="48" loading="eager" fetchpriority="high" decoding="async">
       <div class="nav-brand"><strong>INFINITE</strong><small>Creative Web Design</small></div>
     </a>
     <ul class="nav-links">
@@ -227,7 +267,7 @@
             <div style="color:#94a3b8; font-size:12px;">↗</div>
           </div>
           <div class="mockup-img-wrap">
-            <img src="https://s0.wp.com/mshots/v1/https%3A%2F%2Fversellslanka.com?w=800&h=500" alt="Versells Lanka Website Preview" loading="lazy">
+            <img src="https://s0.wp.com/mshots/v1/https%3A%2F%2Fversellslanka.com?w=800&h=500" alt="Versells Lanka Website Preview" width="800" height="500" loading="lazy" decoding="async">
             <div class="mockup-live-badge">
               <span class="mockup-live-dot"></span>
               <span>Live Website</span>
@@ -240,7 +280,7 @@
               <span class="mockup-tag">Multilingual (EN/SI)</span>
               <span class="mockup-tag" style="color:#04AA6D; border-color:rgba(4,170,109,0.3);">Mobile First</span>
             </div>
-            <p class="mockup-desc">Enterprise agricultural technology & electric fencing engineering portal with custom interactive quote estimator and bilingual catalog.</p>
+            <p class="mockup-desc">Commercial machinery, high-pressure washers, agricultural power tools, and industrial equipment catalog with instant WhatsApp quotation system.</p>
             <div class="mockup-cta-link">
               <span>View Website</span>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -263,7 +303,7 @@
             <div style="color:#94a3b8; font-size:12px;">↗</div>
           </div>
           <div class="mockup-img-wrap">
-            <img src="https://s0.wp.com/mshots/v1/https%3A%2F%2Ftropicaflavours.com?w=800&h=500" alt="Tropica Flavours Website Preview" loading="lazy">
+            <img src="https://s0.wp.com/mshots/v1/https%3A%2F%2Ftropicaflavours.com?w=800&h=500" alt="Tropica Flavours Website Preview" width="800" height="500" loading="lazy" decoding="async">
             <div class="mockup-live-badge">
               <span class="mockup-live-dot"></span>
               <span>Live Website</span>
@@ -299,7 +339,7 @@
             <div style="color:#94a3b8; font-size:12px;">↗</div>
           </div>
           <div class="mockup-img-wrap">
-            <img src="https://s0.wp.com/mshots/v1/https%3A%2F%2Fgpslankatravels.com?w=800&h=500" alt="GPS Lanka Travels Website Preview" loading="lazy">
+            <img src="https://s0.wp.com/mshots/v1/https%3A%2F%2Fgpslankatravels.com?w=800&h=500" alt="GPS Lanka Travels Website Preview" width="800" height="500" loading="lazy" decoding="async">
             <div class="mockup-live-badge">
               <span class="mockup-live-dot"></span>
               <span>Live Website</span>
@@ -335,7 +375,7 @@
             <div style="color:#94a3b8; font-size:12px;">↗</div>
           </div>
           <div class="mockup-img-wrap">
-            <img src="https://s0.wp.com/mshots/v1/https%3A%2F%2Frichmondleos.org?w=800&h=500" alt="Centennial Leo Club Website Preview" loading="lazy">
+            <img src="https://s0.wp.com/mshots/v1/https%3A%2F%2Frichmondleos.org?w=800&h=500" alt="Centennial Leo Club Website Preview" width="800" height="500" loading="lazy" decoding="async">
             <div class="mockup-live-badge">
               <span class="mockup-live-dot"></span>
               <span>Live Website</span>
@@ -371,7 +411,7 @@
             <div style="color:#94a3b8; font-size:12px;">↗</div>
           </div>
           <div class="mockup-img-wrap">
-            <img src="https://s0.wp.com/mshots/v1/https%3A%2F%2Fddlankatours.lk%2F?w=800&h=500" alt="DD Lanka Tours Website Preview" loading="lazy">
+            <img src="https://s0.wp.com/mshots/v1/https%3A%2F%2Fddlankatours.lk%2F?w=800&h=500" alt="DD Lanka Tours Website Preview" width="800" height="500" loading="lazy" decoding="async">
             <div class="mockup-live-badge">
               <span class="mockup-live-dot"></span>
               <span>Live Website</span>
@@ -407,7 +447,7 @@
             <div style="color:#94a3b8; font-size:12px;">↗</div>
           </div>
           <div class="mockup-img-wrap">
-            <img src="https://s0.wp.com/mshots/v1/https%3A%2F%2Fhirisurfschool.com%2F?w=800&h=500" alt="Hiri Surf School Website Preview" loading="lazy">
+            <img src="https://s0.wp.com/mshots/v1/https%3A%2F%2Fhirisurfschool.com%2F?w=800&h=500" alt="Hiri Surf School Website Preview" width="800" height="500" loading="lazy" decoding="async">
             <div class="mockup-live-badge">
               <span class="mockup-live-dot"></span>
               <span>Live Website</span>
@@ -1283,7 +1323,7 @@
       <!-- Col 1: Studio Info -->
       <div class="footer-col footer-about">
         <div class="footer-logo-wrap">
-          <img decoding="async" loading="lazy" src="images/logo.png" alt="Infinite Creative Web Design Logo" width="46" height="46">
+          <img src="images/logo-100w.webp" srcset="images/logo-100w.webp 100w, images/logo-200w.webp 200w" sizes="46px" alt="Infinite Creative Web Design Logo" width="46" height="46" loading="lazy" decoding="async">
           <div>
             <div style="font-family:var(--font-disp,Space Grotesk,sans-serif);font-size:16px;font-weight:700;letter-spacing:.15em;color:#fff;">INFINITE</div>
             <div style="font-size:10px;letter-spacing:.3em;color:#04AA6D;text-transform:uppercase;font-weight:700;">Creative Web Design</div>

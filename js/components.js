@@ -60,7 +60,7 @@
     var navHTML = '<nav class="nav" role="navigation" aria-label="Main Navigation">' +
       '<div class="nav-inner">' +
         '<a href="' + PREFIX + 'index.html" class="nav-brand" aria-label="Infinite Creative Web Design Home">' +
-          '<img src="' + PREFIX + 'images/logo.png" alt="Infinite Creative Web Design Logo" width="38" height="38" class="nav-logo" fetchpriority="high">' +
+          '<img src="' + PREFIX + 'images/logo-100w.webp" srcset="' + PREFIX + 'images/logo-100w.webp 100w, ' + PREFIX + 'images/logo-200w.webp 200w" sizes="38px" alt="Infinite Creative Web Design Logo" width="38" height="38" class="nav-logo" fetchpriority="high">' +
           '<div class="nav-brand-text">' +
             '<strong>INFINITE</strong>' +
             '<small>Creative Web Design</small>' +
@@ -133,7 +133,7 @@
       '<div class="footer-main">' +
         '<div class="footer-col footer-about">' +
           '<div class="footer-logo-wrap">' +
-            '<img src="' + PREFIX + 'images/logo.png" alt="Infinite Creative Web Design Logo" width="46" height="46" loading="lazy" decoding="async">' +
+            '<img src="' + PREFIX + 'images/logo-100w.webp" srcset="' + PREFIX + 'images/logo-100w.webp 100w, ' + PREFIX + 'images/logo-200w.webp 200w" sizes="46px" alt="Infinite Creative Web Design Logo" width="46" height="46" loading="lazy" decoding="async">' +
             '<div>' +
               '<div style="font-family:var(--font-disp,Space Grotesk,sans-serif);font-size:16px;font-weight:700;letter-spacing:.15em;color:#fff;">INFINITE</div>' +
               '<div style="font-size:10px;letter-spacing:.3em;color:#04AA6D;text-transform:uppercase;font-weight:700;">Creative Web Design</div>' +

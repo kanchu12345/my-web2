@@ -10,7 +10,10 @@
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Tutorials Manager | Infinite Admin</title>
 <meta name="robots" content="noindex,nofollow">
-<link rel="icon" href="../images/logo.png">
+<link rel="icon" type="image/webp" href="../images/logo-100w.webp">
+<link rel="icon" type="image/png" href="../images/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/admin.css">
 <style>
@@ -97,7 +100,7 @@ onAuthStateChanged(auth, user => {
   <!-- ── SIDEBAR ─────────────────────────────────── -->
   <aside class="sidebar">
     <div class="sb-logo">
-      <img src="../images/logo.png" alt="Logo" width="32" height="32">
+      <img src="../images/logo-100w.webp" srcset="../images/logo-100w.webp 100w, ../images/logo-200w.webp 200w" sizes="32px" alt="Logo" width="32" height="32" loading="eager" fetchpriority="high" decoding="async">
       <div>
         <div class="sb-brand"><strong>INFINITE</strong><small>Admin Control</small></div>
       </div>
@@ -281,7 +284,7 @@ onAuthStateChanged(auth, user => {
 
 <div class="toast" id="toast"><div class="toast-dot"></div><span id="toastMsg"></span></div>
 
-<script src="../data/w3-tutorials.js?v=2026"></script>
+<script src="../data/w3-tutorials.js?v=2026" defer></script>
 <script type="module">
   import { db, collection, getDocs, doc, setDoc } from '../js/firebase-config.js';
 

@@ -155,7 +155,7 @@ function makeProjectCard(p){
       <div style="color:#94a3b8; font-size:12px;">↗</div>
     </div>
     <div class="mockup-img-wrap">
-      <img src="${previewSrc}" alt="${p.title || 'Project'} Website Preview" loading="lazy" onerror="this.style.display='none'">
+      <img src="${previewSrc}" alt="${p.title || 'Project'} Website Preview" width="800" height="500" loading="lazy" decoding="async" onerror="this.style.display='none'">
       ${badgeHtml}
     </div>
     <div class="mockup-body">
@@ -635,7 +635,7 @@ function renderBlogs(blogs, grid) {
     grid.innerHTML += `
       <a href="${b.url}" class="blog-card glass-hover" style="display:flex;flex-direction:column;background:#282A35;border-radius:16px;overflow:hidden;text-decoration:none;border:1px solid rgba(255,255,255,0.05);transition:transform 0.3s,box-shadow 0.3s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 20px 40px rgba(0,0,0,0.4)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
         <div style="height:200px;background:#1e1f26;position:relative;overflow:hidden;">
-          <img src="${imgSrc}" alt="${b.title}" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'">
+          <img src="${imgSrc}" alt="${b.title}" width="400" height="200" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'">
           <div style="position:absolute;top:12px;right:12px;background:rgba(4,170,109,0.9);color:#fff;font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:4px 10px;border-radius:20px;">${b.source || 'Curated'}</div>
         </div>
         <div style="padding:24px;flex:1;display:flex;flex-direction:column;">
@@ -684,7 +684,7 @@ async function loadArticle() {
         <div style="font-size:12px;color:#04AA6D;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;margin-bottom:16px;">${article.category} • ${article.date} ${article.source ? '• <span style="color:var(--grey);">via ' + article.source + '</span>' : ''}</div>
         <h1 style="font-family:var(--font-disp);font-size:clamp(32px,5vw,48px);font-weight:800;color:var(--white);line-height:1.2;margin-bottom:0;letter-spacing:-0.02em;">${article.title}</h1>
       </div>
-      ${article.image ? `<img src="${imgSrc}" alt="${article.title}" style="width:100%;max-height:500px;object-fit:cover;border-radius:16px;margin-bottom:48px;box-shadow:0 12px 30px rgba(0,0,0,0.08);" onerror="this.style.display='none'">` : ''}
+      ${article.image ? `<img src="${imgSrc}" alt="${article.title}" width="1024" height="512" loading="eager" decoding="async" fetchpriority="high" style="width:100%;max-height:500px;object-fit:cover;border-radius:16px;margin-bottom:48px;box-shadow:0 12px 30px rgba(0,0,0,0.08);" onerror="this.style.display='none'">` : ''}
       <div class="article-body">
         ${article.body_html || '<p>' + (article.description || '') + '</p>'}
       </div>

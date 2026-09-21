@@ -416,7 +416,7 @@
 <!-- ══ NAVIGATION ══════════════════════════════ -->
 <nav class="nav" id="mainNav" role="navigation">
   <a href="../index.html" class="nav-logo">
-    <img decoding="async" src="../images/logo.png" alt="Infinite Design Logo" width="48" height="48">
+    <img src="../images/logo-100w.webp" srcset="../images/logo-100w.webp 100w, ../images/logo-200w.webp 200w" sizes="48px" alt="Infinite Design Logo" width="48" height="48" loading="eager" fetchpriority="high" decoding="async">
     <div class="nav-brand"><strong>INFINITE</strong><small>Creative Web Design</small></div>
   </a>
   <ul class="nav-links">
@@ -473,7 +473,7 @@
   <div class="footer-main">
     <div class="footer-col footer-about">
       <div class="footer-logo-wrap">
-        <img decoding="async" src="../images/logo.png" alt="Infinite Design" width="50" height="50">
+        <img src="../images/logo-100w.webp" srcset="../images/logo-100w.webp 100w, ../images/logo-200w.webp 200w" sizes="50px" alt="Infinite Design" width="50" height="50" loading="lazy" decoding="async">
         <div>
           <div style="font-family:var(--font-disp);font-size:16px;font-weight:700;letter-spacing:.15em;color:#fff;">INFINITE</div>
           <div style="font-size:10px;letter-spacing:.3em;color:#04AA6D;text-transform:uppercase;">Creative Web Design</div>
@@ -526,8 +526,8 @@
 </footer>
 
 <script type="module" src="../js/firebase-config.js"></script>
-<script src="../js/analytics.js"></script>
-<script src="../js/main.js"></script>
+<script src="../js/analytics.js" defer></script>
+<script src="../js/main.js" defer></script>
   <script src="../js/components.js" defer></script>
 </body>
 </html>
