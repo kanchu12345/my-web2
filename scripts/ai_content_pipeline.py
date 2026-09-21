@@ -362,7 +362,7 @@ def append_to_bot_logs(bot_name, icon, status, message, auth_token=None, dry_run
     else:
         print(f"  [Notice] Firestore bot_logs write skipped/denied (status: {code})")
 
-def sync_blogs_pipeline(status='published', auth_token=None, dry_run=False):
+def sync_blogs_pipeline(status='draft', auth_token=None, dry_run=False):
     """Generates and syncs business and AI tech blog posts."""
     print("\n--- [Step 1: Syncing Business & AI Tech Blog Articles] ---")
     all_articles = BLOG_TOPICS + AI_TECH_TOPICS
@@ -396,6 +396,9 @@ def sync_blogs_pipeline(status='published', auth_token=None, dry_run=False):
             'author': item.get('author', 'Infinite Tech Desk'),
             'body_html': item['body_html'],
             'status': status,
+            'human_reviewed': False if status == 'draft' else True,
+            'ai_generated': True,
+            'editorial_disclaimer': 'AI-assisted technical draft. Subject to human editorial verification before live publication.',
             'url': f"article/{doc_id}.html"
         }
 
@@ -508,7 +511,7 @@ window.ACADEMY_COURSES = """
         dry_run=dry_run
     )
 
-def run_pipeline(mode='all', status='published', dry_run=False):
+def run_pipeline(mode='all', status='draft', dry_run=False):
     """Unified runner for autonomous content generation."""
     print("=================================================================")
     print("🚀 Infinite AI Content Pipeline & Cloud Synchronizer")
@@ -539,14 +542,14 @@ def run_pipeline(mode='all', status='published', dry_run=False):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Autonomous AI Content Pipeline for Infinite Web")
     parser.add_argument('--mode', choices=['all', 'blog', 'ai-tech', 'tutorial'], default='all', help="Content tracks to run")
-    parser.add_argument('--status', choices=['published', 'draft'], default='published', help="Publishing state")
+    parser.add_argument('--status', choices=['published', 'draft'], default='draft', help="Publishing state")
     parser.add_argument('--dry-run', action='store_true', help="Preview generation without writing changes")
     parser.add_argument('--test', action='store_true', help="Run self-verification test suite")
     args = parser.parse_args()
 
     if args.test:
         print("Running AI Content Pipeline verification tests...")
-        test_success = run_pipeline(mode='all', dry_run=True)
+        test_success = run_pipeline(mode='all', status='draft', dry_run=True)
         assert test_success, "Dry-run verification test failed"
         print("🎉 Verification tests PASSED!")
         sys.exit(0)

@@ -105,6 +105,17 @@ onAuthStateChanged(auth, user => {
             <option>Graphic Design</option>
             <option>Logistics Branding</option>
             <option>Motion Graphics</option>
+            <option>Business & Web Design</option>
+            <option>Web Performance & SEO</option>
+            <option>E-Commerce & Fintech</option>
+            <option>AI & Modern Tech</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="pStatus">Publication Status</label>
+          <select id="pStatus" class="form-select form-input">
+            <option value="published">Published (Live on Website)</option>
+            <option value="draft">Draft (Review Required)</option>
           </select>
         </div>
                 <div class="form-field">
@@ -243,7 +254,9 @@ async function loadBlogs(){
         title: a.title,
         category: a.category || 'Web Design',
         description: a.summary || a.excerpt || a.description || '',
-        image: a.image || a.cover || ''
+        image: a.image || a.cover || '',
+        status: a.status || 'published',
+        humanReviewed: a.human_reviewed ?? a.humanReviewed ?? (a.status !== 'draft')
       }));
     }
   } catch(e) {}
@@ -252,7 +265,7 @@ async function loadBlogs(){
   try {
     const custom = JSON.parse(localStorage.getItem('infinite_custom_blogs') || '[]');
     if (Array.isArray(custom)) {
-      items = [...custom, ...items];
+      items = [...custom.map(c => ({ status: 'published', humanReviewed: true, ...c })), ...items];
     }
   } catch(e) {}
 
@@ -262,7 +275,13 @@ async function loadBlogs(){
     if (!snap.empty) {
       const fbItems = [];
       snap.forEach(d => {
-        fbItems.push({ id: d.id, ...d.data() });
+        const data = d.data();
+        fbItems.push({
+          id: d.id,
+          ...data,
+          status: data.status || 'published',
+          humanReviewed: data.human_reviewed ?? data.humanReviewed ?? (data.status !== 'draft')
+        });
       });
       items = [...fbItems, ...items];
     }
@@ -302,19 +321,67 @@ function makeListItem(p){
   const safeImg = sanitizeURL(p.image || '');
   const safeTitle = escapeHTML(p.title || '');
   const safeCat = escapeHTML(p.category || '');
+  const isDraft = p.status === 'draft';
+  const draftBadge = isDraft
+    ? `<span class="badge-draft" style="background:#f59e0b; color:#0f172a; font-size:10px; font-weight:800; padding:2px 8px; border-radius:12px; margin-left:8px; vertical-align:middle; text-transform:uppercase; letter-spacing:0.04em;">DRAFT — REVIEW REQUIRED</span>`
+    : '';
+
+  const approveBtn = isDraft
+    ? `<button class="btn-approve" style="background:#04AA6D; color:#fff; border:none; padding:6px 12px; border-radius:6px; font-size:12px; font-weight:700; cursor:pointer; margin-right:6px;" data-id="${escapeHTML(p.id)}">Approve & Publish</button>`
+    : '';
+
   div.innerHTML=`
     <img class="proj-thumb" src="${safeImg}" alt="${safeTitle}" onerror="this.style.background='var(--bg2)'">
     <div class="proj-info">
-      <div class="proj-name">${safeTitle}</div>
+      <div class="proj-name">${safeTitle} ${draftBadge}</div>
       <div class="proj-cat">${safeCat}</div>
     </div>
     <div class="proj-actions">
+      ${approveBtn}
       <button class="btn-edit" data-id="${escapeHTML(p.id)}">Edit</button>
       <button class="btn-del" data-id="${escapeHTML(p.id)}">Delete</button>
     </div>`;
+
+  if (isDraft) {
+    const btnApp = div.querySelector('.btn-approve');
+    if (btnApp) btnApp.addEventListener('click', () => approveBlog(p));
+  }
   div.querySelector('.btn-del').addEventListener('click',()=>deleteBlog(p.id));
   div.querySelector('.btn-edit').addEventListener('click',()=>editBlog(p));
   return div;
+}
+
+async function approveBlog(p){
+  if(!confirm(`Approve and publish "${p.title}" live to the website?`)) return;
+  try{
+    try {
+      await updateDoc(doc(db,'blogs',p.id), {
+        status: 'published',
+        humanReviewed: true,
+        updatedAt: serverTimestamp()
+      });
+    } catch(err) {
+      console.warn('Firestore direct write unavailable:', err.message);
+    }
+
+    try {
+      let custom = JSON.parse(localStorage.getItem('infinite_custom_blogs') || '[]');
+      const idx = custom.findIndex(b => b.id === p.id);
+      if (idx !== -1) {
+        custom[idx].status = 'published';
+        custom[idx].humanReviewed = true;
+      } else {
+        custom.push({ ...p, status: 'published', humanReviewed: true });
+      }
+      localStorage.setItem('infinite_custom_blogs', JSON.stringify(custom));
+    } catch(e) {}
+
+    await logContentChange('publish', 'blogs', p.id, 'Approved and published AI draft: ' + p.title);
+    toast('Draft approved and published live!', 'ok');
+    loadBlogs();
+  } catch(err) {
+    toast('Error publishing: ' + err.message, 'err');
+  }
 }
 
 /* ── Submit form ── */
@@ -323,6 +390,8 @@ document.getElementById('projForm').addEventListener('submit',async function(e){
   const title=sanitizeInput(document.getElementById('pTitle').value, 150);
   const cat=sanitizeInput(document.getElementById('pCategory').value, 50);
   const desc=sanitizeInput(document.getElementById('pDesc').value, 1000);
+  const status=sanitizeInput(document.getElementById('pStatus').value || 'published', 20);
+  const humanReviewed=(status === 'published');
   const editId=document.getElementById('editId').value;
   if(!title||!cat){toast('Please fill required fields.','err');return;}
   const btn=document.getElementById('submitBtn');btn.disabled=true;btn.textContent='Saving…';
@@ -334,13 +403,13 @@ document.getElementById('projForm').addEventListener('submit',async function(e){
       imageUrl=await getDownloadURL(storageRef);
     }
     if(editId){
-      const data={title,category:cat,description:desc,updatedAt:serverTimestamp()};
+      const data={title,category:cat,status,humanReviewed,description:desc,updatedAt:serverTimestamp()};
       if(imageUrl) data.image=imageUrl;
       await updateDoc(doc(db,'blogs',editId),data);
       await logContentChange('update', 'blogs', editId, title);
       toast('Blog updated!','ok');
     }else{
-      const newDoc = await addDoc(collection(db,'blogs'),{title,category:cat,description:desc,image:imageUrl,createdAt:serverTimestamp()});
+      const newDoc = await addDoc(collection(db,'blogs'),{title,category:cat,status,humanReviewed,description:desc,image:imageUrl,createdAt:serverTimestamp()});
       await logContentChange('create', 'blogs', newDoc.id, title);
       toast('Blog added!','ok');
     }
@@ -356,6 +425,7 @@ document.getElementById('projForm').addEventListener('submit',async function(e){
 function resetForm(){
   document.getElementById('projForm').reset();
   document.getElementById('editId').value='';
+  if(document.getElementById('pStatus')) document.getElementById('pStatus').value='published';
   document.getElementById('formTitle').textContent='Add New Blog';
   document.getElementById('submitBtn').textContent='Add Blog';
   document.getElementById('cancelEdit').style.display='none';
@@ -367,6 +437,7 @@ function editBlog(p){
   document.getElementById('editId').value=p.id;
   document.getElementById('pTitle').value=p.title||'';
   document.getElementById('pCategory').value=p.category||'';
+  if(document.getElementById('pStatus')) document.getElementById('pStatus').value=p.status||'published';
   document.getElementById('pDesc').value=p.description||'';
   if(p.image){const prev=document.getElementById('imgPreview');prev.src=sanitizeURL(p.image);prev.style.display='block';}
   document.getElementById('formTitle').textContent='Edit Blog';

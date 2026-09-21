@@ -573,6 +573,13 @@
         </p>
       </div>
 
+      <!-- Currency Switcher Toggle -->
+      <div class="currency-toggle-bar" style="display:flex; justify-content:center; align-items:center; gap:10px; margin: 0 auto 28px; padding: 6px 14px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); border-radius: 50px; width: fit-content;">
+        <span style="font-size: 13px; font-weight: 700; color: #cbd5e1; padding-left: 4px;">💱 Currency:</span>
+        <button type="button" class="currency-switch-btn active" data-curr="LKR" onclick="switchGlobalCurrency('LKR')" style="background:#04AA6D; color:#fff; border:none; padding:6px 18px; border-radius:20px; font-size:13px; font-weight:800; cursor:pointer; transition:all 0.2s;">LKR (රු.)</button>
+        <button type="button" class="currency-switch-btn" data-curr="USD" onclick="switchGlobalCurrency('USD')" style="background:transparent; color:#94a3b8; border:none; padding:6px 18px; border-radius:20px; font-size:13px; font-weight:700; cursor:pointer; transition:all 0.2s;">USD ($)</button>
+      </div>
+
       <div class="pricing-three-cards">
         
         <!-- Tier 1: Starter -->
@@ -580,7 +587,7 @@
           <div>
             <div class="package-tier-name">STARTER</div>
             <div class="package-price-wrap">
-              <span class="package-price-val">Rs. 5,000</span>
+              <span class="package-price-val" data-lkr-price="5000">Rs. 5,000</span>
               <span class="package-price-sub">/ one-time</span>
             </div>
             <div class="package-target-for">For small businesses & single-page ventures</div>
@@ -612,7 +619,7 @@
               </div>
               <div class="package-feature-item">
                 <span class="package-feature-check">✓</span>
-                <span><strong>Lifetime free fast cloud hosting*</strong></span>
+                <span><strong>Free high-speed cloud edge hosting on GitHub Pages & Cloudflare with SSL for Starter & Standard tiers. Zero monthly server maintenance fees.</strong></span>
               </div>
               <div class="package-feature-item">
                 <span class="package-feature-check">✓</span>
@@ -633,7 +640,7 @@
           <div>
             <div class="package-tier-name">STANDARD ⭐</div>
             <div class="package-price-wrap">
-              <span class="package-price-val">Rs. 10,000</span>
+              <span class="package-price-val" data-lkr-price="10000">Rs. 10,000</span>
               <span class="package-price-sub">/ one-time</span>
             </div>
             <div class="package-target-for">For growing businesses that need real customer inquiries</div>
@@ -669,7 +676,7 @@
               </div>
               <div class="package-feature-item">
                 <span class="package-feature-check">✓</span>
-                <span><strong>Lifetime free fast cloud hosting* (Rs. 0/mo)</strong></span>
+                <span><strong>Free high-speed cloud edge hosting on GitHub Pages & Cloudflare with SSL for Starter & Standard tiers. Zero monthly server maintenance fees.</strong></span>
               </div>
               <div class="package-feature-item">
                 <span class="package-feature-check">✓</span>
@@ -692,7 +699,7 @@
           <div>
             <div class="package-tier-name">PROFESSIONAL</div>
             <div class="package-price-wrap">
-              <span class="package-price-val">Rs. 20,000</span>
+              <span class="package-price-val" data-lkr-price="20000">Rs. 20,000</span>
               <span class="package-price-sub">/ one-time</span>
             </div>
             <div class="package-target-for">For established companies & corporate brands</div>
@@ -831,7 +838,7 @@
               <span class="calc-hosting-icon">🎁</span>
               <div>
                 <strong class="calc-hosting-title">100% Free Fast Cloud Hosting Included</strong>
-                <span class="calc-hosting-desc">Zero monthly server fees for Starter & Standard tiers.</span>
+                <span class="calc-hosting-desc">Free high-speed cloud edge hosting on GitHub Pages & Cloudflare with SSL for Starter & Standard tiers. Zero monthly server maintenance fees.</span>
               </div>
             </div>
 
@@ -1365,10 +1372,11 @@
       const displayEl = document.getElementById('calcTotalDisplay');
       if (!displayEl) return;
 
+      const curr = window.getActiveCurrency ? window.getActiveCurrency() : 'LKR';
       const start = _calcCurrentTotal;
       const diff = target - start;
       if (diff === 0) {
-        displayEl.textContent = 'Rs. ' + target.toLocaleString() + '/-';
+        displayEl.textContent = window.formatCurrency(target, curr);
         return;
       }
 
@@ -1383,13 +1391,13 @@
         const ease = progress * (2 - progress);
         const current = Math.round(start + diff * ease);
 
-        displayEl.textContent = 'Rs. ' + current.toLocaleString() + '/-';
+        displayEl.textContent = window.formatCurrency(current, curr);
 
         if (progress < 1) {
           _calcAnimFrame = requestAnimationFrame(step);
         } else {
           _calcCurrentTotal = target;
-          displayEl.textContent = 'Rs. ' + target.toLocaleString() + '/-';
+          displayEl.textContent = window.formatCurrency(target, curr);
         }
       }
 
@@ -1428,10 +1436,11 @@
       // Render Itemized Breakdown List
       const listEl = document.getElementById('calcItemizedList');
       if (listEl) {
+        const curr = window.getActiveCurrency ? window.getActiveCurrency() : 'LKR';
         let itemsHtml = `
           <div class="calc-itemized-row">
             <span class="calc-itemized-name">📦 ${tierName}</span>
-            <span class="calc-itemized-val">Rs. ${base.toLocaleString()}/-</span>
+            <span class="calc-itemized-val">${window.formatCurrency(base, curr)}</span>
           </div>
         `;
 
@@ -1439,7 +1448,7 @@
           itemsHtml += `
             <div class="calc-itemized-row">
               <span class="calc-itemized-name">📄 +${extraPagesCount} Extra Custom Page(s)</span>
-              <span class="calc-itemized-val">+Rs. ${extraPagesTotal.toLocaleString()}/-</span>
+              <span class="calc-itemized-val">+${window.formatCurrency(extraPagesTotal, curr)}</span>
             </div>
           `;
         }
@@ -1448,7 +1457,7 @@
         itemsHtml += `
           <div class="calc-itemized-row">
             <span class="calc-itemized-name">${isFreeHosting ? '🎁 Free Fast Cloud Hosting' : '🚀 Enterprise Cloud Infrastructure'}</span>
-            <span class="calc-itemized-val free">FREE INCLUDED (Rs. 0/-)</span>
+            <span class="calc-itemized-val free">FREE INCLUDED (Rs. 0 / $0)</span>
           </div>
         `;
 
@@ -1456,7 +1465,7 @@
           itemsHtml += `
             <div class="calc-itemized-row">
               <span class="calc-itemized-name">✨ ${item.name}</span>
-              <span class="calc-itemized-val">+Rs. ${item.price.toLocaleString()}/-</span>
+              <span class="calc-itemized-val">+${window.formatCurrency(item.price, curr)}</span>
             </div>
           `;
         });
@@ -1472,7 +1481,7 @@
             <span class="calc-hosting-icon">🎁</span>
             <div>
               <strong class="calc-hosting-title">100% Free Fast Cloud Hosting Included</strong>
-              <span class="calc-hosting-desc">Zero monthly server fees for Starter & Standard tiers.</span>
+              <span class="calc-hosting-desc">Free high-speed cloud edge hosting on GitHub Pages & Cloudflare with SSL for Starter & Standard tiers. Zero monthly server maintenance fees.</span>
             </div>
           `;
         } else {
@@ -1489,6 +1498,7 @@
 
     function dispatchFullWhatsAppQuote() {
       const tierEl = document.getElementById('calcTier');
+      if (!tierEl) return;
       const tierOption = tierEl.options[tierEl.selectedIndex];
       const tierName = tierOption ? tierOption.getAttribute('data-name') : 'Standard Business';
       const base = parseInt(tierEl.value, 10) || 5000;
@@ -1496,25 +1506,27 @@
       const extraPagesCount = parseInt(document.getElementById('calcExtraPages').value, 10) || 0;
       const extraPagesTotal = extraPagesCount * 1500;
 
+      const curr = window.getActiveCurrency ? window.getActiveCurrency() : 'LKR';
       const addons = [];
       if (extraPagesCount > 0) {
-        addons.push('• +' + extraPagesCount + ' Extra Custom Pages (+Rs. ' + extraPagesTotal.toLocaleString() + '/-)');
+        addons.push('• +' + extraPagesCount + ' Extra Custom Pages (+' + window.formatCurrency(extraPagesTotal, curr) + ')');
       }
 
       let addonsTotal = 0;
       document.querySelectorAll('.calc-addon-check:checked').forEach(cb => {
         const p = parseInt(cb.dataset.price, 10);
         addonsTotal += p;
-        addons.push('• ' + cb.dataset.name + ' (+Rs. ' + p.toLocaleString() + '/-)');
+        addons.push('• ' + cb.dataset.name + ' (+' + window.formatCurrency(p, curr) + ')');
       });
 
       const grandTotal = base + extraPagesTotal + addonsTotal;
+      const formattedGrandTotal = window.formatCurrency(grandTotal, curr);
 
       let msg = '👋 Hello Infinite Creative Web Design!\n\n';
-      msg += '📦 *Selected Website Tier:* ' + tierName + ' (Base: Rs. ' + base.toLocaleString() + '/-)\n';
+      msg += '📦 *Selected Website Tier:* ' + tierName + ' (Base: ' + window.formatCurrency(base, curr) + ')\n';
       
       if (base <= 10000) {
-        msg += '🎁 *Cloud Hosting:* 100% Free Fast Cloud Hosting Included (Rs. 0/-)\n';
+        msg += '🎁 *Cloud Hosting:* Free High-Speed Cloud Edge Hosting on GitHub Pages & Cloudflare (Included)\n';
       } else {
         msg += '🚀 *Cloud Server:* Enterprise High-Speed Cloud Deployment Included\n';
       }
@@ -1525,7 +1537,7 @@
         msg += '\n✨ *Add-ons:* Standard Included Features\n';
       }
 
-      msg += '\n💰 *Calculated Total Investment:* Rs. ' + grandTotal.toLocaleString() + '/-\n';
+      msg += '\n💰 *Calculated Total Investment:* ' + formattedGrandTotal + (curr === 'USD' ? ' (~Rs. ' + grandTotal.toLocaleString() + '/-)' : '') + '\n';
       msg += '🚀 I would like to lock in this package quote. Please let me know how we can get started!';
 
       const waUrl = 'https://wa.me/94789714912?text=' + encodeURIComponent(msg);

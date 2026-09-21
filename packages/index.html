@@ -481,6 +481,13 @@
   <!-- ══ PACKAGES GRID ═══════════════════════════ -->
   <section class="section" id="packages" aria-label="Web Design & Digital Marketing Packages" style="padding-top:20px">
     <div class="section-inner">
+      <!-- Currency Switcher Toggle -->
+      <div class="currency-toggle-bar" style="display:flex; justify-content:center; align-items:center; gap:10px; margin: 0 auto 28px; padding: 6px 14px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); border-radius: 50px; width: fit-content;">
+        <span style="font-size: 13px; font-weight: 700; color: #cbd5e1; padding-left: 4px;">💱 Currency:</span>
+        <button type="button" class="currency-switch-btn active" data-curr="LKR" onclick="switchGlobalCurrency('LKR')" style="background:#04AA6D; color:#fff; border:none; padding:6px 18px; border-radius:20px; font-size:13px; font-weight:800; cursor:pointer; transition:all 0.2s;">LKR (රු.)</button>
+        <button type="button" class="currency-switch-btn" data-curr="USD" onclick="switchGlobalCurrency('USD')" style="background:transparent; color:#94a3b8; border:none; padding:6px 18px; border-radius:20px; font-size:13px; font-weight:700; cursor:pointer; transition:all 0.2s;">USD ($)</button>
+      </div>
+
       <div class="packages-grid" id="packagesGrid">
         <!-- Dynamically populated by js/main.js or fallback -->
         <div style="grid-column: 1 / -1; text-align:center; padding: 40px; color: var(--white-70);">Loading packages...</div>
@@ -580,7 +587,7 @@
             <span class="calc-hosting-icon">🎁</span>
             <div>
               <strong class="calc-hosting-title">100% Free Fast Cloud Hosting Included</strong>
-              <span class="calc-hosting-desc">Zero monthly server fees for Starter & Standard tiers.</span>
+              <span class="calc-hosting-desc">Free high-speed cloud edge hosting on GitHub Pages & Cloudflare with SSL for Starter & Standard tiers. Zero monthly server maintenance fees.</span>
             </div>
           </div>
 

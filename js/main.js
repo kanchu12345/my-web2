@@ -468,7 +468,12 @@ async function getBlogsData() {
       const snap = await getDocs(collection(db, 'blogs'));
       if (snap && !snap.empty) {
         const articles = [];
-        snap.forEach(d => articles.push({ id: d.id, ...d.data() }));
+        snap.forEach(d => {
+          const item = { id: d.id, ...d.data() };
+          if (item.status !== 'draft') {
+            articles.push(item);
+          }
+        });
         return { articles };
       }
       return null;
@@ -489,7 +494,10 @@ async function getBlogsData() {
     const res = await fetch(prefix + 'data/blogs.json?v=' + Date.now(), { signal: controller.signal });
     clearTimeout(timeoutId);
     if (!res.ok) throw new Error('blogs.json not available');
-    _blogsCache = await res.json();
+    const rawData = await res.json();
+    const rawArticles = rawData.articles || (Array.isArray(rawData) ? rawData : []);
+    const publicArticles = rawArticles.filter(a => a.status !== 'draft');
+    _blogsCache = { ...rawData, articles: publicArticles };
     return _blogsCache;
   } catch(e) {
     // 3. Guaranteed hardcoded fallback (never infinite loading)
@@ -1898,6 +1906,56 @@ async function loadPackages() {
 }
 
 
+/* ── Multi-Currency Engine (LKR <-> USD) ───────── */
+window.USD_EXCHANGE_RATE = 300; // 300 LKR = 1 USD
+
+window.getActiveCurrency = function() {
+  return localStorage.getItem('infinite_currency') || 'LKR';
+};
+
+window.formatCurrency = function(lkrAmount, curr) {
+  const current = curr || (window.getActiveCurrency ? window.getActiveCurrency() : 'LKR');
+  const num = Number(lkrAmount) || 0;
+  if (current === 'USD') {
+    const usd = Math.max(1, Math.round(num / window.USD_EXCHANGE_RATE));
+    return `$${usd}`;
+  }
+  return `Rs. ${num.toLocaleString()}/-`;
+};
+
+window.switchGlobalCurrency = function(curr) {
+  localStorage.setItem('infinite_currency', curr);
+  document.querySelectorAll('.currency-switch-btn').forEach(btn => {
+    if (btn.getAttribute('data-curr') === curr) {
+      btn.classList.add('active');
+      btn.style.background = '#04AA6D';
+      btn.style.color = '#ffffff';
+      btn.style.fontWeight = '800';
+    } else {
+      btn.classList.remove('active');
+      btn.style.background = 'transparent';
+      btn.style.color = '#94a3b8';
+      btn.style.fontWeight = '700';
+    }
+  });
+
+  // 1. Update 3 hero cards on index.html
+  document.querySelectorAll('[data-lkr-price]').forEach(el => {
+    const lkr = parseInt(el.getAttribute('data-lkr-price'), 10);
+    el.textContent = window.formatCurrency(lkr, curr);
+  });
+
+  // 2. Re-render packages grid if present
+  if (document.getElementById('packagesGrid')) {
+    loadPackages();
+  }
+
+  // 3. Re-calculate instant estimate on packages.html or index.html
+  if (typeof calculateFullEstimate === 'function') {
+    calculateFullEstimate();
+  }
+};
+
 function parseBasePrice(priceStr) {
   const digits = String(priceStr).replace(/[^0-9]/g, '');
   return parseInt(digits, 10) || 5000;
@@ -1905,6 +1963,7 @@ function parseBasePrice(priceStr) {
 
 function renderPackages(list, container) {
   container.innerHTML = '';
+  const activeCurr = window.getActiveCurrency();
   
   // Group packages by topics with explicit Section IDs for smooth scrolling
   const topics = [
@@ -1933,6 +1992,9 @@ function renderPackages(list, container) {
 
     items.forEach((pkg, index) => {
       const basePrice = parseBasePrice(pkg.price);
+      const formattedPrice = window.formatCurrency(basePrice, activeCurr);
+      const formattedOrig = pkg.originalPrice ? window.formatCurrency(parseBasePrice(pkg.originalPrice), activeCurr) : '';
+
       const card = document.createElement('div');
       card.className = `pkg-card ${pkg.featured ? 'featured' : ''} reveal reveal-delay-${(index % 4) + 1}`;
       card.id = `pkg_card_${pkg.id || index}`;
@@ -1970,8 +2032,8 @@ function renderPackages(list, container) {
           <h3 style="font-family:'Space Grotesk', sans-serif; font-size:1.35rem; font-weight:800; color:#0f172a !important; margin:0 0 4px;">${pkg.name}</h3>
           
           <div style="margin-bottom:12px;">
-            <span style="font-size:1.6rem; font-weight:900; color:#04AA6D;">${pkg.price}</span>
-            ${pkg.originalPrice ? `<span style="font-size:0.85rem; color:#94a3b8; text-decoration:line-through; margin-left:6px;">${pkg.originalPrice}</span>` : ''}
+            <span style="font-size:1.6rem; font-weight:900; color:#04AA6D;">${formattedPrice}</span>
+            ${formattedOrig ? `<span style="font-size:0.85rem; color:#94a3b8; text-decoration:line-through; margin-left:6px;">${formattedOrig}</span>` : ''}
           </div>
 
           <p style="font-size:0.82rem; color:#475569 !important; margin:0 0 14px; line-height:1.4; font-weight:500;">${pkg.description || ''}</p>
@@ -1993,7 +2055,7 @@ function renderPackages(list, container) {
         </div>
 
         <div style="margin-top:auto; padding-top:12px;">
-          <a href="https://wa.me/94789714912?text=${encodeURIComponent('Hello! I want to order ' + pkg.name + ' (' + pkg.price + ')')}" target="_blank" rel="noopener" style="display:block; text-align:center; background:#04AA6D; color:#ffffff !important; font-weight:800; padding:10px 16px; border-radius:8px; text-decoration:none; box-shadow:0 4px 14px rgba(4,170,109,0.3); font-size:0.88rem;">
+          <a href="https://wa.me/94789714912?text=${encodeURIComponent('Hello! I want to order ' + pkg.name + ' (' + formattedPrice + ')')}" target="_blank" rel="noopener" style="display:block; text-align:center; background:#04AA6D; color:#ffffff !important; font-weight:800; padding:10px 16px; border-radius:8px; text-decoration:none; box-shadow:0 4px 14px rgba(4,170,109,0.3); font-size:0.88rem;">
             ${pkg.cta || 'Choose Package'} &rarr;
           </a>
         </div>
@@ -2232,11 +2294,12 @@ let _calcAnimFrame = null;
 function animateTotalDisplay(target) {
   const displayEl = document.getElementById('calcTotalDisplay');
   if (!displayEl) return;
+  const curr = window.getActiveCurrency ? window.getActiveCurrency() : 'LKR';
 
   const start = _calcCurrentTotal;
   const diff = target - start;
   if (diff === 0) {
-    displayEl.textContent = 'Rs. ' + target.toLocaleString() + '/-';
+    displayEl.textContent = window.formatCurrency(target, curr);
     return;
   }
 
@@ -2251,13 +2314,13 @@ function animateTotalDisplay(target) {
     const ease = progress * (2 - progress);
     const current = Math.round(start + diff * ease);
 
-    displayEl.textContent = 'Rs. ' + current.toLocaleString() + '/-';
+    displayEl.textContent = window.formatCurrency(current, curr);
 
     if (progress < 1) {
       _calcAnimFrame = requestAnimationFrame(step);
     } else {
       _calcCurrentTotal = target;
-      displayEl.textContent = 'Rs. ' + target.toLocaleString() + '/-';
+      displayEl.textContent = window.formatCurrency(target, curr);
     }
   }
 
@@ -2298,10 +2361,11 @@ function calculateFullEstimate() {
   // Render Itemized Breakdown List
   const listEl = document.getElementById('calcItemizedList');
   if (listEl) {
+    const curr = window.getActiveCurrency ? window.getActiveCurrency() : 'LKR';
     let itemsHtml = `
       <div class="calc-itemized-row">
         <span class="calc-itemized-name">📦 ${tierName}</span>
-        <span class="calc-itemized-val">Rs. ${base.toLocaleString()}/-</span>
+        <span class="calc-itemized-val">${window.formatCurrency(base, curr)}</span>
       </div>
     `;
 
@@ -2309,7 +2373,7 @@ function calculateFullEstimate() {
       itemsHtml += `
         <div class="calc-itemized-row">
           <span class="calc-itemized-name">📄 +${extraPagesCount} Extra Custom Page(s)</span>
-          <span class="calc-itemized-val">+Rs. ${extraPagesTotal.toLocaleString()}/-</span>
+          <span class="calc-itemized-val">+${window.formatCurrency(extraPagesTotal, curr)}</span>
         </div>
       `;
     }
@@ -2318,7 +2382,7 @@ function calculateFullEstimate() {
     itemsHtml += `
       <div class="calc-itemized-row">
         <span class="calc-itemized-name">${isFreeHosting ? '🎁 Free Fast Cloud Hosting' : '🚀 Enterprise Cloud Infrastructure'}</span>
-        <span class="calc-itemized-val free">FREE INCLUDED (Rs. 0/-)</span>
+        <span class="calc-itemized-val free">FREE INCLUDED (Rs. 0 / $0)</span>
       </div>
     `;
 
@@ -2326,7 +2390,7 @@ function calculateFullEstimate() {
       itemsHtml += `
         <div class="calc-itemized-row">
           <span class="calc-itemized-name">✨ ${item.name}</span>
-          <span class="calc-itemized-val">+Rs. ${item.price.toLocaleString()}/-</span>
+          <span class="calc-itemized-val">+${window.formatCurrency(item.price, curr)}</span>
         </div>
       `;
     });
@@ -2342,7 +2406,7 @@ function calculateFullEstimate() {
         <span class="calc-hosting-icon">🎁</span>
         <div>
           <strong class="calc-hosting-title">100% Free Fast Cloud Hosting Included</strong>
-          <span class="calc-hosting-desc">Zero monthly server fees for Starter & Standard tiers.</span>
+          <span class="calc-hosting-desc">Free high-speed cloud edge hosting on GitHub Pages & Cloudflare with SSL for Starter & Standard tiers. Zero monthly server maintenance fees.</span>
         </div>
       `;
     } else {
@@ -2368,25 +2432,27 @@ function dispatchFullWhatsAppQuote() {
   const extraPagesCount = parseInt(extraPagesEl ? extraPagesEl.value : 0, 10) || 0;
   const extraPagesTotal = extraPagesCount * 1500;
 
+  const curr = window.getActiveCurrency ? window.getActiveCurrency() : 'LKR';
   const addons = [];
   if (extraPagesCount > 0) {
-    addons.push('• +' + extraPagesCount + ' Extra Custom Pages (+Rs. ' + extraPagesTotal.toLocaleString() + '/-)');
+    addons.push('• +' + extraPagesCount + ' Extra Custom Pages (+' + window.formatCurrency(extraPagesTotal, curr) + ')');
   }
 
   let addonsTotal = 0;
   document.querySelectorAll('.calc-addon-check:checked').forEach(cb => {
     const p = parseInt(cb.dataset.price, 10);
     addonsTotal += p;
-    addons.push('• ' + cb.dataset.name + ' (+Rs. ' + p.toLocaleString() + '/-)');
+    addons.push('• ' + cb.dataset.name + ' (+' + window.formatCurrency(p, curr) + ')');
   });
 
   const grandTotal = base + extraPagesTotal + addonsTotal;
+  const formattedGrandTotal = window.formatCurrency(grandTotal, curr);
 
   let msg = '👋 Hello Infinite Creative Web Design!\n\n';
-  msg += '📦 *Selected Website Tier:* ' + tierName + ' (Base: Rs. ' + base.toLocaleString() + '/-)\n';
+  msg += '📦 *Selected Website Tier:* ' + tierName + ' (Base: ' + window.formatCurrency(base, curr) + ')\n';
   
   if (base <= 10000) {
-    msg += '🎁 *Cloud Hosting:* 100% Free Fast Cloud Hosting Included (Rs. 0/-)\n';
+    msg += '🎁 *Cloud Hosting:* Free High-Speed Cloud Edge Hosting on GitHub Pages & Cloudflare (Included)\n';
   } else {
     msg += '🚀 *Cloud Server:* Enterprise High-Speed Cloud Deployment Included\n';
   }
@@ -2397,7 +2463,7 @@ function dispatchFullWhatsAppQuote() {
     msg += '\n✨ *Add-ons:* Standard Included Features\n';
   }
 
-  msg += '\n💰 *Calculated Total Investment:* Rs. ' + grandTotal.toLocaleString() + '/-\n';
+  msg += '\n💰 *Calculated Total Investment:* ' + formattedGrandTotal + (curr === 'USD' ? ' (~Rs. ' + grandTotal.toLocaleString() + '/-)' : '') + '\n';
   msg += '🚀 I would like to lock in this package quote. Please let me know how we can get started!';
 
   const waUrl = 'https://wa.me/94789714912?text=' + encodeURIComponent(msg);
@@ -2405,6 +2471,10 @@ function dispatchFullWhatsAppQuote() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  if (window.getActiveCurrency) {
+    const savedCurr = window.getActiveCurrency();
+    window.switchGlobalCurrency(savedCurr);
+  }
   if (document.getElementById('calcTier')) {
     calculateFullEstimate();
   }
