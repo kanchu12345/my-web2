@@ -424,12 +424,24 @@
     });
   }
 
+  // Progressive Web App Service Worker Registration
+  function initServiceWorker() {
+    if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register(getRootPrefix() + 'sw.js').catch(function(err) {
+          console.debug('ServiceWorker registration skipped:', err);
+        });
+      });
+    }
+  }
+
   // Auto-initialize on DOM ready
   function init() {
     renderHeader();
     renderFooter();
     initCookieConsent();
     initContactFormValidation();
+    initServiceWorker();
   }
 
   if (document.readyState === 'loading') {

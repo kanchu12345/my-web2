@@ -1,0 +1,33 @@
+{
+  "name": "Infinite Creative Web Design",
+  "short_name": "InfiniteWeb",
+  "description": "High-performance websites and custom software solutions designed for Sri Lankan businesses.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0a0f1d",
+  "theme_color": "#0a0f1d",
+  "lang": "en",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "images/logo-100w.webp",
+      "sizes": "100x100",
+      "type": "image/webp",
+      "purpose": "any"
+    },
+    {
+      "src": "images/logo-200w.webp",
+      "sizes": "200x200",
+      "type": "image/webp",
+      "purpose": "any"
+    },
+    {
+      "src": "images/logo.webp",
+      "sizes": "512x512",
+      "type": "image/webp",
+      "purpose": "maskable any"
+    }
+  ],
+  "categories": ["business", "productivity", "utilities"]
+}

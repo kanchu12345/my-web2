@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Offline Mode — Infinite Creative Web Design</title>
+  <meta name="description" content="You are currently browsing Infinite Creative Web Design offline. Check your internet connection to reconnect.">
+  <link rel="canonical" href="https://infiniteweb.dev/offline.html">
+  <meta name="theme-color" content="#0a0f1d">
+  <link rel="icon" type="image/webp" href="images/logo-100w.webp">
+  <link rel="manifest" href="manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700;800&display=swap"></noscript>
+  <link rel="stylesheet" href="css/main.css?v=2026">
+  <link rel="stylesheet" href="css/additions.css?v=2026">
+  <style>
+    .offline-container {
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 100px 20px 40px;
+      text-align: center;
+    }
+    .offline-card {
+      max-width: 600px;
+      background: rgba(13, 21, 39, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 48px 32px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .offline-icon-wrap {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      background: rgba(4, 170, 109, 0.12);
+      border: 1px solid rgba(4, 170, 109, 0.3);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      color: #04AA6D;
+    }
+    .offline-title {
+      font-family: var(--font-disp, 'Space Grotesk', sans-serif);
+      font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 12px;
+    }
+    .offline-si-subhead {
+      font-size: 1.05rem;
+      color: #38bdf8;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+    .offline-desc {
+      color: #94a3b8;
+      font-size: 0.98rem;
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+    .offline-actions {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+    .btn-retry {
+      background: #04AA6D;
+      color: #ffffff !important;
+      font-weight: 800;
+      padding: 14px 28px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+    }
+    .btn-retry:hover {
+      background: #038f5b;
+      transform: translateY(-2px);
+    }
+    .btn-home {
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff !important;
+      font-weight: 700;
+      padding: 14px 26px;
+      border-radius: 10px;
+      text-decoration: none;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.95rem;
+    }
+    .offline-contact-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.04);
+      padding: 10px 18px;
+      border-radius: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #cbd5e1;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Accessible Skip Link -->
+  <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
+  <!-- Shared Header Component injected by components.js -->
+  <div id="siteHeaderContainer"></div>
+
+  <main id="main-content" class="offline-container">
+    <div class="offline-card reveal">
+      <div class="offline-icon-wrap" aria-hidden="true">
+        <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="1" y1="1" x2="23" y2="23"></line>
+          <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"></path>
+          <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"></path>
+          <path d="M10.71 5.05A16 16 0 0 1 22.58 9"></path>
+          <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"></path>
+          <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+          <line x1="12" y1="20" x2="12.01" y2="20"></line>
+        </svg>
+      </div>
+
+      <h1 class="offline-title">You Are Currently Offline</h1>
+      <p class="offline-si-subhead">ඔබ දැනට අන්තර්ජාලයට සම්බන්ධ වී නොමැත</p>
+
+      <p class="offline-desc">
+        It appears your internet connection was temporarily interrupted. Infinite Creative's offline progressive caching has preserved your basic session. Once your connection restores, click below to reload the live studio experience.
+      </p>
+
+      <div class="offline-actions">
+        <button type="button" class="btn-retry" onclick="window.location.reload();">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+          <span>Retry Connection (නැවත උත්සාහ කරන්න)</span>
+        </button>
+        <a href="index.html" class="btn-home">
+          <span>Return Home</span>
+        </a>
+      </div>
+
+      <div class="offline-contact-pill">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#04AA6D" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span>Tangalle, Southern Province, Sri Lanka • +94 78 971 4912</span>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer" id="siteFooter" role="contentinfo"></footer>
+
+  <script src="js/components.js" defer></script>
+</body>
+</html>

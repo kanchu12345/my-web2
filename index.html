@@ -33,6 +33,11 @@
   <!-- Favicon -->
   <link rel="icon" type="image/webp" href="images/logo-100w.webp">
   <link rel="icon" type="image/png" href="images/logo.png">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0a0f1d">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-icon" href="images/logo-200w.webp">
   <link rel="apple-touch-icon" href="images/logo.png">
 
   <!-- Google Fonts & Stylesheets -->
@@ -1139,6 +1144,23 @@
     </div>
   </section>
 
+  <!-- ══ INTERACTIVE WEBSITE PACKAGE FINDER QUIZ ══ -->
+  <section class="section" id="package-quiz" aria-label="Interactive Website Package Finder" style="padding-top:20px; padding-bottom:30px;">
+    <div class="section-inner">
+      <div class="section-head-center reveal">
+        <div class="section-eyebrow">INTERACTIVE PACKAGE FINDER</div>
+        <h2 class="section-title-lg">Not Sure Which Package Fits Your Business?</h2>
+        <p class="section-subtitle-lg">
+          Take our 30-second interactive guided quiz to instantly discover the ideal website package and transparent investment tailored for your business.
+        </p>
+      </div>
+
+      <div id="packageQuizContainer" class="quiz-container-wrap">
+        <!-- Interactive Steps injected dynamically by js/quiz.js -->
+      </div>
+    </div>
+  </section>
+
   <!-- ══ 08 HOW IT WORKS (5-STEP PROCESS) ═════════ -->
   <section class="section" id="process" aria-label="Our 5-Step Process" style="padding-top:20px;">
     <div class="section-inner">
@@ -1580,6 +1602,8 @@
 
   <script src="js/main.js?v=17" defer></script>
   <script src="js/components.js" defer></script>
+  <script src="js/chatbot.js" defer></script>
+  <script src="js/quiz.js" defer></script>
   <script>
     let _calcAnimFrame = null;
     let _calcCurrentTotal = 13500;
