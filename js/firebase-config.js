@@ -11,6 +11,8 @@ import { getStorage, ref, uploadBytes, getDownloadURL }
   from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js';
 import { getAnalytics, logEvent }
   from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js';
+import { initializeAppCheck, ReCaptchaV3Provider }
+  from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app-check.js';
 
 const firebaseConfig = {
   apiKey:            "AIzaSyAMvJjqvzZF1FzcecXfVLU3qX0ocLXy4h0",
@@ -28,7 +30,24 @@ const auth      = getAuth(app);
 const storage   = getStorage(app);
 const analytics = getAnalytics(app);
 
-export { app, db, auth, storage, analytics, logEvent,
+// Initialize Firebase App Check if site key is configured
+let appCheck = null;
+try {
+  if (typeof window !== 'undefined' && window.FIREBASE_APPCHECK_DEBUG_TOKEN) {
+    self.FIREBASE_APPCHECK_DEBUG_TOKEN = true;
+  }
+  const appCheckKey = (typeof window !== 'undefined' && window.FIREBASE_RECAPTCHA_KEY) || '';
+  if (appCheckKey) {
+    appCheck = initializeAppCheck(app, {
+      provider: new ReCaptchaV3Provider(appCheckKey),
+      isTokenAutoRefreshEnabled: true
+    });
+  }
+} catch (e) {
+  console.info('App Check notice:', e.message);
+}
+
+export { app, db, auth, storage, analytics, logEvent, appCheck,
   collection, getDocs, addDoc, updateDoc, setDoc, deleteDoc, doc,
   onSnapshot, serverTimestamp, query, orderBy, limit,
   signInWithEmailAndPassword, signOut, onAuthStateChanged,

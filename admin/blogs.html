@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'unsafe-inline' https://www.gstatic.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://www.googletagmanager.com https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self' https:; frame-src https://challenges.cloudflare.com https://www.google.com https://maps.google.com; object-src 'none'; base-uri 'self'; form-action 'self' https:;">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -10,13 +13,19 @@
 <link rel="icon" href="../images/logo.png">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/admin.css">
-
+<style id="authGate">body{display:none!important;}</style>
 </head>
 <body>
 <script type="module">
 import { auth, onAuthStateChanged } from '../js/firebase-config.js';
 onAuthStateChanged(auth, user => {
-  if (!user) window.location.replace('login.html');
+  if (!user) {
+    window.location.replace('login.html');
+  } else {
+    const gate = document.getElementById('authGate');
+    if (gate) gate.remove();
+    document.body.style.display = 'block';
+  }
 });
 </script><aside class="sidebar">
   <div class="sb-logo">
@@ -129,37 +138,29 @@ onAuthStateChanged(auth, user => {
 
 <script type="module">
 import { auth, db, storage, onAuthStateChanged, signOut,
-  collection, getDocs, addDoc, updateDoc, deleteDoc, doc, serverTimestamp,
+  collection, getDocs, addDoc, updateDoc, setDoc, deleteDoc, doc, serverTimestamp,
   ref, uploadBytes, getDownloadURL }
   from '../js/firebase-config.js';
+import { logContentChange } from '../js/audit-logger.js';
+import { escapeHTML, sanitizeInput, sanitizeURL } from '../js/sanitize.js';
 
-/* ── Auth guard with Master Admin Support ── */
-function initBlogsAuth() {
-  const isMaster = sessionStorage.getItem('infinite_admin_auth') === 'true';
-  const storedUser = JSON.parse(localStorage.getItem('infinite_admin_user') || '{"email":"infinitedesign768@gmail.com"}');
-  
-  const emEl = document.getElementById('sbEmail');
-  const avEl = document.getElementById('sbAvatar');
-  if (emEl) emEl.textContent = storedUser.email || 'infinitedesign768@gmail.com';
-  if (avEl) avEl.textContent = (storedUser.email || 'A')[0].toUpperCase();
-
-  loadBlogs();
-
-  onAuthStateChanged(auth, u => {
-    if (u) {
-      if (emEl) emEl.textContent = u.email;
-      if (avEl) avEl.textContent = u.email[0].toUpperCase();
-    }
-  });
-}
+/* ── Strict Firebase Auth State & Sidebar ── */
+onAuthStateChanged(auth, u => {
+  if (u) {
+    const emEl = document.getElementById('sbEmail');
+    const avEl = document.getElementById('sbAvatar');
+    if (emEl) emEl.textContent = u.email;
+    if (avEl) avEl.textContent = u.email[0].toUpperCase();
+    loadBlogs();
+  } else {
+    window.location.replace('login.html');
+  }
+});
 
 document.getElementById('logoutBtn').addEventListener('click', async () => {
-  localStorage.removeItem("infinite_admin_auth"); sessionStorage.removeItem("infinite_admin_auth");
   try { await signOut(auth); } catch(e){}
   window.location.href = 'login.html';
 });
-
-initBlogsAuth();
 
 /* ── Toast ── */
 function toast(msg,type='ok'){
@@ -267,12 +268,17 @@ async function loadBlogs(){
     }
   } catch(e) {}
 
-  // Deduplicate
+  // Filter out deleted blogs and deduplicate
+  let deletedIds = [];
+  try {
+    deletedIds = JSON.parse(localStorage.getItem('infinite_deleted_blogs') || '[]');
+  } catch(e) {}
+
   const seen = new Set();
   const uniqueBlogs = [];
   items.forEach(b => {
     const key = (b.id || b.title || '').toLowerCase().trim();
-    if (key && !seen.has(key)) {
+    if (key && !seen.has(key) && !deletedIds.includes(b.id) && !deletedIds.includes(b.title)) {
       seen.add(key);
       uniqueBlogs.push(b);
     }
@@ -293,15 +299,18 @@ async function loadBlogs(){
 
 function makeListItem(p){
   const div=document.createElement('div');div.className='proj-list-item';
+  const safeImg = sanitizeURL(p.image || '');
+  const safeTitle = escapeHTML(p.title || '');
+  const safeCat = escapeHTML(p.category || '');
   div.innerHTML=`
-    <img class="proj-thumb" src="${p.image||''}" alt="${p.title||''}" onerror="this.style.background='var(--bg2)'">
+    <img class="proj-thumb" src="${safeImg}" alt="${safeTitle}" onerror="this.style.background='var(--bg2)'">
     <div class="proj-info">
-      <div class="proj-name">${sanitise(p.title)}</div>
-      <div class="proj-cat">${sanitise(p.category||'')}</div>
+      <div class="proj-name">${safeTitle}</div>
+      <div class="proj-cat">${safeCat}</div>
     </div>
     <div class="proj-actions">
-      <button class="btn-edit" data-id="${p.id}">Edit</button>
-      <button class="btn-del" data-id="${p.id}">Delete</button>
+      <button class="btn-edit" data-id="${escapeHTML(p.id)}">Edit</button>
+      <button class="btn-del" data-id="${escapeHTML(p.id)}">Delete</button>
     </div>`;
   div.querySelector('.btn-del').addEventListener('click',()=>deleteBlog(p.id));
   div.querySelector('.btn-edit').addEventListener('click',()=>editBlog(p));
@@ -311,9 +320,9 @@ function makeListItem(p){
 /* ── Submit form ── */
 document.getElementById('projForm').addEventListener('submit',async function(e){
   e.preventDefault();
-  const title=sanitise(document.getElementById('pTitle').value);
-  const cat=sanitise(document.getElementById('pCategory').value);
-  const desc=sanitise(document.getElementById('pDesc').value);
+  const title=sanitizeInput(document.getElementById('pTitle').value, 150);
+  const cat=sanitizeInput(document.getElementById('pCategory').value, 50);
+  const desc=sanitizeInput(document.getElementById('pDesc').value, 1000);
   const editId=document.getElementById('editId').value;
   if(!title||!cat){toast('Please fill required fields.','err');return;}
   const btn=document.getElementById('submitBtn');btn.disabled=true;btn.textContent='Saving…';
@@ -328,9 +337,11 @@ document.getElementById('projForm').addEventListener('submit',async function(e){
       const data={title,category:cat,description:desc,updatedAt:serverTimestamp()};
       if(imageUrl) data.image=imageUrl;
       await updateDoc(doc(db,'blogs',editId),data);
+      await logContentChange('update', 'blogs', editId, title);
       toast('Blog updated!','ok');
     }else{
-      await addDoc(collection(db,'blogs'),{title,category:cat,description:desc,image:imageUrl,createdAt:serverTimestamp()});
+      const newDoc = await addDoc(collection(db,'blogs'),{title,category:cat,description:desc,image:imageUrl,createdAt:serverTimestamp()});
+      await logContentChange('create', 'blogs', newDoc.id, title);
       toast('Blog added!','ok');
     }
     resetForm();
@@ -357,7 +368,7 @@ function editBlog(p){
   document.getElementById('pTitle').value=p.title||'';
   document.getElementById('pCategory').value=p.category||'';
   document.getElementById('pDesc').value=p.description||'';
-  if(p.image){const prev=document.getElementById('imgPreview');prev.src=p.image;prev.style.display='block';}
+  if(p.image){const prev=document.getElementById('imgPreview');prev.src=sanitizeURL(p.image);prev.style.display='block';}
   document.getElementById('formTitle').textContent='Edit Blog';
   document.getElementById('submitBtn').textContent='Update Blog';
   document.getElementById('cancelEdit').style.display='block';
@@ -369,6 +380,21 @@ async function deleteBlog(id){
   if(!confirm('Delete this blog? This cannot be undone.'))return;
   try{
     await deleteDoc(doc(db,'blogs',id));
+    
+    // Clean up local caches so it cannot resurrect
+    try {
+      let custom = JSON.parse(localStorage.getItem('infinite_custom_blogs') || '[]');
+      custom = custom.filter(b => b.id !== id && b.title !== id);
+      localStorage.setItem('infinite_custom_blogs', JSON.stringify(custom));
+
+      let deleted = JSON.parse(localStorage.getItem('infinite_deleted_blogs') || '[]');
+      if (!deleted.includes(id)) {
+        deleted.push(id);
+        localStorage.setItem('infinite_deleted_blogs', JSON.stringify(deleted));
+      }
+    } catch(e) {}
+
+    await logContentChange('delete', 'blogs', id, 'Deleted blog: ' + id);
     toast('Blog deleted.','ok');
     loadBlogs();
   }catch(e){toast('Delete failed: '+e.message,'err');}

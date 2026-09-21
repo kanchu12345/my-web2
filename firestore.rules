@@ -1,32 +1,57 @@
-rules_version = '2';
+﻿rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Public read for all content collections
+
+    // Helper functions for security and schema defense
+    function isAuthenticated() {
+      return request.auth != null && request.auth.uid != null;
+    }
+
+    function isValidString(val, minLen, maxLen) {
+      return val is string && val.size() >= minLen && val.size() <= maxLen;
+    }
+
+    // Public read for content collections; strict authenticated write with validation
     match /blogs/{doc} {
       allow read: if true;
-      allow write: if request.auth != null;
+      allow create, update: if isAuthenticated()
+        && request.resource.data.keys().hasAll(['title', 'category'])
+        && isValidString(request.resource.data.title, 2, 200);
+      allow delete: if isAuthenticated();
     }
+
     match /projects/{doc} {
       allow read: if true;
-      allow write: if request.auth != null;
+      allow create, update: if isAuthenticated()
+        && request.resource.data.keys().hasAll(['title'])
+        && isValidString(request.resource.data.title, 2, 200);
+      allow delete: if isAuthenticated();
     }
+
     match /packages/{doc} {
       allow read: if true;
-      allow write: if request.auth != null;
+      allow write: if isAuthenticated();
     }
+
     match /tutorials/{doc=**} {
       allow read: if true;
-      allow write: if request.auth != null;
+      allow write: if isAuthenticated();
     }
+
+    // Administrative collections - Strictly private
     match /settings/{doc} {
-      allow read: if request.auth != null;
-      allow write: if request.auth != null;
+      allow read, write: if isAuthenticated();
     }
+
     match /bot_logs/{doc} {
-      allow read: if request.auth != null;
-      allow write: if request.auth != null;
+      allow read, write: if isAuthenticated();
     }
-    // Deny everything else by default
+
+    match /audit_logs/{doc} {
+      allow read, write: if isAuthenticated();
+    }
+
+    // Default catch-all: deny everything else
     match /{document=**} {
       allow read, write: if false;
     }

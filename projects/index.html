@@ -10,7 +10,9 @@
 <meta name="geo.region" content="LK-3">
 <meta name="geo.placename" content="Tangalle, Sri Lanka">
 <link rel="canonical" href="https://infiniteweb.dev/portfolio.html">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.gstatic.com https://cdn.jsdelivr.net https://unpkg.com https://www.google.com https://maps.googleapis.com https://apis.google.com https://firebasestorage.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https: blob:; frame-src https://www.google.com https://maps.google.com; connect-src 'self' https:;">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'unsafe-inline' https://www.gstatic.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://www.googletagmanager.com https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self' https:; frame-src https://challenges.cloudflare.com https://www.google.com https://maps.google.com; object-src 'none'; base-uri 'self'; form-action 'self' https:;">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
@@ -454,7 +456,7 @@
             <h1 class="cell-title" style="font-size: 2.5rem;">Completed Projects</h1>
             <p style="font-size: 14px; color: var(--white-70); margin-top: 4px;">Explore our portfolio of successful live client websites and custom digital solutions.</p>
           </div>
-          <span style="font-size:13px;background:rgba(4,170,109,0.15);color:#04AA6D;padding:6px 14px;border-radius:50px;font-weight:700;">16+ Live Projects</span>
+          <span style="font-size:13px;background:rgba(4,170,109,0.15);color:#04AA6D;padding:6px 14px;border-radius:50px;font-weight:700;">18+ Live Projects</span>
         </div>
         <div class="proj-grid" id="projGrid" style="grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));">
           <div class="proj-card proj-placeholder"><span>Loading…</span></div>
@@ -527,5 +529,6 @@
 <script src="../js/analytics.js"></script>
 <script src="../js/main.js"></script>
 <script type="module" src="../js/analytics-tracker.js" defer></script>
+  <script src="../js/components.js" defer></script>
 </body>
 </html>

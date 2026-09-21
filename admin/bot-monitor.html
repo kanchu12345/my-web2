@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'unsafe-inline' https://www.gstatic.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://www.googletagmanager.com https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self' https:; frame-src https://challenges.cloudflare.com https://www.google.com https://maps.google.com; object-src 'none'; base-uri 'self'; form-action 'self' https:;">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>🤖 AI Bots Command Center & Live Monitor | Admin Dashboard</title>
@@ -39,12 +42,20 @@
     }
     .log-item:last-child { border-bottom: none; }
   </style>
+  <style id="authGate">body{display:none!important;}</style>
 </head>
 <body>
 <script type="module">
 import { auth, onAuthStateChanged } from '../js/firebase-config.js';
 onAuthStateChanged(auth, user => {
-  if (!user) window.location.replace('login.html');
+  if (!user) {
+    window.location.replace('login.html');
+  } else {
+    const gate = document.getElementById('authGate');
+    if (gate) gate.remove();
+    document.body.style.display = 'block';
+    if (typeof refreshBotLogs === 'function') refreshBotLogs();
+  }
 });
 </script>
   <!-- ADMIN NAV -->
@@ -237,7 +248,7 @@ onAuthStateChanged(auth, user => {
       checkBot('Bot 06', 'badgeBot6', 'lastRunBot6');
     }
 
-    document.addEventListener('DOMContentLoaded', refreshBotLogs);
+    window.refreshBotLogs = refreshBotLogs;
   </script>
 </body>
 </html>

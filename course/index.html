@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'unsafe-inline' https://www.gstatic.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://www.googletagmanager.com https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self' https:; frame-src https://challenges.cloudflare.com https://www.google.com https://maps.google.com; object-src 'none'; base-uri 'self'; form-action 'self' https:;">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Developer Academy | Infinite Creative Web Design</title>
+  <meta name="description" content="Interactive full-stack web development course and hands-on coding curriculum by Infinite Creative Web Design Academy Sri Lanka.">
   <link rel="icon" type="image/png" href="../images/logo.png">
   <link rel="stylesheet" href="../css/main.css?v=20">
 
@@ -248,6 +252,7 @@
       flex-direction: column;
     }
   </style>
+  <link rel="canonical" href="https://infiniteweb.dev/course/">
 </head>
 <body>
 
@@ -441,7 +446,7 @@
       document.getElementById('lessonTitle').textContent = lesson.title;
       
       const sumEl = document.getElementById('lessonSummary');
-      if (sumEl) sumEl.textContent = lesson.summary || '';
+      if (sumEl) sumEl.textContent = (currentLang === 'si' && lesson.summary_si) ? lesson.summary_si : (lesson.summary || '');
 
       let contentHtml = '';
       if (currentLang === 'si') {
@@ -476,8 +481,11 @@
       const takeawaysSection = document.getElementById('takeawaysSection');
       const takeawaysList = document.getElementById('takeawaysList');
       if (takeawaysSection && takeawaysList) {
-        if (lesson.keyTakeaways && lesson.keyTakeaways.length > 0) {
-          takeawaysList.innerHTML = lesson.keyTakeaways.map(t => '<li>' + t + '</li>').join('');
+        const activeTakeaways = (currentLang === 'si' && lesson.keyTakeaways_si && lesson.keyTakeaways_si.length > 0)
+          ? lesson.keyTakeaways_si
+          : (lesson.keyTakeaways || []);
+        if (activeTakeaways && activeTakeaways.length > 0) {
+          takeawaysList.innerHTML = activeTakeaways.map(t => '<li>' + t + '</li>').join('');
           takeawaysSection.style.display = 'block';
         } else {
           takeawaysSection.style.display = 'none';
@@ -681,5 +689,6 @@
     }
     syncFirestoreTutorials();
   </script>
+  <script src="../js/components.js" defer></script>
 </body>
 </html>

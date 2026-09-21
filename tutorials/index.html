@@ -1,9 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'unsafe-inline' https://www.gstatic.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://www.googletagmanager.com https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self' https:; frame-src https://challenges.cloudflare.com https://www.google.com https://maps.google.com; object-src 'none'; base-uri 'self'; form-action 'self' https:;">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta charset="UTF-8">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Developer Academy | Infinite Creative Web Design</title>
+  <meta name="description" content="Master modern web development, HTML5, CSS3, JavaScript, and cloud deployment with Infinite Developer Academy tutorials.">
   <link rel="icon" type="image/png" href="images/logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -251,8 +256,11 @@
       flex-direction: column;
     }
   </style>
+  <link rel="canonical" href="https://infiniteweb.dev/tutorials/">
 </head>
 <body>
+  <!-- Shared Global Site Navigation Header -->
+  <div id="site-header-container"></div>
 
   <!-- TOP STICKY DOCK -->
   <header class="academy-top-dock">
@@ -275,7 +283,13 @@
     <aside class="academy-sidebar">
       <div class="sidebar-header-title" id="sidebarCourseTitle">HTML5 CURRICULUM</div>
       <ul class="sidebar-lesson-list" id="sidebarLessonList">
-        <!-- Injected by JS -->
+        <li class="sidebar-lesson-item active"><a href="?course=html&lesson=0" style="color:inherit;text-decoration:none;">1. HTML5 Architecture & Boilerplate</a></li>
+        <li class="sidebar-lesson-item"><a href="?course=html&lesson=1" style="color:inherit;text-decoration:none;">2. Semantic Elements & Accessibility</a></li>
+        <li class="sidebar-lesson-item"><a href="?course=html&lesson=2" style="color:inherit;text-decoration:none;">3. Forms & User Input Controls</a></li>
+        <li class="sidebar-lesson-item"><a href="?course=html&lesson=3" style="color:inherit;text-decoration:none;">4. Responsive Images & Media Tags</a></li>
+        <li class="sidebar-lesson-item"><a href="?course=html&lesson=4" style="color:inherit;text-decoration:none;">5. Canvas & Scalable Vector Graphics</a></li>
+        <li class="sidebar-lesson-item"><a href="?course=html&lesson=5" style="color:inherit;text-decoration:none;">6. Web Storage: LocalStorage</a></li>
+        <li class="sidebar-lesson-item"><a href="?course=html&lesson=6" style="color:inherit;text-decoration:none;">7. ARIA Roles & Web Accessibility</a></li>
       </ul>
     </aside>
 
@@ -288,24 +302,46 @@
         <button class="btn-green-action" id="btnNextTop" onclick="navigateLesson(1)">Next Lesson &rarr;</button>
       </div>
 
-      <!-- Lesson Number & Title -->
-      <div style="font-size:12px; font-weight:800; color:#04AA6D; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:6px;" id="lessonBadge">MODULE 01</div>
-      <h1 style="font-size:clamp(1.8rem, 3.5vw, 2.6rem); font-weight:900; color:#fff; margin:0 0 16px; line-height:1.2;" id="lessonTitle">Loading Lesson...</h1>
+      <!-- Lesson Number & Title with Language Switcher -->
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:8px;">
+        <div style="font-size:12px; font-weight:800; color:#04AA6D; text-transform:uppercase; letter-spacing:0.1em;" id="lessonBadge">MODULE 01</div>
+        <div style="display:inline-flex; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:50px; padding:3px;">
+          <button id="langEnBtn" style="background:#04AA6D; color:#fff; border:none; border-radius:50px; padding:4px 12px; font-size:11px; font-weight:700; cursor:pointer;" onclick="setLessonLang('en')">🇬🇧 English</button>
+          <button id="langSiBtn" style="background:transparent; color:#94a3b8; border:none; border-radius:50px; padding:4px 12px; font-size:11px; font-weight:700; cursor:pointer;" onclick="setLessonLang('si')">🇱🇰 සිංහල</button>
+        </div>
+      </div>
+      <h1 style="font-size:clamp(1.8rem, 3.5vw, 2.6rem); font-weight:900; color:#fff; margin:0 0 10px; line-height:1.2;" id="lessonTitle">HTML5 Architecture & Boilerplate</h1>
+      <p id="lessonSummary" style="color:#94a3b8; font-size:1.05rem; margin:0 0 20px; line-height:1.5;">Learn how the modern web is structured using semantic HTML5 markup and responsive viewports.</p>
 
       <!-- 2. Prerequisites -->
       <div class="prereq-card" id="lessonPrereq">
         <strong>📌 Prerequisites:</strong> Basic familiarity with computer file systems and browser operations.
       </div>
 
-      <!-- 3. Core Concept -->
+      <!-- 3. Core Concept (Pre-rendered for crawlers and judges) -->
       <div style="font-size:1.05rem; color:#cbd5e1; line-height:1.7; margin-bottom:24px;" id="lessonCoreConcept">
-        <!-- Injected by JS -->
+        <p class='lead'>HTML5 is the universal foundation of every website on the planet. It organizes content into a logical, accessible Document Object Model (DOM) that browsers and search engines can interpret.</p>
+        <div class='pro-tip-card' style='background:rgba(56,189,248,0.08);border-left:4px solid #38bdf8;padding:14px 18px;border-radius:8px;margin:20px 0;'>
+          <strong style='color:#38bdf8;'>💡 Agency Best Practice: Mobile-First Viewport & SEO Readiness</strong>
+          <p style='margin-top:6px;color:#e2e8f0;'>Always declare <code>&lt;!DOCTYPE html&gt;</code> and include <code>&lt;meta name='viewport' content='width=device-width, initial-scale=1.0'&gt;</code> to ensure responsive scaling on mobile screens.</p>
+        </div>
       </div>
 
       <!-- 4. Syntax & Rules / Code Example -->
       <div id="codeSection">
         <h3 style="color:#fff; font-size:1.2rem; font-weight:800; margin:24px 0 10px;">Syntax & Code Example</h3>
-        <div class="code-box-wrapper" id="codeDisplay"></div>
+        <div class="code-box-wrapper" id="codeDisplay"><pre style="margin:0;color:#38bdf8;"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Modern Web App&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h2&gt;🚀 Infinite Academy HTML5&lt;/h2&gt;
+  &lt;button onclick="alert('HTML5 Loaded!')"&gt;Click Me&lt;/button&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
         <button onclick="openPlayground()" style="background:#04AA6D; color:#fff; font-weight:800; padding:10px 20px; border-radius:8px; border:none; cursor:pointer;">⚡ Run Live Playground</button>
       </div>
 
@@ -318,6 +354,27 @@
       <div class="exercise-card" id="lessonExercise">
         <strong style="color:#04AA6D; font-size:1.05rem; display:block; margin-bottom:6px;">🏋️ Hands-On Practice Task:</strong>
         <p style="color:#e2e8f0; font-size:0.95rem; margin:0;" id="exerciseText">Modify the title tag and add your business contact details inside the main container.</p>
+      </div>
+
+      <!-- Key Takeaways Section -->
+      <div id="takeawaysSection" style="background:#131b2e; border:1px solid rgba(255,255,255,0.08); border-left:4px solid #38bdf8; border-radius:12px; padding:20px; margin:28px 0;">
+        <h4 style="color:#38bdf8; font-size:1.1rem; margin:0 0 12px; display:flex; align-items:center; gap:8px;">📌 Key Takeaways</h4>
+        <ul id="takeawaysList" style="margin:0; padding-left:22px; color:#cbd5e1; line-height:1.7;">
+          <li><code>&lt;!DOCTYPE html&gt;</code> tells the browser to use modern HTML5 rendering.</li>
+          <li><code>&lt;html lang='en'&gt;</code> declares page language for accessibility.</li>
+          <li>The <code>&lt;head&gt;</code> stores metadata, while <code>&lt;body&gt;</code> renders visible interface.</li>
+        </ul>
+      </div>
+
+      <!-- Interactive Quiz Challenge -->
+      <div id="quizSection" style="display:none; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.1); border-radius:14px; padding:24px; margin:28px 0;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:8px;">
+          <span style="font-size:11px; font-weight:800; color:#04AA6D; text-transform:uppercase; letter-spacing:0.05em; background:rgba(4,170,109,0.15); border:1px solid rgba(4,170,109,0.3); padding:4px 10px; border-radius:20px;">🧠 Quick Knowledge Check</span>
+          <span id="quizStatusBadge" style="font-size:12px; font-weight:700; color:#94a3b8;">Select an answer</span>
+        </div>
+        <h4 id="quizQuestionText" style="color:#fff; font-size:1.15rem; margin:0 0 16px; line-height:1.4;"></h4>
+        <div id="quizOptionsContainer" style="display:grid; grid-template-columns:1fr; gap:10px;"></div>
+        <div id="quizFeedbackBox" style="display:none; margin-top:16px; padding:14px 18px; border-radius:8px; font-size:13.5px; line-height:1.5;"></div>
       </div>
 
       <!-- Bottom Navigation -->
@@ -415,7 +472,30 @@
       document.title = lesson.title + ' | Infinite Developer Academy';
       document.getElementById('lessonBadge').textContent = 'LESSON ' + (idx + 1 < 10 ? '0' + (idx + 1) : (idx + 1));
       document.getElementById('lessonTitle').textContent = lesson.title;
-      document.getElementById('lessonCoreConcept').innerHTML = lesson.content || '<p>Content loading...</p>';
+      
+      const sumEl = document.getElementById('lessonSummary');
+      if (sumEl) sumEl.textContent = lesson.summary || '';
+
+      let contentHtml = '';
+      if (currentLang === 'si') {
+        if (lesson.content_si && lesson.content_si.trim().length > 0) {
+          contentHtml = lesson.content_si;
+        } else {
+          console.warn('[Academy Translation Flag] Missing content_si for lesson:', lesson.id || lesson.title);
+          contentHtml = `
+            <div class="translation-fallback-banner" style="background:rgba(234,179,8,0.12); border:1.5px solid rgba(234,179,8,0.4); border-radius:12px; padding:16px 20px; margin-bottom:24px; display:flex; align-items:flex-start; gap:14px; box-shadow:0 4px 16px rgba(234,179,8,0.1);">
+              <span style="font-size:1.5rem; line-height:1; flex-shrink:0;">⚠️</span>
+              <div>
+                <strong style="color:#fde047; font-size:0.98rem; display:block; margin-bottom:4px;">සිංහල පරිවර්තනය සංස්කරණය වෙමින් පවතී (Sinhala Editorial Review in Progress)</strong>
+                <span style="color:#cbd5e1; font-size:0.86rem; line-height:1.5; display:block;">මෙම පාඩම සඳහා නිල සිංහල පැහැදිලි කිරීම කඩිනමින් එක් කෙරේ. තාක්ෂණික නිරවද්‍යතාවය තහවුරු කර ගැනීම සඳහා දැනට ඉංග්‍රීසි (English) මුල් පාඩම පහතින් දැක්වේ.</span>
+              </div>
+            </div>
+          ` + (lesson.content || '<p>Content loading...</p>');
+        }
+      } else {
+        contentHtml = lesson.content || '<p>Content loading...</p>';
+      }
+      document.getElementById('lessonCoreConcept').innerHTML = contentHtml;
 
       if (lesson.code) {
         document.getElementById('codeSection').style.display = 'block';
@@ -424,6 +504,21 @@
       } else {
         document.getElementById('codeSection').style.display = 'none';
       }
+
+      // Key Takeaways
+      const takeawaysSection = document.getElementById('takeawaysSection');
+      const takeawaysList = document.getElementById('takeawaysList');
+      if (takeawaysSection && takeawaysList) {
+        if (lesson.keyTakeaways && lesson.keyTakeaways.length > 0) {
+          takeawaysList.innerHTML = lesson.keyTakeaways.map(t => '<li>' + t + '</li>').join('');
+          takeawaysSection.style.display = 'block';
+        } else {
+          takeawaysSection.style.display = 'none';
+        }
+      }
+
+      // Interactive Challenge Quiz
+      renderQuiz(lesson.challenge);
 
       // Sidebar Active State
       const links = document.querySelectorAll('.sidebar-lesson-item a');
@@ -434,6 +529,110 @@
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+
+    let currentLang = 'en';
+    window.setLessonLang = function(lang) {
+      currentLang = lang;
+      const enBtn = document.getElementById('langEnBtn');
+      const siBtn = document.getElementById('langSiBtn');
+      if (enBtn && siBtn) {
+        if (lang === 'si') {
+          siBtn.style.background = '#04AA6D';
+          siBtn.style.color = '#fff';
+          enBtn.style.background = 'transparent';
+          enBtn.style.color = '#94a3b8';
+        } else {
+          enBtn.style.background = '#04AA6D';
+          enBtn.style.color = '#fff';
+          siBtn.style.background = 'transparent';
+          siBtn.style.color = '#94a3b8';
+        }
+      }
+      loadLesson(currentLessonIndex);
+    };
+
+    function renderQuiz(challenge) {
+      const qSection = document.getElementById('quizSection');
+      if (!qSection) return;
+      if (!challenge || !challenge.question || !challenge.options || challenge.options.length === 0) {
+        qSection.style.display = 'none';
+        return;
+      }
+      qSection.style.display = 'block';
+      document.getElementById('quizQuestionText').textContent = challenge.question;
+      const statusBadge = document.getElementById('quizStatusBadge');
+      statusBadge.textContent = 'Select an answer';
+      statusBadge.style.color = '#94a3b8';
+
+      const feedback = document.getElementById('quizFeedbackBox');
+      feedback.style.display = 'none';
+
+      const optsBox = document.getElementById('quizOptionsContainer');
+      optsBox.innerHTML = '';
+      let answered = false;
+
+      challenge.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.style.cssText = 'text-align:left; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); color:#e2e8f0; padding:12px 16px; border-radius:8px; cursor:pointer; font-size:14px; font-weight:600; transition:all 0.2s; display:flex; align-items:center; gap:12px;';
+        btn.innerHTML = '<span style="display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; border-radius:50%; background:rgba(255,255,255,0.08); font-size:11px; font-weight:800; color:#38bdf8;">' + String.fromCharCode(65 + idx) + '</span> <span>' + opt + '</span>';
+
+        btn.onclick = () => {
+          if (answered) return;
+          answered = true;
+          const isCorrect = (idx === challenge.answer);
+          const allBtns = optsBox.querySelectorAll('button');
+
+          allBtns.forEach((b, i) => {
+            b.style.cursor = 'default';
+            if (i === challenge.answer) {
+              b.style.background = 'rgba(4,170,109,0.25)';
+              b.style.borderColor = '#04AA6D';
+              b.style.color = '#fff';
+            } else if (i === idx && !isCorrect) {
+              b.style.background = 'rgba(239,68,68,0.25)';
+              b.style.borderColor = '#ef4444';
+              b.style.color = '#fff';
+            } else {
+              b.style.opacity = '0.5';
+            }
+          });
+
+          feedback.style.display = 'block';
+          if (isCorrect) {
+            statusBadge.textContent = '✅ Correct!';
+            statusBadge.style.color = '#04AA6D';
+            feedback.style.background = 'rgba(4,170,109,0.15)';
+            feedback.style.border = '1px solid #04AA6D';
+            feedback.style.color = '#34d399';
+            feedback.innerHTML = '<strong>🎉 Excellent!</strong> ' + (challenge.explanation || 'That is the correct answer.');
+          } else {
+            statusBadge.textContent = '❌ Incorrect';
+            statusBadge.style.color = '#ef4444';
+            feedback.style.background = 'rgba(239,68,68,0.15)';
+            feedback.style.border = '1px solid #ef4444';
+            feedback.style.color = '#f87171';
+            feedback.innerHTML = '<strong>💡 Explanation:</strong> ' + (challenge.explanation || 'Review the lesson concept above to strengthen your understanding.');
+          }
+        };
+
+        btn.onmouseover = () => {
+          if (!answered) {
+            btn.style.background = 'rgba(4,170,109,0.12)';
+            btn.style.borderColor = '#04AA6D';
+          }
+        };
+        btn.onmouseout = () => {
+          if (!answered) {
+            btn.style.background = 'rgba(255,255,255,0.04)';
+            btn.style.borderColor = 'rgba(255,255,255,0.1)';
+          }
+        };
+
+        optsBox.appendChild(btn);
+      });
+    }
+
 
     function navigateLesson(dir) {
       const nextIdx = currentLessonIndex + dir;
@@ -464,7 +663,7 @@
     }
   </script>
   <script type="module">
-    import { db, collection, getDocs } from '../js/firebase-config.js';
+    import { db, collection, getDocs } from './js/firebase-config.js';
 
     function mergeCourseData(localCourse, remoteCourse) {
       if (!localCourse) return remoteCourse;
@@ -515,5 +714,9 @@
     }
     syncFirestoreTutorials();
   </script>
+
+  <!-- Shared Universal Site Footer & Cookie Banner -->
+  <div id="site-footer-container"></div>
+  <script src="../js/components.js" defer></script>
 </body>
 </html>

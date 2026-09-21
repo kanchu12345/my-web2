@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'unsafe-inline' https://www.gstatic.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://www.googletagmanager.com https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self' https:; frame-src https://challenges.cloudflare.com https://www.google.com https://maps.google.com; object-src 'none'; base-uri 'self'; form-action 'self' https:;">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -76,13 +79,19 @@
     cursor: pointer;
   }
 </style>
-
+<style id="authGate">body{display:none!important;}</style>
 </head>
 <body>
 <script type="module">
 import { auth, onAuthStateChanged } from '../js/firebase-config.js';
 onAuthStateChanged(auth, user => {
-  if (!user) window.location.replace('login.html');
+  if (!user) {
+    window.location.replace('login.html');
+  } else {
+    const gate = document.getElementById('authGate');
+    if (gate) gate.remove();
+    document.body.style.display = 'block';
+  }
 });
 </script><aside class="sidebar">
   <div class="sb-logo">
@@ -791,29 +800,22 @@ const DEFAULT_PACKAGES = [
 
 let currentPackages = [];
 
-/* ── Auth guard with Master Admin Support ── */
-function initPackagesAuth() {
-  const isMaster = sessionStorage.getItem('infinite_admin_auth') === 'true';
-  const storedUser = JSON.parse(localStorage.getItem('infinite_admin_user') || '{"email":"infinitedesign768@gmail.com"}');
-  
-  const emEl = document.getElementById('sbEmail');
-  const avEl = document.getElementById('sbAvatar');
-  if (emEl) emEl.textContent = storedUser.email || 'infinitedesign768@gmail.com';
-  if (avEl) avEl.textContent = (storedUser.email || 'A')[0].toUpperCase();
+/* ── Strict Firebase Auth State & Sidebar ── */
+onAuthStateChanged(auth, u => {
+  if (u) {
+    const emEl = document.getElementById('sbEmail');
+    const avEl = document.getElementById('sbAvatar');
+    if (emEl) emEl.textContent = u.email;
+    if (avEl) avEl.textContent = u.email[0].toUpperCase();
+    loadPackages();
+  } else {
+    window.location.replace('login.html');
+  }
+});
 
-  loadPackages();
-
-  onAuthStateChanged(auth, u => {
-    if (u) {
-      if (emEl) emEl.textContent = u.email;
-      if (avEl) avEl.textContent = u.email[0].toUpperCase();
-    }
-  });
-}
-
-initPackagesAuth();
 document.getElementById('logoutBtn').addEventListener('click', async () => {
-  await localStorage.removeItem("infinite_admin_auth"); sessionStorage.removeItem("infinite_admin_auth"); signOut(auth);window.location.href='login.html';
+  try { await signOut(auth); } catch(e){}
+  window.location.href = 'login.html';
 });
 
 /* ── Toast ── */

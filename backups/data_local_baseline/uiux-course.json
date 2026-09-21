@@ -1,0 +1,25 @@
+{
+  "title": "UI/UX Design Principles",
+  "chapters": [
+    {
+      "title": "1. Intro to Color Theory",
+      "readTime": "10 min read",
+      "content": "<p>Color is one of the most powerful tools in a designer's toolkit. It can draw attention, set a mood, influence users' emotions, perceptions, and actions.</p><h2>Primary, Secondary, and Tertiary Colors</h2><div class=\"color-swatch-container\" style=\"display:flex; gap: 20px; margin: 20px 0;\"><div style=\"width:100px; height:100px; background:#e74c3c; color:#fff; border-radius:12px; padding:12px; display:flex; align-items:flex-end;\">#E74C3C</div><div style=\"width:100px; height:100px; background:#f1c40f; color:#333; border-radius:12px; padding:12px; display:flex; align-items:flex-end;\">#F1C40F</div><div style=\"width:100px; height:100px; background:#3498db; color:#fff; border-radius:12px; padding:12px; display:flex; align-items:flex-end;\">#3498DB</div></div><div class=\"callout\"><div class=\"callout-title\">Pro Tip: 60-30-10 Rule</div>Use the 60-30-10 rule for color schemes: 60% dominant color, 30% secondary color, and 10% accent color.</div>"
+    },
+    {
+      "title": "2. Typography Basics",
+      "readTime": "15 min read",
+      "content": "<p>Typography is the art and technique of arranging type to make written language legible, readable, and appealing when displayed.</p><h2>Font Families</h2><p>Always pair a legible sans-serif font for UI elements with a complementary serif or sans-serif for long-form reading content. Limit your interface to no more than 2-3 different font families to maintain consistency.</p><h2>Hierarchy</h2><p>Establish visual hierarchy by manipulating size, weight, and color. A page title should be instantly recognizable compared to paragraph text.</p>"
+    },
+    {
+      "title": "3. Spacing & Grid Systems",
+      "readTime": "12 min read",
+      "content": "<p>Whitespace (or negative space) is the empty space between and around elements of a design or page layout. It is often neglected but it is what gives a layout breathing room.</p><h2>The 8pt Grid System</h2><p>Many modern interfaces use an 8-point grid system. This means that margins, padding, and sometimes even element dimensions are multiples of 8 (8, 16, 24, 32, 40, etc.). This creates a rhythmic, predictable visual flow.</p>"
+    },
+    {
+      "title": "4. Web Accessibility (a11y)",
+      "readTime": "20 min read",
+      "content": "<p>Accessibility means designing and developing websites so that people with disabilities can use them.</p><h2>Contrast Ratio</h2><p>Ensure your text color contrasts adequately with its background. WCAG requires a contrast ratio of at least 4.5:1 for standard text.</p><h2>Alt Text & ARIA</h2><p>Always provide <code>alt</code> text for images. Use ARIA (Accessible Rich Internet Applications) attributes to define the roles and states of custom UI components for screen readers.</p><div class=\"callout\"><div class=\"callout-title\">Empathy in Design</div>Designing for accessibility often results in a better user experience for everyone, not just those with permanent disabilities.</div>"
+    }
+  ]
+}

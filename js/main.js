@@ -362,10 +362,10 @@ function getDemoProjects(){
   ];
 }
 
-/* ── Load projects from Firebase & Baseline JSON (Deduplicated) ───────────────── */
+/* ── Load projects from Firebase & Baseline JSON (Single Source of Truth) ────── */
 async function loadProjects(){
-  const grid = document.getElementById('projGrid');
-  if (!grid) return;
+  const grids = document.querySelectorAll('#projGrid, #featuredProjectsGrid');
+  if (grids.length === 0) return;
   const prefix = rootPath();
 
   let fbProjects = [];
@@ -418,7 +418,25 @@ async function loadProjects(){
     }
   });
 
-  renderProjectsList(grid, unique);
+  grids.forEach(grid => {
+    const isFeaturedOnly = grid.id === 'featuredProjectsGrid' || (!window.location.pathname.includes('portfolio') && !window.location.pathname.includes('projects'));
+    const sorted = [...unique].sort((a, b) => {
+      const aFeat = !!a.featured;
+      const bFeat = !!b.featured;
+      if (aFeat && !bFeat) return -1;
+      if (!aFeat && bFeat) return 1;
+      if (aFeat && bFeat) {
+        const aOrd = Number(a.featuredOrder) || 99;
+        const bOrd = Number(b.featuredOrder) || 99;
+        if (aOrd !== bOrd) return aOrd - bOrd;
+      }
+      const aTime = a.createdAt?.seconds || (a._source === 'firestore' ? 9999999999 : 0);
+      const bTime = b.createdAt?.seconds || (b._source === 'firestore' ? 9999999999 : 0);
+      return bTime - aTime;
+    });
+    const toRender = isFeaturedOnly ? sorted.slice(0, 6) : sorted;
+    renderProjectsList(grid, toRender);
+  });
 }
 
 /* ── Blog System: Reads from data/blogs.json (auto-updated by GitHub Actions) */
@@ -2392,6 +2410,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   initFaqAccordion();
   initSmoothScroll();
+  loadProjects();
+  loadBlogs();
+  loadAllBlogs();
+  loadArticle();
+  loadSettings();
 });
 
 /* ── Accessible Interactive FAQ Accordion ──────────────────────── */

@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'unsafe-inline' https://www.gstatic.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://www.googletagmanager.com https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self' https:; frame-src https://challenges.cloudflare.com https://www.google.com https://maps.google.com; object-src 'none'; base-uri 'self'; form-action 'self' https:;">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -13,12 +16,19 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
 <link rel="stylesheet" href="../css/admin.css">
+<style id="authGate">body{display:none!important;}</style>
 </head>
 <body>
 <script type="module">
 import { auth, onAuthStateChanged } from '../js/firebase-config.js';
 onAuthStateChanged(auth, user => {
-  if (!user) window.location.replace('login.html');
+  if (!user) {
+    window.location.replace('login.html');
+  } else {
+    const gate = document.getElementById('authGate');
+    if (gate) gate.remove();
+    document.body.style.display = 'block';
+  }
 });
 </script>
 <!-- ── SIDEBAR ─────────────────────────────────── -->
@@ -339,7 +349,7 @@ onAuthStateChanged(auth, user => {
         container.innerHTML = '<div style="color:#94a3b8; font-size:0.85rem;">Live logs updated.</div>';
       }
     }
-    document.addEventListener('DOMContentLoaded', refreshDashboardBotLogs);
+    window.refreshDashboardBotLogs = refreshDashboardBotLogs;
   </script>
 
 </main>

@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'unsafe-inline' https://www.gstatic.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://www.googletagmanager.com https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self' https:; frame-src https://challenges.cloudflare.com https://www.google.com https://maps.google.com; object-src 'none'; base-uri 'self'; form-action 'self' https:;">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -10,13 +13,19 @@
 <link rel="icon" href="../images/logo.png">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/admin.css">
-
+<style id="authGate">body{display:none!important;}</style>
 </head>
 <body>
 <script type="module">
 import { auth, onAuthStateChanged } from '../js/firebase-config.js';
 onAuthStateChanged(auth, user => {
-  if (!user) window.location.replace('login.html');
+  if (!user) {
+    window.location.replace('login.html');
+  } else {
+    const gate = document.getElementById('authGate');
+    if (gate) gate.remove();
+    document.body.style.display = 'block';
+  }
 });
 </script><aside class="sidebar">
   <div class="sb-logo">
@@ -176,8 +185,10 @@ onAuthStateChanged(auth, user => {
 <script type="module">
 import { 
   auth, onAuthStateChanged, signOut,
-  db, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, serverTimestamp 
+  db, collection, getDocs, addDoc, updateDoc, setDoc, deleteDoc, doc, serverTimestamp 
 } from '../js/firebase-config.js';
+import { logContentChange } from '../js/audit-logger.js';
+import { escapeHTML, sanitizeInput, sanitizeURL } from '../js/sanitize.js';
 
 (function(){
   'use strict';
@@ -190,13 +201,12 @@ import {
       const avEl = document.getElementById('sbAvatar');
       if (emEl) emEl.textContent = email;
       if (avEl) avEl.textContent = email[0].toUpperCase();
+      loadProjects();
     }
   });
 
   document.getElementById('logoutBtn').addEventListener('click', async () => {
     try { await signOut(auth); } catch(e){}
-    localStorage.removeItem('infinite_admin_auth');
-    sessionStorage.removeItem('infinite_admin_auth');
     window.location.href = 'login.html';
   });
 
@@ -449,11 +459,13 @@ import {
 
     try {
       if (editId && !editId.startsWith('json_') && !editId.startsWith('proj_local_')) {
-        await updateDoc(doc(db, 'projects', editId), projectData);
+        await setDoc(doc(db, 'projects', editId), projectData, { merge: true });
+        await logContentChange('update', 'projects', editId, title);
       } else {
         projectData.createdAt = serverTimestamp();
         const newDoc = await addDoc(collection(db, 'projects'), projectData);
         projectData.id = newDoc.id;
+        await logContentChange('create', 'projects', newDoc.id, title);
       }
       toast(editId ? 'Project updated in Firestore!' : 'Project saved to Firestore & Portfolio!', 'ok');
     } catch(err) {
@@ -526,6 +538,7 @@ import {
       if (p.id && !p.id.startsWith('json_') && !p.id.startsWith('proj_local_')) {
         await deleteDoc(doc(db, 'projects', p.id));
       }
+      await logContentChange('delete', 'projects', p.id || p.title, 'Deleted project: ' + (p.title || p.id));
     } catch(err){
       console.warn('Firestore delete error:', err.message);
     }
@@ -540,9 +553,6 @@ import {
     toast('Project removed.', 'ok');
     loadProjects();
   }
-
-  /* ── INIT: Load projects immediately ── */
-  loadProjects();
 
 })();
 </script>

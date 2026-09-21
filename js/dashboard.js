@@ -1,44 +1,36 @@
-// Master Admin Auth bypass
-if (sessionStorage.getItem('infinite_admin_auth') === 'true') {
-  const userEl = document.getElementById('sbEmail');
-  if (userEl) userEl.textContent = 'infinitedesign768@gmail.com';
-}
 /* ═══════════════════════════════════════════════════
    dashboard.js — Real-Time Firestore Analytics Dashboard
    ═══════════════════════════════════════════════════ */
 import { auth, db, onAuthStateChanged, signOut, collection, getDocs, onSnapshot }
   from '../js/firebase-config.js';
 
-/* ── Auth guard with Permanent Master Admin Support ────────── */
-const isMasterAdmin = (localStorage.getItem('infinite_admin_auth') === 'true' || sessionStorage.getItem('infinite_admin_auth') === 'true');
-const storedAdmin = JSON.parse(localStorage.getItem('infinite_admin_user') || '{"email":"infinitedesign768@gmail.com"}');
-
-if (isMasterAdmin) {
-  const el = document.getElementById('sbEmail');
-  if (el) el.textContent = storedAdmin.email || 'infinitedesign768@gmail.com';
-  const av = document.getElementById('sbAvatar');
-  if (av) av.textContent = (storedAdmin.email || 'A')[0].toUpperCase();
-  init();
-}
-
+/* ── Strict Firebase Auth guard ── */
 onAuthStateChanged(auth, function(user){
-  if (user) {
-    window.__firebaseUser = user;
-    localStorage.setItem('infinite_admin_auth', 'true');
-    const email = user.email || 'admin';
-    const el = document.getElementById('sbEmail');
-    if (el) el.textContent = email;
-    const av = document.getElementById('sbAvatar');
-    if (av) av.textContent = email[0].toUpperCase();
-    if (!isMasterAdmin) init();
+  if (!user) {
+    window.location.replace('login.html');
+    return;
+  }
+  window.__firebaseUser = user;
+  const email = user.email || 'admin';
+  const el = document.getElementById('sbEmail');
+  if (el) el.textContent = email;
+  const av = document.getElementById('sbAvatar');
+  if (av) av.textContent = email[0].toUpperCase();
+
+  // Unhide DOM
+  const gate = document.getElementById('authGate');
+  if (gate) gate.remove();
+  document.body.style.display = 'block';
+
+  init();
+  if (typeof window.refreshDashboardBotLogs === 'function') {
+    window.refreshDashboardBotLogs();
   }
 });
 
 document.getElementById('logoutBtn')?.addEventListener('click', async function(){
-  localStorage.removeItem('infinite_admin_auth');
-  sessionStorage.removeItem('infinite_admin_auth');
   try { await signOut(auth); } catch(e){}
-  window.location.href='login.html';
+  window.location.href = 'login.html';
 });
 
 /* ── Chart defaults ─────────────────────────────── */

@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'unsafe-inline' https://www.gstatic.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://www.googletagmanager.com https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self' https:; frame-src https://challenges.cloudflare.com https://www.google.com https://maps.google.com; object-src 'none'; base-uri 'self'; form-action 'self' https:;">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -73,12 +76,22 @@
   .btn-delete { background: rgba(255,68,68,0.15); color: #ff4444; border:none; padding:6px 12px; border-radius:6px; font-weight:600; font-size:12px; cursor:pointer; }
   .code-input-area { font-family: monospace; font-size: 13px; background: #0b0f19; color: #34d399; }
 </style>
+<style id="authGate">body{display:none!important;}</style>
 </head>
 <body>
 <script type="module">
 import { auth, onAuthStateChanged } from '../js/firebase-config.js';
 onAuthStateChanged(auth, user => {
-  if (!user) window.location.replace('login.html');
+  if (!user) {
+    window.location.replace('login.html');
+  } else {
+    const gate = document.getElementById('authGate');
+    if (gate) gate.remove();
+    document.body.style.display = 'block';
+    if (typeof window.initTutorialsData === 'function') {
+      window.initTutorialsData(user);
+    }
+  }
 });
 </script>
   <!-- ── SIDEBAR ─────────────────────────────────── -->
@@ -294,11 +307,11 @@ onAuthStateChanged(auth, user => {
     }
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
+  window.initTutorialsData = function(user) {
     renderAdminLessonsList();
     loadFirestoreTutorials();
-    document.getElementById('lessonForm').addEventListener('submit', saveLesson);
-  });
+  };
+  document.getElementById('lessonForm')?.addEventListener('submit', saveLesson);
 
   function switchAdminTrack(trackKey) {
     currentAdminTrack = trackKey;
