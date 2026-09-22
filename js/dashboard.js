@@ -1,7 +1,7 @@
 /* ═══════════════════════════════════════════════════
    dashboard.js — Real-Time Firestore Analytics Dashboard
    ═══════════════════════════════════════════════════ */
-import { auth, db, onAuthStateChanged, signOut, collection, getDocs, onSnapshot }
+import { auth, db, onAuthStateChanged, signOut, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, onSnapshot, serverTimestamp }
   from '../js/firebase-config.js';
 
 /* ── Strict Firebase Auth guard ── */
@@ -479,12 +479,518 @@ document.getElementById('periodSelect')?.addEventListener('change',function(){
   updateTimestamp();
 });
 
+/* ── 11. Audience & Customer Engagement Hub ───────── */
+
+function escapeHTML(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+function toast(msg, type = 'ok') {
+  const t = document.getElementById('toast');
+  const m = document.getElementById('toastMsg');
+  if (!t || !m) return;
+  t.className = 'toast show toast-' + type;
+  m.textContent = msg;
+  setTimeout(() => t.classList.remove('show'), 3200);
+}
+
+/* ── Subscribers Management ── */
+let allSubscribers = [];
+
+async function loadSubscribers() {
+  const container = document.getElementById('subscribersListContainer');
+  const badge = document.getElementById('badgeSubscribersCount');
+  if (!container) return;
+
+  const map = new Map();
+
+  // 1. Read from localStorage
+  try {
+    const local = JSON.parse(localStorage.getItem('infinite_subscribers') || '[]');
+    local.forEach(item => {
+      const email = (typeof item === 'string' ? item : item.email || '').trim().toLowerCase();
+      if (email && !map.has(email)) {
+        map.set(email, {
+          email: email,
+          date: typeof item === 'object' && item.date ? item.date : new Date().toISOString(),
+          source: (typeof item === 'object' && item.source) || 'Website Newsletter',
+          id: null
+        });
+      }
+    });
+  } catch (e) {}
+
+  // 2. Read from Firestore
+  try {
+    const snap = await getDocs(collection(db, 'newsletter_subscribers'));
+    snap.forEach(d => {
+      const data = d.data();
+      const email = (data.email || '').trim().toLowerCase();
+      if (email) {
+        map.set(email, {
+          email: email,
+          date: data.subscribedAt ? (data.subscribedAt.toDate ? data.subscribedAt.toDate().toISOString() : data.subscribedAt) : new Date().toISOString(),
+          source: data.source || 'Firestore Sync',
+          id: d.id
+        });
+      }
+    });
+  } catch (e) {}
+
+  allSubscribers = Array.from(map.values()).sort((a, b) => new Date(b.date) - new Date(a.date));
+  
+  if (badge) badge.textContent = `${allSubscribers.length} Subscribers`;
+  renderSubscribers();
+}
+
+function renderSubscribers(filterText = '') {
+  const container = document.getElementById('subscribersListContainer');
+  if (!container) return;
+
+  const search = filterText.toLowerCase().trim();
+  const filtered = allSubscribers.filter(s => s.email.includes(search));
+
+  if (filtered.length === 0) {
+    container.innerHTML = `
+      <div style="color:var(--grey); font-size:13px; text-align:center; padding:32px 0;">
+        ${allSubscribers.length === 0 ? 'No subscribers yet. They will appear here once visitors subscribe.' : 'No matching subscribers found.'}
+      </div>`;
+    return;
+  }
+
+  container.innerHTML = '';
+  filtered.forEach(sub => {
+    const safeEmail = escapeHTML(sub.email);
+    const initial = safeEmail[0].toUpperCase();
+    const formattedDate = new Date(sub.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+
+    const item = document.createElement('div');
+    item.style.cssText = 'background:rgba(255,255,255,0.03); border:1px solid var(--glass-b); border-radius:10px; padding:10px 14px; display:flex; justify-content:space-between; align-items:center; gap:12px;';
+    item.innerHTML = `
+      <div style="display:flex; align-items:center; gap:10px; overflow:hidden;">
+        <div style="width:30px; height:30px; border-radius:50%; background:rgba(0,170,255,0.15); color:#00aaff; font-weight:700; font-size:12px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+          ${initial}
+        </div>
+        <div style="overflow:hidden;">
+          <strong style="color:#fff; font-size:13px; display:block; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">${safeEmail}</strong>
+          <small style="color:var(--grey); font-size:11px;">Subscribed ${formattedDate} · <span style="color:rgba(0,170,255,0.8);">${escapeHTML(sub.source)}</span></small>
+        </div>
+      </div>
+      <button class="btn-del-subscriber" data-email="${safeEmail}" style="background:none; border:none; color:var(--grey); cursor:pointer; padding:6px; border-radius:6px; display:flex; align-items:center; justify-content:center;" title="Remove subscriber">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+      </button>
+    `;
+
+    const delBtn = item.querySelector('.btn-del-subscriber');
+    delBtn.addEventListener('click', () => deleteSubscriber(sub));
+    delBtn.addEventListener('mouseenter', () => delBtn.style.color = '#ff4444');
+    delBtn.addEventListener('mouseleave', () => delBtn.style.color = 'var(--grey)');
+
+    container.appendChild(item);
+  });
+}
+
+async function addSubscriber(emailInput) {
+  const email = (emailInput || '').trim().toLowerCase();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    toast('Please enter a valid email address.', 'err');
+    return;
+  }
+
+  if (allSubscribers.some(s => s.email === email)) {
+    toast('Subscriber already exists.', 'err');
+    return;
+  }
+
+  const newSub = {
+    email: email,
+    date: new Date().toISOString(),
+    source: 'Admin Direct Entry',
+    id: null
+  };
+
+  // 1. Save to localStorage
+  try {
+    const local = JSON.parse(localStorage.getItem('infinite_subscribers') || '[]');
+    local.push(email);
+    localStorage.setItem('infinite_subscribers', JSON.stringify(local));
+  } catch (e) {}
+
+  // 2. Save to Firestore
+  try {
+    const docRef = await addDoc(collection(db, 'newsletter_subscribers'), {
+      email: email,
+      source: 'Admin Direct Entry',
+      subscribedAt: serverTimestamp()
+    });
+    newSub.id = docRef.id;
+  } catch (e) {}
+
+  allSubscribers.unshift(newSub);
+  renderSubscribers();
+  const badge = document.getElementById('badgeSubscribersCount');
+  if (badge) badge.textContent = `${allSubscribers.length} Subscribers`;
+  toast(`Subscribed ${email} successfully!`, 'ok');
+}
+
+async function deleteSubscriber(sub) {
+  if (!confirm(`Are you sure you want to remove ${sub.email} from subscribers?`)) return;
+
+  // 1. Remove from localStorage
+  try {
+    let local = JSON.parse(localStorage.getItem('infinite_subscribers') || '[]');
+    local = local.filter(item => {
+      const em = typeof item === 'string' ? item : item.email;
+      return em.trim().toLowerCase() !== sub.email;
+    });
+    localStorage.setItem('infinite_subscribers', JSON.stringify(local));
+  } catch (e) {}
+
+  // 2. Remove from Firestore
+  if (sub.id) {
+    try {
+      await deleteDoc(doc(db, 'newsletter_subscribers', sub.id));
+    } catch (e) {}
+  }
+
+  allSubscribers = allSubscribers.filter(s => s.email !== sub.email);
+  renderSubscribers();
+  const badge = document.getElementById('badgeSubscribersCount');
+  if (badge) badge.textContent = `${allSubscribers.length} Subscribers`;
+  toast('Subscriber removed.', 'ok');
+}
+
+function exportSubscribersCSV() {
+  if (allSubscribers.length === 0) {
+    toast('No subscribers to export.', 'err');
+    return;
+  }
+
+  const rows = [
+    ['Email', 'Subscription Date', 'Source']
+  ];
+
+  allSubscribers.forEach(s => {
+    rows.push([
+      `"${s.email.replace(/"/g, '""')}"`,
+      `"${new Date(s.date).toISOString()}"`,
+      `"${(s.source || '').replace(/"/g, '""')}"`
+    ]);
+  });
+
+  const csvContent = 'data:text/csv;charset=utf-8,' + rows.map(r => r.join(',')).join('\n');
+  const encodedUri = encodeURI(csvContent);
+  const link = document.createElement('a');
+  link.setAttribute('href', encodedUri);
+  link.setAttribute('download', `infinite_subscribers_${new Date().toISOString().slice(0, 10)}.csv`);
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  toast('Exported subscribers CSV!', 'ok');
+}
+
+/* ── Client Reviews & Testimonials Moderation ── */
+let allReviews = [];
+let currentReviewFilter = 'all';
+
+const DEFAULT_VERIFIED_REVIEWS = [
+  {
+    id: 'rev_default_1',
+    name: 'Chamath Wickramasinghe',
+    company: 'Apex Logistics Colombo',
+    url: 'https://apexlogistics.lk',
+    rating: 5,
+    comment: 'Infinite Creative transformed our logistics branding and web speed completely. Inquiries increased significantly within 30 days of the launch.',
+    date: '2026-03-15T10:00:00.000Z',
+    status: 'approved'
+  },
+  {
+    id: 'rev_default_2',
+    name: 'Dinuka Perera',
+    company: 'Hikka Surf Villa',
+    url: 'https://hikkasurf.com',
+    rating: 5,
+    comment: 'Direct bookings surged by 40% in our first month. The multilingual Sinhala/English layout and mobile responsiveness are world-class.',
+    date: '2026-04-10T14:30:00.000Z',
+    status: 'approved'
+  },
+  {
+    id: 'rev_default_3',
+    name: 'Dr. Samantha Silva',
+    company: 'Ceylon MediCare',
+    url: 'https://ceylonmedicare.lk',
+    rating: 5,
+    comment: 'The patient consultation portal built by Infinite Creative is blazing fast and completely secure. Highly recommended for healthcare tech.',
+    date: '2026-05-20T08:15:00.000Z',
+    status: 'approved'
+  },
+  {
+    id: 'rev_default_4',
+    name: 'Kaveen Ranasinghe',
+    company: 'Lanka Spice Exporters',
+    url: 'https://lankaspice.com',
+    rating: 5,
+    comment: 'Super clean, high-converting export showcase. International buyer inquiries doubled since launching our revamped website.',
+    date: '2026-06-05T12:00:00.000Z',
+    status: 'approved'
+  }
+];
+
+async function loadClientReviews() {
+  const container = document.getElementById('reviewsListContainer');
+  if (!container) return;
+
+  const map = new Map();
+
+  // 1. Seed with verified client reviews
+  DEFAULT_VERIFIED_REVIEWS.forEach(r => map.set(r.id, { ...r }));
+
+  // 2. Read from localStorage
+  try {
+    const local = JSON.parse(localStorage.getItem('infinite_client_reviews') || '[]');
+    local.forEach((r, idx) => {
+      const id = r.id || `local_rev_${idx}`;
+      map.set(id, {
+        id: id,
+        name: r.name || 'Anonymous Client',
+        company: r.company || '',
+        url: r.url || '',
+        rating: Number(r.rating) || 5,
+        comment: r.comment || '',
+        date: r.date || new Date().toISOString(),
+        status: r.status || 'approved'
+      });
+    });
+  } catch (e) {}
+
+  // 3. Read from Firestore
+  try {
+    const snap = await getDocs(collection(db, 'client_reviews'));
+    snap.forEach(d => {
+      const data = d.data();
+      map.set(d.id, {
+        id: d.id,
+        name: data.name || 'Client',
+        company: data.company || '',
+        url: data.url || '',
+        rating: Number(data.rating) || 5,
+        comment: data.comment || '',
+        date: data.date ? (data.date.toDate ? data.date.toDate().toISOString() : data.date) : new Date().toISOString(),
+        status: data.status || 'pending',
+        fromFirestore: true
+      });
+    });
+  } catch (e) {}
+
+  allReviews = Array.from(map.values()).sort((a, b) => new Date(b.date) - new Date(a.date));
+  updateReviewCounters();
+  renderReviews();
+}
+
+function updateReviewCounters() {
+  const countAll = allReviews.length;
+  const countApproved = allReviews.filter(r => r.status === 'approved').length;
+  const countPending = allReviews.filter(r => r.status === 'pending').length;
+
+  const elAll = document.getElementById('countReviewsAll');
+  const elApproved = document.getElementById('countReviewsApproved');
+  const elPending = document.getElementById('countReviewsPending');
+  const elAvg = document.getElementById('badgeAvgRating');
+
+  if (elAll) elAll.textContent = countAll;
+  if (elApproved) elApproved.textContent = countApproved;
+  if (elPending) elPending.textContent = countPending;
+
+  if (elAvg && countAll > 0) {
+    const totalScore = allReviews.reduce((sum, r) => sum + (Number(r.rating) || 5), 0);
+    const avg = (totalScore / countAll).toFixed(1);
+    elAvg.textContent = `★ ${avg} (${countAll})`;
+  }
+}
+
+function renderReviews() {
+  const container = document.getElementById('reviewsListContainer');
+  if (!container) return;
+
+  const filtered = allReviews.filter(r => {
+    if (currentReviewFilter === 'approved') return r.status === 'approved';
+    if (currentReviewFilter === 'pending') return r.status === 'pending';
+    return true;
+  });
+
+  if (filtered.length === 0) {
+    container.innerHTML = `
+      <div style="color:var(--grey); font-size:13px; text-align:center; padding:32px 0;">
+        No reviews in this category.
+      </div>`;
+    return;
+  }
+
+  container.innerHTML = '';
+  filtered.forEach(rev => {
+    const isApproved = rev.status === 'approved';
+    const safeName = escapeHTML(rev.name);
+    const safeComp = escapeHTML(rev.company);
+    const safeComm = escapeHTML(rev.comment);
+    const safeUrl = rev.url ? escapeHTML(rev.url) : '';
+    const stars = '★'.repeat(Math.max(1, Math.min(5, rev.rating))) + '☆'.repeat(Math.max(0, 5 - rev.rating));
+    const formattedDate = new Date(rev.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+
+    const card = document.createElement('div');
+    card.style.cssText = 'background:rgba(255,255,255,0.03); border:1px solid var(--glass-b); border-radius:12px; padding:14px; position:relative;';
+    card.innerHTML = `
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px; gap:8px;">
+        <div>
+          <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+            <strong style="color:#fff; font-size:13px;">${safeName}</strong>
+            <span style="font-size:10px; font-weight:800; padding:2px 8px; border-radius:10px; text-transform:uppercase; ${isApproved ? 'background:rgba(4,170,109,0.15); color:#04AA6D; border:1px solid rgba(4,170,109,0.3);' : 'background:rgba(245,158,11,0.15); color:#f59e0b; border:1px solid rgba(245,158,11,0.3);'}">
+              ${isApproved ? 'Approved (Live)' : 'Pending Review'}
+            </span>
+          </div>
+          <small style="color:var(--grey-l); font-size:11px;">
+            ${safeComp} ${safeUrl ? `· <a href="${safeUrl}" target="_blank" rel="noopener" style="color:#00aaff; text-decoration:none;">Website ↗</a>` : ''}
+          </small>
+        </div>
+        <div style="color:#f59e0b; font-size:13px; font-weight:700; letter-spacing:1px; flex-shrink:0;">${stars}</div>
+      </div>
+
+      <p style="color:#cbd5e1; font-size:12px; line-height:1.5; margin:0 0 10px; font-style:italic;">
+        "${safeComm}"
+      </p>
+
+      <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid rgba(255,255,255,0.05); padding-top:8px;">
+        <small style="color:var(--grey); font-size:11px;">Submitted: ${formattedDate}</small>
+        <div style="display:flex; gap:6px;">
+          <button class="btn-toggle-status" style="background:${isApproved ? 'rgba(245,158,11,0.15)' : 'rgba(4,170,109,0.15)'}; color:${isApproved ? '#f59e0b' : '#04AA6D'}; border:none; padding:4px 10px; border-radius:6px; font-size:11px; font-weight:700; cursor:pointer;">
+            ${isApproved ? 'Unpublish' : 'Approve & Feature'}
+          </button>
+          <button class="btn-del-review" style="background:rgba(255,68,68,0.12); color:#ff4444; border:none; padding:4px 8px; border-radius:6px; font-size:11px; font-weight:700; cursor:pointer;" title="Delete review">
+            Delete
+          </button>
+        </div>
+      </div>
+    `;
+
+    card.querySelector('.btn-toggle-status').addEventListener('click', () => toggleReviewStatus(rev));
+    card.querySelector('.btn-del-review').addEventListener('click', () => deleteReview(rev));
+
+    container.appendChild(card);
+  });
+}
+
+async function toggleReviewStatus(rev) {
+  const newStatus = rev.status === 'approved' ? 'pending' : 'approved';
+  rev.status = newStatus;
+
+  // 1. Update localStorage if exists
+  try {
+    const local = JSON.parse(localStorage.getItem('infinite_client_reviews') || '[]');
+    const idx = local.findIndex(r => (r.id && r.id === rev.id) || (r.name === rev.name && r.comment === rev.comment));
+    if (idx !== -1) {
+      local[idx].status = newStatus;
+      localStorage.setItem('infinite_client_reviews', JSON.stringify(local));
+    }
+  } catch (e) {}
+
+  // 2. Update Firestore if exists
+  if (rev.fromFirestore && rev.id) {
+    try {
+      await updateDoc(doc(db, 'client_reviews', rev.id), { status: newStatus });
+    } catch (e) {}
+  }
+
+  updateReviewCounters();
+  renderReviews();
+  toast(`Review marked as ${newStatus}!`, 'ok');
+}
+
+async function deleteReview(rev) {
+  if (!confirm(`Are you sure you want to delete review from "${rev.name}"?`)) return;
+
+  // 1. Remove from localStorage
+  try {
+    let local = JSON.parse(localStorage.getItem('infinite_client_reviews') || '[]');
+    local = local.filter(r => (r.id ? r.id !== rev.id : (r.name !== rev.name || r.comment !== rev.comment)));
+    localStorage.setItem('infinite_client_reviews', JSON.stringify(local));
+  } catch (e) {}
+
+  // 2. Remove from Firestore
+  if (rev.fromFirestore && rev.id) {
+    try {
+      await deleteDoc(doc(db, 'client_reviews', rev.id));
+    } catch (e) {}
+  }
+
+  allReviews = allReviews.filter(r => r.id !== rev.id);
+  updateReviewCounters();
+  renderReviews();
+  toast('Review deleted successfully.', 'ok');
+}
+
+function exportReviewsJSON() {
+  if (allReviews.length === 0) {
+    toast('No reviews to export.', 'err');
+    return;
+  }
+
+  const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(allReviews, null, 2));
+  const link = document.createElement('a');
+  link.setAttribute('href', dataStr);
+  link.setAttribute('download', `infinite_reviews_${new Date().toISOString().slice(0, 10)}.json`);
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  toast('Exported reviews JSON!', 'ok');
+}
+
+/* ── Setup Engagement Hub Listeners ───────────────── */
+function setupEngagementListeners() {
+  // Subscribers
+  document.getElementById('btnExportSubscribers')?.addEventListener('click', exportSubscribersCSV);
+  document.getElementById('inputSearchSubscribers')?.addEventListener('input', function() {
+    renderSubscribers(this.value);
+  });
+  document.getElementById('btnAddSubscriber')?.addEventListener('click', function() {
+    const input = document.getElementById('inputSearchSubscribers');
+    const email = prompt('Enter subscriber email address:', (input && input.value.includes('@')) ? input.value : '');
+    if (email) addSubscriber(email);
+  });
+
+  // Reviews
+  document.getElementById('btnExportReviews')?.addEventListener('click', exportReviewsJSON);
+  document.querySelectorAll('.review-tab-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.review-tab-btn').forEach(b => {
+        b.classList.remove('active');
+        b.style.color = 'var(--grey-l)';
+        b.style.fontWeight = '600';
+      });
+      this.classList.add('active');
+      this.style.color = '#00aaff';
+      this.style.fontWeight = '700';
+      currentReviewFilter = this.getAttribute('data-filter') || 'all';
+      renderReviews();
+    });
+  });
+}
+
 /* ── Master init ────────────────────────────────── */
 function init(){
   fetchRealtimeLogs();
   loadSecurityLog();
   updateTimestamp();
   
+  // Initialize Audience & Customer Engagement Hub
+  loadSubscribers();
+  loadClientReviews();
+  setupEngagementListeners();
+
   // Refresh live display elements every 8s
   setInterval(updateLiveUsers, 8000);
   // Refresh timestamp every 30s
