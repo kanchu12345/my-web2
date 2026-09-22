@@ -3,193 +3,78 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'unsafe-inline' https://www.gstatic.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://www.googletagmanager.com https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self' https:; frame-src https://challenges.cloudflare.com https://www.google.com https://maps.google.com; object-src 'none'; base-uri 'self'; form-action 'self' https:;">
-  <meta http-equiv="X-Content-Type-Options" content="nosniff">
-  <meta name="referrer" content="strict-origin-when-cross-origin">
-
-  <title>.LK ඩොමේන් ලියාපදිංචිය (LK Domain Registry): ශ්‍රී ලාංකික ව්‍යාපාර සඳහා පියවරෙන් පියවර මාර්ගෝපදේශය | Infinite Creative</title>
-  <meta name="description" content="ශ්‍රී ලංකාවේ .lk හෝ .com.lk ඩොමේන් නාමයක් ලියාපදිංචි කරගන්නේ කෙසේද? LK Domain Registry අවශ්‍යතා, BR ලේඛන සහ DNS සැකසීම පිළිබඳ පියවරෙන් පියවර උපදෙස්.">
+  <title>ශ්‍රී ලංකාවේ .LK Domain එකක් නිවැරදිව LK Domain Registry හරහා ලියාපදිංචි කරගන්නේ කෙසේද? — Infinite Creative Web Design</title>
+  <meta name="description" content=".LK ඩොමේන් එකක් මිලදී ගැනීමේ ක්‍රියාවලිය, අවශ්‍ය ලියකියවිලි, වාර්ෂික ගාස්තු සහ Cloudflare DNS සමඟ නොමිලේ සම්බන්ධ කරන ආකාරය.">
   <link rel="canonical" href="https://infiniteweb.dev/article/si-lk-domain-registration-guide.html">
-
+  <link rel="icon" type="image/webp" href="../images/logo-100w.webp">
+  <link rel="manifest" href="../manifest.json">
+  <meta name="theme-color" content="#0a0f1d">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;500;600;700;800&family=Noto+Sans+Tamil:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700;800&family=Noto+Sans+Sinhala:wght@400;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700;800&family=Noto+Sans+Sinhala:wght@400;600;700&display=swap"></noscript>
   <link rel="stylesheet" href="../css/main.css?v=2026">
-  <link rel="icon" type="image/png" href="../images/logo.png">
-
-  <style>
-    body {
-      padding-top: 90px;
-      font-family: 'Noto Sans Sinhala', 'Inter', sans-serif;
-      background: #080c16;
-      color: #e2e8f0;
-      line-height: 1.85;
-    }
-    .article-post-wrapper {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 24px 20px 80px;
-    }
-    .article-crumb {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: #04AA6D;
-      font-size: 14px;
-      font-weight: 700;
-      margin-bottom: 20px;
-      text-decoration: none;
-    }
-    .article-crumb:hover {
-      text-decoration: underline;
-    }
-    .article-header {
-      margin-bottom: 32px;
-    }
-    .article-cat-pill {
-      display: inline-block;
-      background: rgba(4, 170, 109, 0.15);
-      color: #04AA6D;
-      border: 1px solid rgba(4, 170, 109, 0.3);
-      padding: 4px 14px;
-      border-radius: 50px;
-      font-size: 12px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 16px;
-    }
-    .article-main-title {
-      font-size: clamp(26px, 4vw, 38px);
-      font-weight: 800;
-      line-height: 1.35;
-      color: #ffffff;
-      letter-spacing: -0.01em;
-      margin-bottom: 18px;
-    }
-    .article-meta-row {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 16px;
-      font-size: 13px;
-      color: #94a3b8;
-      padding-bottom: 24px;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
-    .article-hero-box {
-      border-radius: 16px;
-      overflow: hidden;
-      margin-bottom: 36px;
-      border: 1px solid rgba(255,255,255,0.08);
-      box-shadow: 0 20px 50px rgba(0,0,0,0.4);
-    }
-    .article-hero-box img {
-      width: 100%;
-      height: auto;
-      max-height: 440px;
-      object-fit: cover;
-      display: block;
-    }
-    .article-content h2 {
-      font-size: clamp(20px, 3vw, 26px);
-      font-weight: 800;
-      color: #ffffff;
-      margin: 40px 0 16px;
-      line-height: 1.4;
-      border-left: 4px solid #04AA6D;
-      padding-left: 14px;
-    }
-    .article-content h3 {
-      font-size: 18px;
-      font-weight: 700;
-      color: #38bdf8;
-      margin: 28px 0 12px;
-    }
-    .article-content p {
-      margin-bottom: 20px;
-      font-size: 16px;
-      color: #cbd5e1;
-    }
-    .article-content ul, .article-content ol {
-      margin: 0 0 24px 24px;
-      color: #cbd5e1;
-    }
-    .article-content li {
-      margin-bottom: 10px;
-    }
-  </style>
+  <link rel="stylesheet" href="../css/additions.css?v=2026">
 </head>
-<body>
+<body style="font-family:'Noto Sans Sinhala', 'Inter', sans-serif;">
 
-  <!-- Universal Shared Header Container -->
-  <div id="site-header-container"></div>
+  <a href="#main-content" class="skip-to-content">Skip to main content</a>
 
-  <!-- ARTICLE CONTENT WRAPPER -->
-  <main class="article-post-wrapper">
-    <a href="../blogs.html" class="article-crumb">&larr; සියලුම ලිපි වෙත (All Articles)</a>
+  <div id="siteHeaderContainer"></div>
 
-    <header class="article-header">
-      <span class="article-cat-pill">ඩොමේන් සහ හෝස්ටිං (Domains & Cloud Infrastructure)</span>
-      <h1 class="article-main-title">.LK ඩොමේන් ලියාපදිංචිය (LK Domain Registry): ශ්‍රී ලාංකික ව්‍යාපාර සඳහා පියවරෙන් පියවර මාර්ගෝපදේශය</h1>
-      <div class="article-meta-row">
-        <span>✍️ <strong>Infinite Technical Editorial</strong></span>
-        <span>📅 2026 මාර්තු 19</span>
-        <span>⏱️ මිනිත්තු 5 ක කියවීමක් (5 min read)</span>
-        <span style="color:#04AA6D;font-weight:700;">● සත්‍යාපිත තාක්ෂණික ලිපියකි (Verified Technical Guide)</span>
-      </div>
-    </header>
-
-    <div class="article-hero-box">
-      <img src="../images/blog_3.webp" srcset="../images/blog_3-480w.webp 480w, ../images/blog_3-800w.webp 800w, ../images/blog_3.webp 1024w" sizes="(max-width: 768px) 100vw, 860px" alt=".LK Domain Registration Sri Lanka Guide - Infinite Creative Web Design" width="860" height="440" loading="eager" fetchpriority="high" decoding="async">
-    </div>
-
-    <article class="article-content">
+  <main id="main-content" class="article-container" style="max-width:880px;margin:100px auto 40px;padding:0 20px;">
+    <article class="article-card reveal" style="background:rgba(13,21,39,0.85);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:40px 32px;box-shadow:0 16px 45px rgba(0,0,0,0.45);">
       
-<p class="lead" style="font-size: 1.15rem; font-weight: 500; color: #e2e8f0; line-height: 1.8;">
-ශ්‍රී ලංකාව තුළ ව්‍යාපාරයක් පවත්වාගෙන යන ඕනෑම අයෙකුට තම වෙබ් අඩවිය සඳහා <code>.lk</code> හෝ <code>.com.lk</code> ඩොමේන් නාමයක් (Country Code Top-Level Domain - ccTLD) හිමිවීම ඉමහත් වාසියකි. එය ශ්‍රී ලාංකික පාරිභෝගිකයින් අතර සන්නාමයේ විශ්වසනීයත්වය තහවුරු කරනවා මෙන්ම Google Search හි ශ්‍රී ලංකාව තුළ සෙවුම් ප්‍රතිඵල වලදී ප්‍රමුඛතාවය හිමිවීමටද ඉවහල් වේ.
-</p>
+      <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(4,170,109,0.12);border:1px solid rgba(4,170,109,0.3);padding:4px 12px;border-radius:20px;margin-bottom:16px;">
+        <span style="font-size:12px;font-weight:700;color:#04AA6D;text-transform:uppercase;">සංස්කාරක තාක්ෂණික සමාලෝචනය: Human Reviewed Technical Guide</span>
+      </div>
 
-<div class="review-badge-box" style="background: rgba(4,170,109,0.1); border: 1px solid #04AA6D; border-radius: 10px; padding: 12px 18px; margin: 24px 0; display: flex; align-items: center; gap: 10px;">
-  <span style="font-size: 20px;">🛡️</span>
-  <span style="font-size: 13px; color: #cbd5e1;"><strong>සංස්කාරක තාක්ෂණික සමාලෝචනය:</strong> මෙම මාර්ගෝපදේශය Infinite Creative ඩොමේන් පරිපාලන අංශය විසින් සත්‍යාපනය කර ඇත (Human Reviewed Technical Guide).</span>
-</div>
+      <h1 class="article-title" style="font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:800;color:#fff;line-height:1.4;margin-bottom:14px;">
+        ශ්‍රී ලංකාවේ .LK Domain එකක් නිවැරදිව LK Domain Registry හරහා ලියාපදිංචි කරගන්නේ කෙසේද?
+      </h1>
 
-<h2>1. .LK ඩොමේනයක් ලබාගැනීමට අවශ්‍ය මූලික සුදුසුකම්</h2>
-<p>
-LK Domain Registry නීති රීති අනුව, සාමාන්‍යයෙන් ඉල්ලුම් කරන ඩොමේන් නාමය ව්‍යාපාරයේ ලියාපදිංචි නාමයට (Registered Business Name) හෝ වෙළඳ ලකුණට (Trademark) අනුකූල විය යුතුය.
-</p>
-<ul>
-  <li><strong>තනි පුද්ගල හෝ හවුල් ව්‍යාපාර:</strong> පළාත් සභා හෝ ප්‍රාදේශීය ලේකම් කාර්යාලයෙන් නිකුත් කරන ලද ව්‍යාපාර ලියාපදිංචි සහතිකය (BR Certificate).</li>
-  <li><strong>සමාගම් (PVT LTD):</strong> Registrar of Companies (ROC) මගින් නිකුත් කරන ලද Form 1 සහ Form 20 පිටපත්.</li>
-  <li><strong>පුද්ගලික ඩොමේන්:</strong> ශ්‍රී ලාංකික පුරවැසියෙකුගේ ජාතික හැඳුනුම්පත (NIC).</li>
-</ul>
+      <div class="article-meta" style="display:flex;align-items:center;gap:16px;color:#94a3b8;font-size:13px;margin-bottom:28px;flex-wrap:wrap;border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:16px;">
+        <span>කර්තෘ: <strong>Infinite Creative Editorial</strong></span>
+        <span>දිනය: <strong>May 22, 2026</strong></span>
+        <span>කාලය: <strong>6 min read</strong></span>
+        <span>ප්‍රවර්ගය: <strong>Hosting</strong></span>
+      </div>
 
-<h2>2. ලියාපදිංචි කිරීමේ පියවර 4</h2>
-<ol>
-  <li><strong>ඩොමේන් නාමය පරීක්ෂා කිරීම:</strong> <code>nic.lk</code> වෙබ් අඩවියට පිවිස ඔබට අවශ්‍ය නම තිබේදැයි Search කර බලන්න.</li>
-  <li><strong>අයදුම්පත සම්පූර්ණ කිරීම:</strong> ආයතනයේ නම, ලිපිනය, සහ පරිපාලන සම්බන්ධතා විස්තර ඇතුළත් කරන්න.</li>
-  <li><strong>DNS Name Servers සැකසීම:</strong> Cloudflare හෝ ඔබගේ Cloud Server හි Name Servers (උදා: <code>ns1.cloudflare.com</code>) ලබා දෙන්න.</li>
-  <li><strong>ගාස්තු ගෙවීම සහ සක්‍රීය වීම:</strong> වසර 1, 2, හෝ 5 සඳහා අදාළ ලියාපදිංචි ගාස්තුව ගෙවූ පසු පැය 24 ක් ඇතුළත ඩොමේනය සක්‍රීය වේ.</li>
-</ol>
+      <div class="article-hero-image" style="margin-bottom:32px;">
+        <img src="../images/blog_1.webp" 
+             srcset="../images/blog_1-480w.webp 480w, ../images/blog_1-800w.webp 800w, ../images/blog_1.webp 1024w" 
+             sizes="(max-width: 768px) 100vw, 860px" 
+             alt="ශ්‍රී ලංකාවේ .LK Domain එකක් නිවැරදිව LK Domain Registry හරහා ලියාපදිංචි කරගන්නේ කෙසේද?" 
+             width="860" height="440" 
+             loading="eager" fetchpriority="high" decoding="async" 
+             style="width:100%;height:auto;border-radius:12px;border:1px solid rgba(255,255,255,0.1);">
+      </div>
 
-<div class="cta-conversion-box" style="background: linear-gradient(135deg, rgba(4,170,109,0.15) 0%, rgba(15,23,42,0.9) 100%); border: 1.5px solid #04AA6D; border-radius: 16px; padding: 32px 24px; margin-top: 48px; text-align: center;">
-  <h3 style="color: #fff; font-size: 24px; margin-bottom: 12px; font-weight: 800;">.LK ඩොමේන් සහ Cloud Hosting සකසා ගැනීමට සහාය අවශ්‍යද?</h3>
-  <p style="color: #cbd5e1; max-width: 600px; margin: 0 auto 20px; font-size: 15px;">
-    Infinite Creative Web Design වෙතින් ඔබගේ ව්‍යාපාරික නාමයට අදාළ .LK ඩොමේන් ලියාපදිංචිය, DNS සහ Cloudflare ආරක්ෂක පද්ධති සියල්ල එකම වහලක් යටින් පහසුවෙන්ම සකසා දෙනු ලැබේ.
-  </p>
-  <a href="https://wa.me/94789714912?text=හෙලෝ%20Infinite%20Creative!%20මට%20.LK%20ඩොමේන්%20එකක්%20ලියාපදිංචි%20කරගැනීමට%20උපදෙස්%20අවශ්‍යයි." 
-     target="_blank" rel="noopener noreferrer" 
-     style="display: inline-flex; align-items: center; gap: 8px; background: #04AA6D; color: #fff; padding: 14px 30px; border-radius: 50px; font-weight: 800; text-decoration: none; font-size: 15px; box-shadow: 0 8px 24px rgba(4,170,109,0.35);">
-    <span>💬 WhatsApp හරහා සම්බන්ධ වන්න</span> &rarr;
-  </a>
-</div>
+      <div class="article-body" style="color:#cbd5e1;font-size:1.05rem;line-height:1.8;">
+        
+          <p>ශ්‍රී ලාංකික අනන්‍යතාවය තහවුරු කිරීමට සහ දේශීය සෙවුම් වල ඉදිරියට ඒමට .lk ඩොමේන් නාමයක් ඉතා වැදගත් වේ.</p>
+          <h2>LK Domain ලබාගැනීමේ පියවර:</h2>
+          <ol>
+            <li>LK Domain Registry හි නම තිබේදැයි පරීක්ෂා කිරීම.</li>
+            <li>ව්‍යාපාර ලියාපදිංචි සහතිකය (BR) ඉදිරිපත් කිරීම.</li>
+            <li>Cloudflare Nameservers සම්බන්ධ කිරීම.</li>
+          </ol>
+        
+      </div>
+
+      <div class="article-cta-box" style="margin-top:40px;padding:28px;background:rgba(4,170,109,0.1);border:1px solid rgba(4,170,109,0.3);border-radius:16px;text-align:center;">
+        <h3 style="color:#fff;font-size:1.3rem;margin-bottom:8px;">ඔබේ ව්‍යාපාරයටත් වෘත්තීය මට්ටමේ වෙබ් අඩවියක් අවශ්‍යද?</h3>
+        <p style="color:#cbd5e1;font-size:0.95rem;margin-bottom:18px;">රු. 5,000/- සිට ආරම්භ වන සාධාරණ මිල ගණන් සහ Lifetime Free Cloud Hosting සමඟ අදම අප හා සම්බන්ධ වන්න.</p>
+        <a href="https://wa.me/94789714912?text=Hello%20Infinite%20Creative!%20I%20read%20your%20Sinhala%20guide%20and%20want%20to%20get%20a%20website%20quote." target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:#04AA6D;color:#fff;padding:12px 24px;border-radius:10px;font-weight:800;text-decoration:none;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
+          <span>WhatsApp මගින් විමසන්න (Get Free Quote)</span> &rarr;
+        </a>
+      </div>
 
     </article>
   </main>
 
-  <!-- Universal Shared Footer Container -->
-  <div id="site-footer-container"></div>
+  <footer class="footer" id="siteFooter" role="contentinfo"></footer>
 
   <script src="../js/components.js" defer></script>
 </body>

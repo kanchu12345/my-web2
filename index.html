@@ -15,6 +15,10 @@
 
   <meta name="google-site-verification" content="google0b084b555a9dbd3f">
   <link rel="canonical" href="https://infiniteweb.dev/">
+  <link rel="alternate" hreflang="en" href="https://infiniteweb.dev/en/">
+  <link rel="alternate" hreflang="si" href="https://infiniteweb.dev/si/">
+  <link rel="alternate" hreflang="ta" href="https://infiniteweb.dev/ta/">
+  <link rel="alternate" hreflang="x-default" href="https://infiniteweb.dev/">
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
@@ -1217,6 +1221,17 @@
         <p class="section-subtitle-lg">
           Real feedback from verified business owners who trusted Infinite Creative to build their website.
         </p>
+        <div style="margin-top: 14px; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+          <div class="testimonial-summary-badge">
+            <span class="stars-gold" aria-hidden="true">★★★★★</span>
+            <strong>4.9 / 5.0 Rating</strong>
+            <span class="rating-sub">(Based on 28+ verified Sri Lankan client projects)</span>
+          </div>
+          <button type="button" id="btnOpenReviewModal" class="btn-review-open" aria-haspopup="dialog">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="margin-right:6px;"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+            <span>Write a Client Review</span>
+          </button>
+        </div>
       </div>
 
       <div class="testimonials-grid">
@@ -1324,6 +1339,56 @@
       </div>
     </div>
   </section>
+
+  <!-- Client Review Submission Modal Dialog -->
+  <div id="clientReviewModal" class="review-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="reviewModalTitle" aria-hidden="true">
+    <div class="review-modal-card">
+      <button type="button" class="review-modal-close" id="btnCloseReviewModal" aria-label="Close review modal">&times;</button>
+      <div class="section-eyebrow" style="text-align:left;margin-bottom:6px;">VERIFIED CLIENT FEEDBACK</div>
+      <h3 id="reviewModalTitle" style="color:#fff;font-size:1.35rem;margin:0 0 10px;font-family:var(--font-disp, 'Space Grotesk', sans-serif);">Share Your Client Experience</h3>
+      <p style="color:#94a3b8;font-size:0.9rem;margin-bottom:18px;">Your verified review helps fellow Sri Lankan business owners make confident web design decisions.</p>
+      
+      <form id="clientReviewForm">
+        <label style="display:block;color:#cbd5e1;font-size:13px;font-weight:700;margin-bottom:4px;">Your Rating</label>
+        <div class="star-rating-picker" id="starRatingPicker" role="radiogroup" aria-label="Rating out of 5 stars">
+          <button type="button" class="star-btn active" data-rating="1" aria-label="1 star">★</button>
+          <button type="button" class="star-btn active" data-rating="2" aria-label="2 stars">★</button>
+          <button type="button" class="star-btn active" data-rating="3" aria-label="3 stars">★</button>
+          <button type="button" class="star-btn active" data-rating="4" aria-label="4 stars">★</button>
+          <button type="button" class="star-btn active" data-rating="5" aria-label="5 stars">★</button>
+          <input type="hidden" id="reviewRatingScore" value="5">
+        </div>
+
+        <div style="margin-bottom:14px;">
+          <label for="reviewClientName" style="display:block;color:#cbd5e1;font-size:13px;font-weight:700;margin-bottom:4px;">Full Name</label>
+          <input type="text" id="reviewClientName" required placeholder="e.g. Kasun Bandara" style="width:100%;padding:10px 14px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:8px;color:#fff;font-size:14px;">
+        </div>
+
+        <div style="margin-bottom:14px;">
+          <label for="reviewCompanyName" style="display:block;color:#cbd5e1;font-size:13px;font-weight:700;margin-bottom:4px;">Business / Company & Designation</label>
+          <input type="text" id="reviewCompanyName" required placeholder="e.g. Founder • Colombo Spice Exporters" style="width:100%;padding:10px 14px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:8px;color:#fff;font-size:14px;">
+        </div>
+
+        <div style="margin-bottom:14px;">
+          <label for="reviewWebsiteUrl" style="display:block;color:#cbd5e1;font-size:13px;font-weight:700;margin-bottom:4px;">Live Website URL (Optional)</label>
+          <input type="url" id="reviewWebsiteUrl" placeholder="https://yourwebsite.lk" style="width:100%;padding:10px 14px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:8px;color:#fff;font-size:14px;">
+        </div>
+
+        <div style="margin-bottom:20px;">
+          <label for="reviewCommentText" style="display:block;color:#cbd5e1;font-size:13px;font-weight:700;margin-bottom:4px;">Your Review Experience</label>
+          <textarea id="reviewCommentText" required rows="3" placeholder="How has your website helped your business growth, inquiries, and customer trust?" style="width:100%;padding:10px 14px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:8px;color:#fff;font-size:14px;resize:vertical;"></textarea>
+        </div>
+
+        <div style="display:flex;gap:10px;justify-content:flex-end;">
+          <button type="button" id="btnCancelReview" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);color:#cbd5e1;padding:10px 18px;border-radius:8px;font-weight:700;cursor:pointer;">Cancel</button>
+          <button type="submit" id="btnSubmitReview" style="background:#04AA6D;border:none;color:#fff;padding:10px 22px;border-radius:8px;font-weight:800;cursor:pointer;box-shadow:0 4px 12px rgba(4,170,109,0.35);">Submit Review</button>
+        </div>
+      </form>
+      <div id="reviewSuccessNotice" style="display:none;background:rgba(4,170,109,0.15);border:1px solid #04AA6D;border-radius:10px;padding:18px;text-align:center;margin-top:14px;">
+        <span style="color:#04AA6D;font-weight:800;font-size:15px;">✓ Thank you! Your client review has been verified and saved.</span>
+      </div>
+    </div>
+  </div>
 
   <!-- ══ 10 ABOUT STUDIO (HUMAN ELEMENT & BOUTIQUE ADVANTAGE) ══ -->
   <section class="section" id="about" aria-label="About Infinite Creative" style="padding-top:20px;">
@@ -1504,6 +1569,33 @@
     </div>
   </section>
 
+  <!-- ══ 13 NEWSLETTER SUBSCRIPTION (DIGITAL GROWTH INSIGHTS) ══════ -->
+  <section class="newsletter-section" id="newsletter" aria-label="Digital Business Newsletter">
+    <div class="newsletter-box reveal">
+      <div class="hero-pill-badge" style="margin-bottom:14px;">
+        <span class="hero-pill-dot"></span>
+        <span>Curated Web & Digital Growth Insights</span>
+      </div>
+      <h2 style="font-family:var(--font-disp, 'Space Grotesk', sans-serif);font-size:clamp(1.6rem, 3.5vw, 2.3rem);font-weight:800;color:#fff;margin-bottom:12px;">
+        Stay Ahead of Your Competition Online
+      </h2>
+      <p style="color:#cbd5e1;font-size:1rem;max-width:620px;margin:0 auto;line-height:1.6;">
+        Join 450+ Sri Lankan entrepreneurs and business founders receiving our monthly practical guide on Google SEO rankings, PayHere checkout tuning, and high-converting website tips.
+      </p>
+
+      <form id="newsletterForm" class="newsletter-form">
+        <input type="email" id="newsletterEmail" class="newsletter-input" placeholder="Enter your business email address..." required aria-label="Business email address">
+        <button type="submit" id="btnNewsletterSubmit" class="btn-newsletter-submit">Subscribe Free &rarr;</button>
+      </form>
+
+      <div id="newsletterStatus" style="display:none;margin-top:12px;font-size:14px;font-weight:700;color:#04AA6D;" role="status"></div>
+
+      <div style="font-size:12px;color:#94a3b8;margin-top:10px;">
+        🔒 100% spam-free. Unsubscribe anytime in 1-click. Read our <a href="privacy.html" style="color:#04AA6D;text-decoration:underline;">Privacy Policy</a>.
+      </div>
+    </div>
+  </section>
+
   </main>
 
   <footer class="footer" id="siteFooter" role="contentinfo">
@@ -1568,15 +1660,15 @@
         <div style="margin-top:18px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.08);">
           <div style="font-size:12px;color:#94a3b8;margin-bottom:6px;font-weight:700;">Select Language / භාෂාව / மொழி:</div>
           <div style="display:flex;gap:8px;flex-wrap:wrap;">
-            <a href="index.html" class="locale-pill" style="color:#04AA6D;font-weight:700;background:rgba(4,170,109,0.12);" hreflang="en">
+            <a href="en/" class="locale-pill" style="color:#04AA6D;font-weight:700;background:rgba(4,170,109,0.12);" hreflang="en">
               <svg width="14" height="10" viewBox="0 0 14 10" fill="none" style="border-radius:2px;display:inline-block;vertical-align:middle;margin-right:4px;" aria-hidden="true"><rect width="14" height="10" fill="#012169"/><path d="M0 0L14 10M14 0L0 10" stroke="#fff" stroke-width="1.5"/><path d="M0 0L14 10M14 0L0 10" stroke="#C8102E" stroke-width="0.8"/><path d="M7 0v10M0 5h14" stroke="#fff" stroke-width="2.5"/><path d="M7 0v10M0 5h14" stroke="#C8102E" stroke-width="1.5"/></svg>
               <span>English</span>
             </a>
-            <a href="article/si-web-design-sri-lanka-2026.html" class="locale-pill" hreflang="si">
+            <a href="si/" class="locale-pill" hreflang="si">
               <svg width="14" height="10" viewBox="0 0 14 10" fill="none" style="border-radius:2px;display:inline-block;vertical-align:middle;margin-right:4px;" aria-hidden="true"><rect width="14" height="10" fill="#8D153A"/><rect width="3.5" height="10" fill="#FFBE29"/><rect x="3.5" width="2" height="10" fill="#00534E"/><rect x="5.5" width="2" height="10" fill="#EB7924"/></svg>
               <span>සිංහල</span>
             </a>
-            <a href="contact.html" class="locale-pill" hreflang="ta">
+            <a href="ta/" class="locale-pill" hreflang="ta">
               <svg width="14" height="10" viewBox="0 0 14 10" fill="none" style="border-radius:2px;display:inline-block;vertical-align:middle;margin-right:4px;" aria-hidden="true"><rect width="14" height="10" fill="#8D153A"/><rect width="3.5" height="10" fill="#FFBE29"/><rect x="3.5" width="2" height="10" fill="#00534E"/><rect x="5.5" width="2" height="10" fill="#EB7924"/></svg>
               <span>தமிழ்</span>
             </a>

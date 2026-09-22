@@ -197,9 +197,9 @@
           '<div style="margin-top:18px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.08);">' +
             '<div style="font-size:12px;color:#94a3b8;margin-bottom:6px;font-weight:700;">Select Language / භාෂාව / மொழி:</div>' +
             '<div style="display:flex;gap:8px;flex-wrap:wrap;">' +
-              '<a href="' + PREFIX + 'index.html" class="locale-pill active" hreflang="en"><span>EN</span> English</a>' +
-              '<a href="' + PREFIX + 'article/si-web-design-sri-lanka-2026.html" class="locale-pill" hreflang="si"><span>SI</span> සිංහල</a>' +
-              '<a href="' + PREFIX + 'contact.html" class="locale-pill" hreflang="ta"><span>TA</span> தமிழ்</a>' +
+              '<a href="' + PREFIX + 'en/" class="locale-pill ' + ((window.location.pathname.indexOf('/si/') === -1 && window.location.pathname.indexOf('/ta/') === -1) ? 'active' : '') + '" hreflang="en"><span>EN</span> English</a>' +
+              '<a href="' + PREFIX + 'si/" class="locale-pill ' + (window.location.pathname.indexOf('/si/') !== -1 ? 'active' : '') + '" hreflang="si"><span>SI</span> සිංහල</a>' +
+              '<a href="' + PREFIX + 'ta/" class="locale-pill ' + (window.location.pathname.indexOf('/ta/') !== -1 ? 'active' : '') + '" hreflang="ta"><span>TA</span> தமிழ்</a>' +
             '</div>' +
           '</div>' +
         '</div>' +
@@ -424,6 +424,155 @@
     });
   }
 
+  // 6. Newsletter Subscription Handler
+  function initNewsletterSubscription() {
+    var form = document.getElementById('newsletterForm');
+    if (!form) return;
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var emailInput = document.getElementById('newsletterEmail');
+      var statusEl = document.getElementById('newsletterStatus');
+      var email = (emailInput ? emailInput.value : '').trim();
+
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        if (statusEl) {
+          statusEl.style.display = 'block';
+          statusEl.style.color = '#ef4444';
+          statusEl.textContent = 'Please enter a valid business email address.';
+        }
+        return;
+      }
+
+      var subscribers = [];
+      try {
+        subscribers = JSON.parse(localStorage.getItem('infinite_subscribers') || '[]');
+      } catch (err) {
+        subscribers = [];
+      }
+
+      if (subscribers.indexOf(email) === -1) {
+        subscribers.push(email);
+        try {
+          localStorage.setItem('infinite_subscribers', JSON.stringify(subscribers));
+        } catch (e) {}
+      }
+
+      if (emailInput) emailInput.value = '';
+      if (statusEl) {
+        statusEl.style.display = 'block';
+        statusEl.style.color = '#04AA6D';
+        statusEl.innerHTML = '✓ You are subscribed! Welcome to Sri Lanka Web & Digital Growth Insights.';
+      }
+    });
+  }
+
+  // 7. Client Review Submission Modal
+  function initClientReviewModal() {
+    var openBtn = document.getElementById('btnOpenReviewModal');
+    var modal = document.getElementById('clientReviewModal');
+    var closeBtn = document.getElementById('btnCloseReviewModal');
+    var cancelBtn = document.getElementById('btnCancelReview');
+    var form = document.getElementById('clientReviewForm');
+    var stars = document.querySelectorAll('#starRatingPicker .star-btn');
+    var ratingInput = document.getElementById('reviewRatingScore');
+
+    if (!modal) return;
+
+    function openModal() {
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      var firstInput = document.getElementById('reviewClientName');
+      if (firstInput) firstInput.focus();
+    }
+
+    function closeModal() {
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      if (openBtn) openBtn.focus();
+    }
+
+    if (openBtn) openBtn.addEventListener('click', openModal);
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    if (cancelBtn) cancelBtn.addEventListener('click', closeModal);
+
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) closeModal();
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && modal.classList.contains('open')) {
+        closeModal();
+      }
+    });
+
+    // Star rating picker
+    if (stars && stars.length > 0) {
+      stars.forEach(function (star) {
+        star.addEventListener('click', function () {
+          var val = parseInt(this.getAttribute('data-rating'), 10) || 5;
+          if (ratingInput) ratingInput.value = val;
+          stars.forEach(function (s) {
+            var sVal = parseInt(s.getAttribute('data-rating'), 10) || 1;
+            if (sVal <= val) {
+              s.classList.add('active');
+            } else {
+              s.classList.remove('active');
+            }
+          });
+        });
+      });
+    }
+
+    if (form) {
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var name = (document.getElementById('reviewClientName') ? document.getElementById('reviewClientName').value : '').trim();
+        var company = (document.getElementById('reviewCompanyName') ? document.getElementById('reviewCompanyName').value : '').trim();
+        var url = (document.getElementById('reviewWebsiteUrl') ? document.getElementById('reviewWebsiteUrl').value : '').trim();
+        var comment = (document.getElementById('reviewCommentText') ? document.getElementById('reviewCommentText').value : '').trim();
+        var rating = parseInt(ratingInput ? ratingInput.value : '5', 10) || 5;
+
+        if (name.length < 2 || company.length < 2 || comment.length < 5) {
+          alert('Please complete all required fields.');
+          return;
+        }
+
+        var newReview = {
+          name: name,
+          company: company,
+          url: url,
+          comment: comment,
+          rating: rating,
+          date: new Date().toISOString()
+        };
+
+        try {
+          var reviews = JSON.parse(localStorage.getItem('infinite_client_reviews') || '[]');
+          reviews.unshift(newReview);
+          localStorage.setItem('infinite_client_reviews', JSON.stringify(reviews));
+        } catch (err) {}
+
+        var notice = document.getElementById('reviewSuccessNotice');
+        if (notice) {
+          form.style.display = 'none';
+          notice.style.display = 'block';
+        }
+
+        setTimeout(function () {
+          closeModal();
+          if (form) {
+            form.reset();
+            form.style.display = 'block';
+          }
+          if (notice) notice.style.display = 'none';
+        }, 2200);
+      });
+    }
+  }
+
   // Progressive Web App Service Worker Registration
   function initServiceWorker() {
     if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
@@ -441,6 +590,8 @@
     renderFooter();
     initCookieConsent();
     initContactFormValidation();
+    initNewsletterSubscription();
+    initClientReviewModal();
     initServiceWorker();
   }
 

@@ -145,6 +145,75 @@ def test_package_recommender_quiz():
     assert ".quiz-result-card" in css, "additions.css missing .quiz-result-card"
     print("[PASS] CSS additions include responsive styles for quiz cards, options, and results")
 
+def test_multilingual_urls_and_hreflangs():
+    print("--- Test 4: Dedicated Language URLs (/en/, /si/, /ta/) & Hreflang Tags ---")
+    
+    lang_pages = {
+        "en": (os.path.join(WORKSPACE_DIR, "en", "index.html"), "https://infiniteweb.dev/en/"),
+        "si": (os.path.join(WORKSPACE_DIR, "si", "index.html"), "https://infiniteweb.dev/si/"),
+        "ta": (os.path.join(WORKSPACE_DIR, "ta", "index.html"), "https://infiniteweb.dev/ta/")
+    }
+
+    for lang, (path, canonical_url) in lang_pages.items():
+        assert os.path.exists(path), f"Dedicated language page missing: {path}"
+        with open(path, "r", encoding="utf-8") as f:
+            content = f.read()
+        
+        # Check html lang attribute
+        assert f'lang="{lang}"' in content, f"{path} missing lang='{lang}'"
+        
+        # Check single h1
+        h1_matches = re.findall(r'<h1[\s>]', content)
+        assert len(h1_matches) == 1, f"{path} must contain exactly one <h1>, found {len(h1_matches)}"
+        
+        # Check canonical
+        assert f'rel="canonical" href="{canonical_url}"' in content, f"{path} missing canonical {canonical_url}"
+        
+        # Check bidirectional hreflangs
+        assert 'hreflang="en"' in content, f"{path} missing hreflang='en'"
+        assert 'hreflang="si"' in content, f"{path} missing hreflang='si'"
+        assert 'hreflang="ta"' in content, f"{path} missing hreflang='ta'"
+        assert 'hreflang="x-default"' in content, f"{path} missing hreflang='x-default'"
+        print(f"[PASS] {lang.upper()} page ({path}) verified: single <h1>, canonical, and 4 bidirectional hreflangs")
+
+    # Check root index.html hreflang tags
+    with open(INDEX_HTML, "r", encoding="utf-8") as f:
+        root_content = f.read()
+    assert 'hreflang="en" href="https://infiniteweb.dev/en/"' in root_content, "index.html missing en hreflang"
+    assert 'hreflang="si" href="https://infiniteweb.dev/si/"' in root_content, "index.html missing si hreflang"
+    assert 'hreflang="ta" href="https://infiniteweb.dev/ta/"' in root_content, "index.html missing ta hreflang"
+    assert 'hreflang="x-default" href="https://infiniteweb.dev/"' in root_content, "index.html missing x-default hreflang"
+    print("[PASS] Root index.html contains all 4 bidirectional hreflang links")
+
+def test_newsletter_and_review_features():
+    print("--- Test 5: Interactive Newsletter Subscription & Client Review Modal ---")
+    
+    with open(INDEX_HTML, "r", encoding="utf-8") as f:
+        html = f.read()
+
+    # 1. Newsletter section
+    assert 'id="newsletter"' in html, "index.html missing #newsletter section"
+    assert 'id="newsletterForm"' in html, "index.html missing #newsletterForm"
+    assert 'id="newsletterEmail"' in html, "index.html missing #newsletterEmail"
+    assert 'id="btnNewsletterSubmit"' in html, "index.html missing #btnNewsletterSubmit"
+    print("[PASS] Newsletter subscription section and form verified in index.html")
+
+    # 2. Client Review elements
+    assert 'id="btnOpenReviewModal"' in html, "index.html missing #btnOpenReviewModal button"
+    assert 'id="clientReviewModal"' in html, "index.html missing #clientReviewModal dialog"
+    assert 'id="clientReviewForm"' in html, "index.html missing #clientReviewForm"
+    assert 'id="starRatingPicker"' in html, "index.html missing #starRatingPicker"
+    print("[PASS] Client review modal dialog and star rating picker verified in index.html")
+
+    # 3. Handlers in components.js
+    with open(COMPONENTS_JS, "r", encoding="utf-8") as f:
+        comp = f.read()
+    assert "initNewsletterSubscription" in comp, "components.js missing initNewsletterSubscription"
+    assert "initClientReviewModal" in comp, "components.js missing initClientReviewModal"
+    assert "infinite_subscribers" in comp, "components.js missing newsletter local storage key"
+    assert "infinite_client_reviews" in comp, "components.js missing review local storage key"
+    print("[PASS] js/components.js implements newsletter subscription and client review modal handlers")
+
 if __name__ == "__main__":
     print("==================================================")
     print("STARTING PHASE 6 (BONUS FEATURES) VERIFICATION")
@@ -153,8 +222,10 @@ if __name__ == "__main__":
         test_pwa_infrastructure()
         test_bilingual_ai_chatbot()
         test_package_recommender_quiz()
+        test_multilingual_urls_and_hreflangs()
+        test_newsletter_and_review_features()
         print("==================================================")
-        print("ALL PHASE 6 TESTS PASSED SUCCESSFULLY! (3/3 SUITES)")
+        print("ALL PHASE 6 TESTS PASSED SUCCESSFULLY! (5/5 SUITES)")
         print("==================================================")
         sys.exit(0)
     except AssertionError as e:

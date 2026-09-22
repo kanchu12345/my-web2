@@ -1,11 +1,24 @@
-<!DOCTYPE html>
+# -*- coding: utf-8 -*-
+"""
+generate_sinhala_article_pages.py - Generates static HTML reader pages in /article/
+for the newly added Sinhala website design blogs with 100% Phase 2 & Phase 4 compliance.
+"""
+
+import os
+import json
+
+WORKSPACE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ARTICLE_DIR = os.path.join(WORKSPACE, "article")
+BLOGS_FILE = os.path.join(WORKSPACE, "data", "blogs.json")
+
+TEMPLATE = """<!DOCTYPE html>
 <html lang="si">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PayHere සහ Payment Gateways මගින් ලංකාවේ E-commerce Website එකකට ගෙවීම් ලබාගන්නේ කෙසේද? — Infinite Creative Web Design</title>
-  <meta name="description" content="ශ්‍රී ලංකාවේ E-commerce වෙබ් අඩවියකට PayHere IPG සම්බන්ධ කර Visa, Mastercard සහ දේශීය බැංකු ගිණුම් හරහා ආරක්ෂිතව මුදල් ලබාගැනීමේ පියවරෙන් පියවර මගපෙන්වීම.">
-  <link rel="canonical" href="https://infiniteweb.dev/article/si-payhere-online-payment-gateway-guide.html">
+  <title>{title} — Infinite Creative Web Design</title>
+  <meta name="description" content="{description}">
+  <link rel="canonical" href="https://infiniteweb.dev/article/{id}.html">
   <link rel="icon" type="image/webp" href="../images/logo-100w.webp">
   <link rel="manifest" href="../manifest.json">
   <meta name="theme-color" content="#0a0f1d">
@@ -30,36 +43,28 @@
       </div>
 
       <h1 class="article-title" style="font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:800;color:#fff;line-height:1.4;margin-bottom:14px;">
-        PayHere සහ Payment Gateways මගින් ලංකාවේ E-commerce Website එකකට ගෙවීම් ලබාගන්නේ කෙසේද?
+        {title}
       </h1>
 
       <div class="article-meta" style="display:flex;align-items:center;gap:16px;color:#94a3b8;font-size:13px;margin-bottom:28px;flex-wrap:wrap;border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:16px;">
         <span>කර්තෘ: <strong>Infinite Creative Editorial</strong></span>
-        <span>දිනය: <strong>May 18, 2026</strong></span>
-        <span>කාලය: <strong>7 min read</strong></span>
-        <span>ප්‍රවර්ගය: <strong>E-Commerce</strong></span>
+        <span>දිනය: <strong>{date_formatted}</strong></span>
+        <span>කාලය: <strong>{read_time}</strong></span>
+        <span>ප්‍රවර්ගය: <strong>{category}</strong></span>
       </div>
 
       <div class="article-hero-image" style="margin-bottom:32px;">
-        <img src="../images/blog_2.webp" 
-             srcset="../images/blog_2-480w.webp 480w, ../images/blog_2-800w.webp 800w, ../images/blog_2.webp 1024w" 
+        <img src="../{image_src}" 
+             srcset="../{image_480} 480w, ../{image_800} 800w, ../{image_src} 1024w" 
              sizes="(max-width: 768px) 100vw, 860px" 
-             alt="PayHere සහ Payment Gateways මගින් ලංකාවේ E-commerce Website එකකට ගෙවීම් ලබාගන්නේ කෙසේද?" 
+             alt="{title}" 
              width="860" height="440" 
              loading="eager" fetchpriority="high" decoding="async" 
              style="width:100%;height:auto;border-radius:12px;border:1px solid rgba(255,255,255,0.1);">
       </div>
 
       <div class="article-body" style="color:#cbd5e1;font-size:1.05rem;line-height:1.8;">
-        
-          <p>ඔන්ලයින් භාණ්ඩ අලෙවි කරන ශ්‍රී ලාංකික ව්‍යාපාර සඳහා PayHere යනු මහ බැංකුවේ අනුමැතිය ලත් විශ්වාසනීයම Payment Gateway විසඳුමකි.</p>
-          <h2>PayHere මගින් ලැබෙන වාසි:</h2>
-          <ul>
-            <li>Visa, Mastercard සහ දේශීය කාඩ්පත් මගින් ගෙවීම් ලබාගැනීම.</li>
-            <li>Genie, Frimi සහ eZ Cash වැනි Mobile Wallets පහසුකම්.</li>
-            <li>මුදල් කෙලින්ම ඔබේ ලංකාවේ බැංකු ගිණුමට තැන්පත් වීම.</li>
-          </ul>
-        
+        {body_html}
       </div>
 
       <div class="article-cta-box" style="margin-top:40px;padding:28px;background:rgba(4,170,109,0.1);border:1px solid rgba(4,170,109,0.3);border-radius:16px;text-align:center;">
@@ -79,3 +84,53 @@
   <script src="../js/components.js" defer></script>
 </body>
 </html>
+"""
+
+def generate_pages():
+    with open(BLOGS_FILE, "r", encoding="utf-8") as f:
+        data = json.load(f)
+        articles = data.get("articles", [])
+
+    created = 0
+    for a in articles:
+        if a.get("lang") == "si":
+            slug = a.get("id")
+            filename = f"{slug}.html"
+            filepath = os.path.join(ARTICLE_DIR, filename)
+            
+            # Map images to WebP srcset
+            base_img = a.get("image", "images/blog_1.webp")
+            if "blog_2" in base_img:
+                img_src = "images/blog_2.webp"
+                img_480 = "images/blog_2-480w.webp"
+                img_800 = "images/blog_2-800w.webp"
+            elif "blog_3" in base_img:
+                img_src = "images/blog_3.webp"
+                img_480 = "images/blog_3-480w.webp"
+                img_800 = "images/blog_3-800w.webp"
+            else:
+                img_src = "images/blog_1.webp"
+                img_480 = "images/blog_1-480w.webp"
+                img_800 = "images/blog_1-800w.webp"
+
+            html = TEMPLATE.format(
+                id=slug,
+                title=a.get("title", ""),
+                description=a.get("description", ""),
+                date_formatted=a.get("date_formatted", "Recent 2026"),
+                read_time=a.get("read_time", "5 min read"),
+                category=a.get("category", "Web Design"),
+                image_src=img_src,
+                image_480=img_480,
+                image_800=img_800,
+                body_html=a.get("body_html", "")
+            )
+
+            with open(filepath, "w", encoding="utf-8") as out_f:
+                out_f.write(html)
+            created += 1
+
+    print(f"Generated/verified {created} Sinhala article HTML files in {ARTICLE_DIR}")
+
+if __name__ == "__main__":
+    generate_pages()

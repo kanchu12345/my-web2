@@ -35,7 +35,7 @@ if hasattr(sys.stderr, 'reconfigure'):
 # ── Config ────────────────────────────────────────────────────────────────────
 OUTPUT_FILE   = os.path.join(os.path.dirname(__file__), '../../data/blogs.json')
 MAX_AGE_DAYS  = 30
-MAX_ARTICLES  = 30       # Maximum articles to store in blogs.json
+MAX_ARTICLES  = 120      # Maximum articles to store in blogs.json (curated + tech news)
 MIN_DESC_LEN  = 60       # Minimum characters for a valid description
 FALLBACK_IMG  = "images/blog_1.png"
 
@@ -402,6 +402,33 @@ def deduplicate(articles):
 # ── Main ──────────────────────────────────────────────────────────────────────
 def main():
     print("🤖 Infinite Design Blog Agent starting...")
+    output_path = os.path.normpath(os.path.join(os.path.dirname(__file__), '../../data/blogs.json'))
+    
+    # 1. Load existing articles to preserve permanent/curated/multilingual articles
+    existing_permanent = []
+    existing_other = []
+    if os.path.exists(output_path):
+        try:
+            with open(output_path, 'r', encoding='utf-8') as f:
+                old_data = json.load(f)
+                old_articles = old_data.get('articles', []) if isinstance(old_data, dict) else old_data
+                for a in old_articles:
+                    # Permanent if Sinhala, Tamil, pinned, or created by Infinite Design
+                    is_perm = (
+                        a.get('is_permanent', False) or
+                        a.get('lang') in ['si', 'ta'] or
+                        a.get('is_sinhala', False) or
+                        a.get('source') in ['Infinite Creative Editorial', 'Infinite Design', 'Local Editorial'] or
+                        bool(re.search(r'[\u0D80-\u0DFF\u0B80-\u0BFF]', a.get('title', '')))
+                    )
+                    if is_perm:
+                        existing_permanent.append(a)
+                    else:
+                        existing_other.append(a)
+            print(f"  🔒 Preserved {len(existing_permanent)} curated / multilingual articles from deletion")
+        except Exception as e:
+            print(f"  ⚠️ Warning: Could not read existing blogs: {e}")
+
     all_articles = []
 
     print("📡 Fetching from Dev.to...")
@@ -429,28 +456,33 @@ def main():
     print(f"  ✅ Got {len(sm)} articles from Smashing Magazine")
     all_articles.extend(sm)
 
-    # Deduplicate
-    all_articles = deduplicate(all_articles)
-    print(f"✨ Total unique articles after deduplication: {len(all_articles)}")
-
-    # Trim to max
-    all_articles = all_articles[:MAX_ARTICLES]
+    # 2. Merge preserving curated articles first
+    combined = existing_permanent + all_articles + existing_other
+    unique_articles = deduplicate(combined)
+    
+    # Ensure all permanent articles are retained 100%
+    perm_titles = {a['title'].lower().strip() for a in existing_permanent}
+    final_permanent = [a for a in unique_articles if a['title'].lower().strip() in perm_titles]
+    final_other = [a for a in unique_articles if a['title'].lower().strip() not in perm_titles]
+    
+    allowed_other_slots = max(10, MAX_ARTICLES - len(final_permanent))
+    final_articles = final_permanent + final_other[:allowed_other_slots]
+    print(f"✨ Final collection: {len(final_articles)} articles ({len(final_permanent)} permanent/curated)")
 
     # Build output
     output = {
         'updated_at': datetime.now(timezone.utc).isoformat(),
-        'count': len(all_articles),
-        'articles': all_articles
+        'count': len(final_articles),
+        'articles': final_articles
     }
 
     # Save
-    output_path = os.path.normpath(os.path.join(os.path.dirname(__file__), '../../data/blogs.json'))
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     with open(output_path, 'w', encoding='utf-8') as f:
         json.dump(output, f, ensure_ascii=False, indent=2)
 
-    print(f"💾 Saved {len(all_articles)} articles to {output_path}")
-    print("✅ Blog Agent complete!")
+    print(f"💾 Saved {len(final_articles)} articles to {output_path}")
+    print("✅ Blog Agent complete (all curated articles protected)!")
 
 if __name__ == '__main__':
     main()
