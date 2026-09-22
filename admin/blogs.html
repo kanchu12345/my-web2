@@ -95,8 +95,20 @@ onAuthStateChanged(auth, user => {
       <input type="hidden" id="editId">
       <form id="projForm" novalidate>
         <div class="form-field">
-          <label class="form-label" for="pTitle">Blog Title *</label>
-          <input type="text" id="pTitle" class="form-input" placeholder="e.g. Brand Identity — Logistics Co." maxlength="100" required>
+          <label class="form-label" for="pLang">Language / භාෂාව</label>
+          <select id="pLang" class="form-select form-input">
+            <option value="si" selected>සිංහල (Sinhala)</option>
+            <option value="en">English</option>
+            <option value="ta">தமிழ் (Tamil)</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="pTitle">English Reference Title *</label>
+          <input type="text" id="pTitle" class="form-input" placeholder="e.g. Modern Web Design in Sri Lanka" maxlength="150" required>
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="pTitleSi" style="color:#04AA6D; font-weight:700;">සිංහල මාතෘකාව (Sinhala Title)</label>
+          <input type="text" id="pTitleSi" class="form-input" placeholder="උදා: ශ්‍රී ලංකාවේ ව්‍යාපාර සඳහා ඉහළ ප්‍රතිඵල ලබාදෙන වෙබ් අඩවි නිර්මාණය..." style="border-color:rgba(4,170,109,0.4);" maxlength="200">
         </div>
         <div class="form-field">
           <label class="form-label" for="pCategory">Category *</label>
@@ -121,13 +133,23 @@ onAuthStateChanged(auth, user => {
             <option value="draft">Draft (Review Required)</option>
           </select>
         </div>
-                <div class="form-field">
+        <div class="form-field">
           <label class="form-label" for="pTags" style="color:#38bdf8; font-weight:600;">Add tags</label>
           <input type="text" id="pTags" class="form-input" placeholder="Enter tags separated by comma or semicolon" style="border-radius:10px; border:1px solid rgba(56,189,248,0.4); padding:10px 14px;">
         </div>
         <div class="form-field">
-          <label class="form-label" for="pDesc">Description</label>
-          <textarea id="pDesc" class="form-textarea form-input" placeholder="Describe the project…" maxlength="500"></textarea>
+          <label class="form-label" for="pDesc">English Description / Excerpt</label>
+          <textarea id="pDesc" class="form-textarea form-input" placeholder="Describe the article in English…" maxlength="500"></textarea>
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="pDescSi" style="color:#04AA6D; font-weight:700;">සිංහල කෙටි විස්තරය (Sinhala Excerpt)</label>
+          <textarea id="pDescSi" class="form-textarea form-input" placeholder="ලිපියේ ප්‍රධාන කරුණු හා සාරාංශය සිංහලෙන්…" style="border-color:rgba(4,170,109,0.4);" maxlength="1000"></textarea>
+        </div>
+        <div class="form-field" style="display:flex; align-items:center; gap:10px; margin-top:8px; margin-bottom:14px; background:rgba(4,170,109,0.08); padding:10px 14px; border-radius:10px; border:1px solid rgba(4,170,109,0.25);">
+          <input type="checkbox" id="pPermanent" checked style="width:18px; height:18px; cursor:pointer; accent-color:#04AA6D;">
+          <label for="pPermanent" style="margin:0; font-size:12px; color:#fff; cursor:pointer; font-weight:600;">
+            🛡️ Auto-Delete Protection (Never delete or overwrite / කිසි විටෙකත් ඉවත් නොකරන්න)
+          </label>
         </div>
         <div class="form-field">
           <label class="form-label">Blog Image</label>
@@ -252,15 +274,24 @@ async function loadBlogs(){
     const data = await res.json();
     const articles = data.articles || (Array.isArray(data) ? data : []);
     if (Array.isArray(articles)) {
-      items = articles.map((a, i) => ({
-        id: a.id || a.slug || 'blog_' + i,
-        title: a.title,
-        category: a.category || 'Web Design',
-        description: a.summary || a.excerpt || a.description || '',
-        image: a.image || a.cover || '',
-        status: a.status || 'published',
-        humanReviewed: a.human_reviewed ?? a.humanReviewed ?? (a.status !== 'draft')
-      }));
+      items = articles.map((a, i) => {
+        const isSi = a.lang === 'si' || a.is_sinhala || (a.title && /[\u0D80-\u0DFF]/.test(a.title));
+        const isTa = a.lang === 'ta' || a.is_tamil;
+        const lang = a.lang || (isSi ? 'si' : (isTa ? 'ta' : 'en'));
+        return {
+          id: a.id || a.slug || 'blog_' + i,
+          title: a.title,
+          titleSi: a.title_si || a.titleSi || (isSi ? a.title : ''),
+          category: a.category || 'Web Design',
+          description: a.summary || a.excerpt || a.description || '',
+          descSi: a.summary_si || a.descSi || (isSi ? (a.summary || a.description) : ''),
+          image: a.image || a.cover || '',
+          status: a.status || 'published',
+          lang: lang,
+          isPermanent: a.is_permanent ?? true,
+          humanReviewed: a.human_reviewed ?? a.humanReviewed ?? (a.status !== 'draft')
+        };
+      });
     }
   } catch(e) {}
 
@@ -268,7 +299,18 @@ async function loadBlogs(){
   try {
     const custom = JSON.parse(localStorage.getItem('infinite_custom_blogs') || '[]');
     if (Array.isArray(custom)) {
-      items = [...custom.map(c => ({ status: 'published', humanReviewed: true, ...c })), ...items];
+      items = [...custom.map(c => {
+        const isSi = c.lang === 'si' || c.is_sinhala || (c.title && /[\u0D80-\u0DFF]/.test(c.title));
+        return {
+          status: 'published',
+          humanReviewed: true,
+          lang: c.lang || (isSi ? 'si' : 'en'),
+          titleSi: c.title_si || c.titleSi || '',
+          descSi: c.summary_si || c.descSi || '',
+          isPermanent: c.is_permanent ?? true,
+          ...c
+        };
+      }), ...items];
     }
   } catch(e) {}
 
@@ -279,10 +321,15 @@ async function loadBlogs(){
       const fbItems = [];
       snap.forEach(d => {
         const data = d.data();
+        const isSi = data.lang === 'si' || data.is_sinhala || (data.title && /[\u0D80-\u0DFF]/.test(data.title));
         fbItems.push({
           id: d.id,
           ...data,
           status: data.status || 'published',
+          lang: data.lang || (isSi ? 'si' : 'en'),
+          titleSi: data.title_si || data.titleSi || '',
+          descSi: data.summary_si || data.descSi || '',
+          isPermanent: data.is_permanent ?? true,
           humanReviewed: data.human_reviewed ?? data.humanReviewed ?? (data.status !== 'draft')
         });
       });
@@ -329,6 +376,16 @@ function makeListItem(p){
     ? `<span class="badge-draft" style="background:#f59e0b; color:#0f172a; font-size:10px; font-weight:800; padding:2px 8px; border-radius:12px; margin-left:8px; vertical-align:middle; text-transform:uppercase; letter-spacing:0.04em;">DRAFT — REVIEW REQUIRED</span>`
     : '';
 
+  const langBadge = p.lang === 'si'
+    ? `<span style="background:rgba(4,170,109,0.18); color:#04AA6D; border:1px solid rgba(4,170,109,0.35); font-size:10px; font-weight:800; padding:2px 7px; border-radius:10px; margin-left:6px; vertical-align:middle;">සිංහල</span>`
+    : (p.lang === 'ta'
+      ? `<span style="background:rgba(168,85,247,0.18); color:#c084fc; border:1px solid rgba(168,85,247,0.35); font-size:10px; font-weight:800; padding:2px 7px; border-radius:10px; margin-left:6px; vertical-align:middle;">தமிழ்</span>`
+      : `<span style="background:rgba(56,189,248,0.18); color:#38bdf8; border:1px solid rgba(56,189,248,0.35); font-size:10px; font-weight:800; padding:2px 7px; border-radius:10px; margin-left:6px; vertical-align:middle;">EN</span>`);
+
+  const subtitle = (p.titleSi && p.titleSi !== p.title)
+    ? `<div style="font-size:12px; color:#a3e635; margin-top:2px; font-weight:500;">${escapeHTML(p.titleSi)}</div>`
+    : '';
+
   const approveBtn = isDraft
     ? `<button class="btn-approve" style="background:#04AA6D; color:#fff; border:none; padding:6px 12px; border-radius:6px; font-size:12px; font-weight:700; cursor:pointer; margin-right:6px;" data-id="${escapeHTML(p.id)}">Approve & Publish</button>`
     : '';
@@ -336,7 +393,8 @@ function makeListItem(p){
   div.innerHTML=`
     <img class="proj-thumb" src="${safeImg}" alt="${safeTitle}" onerror="this.style.background='var(--bg2)'">
     <div class="proj-info">
-      <div class="proj-name">${safeTitle} ${draftBadge}</div>
+      <div class="proj-name">${safeTitle} ${langBadge} ${draftBadge}</div>
+      ${subtitle}
       <div class="proj-cat">${safeCat}</div>
     </div>
     <div class="proj-actions">
@@ -390,12 +448,18 @@ async function approveBlog(p){
 /* ── Submit form ── */
 document.getElementById('projForm').addEventListener('submit',async function(e){
   e.preventDefault();
+  const lang=sanitizeInput(document.getElementById('pLang').value || 'si', 10);
   const title=sanitizeInput(document.getElementById('pTitle').value, 150);
+  const titleSi=sanitizeInput(document.getElementById('pTitleSi').value, 200);
   const cat=sanitizeInput(document.getElementById('pCategory').value, 50);
   const desc=sanitizeInput(document.getElementById('pDesc').value, 1000);
+  const descSi=sanitizeInput(document.getElementById('pDescSi').value, 2000);
   const status=sanitizeInput(document.getElementById('pStatus').value || 'published', 20);
   const humanReviewed=(status === 'published');
+  const isPermanent=document.getElementById('pPermanent') ? document.getElementById('pPermanent').checked : true;
+  const isSinhala=(lang === 'si' || !!titleSi);
   const editId=document.getElementById('editId').value;
+
   if(!title||!cat){toast('Please fill required fields.','err');return;}
   const btn=document.getElementById('submitBtn');btn.disabled=true;btn.textContent='Saving…';
   try{
@@ -405,15 +469,50 @@ document.getElementById('projForm').addEventListener('submit',async function(e){
       await uploadBytes(storageRef,selectedFile);
       imageUrl=await getDownloadURL(storageRef);
     }
+    const blogPayload = {
+      title,
+      title_si: titleSi,
+      category: cat,
+      status,
+      lang,
+      is_sinhala: isSinhala,
+      is_permanent: isPermanent,
+      humanReviewed,
+      description: desc,
+      summary_si: descSi
+    };
+
     if(editId){
-      const data={title,category:cat,status,humanReviewed,description:desc,updatedAt:serverTimestamp()};
+      const data={ ...blogPayload, updatedAt: serverTimestamp() };
       if(imageUrl) data.image=imageUrl;
       await updateDoc(doc(db,'blogs',editId),data);
       await logContentChange('update', 'blogs', editId, title);
+
+      // Also update local cache
+      try {
+        let custom = JSON.parse(localStorage.getItem('infinite_custom_blogs') || '[]');
+        const idx = custom.findIndex(b => b.id === editId);
+        if (idx !== -1) {
+          custom[idx] = { ...custom[idx], ...data, id: editId };
+        } else {
+          custom.unshift({ ...data, id: editId });
+        }
+        localStorage.setItem('infinite_custom_blogs', JSON.stringify(custom));
+      } catch(e) {}
+
       toast('Blog updated!','ok');
     }else{
-      const newDoc = await addDoc(collection(db,'blogs'),{title,category:cat,status,humanReviewed,description:desc,image:imageUrl,createdAt:serverTimestamp()});
+      const newDocData = { ...blogPayload, image: imageUrl, createdAt: serverTimestamp() };
+      const newDoc = await addDoc(collection(db,'blogs'), newDocData);
       await logContentChange('create', 'blogs', newDoc.id, title);
+
+      // Save to local cache
+      try {
+        let custom = JSON.parse(localStorage.getItem('infinite_custom_blogs') || '[]');
+        custom.unshift({ ...newDocData, id: newDoc.id });
+        localStorage.setItem('infinite_custom_blogs', JSON.stringify(custom));
+      } catch(e) {}
+
       toast('Blog added!','ok');
     }
     resetForm();
@@ -428,6 +527,10 @@ document.getElementById('projForm').addEventListener('submit',async function(e){
 function resetForm(){
   document.getElementById('projForm').reset();
   document.getElementById('editId').value='';
+  if(document.getElementById('pLang')) document.getElementById('pLang').value='si';
+  if(document.getElementById('pTitleSi')) document.getElementById('pTitleSi').value='';
+  if(document.getElementById('pDescSi')) document.getElementById('pDescSi').value='';
+  if(document.getElementById('pPermanent')) document.getElementById('pPermanent').checked=true;
   if(document.getElementById('pStatus')) document.getElementById('pStatus').value='published';
   document.getElementById('formTitle').textContent='Add New Blog';
   document.getElementById('submitBtn').textContent='Add Blog';
@@ -438,10 +541,14 @@ function resetForm(){
 
 function editBlog(p){
   document.getElementById('editId').value=p.id;
+  if(document.getElementById('pLang')) document.getElementById('pLang').value=p.lang||'si';
   document.getElementById('pTitle').value=p.title||'';
+  if(document.getElementById('pTitleSi')) document.getElementById('pTitleSi').value=p.titleSi||p.title_si||'';
   document.getElementById('pCategory').value=p.category||'';
   if(document.getElementById('pStatus')) document.getElementById('pStatus').value=p.status||'published';
   document.getElementById('pDesc').value=p.description||'';
+  if(document.getElementById('pDescSi')) document.getElementById('pDescSi').value=p.descSi||p.summary_si||'';
+  if(document.getElementById('pPermanent')) document.getElementById('pPermanent').checked=p.isPermanent !== false;
   if(p.image){const prev=document.getElementById('imgPreview');prev.src=sanitizeURL(p.image);prev.style.display='block';}
   document.getElementById('formTitle').textContent='Edit Blog';
   document.getElementById('submitBtn').textContent='Update Blog';
