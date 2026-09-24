@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'unsafe-inline' https://www.gstatic.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://www.googletagmanager.com https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self' https:; frame-src https://challenges.cloudflare.com https://www.google.com https://maps.google.com; object-src 'none'; base-uri 'self'; form-action 'self' https:;">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' https://www.gstatic.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://www.googletagmanager.com https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self' https:; frame-src https://challenges.cloudflare.com https://www.google.com https://maps.google.com; object-src 'none'; base-uri 'self'; form-action 'self' https:;">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
@@ -82,23 +82,18 @@
 <style id="authGate">body{display:none!important;}</style>
 </head>
 <body>
-<script type="module">
-import { auth, onAuthStateChanged } from '../js/firebase-config.js';
-onAuthStateChanged(auth, user => {
-  if (!user) {
-    window.location.replace('login.html');
-  } else {
-    const gate = document.getElementById('authGate');
-    if (gate) gate.remove();
-    document.body.style.display = 'block';
-    if (typeof window.initTutorialsData === 'function') {
-      window.initTutorialsData(user);
-    }
-  }
-});
-</script>
+  <!-- Mobile Sidebar Toggle -->
+  <button class="sb-toggle" id="sbToggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="sidebar">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </button>
+  <div class="sidebar-overlay" id="sbOverlay"></div>
+
   <!-- ── SIDEBAR ─────────────────────────────────── -->
-  <aside class="sidebar">
+  <aside class="sidebar" id="sidebar">
     <div class="sb-logo">
       <img src="../images/logo-100w.webp" srcset="../images/logo-100w.webp 100w, ../images/logo-200w.webp 200w" sizes="32px" alt="Logo" width="32" height="32" loading="eager" fetchpriority="high" decoding="async">
       <div>
@@ -136,10 +131,20 @@ onAuthStateChanged(auth, user => {
       </a>
     </nav>
     <div class="sb-footer">
-      <a href="../tutorials.html" target="_blank" class="sb-link" style="color:#04AA6D;">
+      <a href="../tutorials.html" target="_blank" class="sb-link" style="color:#04AA6D; margin-bottom:12px;">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
         View Live Tutorials
       </a>
+      <div class="sb-user">
+        <div class="sb-avatar" id="sbAvatar">A</div>
+        <div class="sb-user-info">
+          <div class="sb-user-email" id="sbEmail">Loading...</div>
+          <div class="sb-user-role">Administrator</div>
+        </div>
+        <button class="sb-logout" id="logoutBtn" title="Sign out" aria-label="Sign out">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        </button>
+      </div>
     </div>
   </aside>
 
@@ -151,8 +156,8 @@ onAuthStateChanged(auth, user => {
         <div class="page-sub">Add, edit, or upload new programming courses and lessons</div>
       </div>
       <div style="display:flex; gap:10px; flex-wrap:wrap;">
-        <button class="btn btn-secondary" onclick="fetchW3SchoolsAuto()" style="background:rgba(4,170,109,0.15); color:#04AA6D; border:1px solid #04AA6D; font-weight:700;">⚡ AI Auto-Fetch W3Schools Tutorials</button>
-        <button class="btn btn-primary" onclick="openNewLessonModal()">
+        <button class="btn btn-secondary" id="btnAutoFetch" style="background:rgba(4,170,109,0.15); color:#04AA6D; border:1px solid #04AA6D; font-weight:700;">⚡ AI Auto-Fetch W3Schools Tutorials</button>
+        <button class="btn btn-primary" id="btnOpenNewLesson">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
           + Add New Lesson
         </button>
@@ -161,14 +166,14 @@ onAuthStateChanged(auth, user => {
 
     <!-- Track Selector Tabs -->
     <div class="track-selector-bar" id="trackSelectBar">
-      <button class="track-btn active" onclick="switchAdminTrack('html')">🌐 HTML5</button>
-      <button class="track-btn" onclick="switchAdminTrack('css')">🎨 CSS3</button>
-      <button class="track-btn" onclick="switchAdminTrack('js')">⚡ JavaScript</button>
-      <button class="track-btn" onclick="switchAdminTrack('python')">🐍 Python</button>
-      <button class="track-btn" onclick="switchAdminTrack('sql')">🗄️ SQL</button>
-      <button class="track-btn" onclick="switchAdminTrack('php')">🐘 PHP</button>
-      <button class="track-btn" onclick="switchAdminTrack('react')">⚛️ React</button>
-      <button class="track-btn" onclick="switchAdminTrack('git')">🌿 Git</button>
+      <button class="track-btn active" data-track="html">🌐 HTML5</button>
+      <button class="track-btn" data-track="css">🎨 CSS3</button>
+      <button class="track-btn" data-track="js">⚡ JavaScript</button>
+      <button class="track-btn" data-track="python">🐍 Python</button>
+      <button class="track-btn" data-track="sql">🗄️ SQL</button>
+      <button class="track-btn" data-track="php">🐘 PHP</button>
+      <button class="track-btn" data-track="react">⚛️ React</button>
+      <button class="track-btn" data-track="git">🌿 Git</button>
     </div>
 
     <!-- Lessons List Card -->
@@ -178,7 +183,7 @@ onAuthStateChanged(auth, user => {
           <h2 style="font-size:18px; color:#fff; margin:0;" id="currentTrackTitle">HTML5 Lessons</h2>
           <div style="font-size:12px; color:var(--grey); margin-top:4px;" id="currentTrackDesc">Managing structured lessons</div>
         </div>
-        <button class="btn btn-secondary" onclick="exportTutorialsJSON()">📥 Export JSON Database</button>
+        <button class="btn btn-secondary" id="btnExportJSON">📥 Export JSON Database</button>
       </div>
 
       <div id="lessonsListContainer">
@@ -192,10 +197,10 @@ onAuthStateChanged(auth, user => {
   <div class="card" style="width:90vw; max-width:800px; max-height:90vh; overflow-y:auto; padding:28px; background:#131b2e; border:1px solid var(--glass-b);">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
       <h2 id="modalTitle" style="color:#fff; font-size:1.4rem; margin:0;">Add New Lesson</h2>
-      <button onclick="closeLessonModal()" style="background:none; border:none; color:#fff; font-size:22px; cursor:pointer;">&#10005;</button>
+      <button id="btnCloseModal" style="background:none; border:none; color:#fff; font-size:22px; cursor:pointer;" aria-label="Close modal">&#10005;</button>
     </div>
 
-    <form id="lessonForm" onsubmit="saveLesson(event)">
+    <form id="lessonForm">
       <input type="hidden" id="editLessonId">
       
       <div class="form-group">
@@ -222,7 +227,7 @@ onAuthStateChanged(auth, user => {
         <input type="text" class="form-control" id="formLessonSummary" required placeholder="e.g. Master horizontal and vertical alignment with flexbox.">
       </div>
 
-            <div class="form-group">
+      <div class="form-group">
         <label style="color:#38bdf8; font-weight:600;">Add tags</label>
         <input type="text" class="form-control" id="formLessonTags" placeholder="Enter tags separated by comma or semicolon" style="border-radius:10px; border:1px solid rgba(56,189,248,0.4); padding:10px 14px;">
       </div>
@@ -236,7 +241,7 @@ onAuthStateChanged(auth, user => {
         <textarea class="form-control" id="formLessonContent" rows="6" required placeholder="<p class='lead'>Flexbox is a 1-dimensional layout model...</p>"></textarea>
       </div>
 
-            <div class="form-group">
+      <div class="form-group">
         <label>Sinhala Explanation (content_si) — Explanations only, preserve code in English</label>
         <textarea class="form-control" id="formLessonContentSi" rows="5" placeholder="<p class='lead'>Explanatory text in Sinhala...</p>"></textarea>
       </div>
@@ -275,7 +280,7 @@ onAuthStateChanged(auth, user => {
       </div>
 
       <div style="display:flex; justify-content:flex-end; gap:12px; margin-top:24px;">
-        <button type="button" class="btn btn-secondary" onclick="closeLessonModal()">Cancel</button>
+        <button type="button" class="btn btn-secondary" id="btnCancelModal">Cancel</button>
         <button type="submit" class="btn btn-primary">Save Lesson</button>
       </div>
     </form>
@@ -285,236 +290,7 @@ onAuthStateChanged(auth, user => {
 <div class="toast" id="toast"><div class="toast-dot"></div><span id="toastMsg"></span></div>
 
 <script src="../data/w3-tutorials.js?v=2026" defer></script>
-<script type="module">
-  import { db, collection, getDocs, doc, setDoc } from '../js/firebase-config.js';
-
-  let currentAdminTrack = 'html';
-  let coursesData = window.ACADEMY_COURSES || window.W3_TUTORIALS || {};
-
-  function toast(msg, type='ok'){
-    const t=document.getElementById('toast'), m=document.getElementById('toastMsg');
-    if(!t) return alert(msg);
-    t.className='toast show toast-'+type; m.textContent=msg;
-    setTimeout(()=>t.classList.remove('show'), 3200);
-  }
-
-  async function loadFirestoreTutorials() {
-    try {
-      const snap = await getDocs(collection(db, 'tutorials'));
-      snap.forEach(docSnap => {
-        coursesData[docSnap.id] = docSnap.data();
-      });
-      renderAdminLessonsList();
-    } catch (err) {
-      console.warn('Firestore tutorials load fallback:', err);
-    }
-  }
-
-  window.initTutorialsData = function(user) {
-    renderAdminLessonsList();
-    loadFirestoreTutorials();
-  };
-  document.getElementById('lessonForm')?.addEventListener('submit', saveLesson);
-
-  function switchAdminTrack(trackKey) {
-    currentAdminTrack = trackKey;
-    document.querySelectorAll('.track-btn').forEach(b => {
-      b.classList.toggle('active', b.getAttribute('onclick')?.includes(trackKey));
-    });
-    renderAdminLessonsList();
-  }
-
-  function renderAdminLessonsList() {
-    const course = coursesData[currentAdminTrack];
-    if (!course) return;
-
-    document.getElementById('currentTrackTitle').textContent = (course.name || currentAdminTrack.toUpperCase()) + ' Lessons';
-    document.getElementById('currentTrackDesc').textContent = course.tagline || 'Manage course lessons and code playgrounds';
-
-    const container = document.getElementById('lessonsListContainer');
-    let html = '';
-
-    if (!course.sections || course.sections.length === 0 || !course.sections[0].lessons || course.sections[0].lessons.length === 0) {
-      container.innerHTML = '<div style="text-align:center; padding:40px; color:var(--grey);">No lessons found for this track. Click "+ Add New Lesson" to create one.</div>';
-      return;
-    }
-
-    course.sections.forEach((sec) => {
-      (sec.lessons || []).forEach((l) => {
-        html += `
-          <div class="lesson-card-item">
-            <div>
-              <div class="lesson-info-title">${l.title}</div>
-              <div class="lesson-info-sub">${l.summary || ''} • <span style="color:#04AA6D;">${l.readTime || '5 min'}</span></div>
-            </div>
-            <div class="action-btn-group">
-              <button class="btn-edit" onclick="editLesson('${l.id}')">✏️ Edit</button>
-              <button class="btn-delete" onclick="deleteLesson('${l.id}')">🗑️ Delete</button>
-            </div>
-          </div>
-        `;
-      });
-    });
-
-    container.innerHTML = html;
-  }
-
-  function fetchW3SchoolsAuto() {
-    alert('⚡ AI W3Schools Auto-Fetch Bot is active! W3Schools tutorials are auto-scraped into the database. Click "View Live Tutorials" to see updated courses.');
-  }
-
-  function openNewLessonModal() {
-    document.getElementById('modalTitle').textContent = 'Add New Lesson';
-    document.getElementById('editLessonId').value = '';
-    document.getElementById('lessonForm').reset();
-    document.getElementById('formTrackKey').value = currentAdminTrack;
-    document.getElementById('lessonModal').style.display = 'flex';
-  }
-
-  function editLesson(id) {
-    const course = coursesData[currentAdminTrack];
-    let found = null;
-    if (course && course.sections) {
-      course.sections.forEach(sec => {
-        (sec.lessons || []).forEach(l => {
-          if (l.id === id) found = l;
-        });
-      });
-    }
-    if (!found) return;
-
-    document.getElementById('modalTitle').textContent = 'Edit Lesson';
-    document.getElementById('editLessonId').value = found.id;
-    document.getElementById('formTrackKey').value = currentAdminTrack;
-    document.getElementById('formLessonTitle').value = found.title || '';
-    document.getElementById('formLessonSummary').value = found.summary || '';
-    document.getElementById('formLessonReadTime').value = found.readTime || '5 min read';
-    document.getElementById('formLessonContent').value = found.content || '';
-    document.getElementById('formLessonContentSi').value = found.content_si || '';
-    document.getElementById('formLessonCode').value = found.code || '';
-    document.getElementById('formLessonTakeaways').value = (found.keyTakeaways || []).join('\n');
-
-    if (found.challenge) {
-      document.getElementById('formQuizQuestion').value = found.challenge.question || '';
-      document.getElementById('formQuizOptions').value = (found.challenge.options || []).join(', ');
-      document.getElementById('formQuizAnswer').value = found.challenge.answer || 0;
-      document.getElementById('formQuizExplanation').value = found.challenge.explanation || '';
-    } else {
-      document.getElementById('formQuizQuestion').value = '';
-      document.getElementById('formQuizOptions').value = '';
-      document.getElementById('formQuizAnswer').value = 0;
-      document.getElementById('formQuizExplanation').value = '';
-    }
-
-    document.getElementById('lessonModal').style.display = 'flex';
-  }
-
-  function closeLessonModal() {
-    document.getElementById('lessonModal').style.display = 'none';
-  }
-
-  async function saveLesson(e) {
-    e.preventDefault();
-    const trackKey = document.getElementById('formTrackKey').value;
-    const lessonId = document.getElementById('editLessonId').value || ('lesson_' + Date.now());
-    const title = document.getElementById('formLessonTitle').value;
-    const summary = document.getElementById('formLessonSummary').value;
-    const readTime = document.getElementById('formLessonReadTime').value;
-    const content = document.getElementById('formLessonContent').value;
-    const contentSi = document.getElementById('formLessonContentSi').value;
-    const code = document.getElementById('formLessonCode').value;
-    const takeaways = document.getElementById('formLessonTakeaways').value.split('\n').filter(Boolean);
-
-    const quizQ = document.getElementById('formQuizQuestion').value;
-    const quizOpts = document.getElementById('formQuizOptions').value.split(',').map(s => s.trim()).filter(Boolean);
-    const quizAns = parseInt(document.getElementById('formQuizAnswer').value, 10) || 0;
-    const quizExp = document.getElementById('formQuizExplanation').value;
-
-    const newLessonObj = {
-      id: lessonId,
-      title: title,
-      summary: summary,
-      readTime: readTime,
-      content: content,
-      content_si: contentSi,
-      code: code,
-      keyTakeaways: takeaways
-    };
-
-    if (quizQ && quizOpts.length > 0) {
-      newLessonObj.challenge = {
-        question: quizQ,
-        options: quizOpts,
-        answer: quizAns,
-        explanation: quizExp
-      };
-    }
-
-    let course = coursesData[trackKey];
-    if (!course) {
-      course = { name: trackKey.toUpperCase(), sections: [] };
-      coursesData[trackKey] = course;
-    }
-    if (!course.sections || course.sections.length === 0) {
-      course.sections = [{ title: (course.name || trackKey) + ' Tutorial', lessons: [] }];
-    }
-    const existingIdx = course.sections[0].lessons.findIndex(l => l.id === lessonId);
-    if (existingIdx !== -1) {
-      course.sections[0].lessons[existingIdx] = newLessonObj;
-    } else {
-      course.sections[0].lessons.push(newLessonObj);
-    }
-
-    closeLessonModal();
-    renderAdminLessonsList();
-
-    // Persist to Firestore
-    try {
-      await setDoc(doc(db, 'tutorials', trackKey), course);
-      toast('Lesson saved and published to Firestore!', 'ok');
-    } catch (err) {
-      console.error('Firestore save error:', err);
-      toast('Saved locally (Firestore write: ' + err.message + ')', 'warn');
-    }
-  }
-
-  async function deleteLesson(id) {
-    if (!confirm('Are you sure you want to delete this lesson?')) return;
-    const course = coursesData[currentAdminTrack];
-    if (course && course.sections) {
-      course.sections.forEach(sec => {
-        sec.lessons = (sec.lessons || []).filter(l => l.id !== id);
-      });
-    }
-    renderAdminLessonsList();
-
-    // Persist to Firestore
-    try {
-      await setDoc(doc(db, 'tutorials', currentAdminTrack), course);
-      toast('Lesson deleted from live database.', 'ok');
-    } catch (err) {
-      console.error('Firestore delete error:', err);
-      toast('Deleted locally (Firestore write: ' + err.message + ')', 'warn');
-    }
-  }
-
-  function exportTutorialsJSON() {
-    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(coursesData, null, 2));
-    const dlAnchor = document.createElement('a');
-    dlAnchor.setAttribute("href", dataStr);
-    dlAnchor.setAttribute("download", "w3-tutorials.json");
-    dlAnchor.click();
-  }
-
-  // Bind globals for HTML event attributes
-  window.switchAdminTrack = switchAdminTrack;
-  window.openNewLessonModal = openNewLessonModal;
-  window.closeLessonModal = closeLessonModal;
-  window.editLesson = editLesson;
-  window.deleteLesson = deleteLesson;
-  window.exportTutorialsJSON = exportTutorialsJSON;
-  window.fetchW3SchoolsAuto = fetchW3SchoolsAuto;
-</script>
+<script type="module" src="../js/admin-tutorials.js"></script>
 
 </body>
 </html>

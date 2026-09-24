@@ -1,0 +1,67 @@
+name: 🤖 Infinite AI Content Bots — Autonomous Pipeline
+
+on:
+  schedule:
+    # Runs every 6 hours (00:00, 06:00, 12:00, 18:00 UTC)
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+    inputs:
+      bot:
+        description: 'Which bot to run'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - bot01
+          - bot02
+          - bot06
+      force_offline:
+        description: 'Force deterministic offline generator'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  run-ai-content-bots:
+    name: Execute AI Content Bots
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🐍 Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 🤖 Run Autonomous AI Content Bots
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          EXTRA_ARGS=""
+          if [ "${{ inputs.force_offline }}" = "true" ]; then
+            EXTRA_ARGS="--force-offline"
+          fi
+          python scripts/run_ai_content_bots.py --bot ${{ inputs.bot || 'all' }} $EXTRA_ARGS
+
+      - name: 📝 Check for changes
+        id: changes
+        run: |
+          git diff --quiet data/ article/ || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: 💾 Commit and push updated content
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config --local user.email "bot@infiniteweb.dev"
+          git config --local user.name "Infinite Content Bot"
+          git add data/ article/
+          git commit -m "🤖 Auto-update: Synchronized fresh Sinhala coding lessons, blogs & SEO clusters [$(date +'%Y-%m-%d')]"
+          git push origin main

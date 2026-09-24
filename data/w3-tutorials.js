@@ -1,11 +1,10 @@
 // Infinite Academy — Bespoke Developer Hub & Tutorials Engine
-// Original Creative Curriculum by Infinite Creative Web Design
-// Auto-generated and synchronized by Autonomous AI Lesson Bot
+// Auto-generated & synchronized by Autonomous AI Lesson Bot
 
 window.ACADEMY_COURSES = {
   "html": {
     "name": "HTML5",
-    "icon": "\ud83c\udf10",
+    "icon": "🌐",
     "tagline": "Modern Web Structure & Semantics",
     "badge": "Frontend Core",
     "color": "#04AA6D",
@@ -18,8 +17,8 @@ window.ACADEMY_COURSES = {
             "title": "HTML5 Architecture & Boilerplate",
             "readTime": "4 min read",
             "summary": "Learn how the modern web is structured using semantic HTML5 markup.",
-            "content": "<p class='lead'>HTML5 is the universal foundation of every website on the planet. It organizes content into a logical, accessible Document Object Model (DOM) that browsers and search engines can interpret.</p><div class='pro-tip-card'><div class='pro-tip-header'><span class='pro-badge'>\ud83d\udca1 Agency Best Practice</span><strong>Mobile-First Viewport & SEO Readiness</strong></div><p>Always declare <code>&lt;!DOCTYPE html&gt;</code> and include <code>&lt;meta name='viewport' content='width=device-width, initial-scale=1.0'&gt;</code> to ensure responsive scaling on mobile screens.</p></div>",
-            "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Modern Web App</title>\n  <style>\n    body { font-family: sans-serif; background: #0b0f19; color: #fff; padding: 20px; }\n    .btn { background: #04AA6D; color: white; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; }\n  </style>\n</head>\n<body>\n  <h2>\ud83d\ude80 Infinite Academy HTML5</h2>\n  <button class=\"btn\" onclick=\"alert('HTML5 Loaded!')\">Click Me</button>\n</body>\n</html>",
+            "content": "<p class='lead'>HTML5 is the universal foundation of every website on the planet. It organizes content into a logical, accessible Document Object Model (DOM) that browsers and search engines can interpret.</p><div class='pro-tip-card'><div class='pro-tip-header'><span class='pro-badge'>💡 Agency Best Practice</span><strong>Mobile-First Viewport & SEO Readiness</strong></div><p>Always declare <code>&lt;!DOCTYPE html&gt;</code> and include <code>&lt;meta name='viewport' content='width=device-width, initial-scale=1.0'&gt;</code> to ensure responsive scaling on mobile screens.</p></div>",
+            "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Modern Web App</title>\n  <style>\n    body { font-family: sans-serif; background: #0b0f19; color: #fff; padding: 20px; }\n    .btn { background: #04AA6D; color: white; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; }\n  </style>\n</head>\n<body>\n  <h2>🚀 Infinite Academy HTML5</h2>\n  <button class=\"btn\" onclick=\"alert('HTML5 Loaded!')\">Click Me</button>\n</body>\n</html>",
             "keyTakeaways": [
               "<!DOCTYPE html> tells the browser to use modern HTML5 rendering.",
               "<html lang='en'> declares page language for accessibility.",
@@ -83,6 +82,79 @@ window.ACADEMY_COURSES = {
               "answer": 1,
               "explanation": "type='email' provides mobile keyboards with @ and .com buttons."
             }
+          },
+          {
+            "id": "html-semantic-html5-page-structure",
+            "title": "HTML Semantic HTML5 Page Structure පිළිබඳ මූලික හැඳින්වීම (Guide)",
+            "track": "html",
+            "level": "beginner",
+            "readTime": "8 min read",
+            "duration_minutes": 8,
+            "summary": "HTML හි Semantic HTML5 Page Structure යොදා ගන්නා ආකාරය ප්‍රායෝගිකව අවබෝධ කර ගැනීම",
+            "content": "<h2>HTML Semantic HTML5 Page Structure යනු කුමක්ද?</h2>\n<p class='lead'>නූතන මෘදුකාංග සංවර්ධනයේදී HTML යනු අත්‍යවශ්‍ය තාක්ෂණයකි. ශ්‍රී ලංකාවේ වෙළඳසැල් හෝ ආයතනික දත්ත කළමනාකරණය කිරීමේදී Semantic HTML5 Page Structure මඟින් කේතය වඩාත් කාර්යක්ෂම කරයි.</p>\n\n<h3>1. සැබෑ ලෝකයේ උදාහරණය: වෙළඳසැල් බඩු ලැයිස්තුව (Shop Inventory)</h3>\n<p>සාමාන්‍යයෙන් වෙළඳසැලක ඇති භාණ්ඩ වෙන වෙනම variables වල තැන්පත් කරනවා වෙනුවට, අපට එකම container එකක ගබඩා කළ හැක:</p>\n\n<pre><code class=\"language-html\">// ශ්‍රී ලාංකික වෙළඳසැල් භාණ්ඩ ලැයිස්තුවක් සකස් කිරීම\nconst shopItems = [\"Keeri Samba Rice\", \"Ceylon Tea\", \"Dhal 1kg\"];\nconsole.log(\"මුල් අයිතමය:\", shopItems[0]);\n\n// අලුත් භාණ්ඩයක් එකතු කිරීම (push method)\nshopItems.push(\"Coconut Oil 750ml\");\nconsole.log(\"වත්මන් තොග ගණන:\", shopItems.length);\n</code></pre>\n\n<h3>2. Array Filter ක්‍රමය භාවිතයෙන් දත්ත සෙවීම</h3>\n<p>මිල ගණන් හෝ තත්ත්වයන් මත පදනම්ව අවශ්‍ය භාණ්ඩ පමණක් වෙන් කර ගැනීමට <code>filter()</code> භාවිතා කළ හැක:</p>\n\n<pre><code class=\"language-html\">// මිල ගණන් පරීක්ෂාව\nconst prices = [120, 450, 85, 950, 300];\nconst affordableItems = prices.filter(p => p < 500);\nconsole.log(\"රු. 500ට අඩු භාණ්ඩ:\", affordableItems);\n</code></pre>\n\n<div class=\"pro-tip-card\" style=\"background:#131b2e; border-left:4px solid #04AA6D; padding:16px; border-radius:8px; margin:20px 0;\">\n  <strong style=\"color:#04AA6D;\">💡 Infinite Academy උපදෙස:</strong> සැබෑ Production Applications වලදී variables සහ functions වලට අර්ථවත් English නම් (e.g. <code>customerName</code>, <code>invoiceTotal</code>) ලබා දීම ප්‍රමිතියකි.\n</div>\n\n<h3>Try It Yourself අභියෝගය:</h3>\n<p>කොළඹ සිට නුවර බලා ධාවනය වන බස් රථ 3ක ගාස්තු ඇතුළත් Array එකක් සාදා, එහි සාමාන්‍ය ගාස්තුව ගණනය කරන Function එකක් ලියන්න.</p>",
+            "content_si": "<h2>HTML Semantic HTML5 Page Structure යනු කුමක්ද?</h2>\n<p class='lead'>නූතන මෘදුකාංග සංවර්ධනයේදී HTML යනු අත්‍යවශ්‍ය තාක්ෂණයකි. ශ්‍රී ලංකාවේ වෙළඳසැල් හෝ ආයතනික දත්ත කළමනාකරණය කිරීමේදී Semantic HTML5 Page Structure මඟින් කේතය වඩාත් කාර්යක්ෂම කරයි.</p>\n\n<h3>1. සැබෑ ලෝකයේ උදාහරණය: වෙළඳසැල් බඩු ලැයිස්තුව (Shop Inventory)</h3>\n<p>සාමාන්‍යයෙන් වෙළඳසැලක ඇති භාණ්ඩ වෙන වෙනම variables වල තැන්පත් කරනවා වෙනුවට, අපට එකම container එකක ගබඩා කළ හැක:</p>\n\n<pre><code class=\"language-html\">// ශ්‍රී ලාංකික වෙළඳසැල් භාණ්ඩ ලැයිස්තුවක් සකස් කිරීම\nconst shopItems = [\"Keeri Samba Rice\", \"Ceylon Tea\", \"Dhal 1kg\"];\nconsole.log(\"මුල් අයිතමය:\", shopItems[0]);\n\n// අලුත් භාණ්ඩයක් එකතු කිරීම (push method)\nshopItems.push(\"Coconut Oil 750ml\");\nconsole.log(\"වත්මන් තොග ගණන:\", shopItems.length);\n</code></pre>\n\n<h3>2. Array Filter ක්‍රමය භාවිතයෙන් දත්ත සෙවීම</h3>\n<p>මිල ගණන් හෝ තත්ත්වයන් මත පදනම්ව අවශ්‍ය භාණ්ඩ පමණක් වෙන් කර ගැනීමට <code>filter()</code> භාවිතා කළ හැක:</p>\n\n<pre><code class=\"language-html\">// මිල ගණන් පරීක්ෂාව\nconst prices = [120, 450, 85, 950, 300];\nconst affordableItems = prices.filter(p => p < 500);\nconsole.log(\"රු. 500ට අඩු භාණ්ඩ:\", affordableItems);\n</code></pre>\n\n<div class=\"pro-tip-card\" style=\"background:#131b2e; border-left:4px solid #04AA6D; padding:16px; border-radius:8px; margin:20px 0;\">\n  <strong style=\"color:#04AA6D;\">💡 Infinite Academy උපදෙස:</strong> සැබෑ Production Applications වලදී variables සහ functions වලට අර්ථවත් English නම් (e.g. <code>customerName</code>, <code>invoiceTotal</code>) ලබා දීම ප්‍රමිතියකි.\n</div>\n\n<h3>Try It Yourself අභියෝගය:</h3>\n<p>කොළඹ සිට නුවර බලා ධාවනය වන බස් රථ 3ක ගාස්තු ඇතුළත් Array එකක් සාදා, එහි සාමාන්‍ය ගාස්තුව ගණනය කරන Function එකක් ලියන්න.</p>",
+            "code": "// ශ්‍රී ලාංකික වෙළඳසැල් භාණ්ඩ ලැයිස්තුවක් සකස් කිරීම\nconst shopItems = [\"Keeri Samba Rice\", \"Ceylon Tea\", \"Dhal 1kg\"];\nconsole.log(\"මුල් අයිතමය:\", shopItems[0]);\n\n// අලුත් භාණ්ඩයක් එකතු කිරීම (push method)\nshopItems.push(\"Coconut Oil 750ml\");\nconsole.log(\"වත්මන් තොග ගණන:\", shopItems.length);\n",
+            "keyTakeaways": [
+              "HTML හි Semantic HTML5 Page Structure යොදා ගන්නා ආකාරය ප්‍රායෝගිකව අවබෝධ කර ගැනීම",
+              "ශ්‍රී ලාංකික සැබෑ ව්‍යාපාරික දත්ත (Store Inventory) සමඟ කේත අභ්‍යාස කිරීම",
+              "පිරිසිදු Function හා Syntax භාවිතයෙන් දෝෂ අවම කර ගැනීම"
+            ],
+            "challenge": {
+              "question": "HTML හි Array එකකට අලුත් අගයක් අවසානයට එකතු කිරීමට භාවිතා කරන method එක කුමක්ද?",
+              "options": [
+                "push()",
+                "pop()",
+                "shift()",
+                "unshift()"
+              ],
+              "answer": 0,
+              "explanation": "push() මඟින් Array එකක අවසානයට අලුත් අයිතම එකතු කරයි."
+            },
+            "quiz": [
+              {
+                "question": "HTML හි Array එකකට අලුත් අගයක් අවසානයට එකතු කිරීමට භාවිතා කරන method එක කුමක්ද?",
+                "options": [
+                  "push()",
+                  "pop()",
+                  "shift()",
+                  "unshift()"
+                ],
+                "correct_index": 0,
+                "explanation": "push() මඟින් Array එකක අවසානයට අලුත් අයිතම එකතු කරයි."
+              },
+              {
+                "question": "Array එකක ඇති පළමු අයිතමයේ index අංකය කුමක්ද?",
+                "options": [
+                  "1",
+                  "0",
+                  "-1",
+                  "නිරූපණය නොවේ"
+                ],
+                "correct_index": 1,
+                "explanation": "පරිගණක භාෂා වල Array index ආරම්භ වන්නේ 0 අගයෙනි."
+              },
+              {
+                "question": "Array එකක අඩංගු මුළු අයිතම ගණන ලබා ගන්නේ කෙසේද?",
+                "options": [
+                  ".count",
+                  ".size()",
+                  ".length",
+                  ".total"
+                ],
+                "correct_index": 2,
+                "explanation": ".length property මඟින් Array එකේ සම්පූර්ණ ප්‍රමාණය ලබා දේ."
+              }
+            ],
+            "next_lesson_hint": "මීළඟ පාඩමෙන් අප HTML හි Objects සහ Key-Value දත්ත ව්‍යුහයන් සාකච්ඡා කරමු.",
+            "seo": {
+              "meta_title": "HTML Semantic HTML5 Page Structure සිංහලෙන් ඉගෙන ගනිමු | Infinite Academy",
+              "meta_description": "ශ්‍රී ලාංකික සිසුන් සඳහා සරල සිංහලෙන් HTML Semantic HTML5 Page Structure ඉගෙන ගන්න. කේත උදාහරණ සහ අභ්‍යාස ඇතුළත් පාඩම.",
+              "keywords": [
+                "html sinhala",
+                "semantic html5 page structure tutorial",
+                "learn coding sri lanka"
+              ]
+            }
           }
         ]
       }
@@ -90,7 +162,7 @@ window.ACADEMY_COURSES = {
   },
   "css": {
     "name": "CSS3",
-    "icon": "\ud83c\udfa8",
+    "icon": "🎨",
     "tagline": "Modern UI Engineering & Responsive Layouts",
     "badge": "Styling & Motion",
     "color": "#264DE4",
@@ -151,7 +223,7 @@ window.ACADEMY_COURSES = {
   },
   "js": {
     "name": "JavaScript",
-    "icon": "\u26a1",
+    "icon": "⚡",
     "tagline": "Dynamic Frontend Engineering & Async APIs",
     "badge": "Programming",
     "color": "#F7DF1E",
@@ -188,7 +260,7 @@ window.ACADEMY_COURSES = {
   },
   "python": {
     "name": "Python",
-    "icon": "\ud83d\udc0d",
+    "icon": "🐍",
     "tagline": "Clean Scripting, AI & Data Science",
     "badge": "Backend & AI",
     "color": "#3776AB",
@@ -225,7 +297,7 @@ window.ACADEMY_COURSES = {
   },
   "sql": {
     "name": "SQL",
-    "icon": "\ud83d\uddc4\ufe0f",
+    "icon": "🗄️",
     "tagline": "Database Querying & Relational Architecture",
     "badge": "Database",
     "color": "#00758F",
@@ -263,7 +335,7 @@ window.ACADEMY_COURSES = {
   },
   "php": {
     "name": "PHP",
-    "icon": "\ud83d\udc18",
+    "icon": "🐘",
     "tagline": "Modern Server-Side Architecture & APIs",
     "badge": "Backend",
     "color": "#777BB4",
@@ -300,7 +372,7 @@ window.ACADEMY_COURSES = {
   },
   "react": {
     "name": "React",
-    "icon": "\u269b\ufe0f",
+    "icon": "⚛️",
     "tagline": "Component Architecture & Reactive State",
     "badge": "Frontend UI",
     "color": "#61DAFB",
@@ -337,7 +409,7 @@ window.ACADEMY_COURSES = {
   },
   "git": {
     "name": "Git",
-    "icon": "\ud83c\udf3f",
+    "icon": "🌿",
     "tagline": "Distributed Version Control & GitHub Workflows",
     "badge": "DevOps",
     "color": "#F05032",

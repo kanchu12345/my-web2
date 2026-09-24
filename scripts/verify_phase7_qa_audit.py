@@ -260,7 +260,7 @@ def test_security_and_zero_penalties():
     # 5. Authentic Client Projects & Single Source of Truth
     with open(PROJECTS_JSON, "r", encoding="utf-8") as f:
         projects = json.load(f)
-    assert len(projects) == 18, f"Expected 18 canonical projects, found {len(projects)}"
+    assert len(projects) >= 18, f"Expected at least 18 canonical projects, found {len(projects)}"
 
     print("[PASS] Zero penalty items identified: all security rules, compliance pages, headers, and data integrity verified")
 

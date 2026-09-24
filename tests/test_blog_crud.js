@@ -39,7 +39,16 @@ async function runRegressionTests() {
   // TEST 1: Check admin/blogs.html exists
   assert(fs.existsSync(BLOGS_HTML_PATH), 'admin/blogs.html file exists');
 
-  const blogsSource = fs.readFileSync(BLOGS_HTML_PATH, 'utf-8');
+  let blogsSource = fs.readFileSync(BLOGS_HTML_PATH, 'utf-8');
+
+  // If blogs logic has been externalized for CSP hardening, resolve and include it
+  const scriptMatch = blogsSource.match(/<script\s+[^>]*src=["']([^"']*admin-blogs\.js[^"']*)["']/i);
+  if (scriptMatch) {
+    const extScriptPath = path.resolve(path.dirname(BLOGS_HTML_PATH), scriptMatch[1]);
+    if (fs.existsSync(extScriptPath)) {
+      blogsSource += '\n' + fs.readFileSync(extScriptPath, 'utf-8');
+    }
+  }
 
   // TEST 2: Verify getDocs uses 'blogs'
   const hasGetDocsBlogs = /getDocs\s*\(\s*collection\s*\(\s*db\s*,\s*['"]blogs['"]\s*\)\s*\)/.test(blogsSource);

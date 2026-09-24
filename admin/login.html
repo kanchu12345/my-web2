@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Admin Login | Infinite Creative Web Design</title>
 <meta name="robots" content="noindex,nofollow">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'unsafe-inline' https://www.gstatic.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://www.googletagmanager.com https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self' https:; frame-src https://challenges.cloudflare.com https://www.google.com https://maps.google.com; object-src 'none'; base-uri 'self'; form-action 'self' https:;">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' https://www.gstatic.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://www.googletagmanager.com https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self' https:; frame-src https://challenges.cloudflare.com https://www.google.com https://maps.google.com; object-src 'none'; base-uri 'self'; form-action 'self' https:;">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
@@ -168,193 +168,15 @@ body::after{content:'';position:fixed;top:-30%;left:-10%;width:70%;height:70%;ba
       </form>
     </div>
 
-    <!-- Step 2: 2FA -->
-    <div id="step2FA" class="step">
-      <h2 class="card-title">Two-Factor Auth</h2>
-      <p class="card-sub">Enter the 6-digit code from your authenticator app</p>
-      <div class="msg msg-error" id="tfaErrMsg" style="margin-bottom:16px">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/></svg>
-        <span id="tfaErrText"></span>
-      </div>
-      <form id="tfaForm" novalidate>
-        <div class="field">
-          <label for="tfaCode">Authenticator Code</label>
-          <input type="text" id="tfaCode" placeholder="000000" maxlength="6" pattern="[0-9]{6}" inputmode="numeric" autocomplete="one-time-code" required>
-        </div>
-        <button type="submit" class="btn-login" id="tfaBtn">
-          <span>Verify &amp; Continue</span>
-        </button>
-      </form>
-      <div class="divider"><span>or</span></div>
-      <button class="btn-login" style="background:var(--glass);color:var(--white);border:1px solid var(--glass-b)" onclick="backToLogin()">← Back to Login</button>
-    </div>
-
   </div>
 
   <div class="sec-badge">
     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-    256-bit encrypted • Rate limited • CSRF protected
+    256-bit encrypted (TLS) • Server-side throttling via Firebase Auth
   </div>
   <div class="login-footer"><a href="../index.html">← Back to site</a></div>
 </div>
 
-<script type="module">
-import { auth, signInWithEmailAndPassword, onAuthStateChanged }
-  from '../js/firebase-config.js';
-import { logAuthEvent } from '../js/audit-logger.js';
-
-const MAX_ATTEMPTS = 5;
-const LOCK_MS      = 30 * 60 * 1000; // 30 min
-const USE_2FA      = true; // set true to enable TOTP step
-
-/* ── CSRF token ─────────────────────────────── */
-function genCSRF(){
-  let t=sessionStorage.getItem('csrf');
-  if(!t){t=crypto.randomUUID();sessionStorage.setItem('csrf',t);}
-  return t;
-}
-genCSRF();
-
-/* ── Rate limiting ──────────────────────────── */
-function getAttempts(){return JSON.parse(localStorage.getItem('id_attempts')||'{"count":0,"lockedUntil":0}');}
-function saveAttempts(a){localStorage.setItem('id_attempts',JSON.stringify(a));}
-function resetAttempts(){saveAttempts({count:0,lockedUntil:0});}
-
-function checkLock(){
-  const a=getAttempts();
-  if(a.lockedUntil&&Date.now()<a.lockedUntil) return true;
-  if(a.lockedUntil&&Date.now()>=a.lockedUntil){resetAttempts();return false;}
-  return false;
-}
-
-/* ── Attempts UI ────────────────────────────── */
-function updateAttemptsUI(){
-  const a=getAttempts();
-  const pct=Math.min((a.count/MAX_ATTEMPTS)*100,100);
-  const fill=document.getElementById('attemptsFill');
-  fill.style.width=pct+'%';
-  fill.style.background=pct<60?'#00aaff':pct<80?'#ffaa00':'#ff4444';
-  if(a.count>0&&a.count<MAX_ATTEMPTS){
-    showWarn(`${MAX_ATTEMPTS-a.count} attempt${MAX_ATTEMPTS-a.count===1?'':'s'} remaining.`);
-  }
-}
-
-/* ── Lockout timer ──────────────────────────── */
-let lockInterval;
-function startLockTimer(until){
-  document.getElementById('lockoutView').style.display='block';
-  document.getElementById('loginForm').style.display='none';
-  lockInterval=setInterval(function(){
-    const rem=Math.max(0,until-Date.now());
-    if(rem===0){clearInterval(lockInterval);resetAttempts();location.reload();return;}
-    const m=Math.floor(rem/60000),s=Math.floor((rem%60000)/1000);
-    document.getElementById('lockTimer').textContent=`${m}:${String(s).padStart(2,'0')}`;
-  },1000);
-}
-
-/* ── Message helpers ────────────────────────── */
-function showErr(msg){const e=document.getElementById('errMsg');e.classList.add('show');document.getElementById('errText').textContent=msg;}
-function hideErr(){document.getElementById('errMsg').classList.remove('show');}
-function showWarn(msg){const w=document.getElementById('warnMsg');w.classList.add('show');document.getElementById('warnText').textContent=msg;}
-
-/* ── Password toggle ────────────────────────── */
-document.getElementById('pwToggle').addEventListener('click',function(){
-  const inp=document.getElementById('pwInput');
-  inp.type=inp.type==='password'?'text':'password';
-});
-
-/* ── Auth state ─────────────────────────────── */
-onAuthStateChanged(auth,function(user){
-  if(user){
-    window.location.href='dashboard.html';
-  }
-});
-
-/* ── Login form submit ──────────────────────── */
-document.getElementById('loginForm').addEventListener('submit',async function(e){
-  e.preventDefault();
-  hideErr();
-
-  if(checkLock()){
-    const a=getAttempts();startLockTimer(a.lockedUntil);return;
-  }
-
-  const email=document.getElementById('emailInput').value.trim().toLowerCase();
-  const pw=document.getElementById('pwInput').value;
-  if(!email||!pw){showErr('Please enter your email and password.');return;}
-
-  // Input sanitisation — basic
-  if(email.length>254||pw.length>128){showErr('Invalid input length.');return;}
-
-  const btn=document.getElementById('loginBtn');
-  btn.disabled=true;
-  document.getElementById('loginBtnText').innerHTML='<span class="spin"></span>';
-
-  try{
-    await signInWithEmailAndPassword(auth,email,pw);
-    logLogin(email,'success');
-    await logAuthEvent(email,'success');
-    resetAttempts();
-    window.location.href='dashboard.html';
-  }catch(err){
-    btn.disabled=false;
-    document.getElementById('loginBtnText').textContent='Sign In';
-    const a=getAttempts();
-    a.count++;
-    if(a.count>=MAX_ATTEMPTS){
-      a.lockedUntil=Date.now()+LOCK_MS;
-      saveAttempts(a);
-      logLogin(email,'locked');
-      await logAuthEvent(email,'locked');
-      startLockTimer(a.lockedUntil);
-      return;
-    }
-    saveAttempts(a);
-    updateAttemptsUI();
-    logLogin(email,'fail');
-    await logAuthEvent(email,'fail', { error: err.code });
-    const map={
-      'auth/user-not-found':'No account found with that email.',
-      'auth/wrong-password':'Incorrect password.',
-      'auth/invalid-email':'Please enter a valid email address.',
-      'auth/too-many-requests':'Firebase has temporarily blocked this account. Please try later.',
-      'auth/invalid-credential':'Invalid credentials. Please check your email and password.',
-    };
-    showErr(map[err.code]||'Sign in failed. Please try again.');
-  }
-});
-
-/* ── 2FA form ───────────────────────────────── */
-document.getElementById('tfaForm').addEventListener('submit',function(e){
-  e.preventDefault();
-  const code=document.getElementById('tfaCode').value.trim();
-  // In production: validate TOTP against server/Firebase Functions
-  if(code==='000000'||code.length===6){
-    window.location.href='dashboard.html';
-  }else{
-    document.getElementById('tfaErrMsg').classList.add('show');
-    document.getElementById('tfaErrText').textContent='Invalid code. Please try again.';
-  }
-});
-
-window.backToLogin=function(){
-  document.getElementById('step2FA').classList.remove('active');
-  document.getElementById('stepLogin').classList.add('active');
-};
-
-/* ── Login history ──────────────────────────── */
-function logLogin(email,status){
-  try{
-    const hist=JSON.parse(localStorage.getItem('id_login_hist')||'[]');
-    hist.unshift({email,status,ts:Date.now(),ua:navigator.userAgent.slice(0,80)});
-    if(hist.length>20)hist.length=20;
-    localStorage.setItem('id_login_hist',JSON.stringify(hist));
-  }catch(e){}
-}
-
-/* ── Init lockout check on load ─────────────── */
-if(checkLock()){const a=getAttempts();startLockTimer(a.lockedUntil);}
-else updateAttemptsUI();
-</script>
+<script type="module" src="../js/admin-login.js"></script>
 </body>
 </html>

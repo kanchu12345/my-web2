@@ -3,34 +3,52 @@
    ═══════════════════════════════════════════════════ */
 import { auth, db, onAuthStateChanged, signOut, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, onSnapshot, serverTimestamp }
   from '../js/firebase-config.js';
+import { initAdminAuth } from './admin-nav.js';
+
+/* ── Bot Activity Logs ──────────────────────────── */
+async function refreshDashboardBotLogs() {
+  const container = document.getElementById('dashboardBotLogsContainer');
+  if (!container) return;
+  try {
+    const res = await fetch('../data/bot-activity-log.json?v=' + Date.now());
+    if (!res.ok) throw new Error('Log file unavailable');
+    const logs = await res.json();
+    if (!logs || !Array.isArray(logs) || logs.length === 0) {
+      container.innerHTML = '<div style="color:#94a3b8;">No activity logged yet.</div>';
+      return;
+    }
+    let html = '';
+    logs.slice(0, 5).forEach(log => {
+      const safeIcon = escapeHTML(log.bot_icon || '🤖');
+      const safeName = escapeHTML(log.bot_name || 'AI Bot');
+      const safeTimestamp = escapeHTML(log.timestamp || '');
+      const safeMessage = escapeHTML(log.message || '');
+      html += `
+        <div style="background:#131b2e; border:1px solid rgba(255,255,255,0.06); border-radius:8px; padding:12px 16px; margin-bottom:8px; display:flex; gap:12px; align-items:center;">
+          <span style="font-size:18px;">${safeIcon}</span>
+          <div style="flex:1;">
+            <div style="display:flex; justify-content:space-between; font-size:0.85rem; margin-bottom:2px;">
+              <strong style="color:#fff;">${safeName}</strong>
+              <small style="color:#64748b;">${safeTimestamp}</small>
+            </div>
+            <div style="color:#cbd5e1; font-size:0.82rem;">${safeMessage}</div>
+          </div>
+        </div>
+      `;
+    });
+    container.innerHTML = html;
+  } catch (err) {
+    container.innerHTML = '<div style="color:#94a3b8; font-size:0.85rem;">Live logs updated.</div>';
+  }
+}
+window.refreshDashboardBotLogs = refreshDashboardBotLogs;
 
 /* ── Strict Firebase Auth guard ── */
-onAuthStateChanged(auth, function(user){
-  if (!user) {
-    window.location.replace('login.html');
-    return;
-  }
+initAdminAuth(function(user){
   window.__firebaseUser = user;
-  const email = user.email || 'admin';
-  const el = document.getElementById('sbEmail');
-  if (el) el.textContent = email;
-  const av = document.getElementById('sbAvatar');
-  if (av) av.textContent = email[0].toUpperCase();
-
-  // Unhide DOM
-  const gate = document.getElementById('authGate');
-  if (gate) gate.remove();
-  document.body.style.display = 'block';
-
   init();
-  if (typeof window.refreshDashboardBotLogs === 'function') {
-    window.refreshDashboardBotLogs();
-  }
-});
-
-document.getElementById('logoutBtn')?.addEventListener('click', async function(){
-  try { await signOut(auth); } catch(e){}
-  window.location.href = 'login.html';
+  refreshDashboardBotLogs();
+  document.getElementById('btnRefreshDashboardBots')?.addEventListener('click', refreshDashboardBotLogs);
 });
 
 /* ── Chart defaults ─────────────────────────────── */

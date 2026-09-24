@@ -509,48 +509,51 @@
 
       <div class="pricing-calc-container reveal">
         
+        <!-- Sticky Running Total Price Bar -->
+        <div class="calc-sticky-total-bar" id="calcStickyTotalBar">
+          <div class="calc-sticky-total-inner">
+            <div class="calc-sticky-formula">
+              <span class="calc-formula-part">
+                <small>Base Package</small>
+                <strong id="calcFormulaBase">Rs. 10,000/-</strong>
+              </span>
+              <span class="calc-formula-op">+</span>
+              <span class="calc-formula-part">
+                <small>Extra Pages</small>
+                <strong id="calcFormulaPages">Rs. 0/-</strong>
+              </span>
+              <span class="calc-formula-op">+</span>
+              <span class="calc-formula-part">
+                <small>Add-ons</small>
+                <strong id="calcFormulaAddons">Rs. 3,500/-</strong>
+              </span>
+              <span class="calc-formula-op">=</span>
+            </div>
+            <div class="calc-sticky-total-box">
+              <span class="calc-sticky-total-label">Total Estimate</span>
+              <span class="calc-sticky-total-price" id="calcStickyTotalDisplay">Rs. 13,500/-</span>
+            </div>
+          </div>
+        </div>
+
         <!-- Left Column: Step 1, Step 2 & Hosting Guarantee -->
         <div class="calc-column">
           
-          <!-- Step 1: Base Tier -->
-          <div class="calc-step-card">
+          <!-- Step 1: Base Tier (Required) -->
+          <div class="calc-step-card calc-step-required">
             <div class="calc-step-header">
               <span class="calc-step-badge">Step 1</span>
+              <span class="calc-req-pill">Required</span>
               <div>
-                <div class="calc-step-title">Select Service & Package Tier</div>
+                <div class="calc-step-title">Select Package Tier</div>
                 <div class="calc-step-subtitle">Choose your core website framework and starting scope</div>
               </div>
             </div>
             <div class="calc-select-wrapper">
               <select id="calcTier" class="calc-select-custom" onchange="calculateFullEstimate()">
-                <optgroup label="💡 Low-Cost Web Design Packages">
-                  <option value="5000" data-name="Starter Essential (Rs. 5,000)">Starter Essential (3 Pages) — Rs. 5,000</option>
-                  <option value="10000" selected data-name="Standard Business (Rs. 10,000)">Standard Business (5 Pages + Admin) — Rs. 10,000</option>
-                  <option value="15000" data-name="Advanced Growth (Rs. 15,000)">Advanced Growth (7 Pages Custom UI) — Rs. 15,000</option>
-                  <option value="20000" data-name="Corporate Professional (Rs. 20,000)">Corporate Professional (10 Pages) — Rs. 20,000</option>
-                </optgroup>
-                <optgroup label="🏢 Corporate & Enterprise Web Portals">
-                  <option value="45000" data-name="Starter Corporate (Rs. 45,000)">Starter Corporate (6 Pages) — Rs. 45,000</option>
-                  <option value="60000" data-name="Silver Corporate (Rs. 60,000)">Silver Corporate (10 Pages + 3 Emails + SEO) — Rs. 60,000</option>
-                  <option value="99000" data-name="Gold Enterprise (Rs. 99,000)">Gold Enterprise Portal (15 Pages + PayHere) — Rs. 99,000</option>
-                  <option value="125000" data-name="Platinum Powerhouse (Rs. 125,000)">Platinum Powerhouse (25 Pages) — Rs. 125,000</option>
-                </optgroup>
-                <optgroup label="🛒 E-Commerce & Online Store">
-                  <option value="60000" data-name="Full E-Commerce Store (Rs. 60,000)">Full E-Commerce Store (PayHere + Invoices) — Rs. 60,000</option>
-                  <option value="180000" data-name="Product Catalogue Solution (Rs. 180,000)">Product Catalogue Solution — Rs. 180,000</option>
-                </optgroup>
-                <optgroup label="📱 Mobile App Development">
-                  <option value="75000" data-name="Basic Mobile App (Rs. 75,000)">Basic Mobile App (Flutter iOS & Android) — Rs. 75,000</option>
-                  <option value="150000" data-name="Custom Enterprise App (Rs. 150,000)">Custom Enterprise App (Taxi/Delivery/E-Com) — Rs. 150,000</option>
-                </optgroup>
-                <optgroup label="📢 Social Media & Meta Ads Boost">
-                  <option value="2500" data-name="Mini Trial Boost (Rs. 2,500)">Mini Trial Boost — Rs. 2,500</option>
-                  <option value="4000" data-name="Starter Reach Boost (Rs. 4,000)">Starter Reach Boost — Rs. 4,000</option>
-                  <option value="6500" data-name="Growth Boost (Rs. 6,500)">Growth Boost (Most Recommended) — Rs. 6,500</option>
-                  <option value="11500" data-name="Power Scale Boost (Rs. 11,500)">Power Scale Boost — Rs. 11,500</option>
-                  <option value="21500" data-name="Pro Business Scale (Rs. 21,500)">Pro Business Scale — Rs. 21,500</option>
-                  <option value="36500" data-name="Ultimate Enterprise (Rs. 36,500)">Ultimate Enterprise — Rs. 36,500</option>
-                </optgroup>
+                <option value="5000" data-name="Starter (Rs. 5,000)">Starter (Up to 3 Custom Pages) — Rs. 5,000</option>
+                <option value="10000" selected data-name="Standard (Rs. 10,000)">⭐ Standard (Up to 5 Pages • Most Popular) — Rs. 10,000</option>
+                <option value="15000" data-name="Professional (Rs. 15,000)">Professional (Up to 8 Pages + Admin Panel) — Rs. 15,000</option>
               </select>
               <div class="calc-select-arrow">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
@@ -558,10 +561,11 @@
             </div>
           </div>
 
-          <!-- Step 2: Extra Custom Pages -->
-          <div class="calc-step-card">
+          <!-- Step 2: Extra Custom Pages (Required) -->
+          <div class="calc-step-card calc-step-required">
             <div class="calc-step-header">
               <span class="calc-step-badge">Step 2</span>
+              <span class="calc-req-pill">Required</span>
               <div>
                 <div class="calc-step-title">Extra Custom Pages</div>
                 <div class="calc-step-subtitle">+Rs. 1,500 per additional high-converting page</div>
@@ -594,23 +598,24 @@
 
         </div>
 
-        <!-- Right Column: Step 3 Optional Power Add-ons -->
+        <!-- Right Column: Step 3 Optional Power Add-ons (Visually Secondary) -->
         <div class="calc-column">
           
-          <div class="calc-step-card" style="margin-bottom:0; height:100%; display:flex; flex-direction:column;">
+          <div class="calc-step-card calc-step-optional" style="margin-bottom:0; height:100%; display:flex; flex-direction:column;">
             <div class="calc-step-header">
-              <span class="calc-step-badge">Step 3</span>
+              <span class="calc-step-badge calc-badge-muted">Step 3</span>
+              <span class="calc-opt-pill">Optional</span>
               <div>
-                <div class="calc-step-title">Optional High-Value Power Add-Ons</div>
-                <div class="calc-step-subtitle">Enhance speed, security, and sales conversions</div>
+                <div class="calc-step-title">Optional High-Value Add-Ons</div>
+                <div class="calc-step-subtitle">Customize only if needed — all base packages are fully functional on their own</div>
               </div>
             </div>
 
             <div class="calc-addons-stack">
               
-              <!-- Addon 1 -->
+              <!-- Addon 1 (Expanded by default) -->
               <label class="calc-addon-card active">
-                <input type="checkbox" class="calc-addon-check" data-name="99+ PageSpeed Core Web Vitals Optimization" data-price="3500" onchange="calculateFullEstimate()" checked>
+                <input type="checkbox" class="calc-addon-check" data-name="99+ PageSpeed Core Web Vitals" data-price="3500" onchange="calculateFullEstimate()" checked>
                 <div class="calc-addon-checkbox">
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
                 </div>
@@ -619,13 +624,13 @@
                     <span class="calc-addon-name">⚡ 99+ PageSpeed Core Web Vitals</span>
                     <span class="calc-addon-price-badge">+Rs. 3,500</span>
                   </div>
-                  <div class="calc-addon-desc">Loads under 1.2s on Dialog & Mobitel 4G networks; dramatically boosts Google mobile rankings.</div>
+                  <div class="calc-addon-desc">Makes your site load faster on mobile and rank higher on Google.</div>
                 </div>
               </label>
 
-              <!-- Addon 2 -->
+              <!-- Addon 2 (Expanded by default) -->
               <label class="calc-addon-card">
-                <input type="checkbox" class="calc-addon-check" data-name="Advanced Cyber DDoS Shield & Web Application Firewall" data-price="4500" onchange="calculateFullEstimate()">
+                <input type="checkbox" class="calc-addon-check" data-name="Cyber DDoS Shield & WAF" data-price="4500" onchange="calculateFullEstimate()">
                 <div class="calc-addon-checkbox">
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
                 </div>
@@ -634,54 +639,65 @@
                     <span class="calc-addon-name">🔐 Cyber DDoS Shield & WAF</span>
                     <span class="calc-addon-price-badge">+Rs. 4,500</span>
                   </div>
-                  <div class="calc-addon-desc">Enterprise Cloudflare security rules protecting against bot attacks, spam & brute-force threats.</div>
+                  <div class="calc-addon-desc">Protects your site from hackers, bots, and spam attacks.</div>
                 </div>
               </label>
 
-              <!-- Addon 3 -->
-              <label class="calc-addon-card">
-                <input type="checkbox" class="calc-addon-check" data-name="WhatsApp AI Instant Lead Auto-Responder Bot" data-price="6000" onchange="calculateFullEstimate()">
-                <div class="calc-addon-checkbox">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-                </div>
-                <div class="calc-addon-body">
-                  <div class="calc-addon-top">
-                    <span class="calc-addon-name">🤖 WhatsApp AI Auto-Responder Bot</span>
-                    <span class="calc-addon-price-badge">+Rs. 6,000</span>
+              <!-- Collapsed Additional Addons (Hidden by default) -->
+              <div id="calcMoreAddons" class="calc-more-addons">
+                
+                <!-- Addon 3 -->
+                <label class="calc-addon-card">
+                  <input type="checkbox" class="calc-addon-check" data-name="WhatsApp AI Auto-Responder Bot" data-price="6000" onchange="calculateFullEstimate()">
+                  <div class="calc-addon-checkbox">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
                   </div>
-                  <div class="calc-addon-desc">Answers customer inquiries instantly 24/7 on WhatsApp, qualifying leads while you sleep.</div>
-                </div>
-              </label>
+                  <div class="calc-addon-body">
+                    <div class="calc-addon-top">
+                      <span class="calc-addon-name">🤖 WhatsApp AI Auto-Responder Bot</span>
+                      <span class="calc-addon-price-badge">+Rs. 6,000</span>
+                    </div>
+                    <div class="calc-addon-desc">Answers customer inquiries on WhatsApp automatically 24/7.</div>
+                  </div>
+                </label>
 
-              <!-- Addon 4 -->
-              <label class="calc-addon-card">
-                <input type="checkbox" class="calc-addon-check" data-name="Custom Brand Logo & Stationery Vector Suite" data-price="5000" onchange="calculateFullEstimate()">
-                <div class="calc-addon-checkbox">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-                </div>
-                <div class="calc-addon-body">
-                  <div class="calc-addon-top">
-                    <span class="calc-addon-name">🎨 Custom Brand Logo & Vector Suite</span>
-                    <span class="calc-addon-price-badge">+Rs. 5,000</span>
+                <!-- Addon 4 -->
+                <label class="calc-addon-card">
+                  <input type="checkbox" class="calc-addon-check" data-name="Custom Brand Logo & Vector Suite" data-price="5000" onchange="calculateFullEstimate()">
+                  <div class="calc-addon-checkbox">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
                   </div>
-                  <div class="calc-addon-desc">Full vector branding kit (SVG, PNG, PDF) suitable for high-res print, billboards, and social media.</div>
-                </div>
-              </label>
+                  <div class="calc-addon-body">
+                    <div class="calc-addon-top">
+                      <span class="calc-addon-name">🎨 Custom Brand Logo & Vector Suite</span>
+                      <span class="calc-addon-price-badge">+Rs. 5,000</span>
+                    </div>
+                    <div class="calc-addon-desc">Delivers vector logo files ready for print and social media.</div>
+                  </div>
+                </label>
 
-              <!-- Addon 5 -->
-              <label class="calc-addon-card">
-                <input type="checkbox" class="calc-addon-check" data-name=".COM Custom Domain Registration (1 Year)" data-price="4500" onchange="calculateFullEstimate()">
-                <div class="calc-addon-checkbox">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-                </div>
-                <div class="calc-addon-body">
-                  <div class="calc-addon-top">
-                    <span class="calc-addon-name">🌐 .COM Custom Domain (1 Year)</span>
-                    <span class="calc-addon-price-badge">+Rs. 4,500</span>
+                <!-- Addon 5 -->
+                <label class="calc-addon-card">
+                  <input type="checkbox" class="calc-addon-check" data-name=".COM Custom Domain (1 Year)" data-price="4500" onchange="calculateFullEstimate()">
+                  <div class="calc-addon-checkbox">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
                   </div>
-                  <div class="calc-addon-desc">Official international .com domain registered directly in your business name with 100% DNS control.</div>
-                </div>
-              </label>
+                  <div class="calc-addon-body">
+                    <div class="calc-addon-top">
+                      <span class="calc-addon-name">🌐 .COM Custom Domain (1 Year)</span>
+                      <span class="calc-addon-price-badge">+Rs. 4,500</span>
+                    </div>
+                    <div class="calc-addon-desc">Your own custom .com web address registered in your business name.</div>
+                  </div>
+                </label>
+
+              </div>
+
+              <!-- Toggle Button to expand/collapse the rest of the add-ons -->
+              <button type="button" class="calc-toggle-addons-btn" id="calcToggleAddons" onclick="toggleMoreAddons()">
+                <span id="calcToggleAddonsIcon" style="font-size:1.1rem; font-weight:900;">+</span>
+                <span id="calcToggleAddonsText">Show 3 More Optional Add-Ons</span>
+              </button>
 
             </div>
           </div>
@@ -905,6 +921,16 @@
       const grandTotal = base + extraPagesTotal + addonsTotal;
       animateTotalDisplay(grandTotal);
 
+      // Update Sticky Running Total Bar & Live Formula
+      const formulaBase = document.getElementById('calcFormulaBase');
+      const formulaPages = document.getElementById('calcFormulaPages');
+      const formulaAddons = document.getElementById('calcFormulaAddons');
+      const stickyTotal = document.getElementById('calcStickyTotalDisplay');
+      if (formulaBase) formulaBase.textContent = 'Rs. ' + base.toLocaleString() + '/-';
+      if (formulaPages) formulaPages.textContent = 'Rs. ' + extraPagesTotal.toLocaleString() + '/-';
+      if (formulaAddons) formulaAddons.textContent = 'Rs. ' + addonsTotal.toLocaleString() + '/-';
+      if (stickyTotal) stickyTotal.textContent = 'Rs. ' + grandTotal.toLocaleString() + '/-';
+
       // Render Itemized Breakdown List
       const listEl = document.getElementById('calcItemizedList');
       if (listEl) {
@@ -964,6 +990,25 @@
             </div>
           `;
         }
+      }
+    }
+
+    function toggleMoreAddons() {
+      const moreEl = document.getElementById('calcMoreAddons');
+      const btnText = document.getElementById('calcToggleAddonsText');
+      const btnIcon = document.getElementById('calcToggleAddonsIcon');
+      if (!moreEl) return;
+      const isHidden = moreEl.style.display === 'none' || !moreEl.classList.contains('show');
+      if (isHidden) {
+        moreEl.style.display = 'flex';
+        moreEl.classList.add('show');
+        if (btnText) btnText.textContent = 'Show Fewer Add-Ons';
+        if (btnIcon) btnIcon.textContent = '−';
+      } else {
+        moreEl.style.display = 'none';
+        moreEl.classList.remove('show');
+        if (btnText) btnText.textContent = 'Show 3 More Optional Add-Ons';
+        if (btnIcon) btnIcon.textContent = '+';
       }
     }
 

@@ -1,0 +1,66 @@
+[
+  {
+    "track": "CSS",
+    "level": "beginner",
+    "topic": "CSS Flexbox Layout Basics",
+    "previous_topic": "CSS Box Model and Margin Collapse",
+    "focus_concept": "justify-content and align-items for responsive product cards",
+    "last_used": null
+  },
+  {
+    "track": "Python",
+    "level": "beginner",
+    "topic": "Python Dictionaries and Key-Value Data",
+    "previous_topic": "Python Lists and For Loops",
+    "focus_concept": "Storing student exam marks and grades across G.C.E. O/L subjects",
+    "last_used": null
+  },
+  {
+    "track": "SQL",
+    "level": "beginner",
+    "topic": "SQL SELECT and WHERE Filtering",
+    "previous_topic": "Relational Database Concepts and Tables",
+    "focus_concept": "Querying customer orders and invoice totals from a Colombo retail database",
+    "last_used": null
+  },
+  {
+    "track": "React",
+    "level": "intermediate",
+    "topic": "React useState Hook and Component State",
+    "previous_topic": "React Functional Components and JSX",
+    "focus_concept": "Building an interactive Sri Lankan bus fare or ticket booking counter",
+    "last_used": null
+  },
+  {
+    "track": "Git",
+    "level": "beginner",
+    "topic": "Git Branching and Merging",
+    "previous_topic": "Git Commit, Add and Status Basics",
+    "focus_concept": "Creating feature branches and resolving simple merge conflicts in team projects",
+    "last_used": null
+  },
+  {
+    "track": "JavaScript",
+    "level": "intermediate",
+    "topic": "Async/Await and Fetch API",
+    "previous_topic": "JavaScript Promises and Callbacks",
+    "focus_concept": "Fetching live weather and currency exchange rates for Sri Lankan Rupee (LKR)",
+    "last_used": null
+  },
+  {
+    "track": "JavaScript",
+    "level": "beginner",
+    "topic": "JavaScript Arrays and Array Methods",
+    "previous_topic": "JavaScript Functions and Return Statements",
+    "focus_concept": "Arrays (push, pop, filter) using Sri Lankan grocery store inventory",
+    "last_used": "2026-09-23T23:32:40Z"
+  },
+  {
+    "track": "HTML",
+    "level": "beginner",
+    "topic": "Semantic HTML5 Page Structure",
+    "previous_topic": "Basic HTML Tags and Attributes",
+    "focus_concept": "header, nav, main, article, and footer tags for a Sri Lankan tourism guide",
+    "last_used": "2026-09-23T23:32:46Z"
+  }
+]

@@ -174,14 +174,34 @@ function makeProjectCard(p){
   return card;
 }
 
+function reconcileProject(p) {
+  if (!p) return p;
+  const urlLower = (p.url || '').toLowerCase();
+  const titleLower = (p.title || '').toLowerCase();
+  if (urlLower.includes('hikkasurfschool.com') || titleLower.includes('hikka surf') || titleLower === 'hikkasurfschool') {
+    return {
+      ...p,
+      title: 'Hiri Surf School',
+      url: 'https://hirisurfschool.com/',
+      category: 'Tourism & Beach Academy',
+      description: 'Premier surf school and tropical resort booking platform in Hiriketiya, Sri Lanka with custom booking workflows and lesson schedules.',
+      featured: true,
+      featuredOrder: 2
+    };
+  }
+  return p;
+}
+
 function normalizeProjectSlug(p) {
   if (!p) return '';
+  p = reconcileProject(p);
   // 1. If URL present, extract domain and clean path
   let urlStr = (p.url || '').trim().toLowerCase();
   if (urlStr) {
     urlStr = urlStr.replace(/^https?:\/\//, '').replace(/^www\./, '');
     urlStr = urlStr.split(/[?#]/)[0]; // strip query & hash
     urlStr = urlStr.replace(/\/+$/, ''); // strip trailing slash
+    if (urlStr.includes('hikkasurfschool.com')) return 'hirisurfschool.com';
     if (urlStr.length > 3) return urlStr;
   }
   // 2. Normalize title (remove parenthetical location suffix, special chars)
@@ -189,6 +209,7 @@ function normalizeProjectSlug(p) {
     .replace(/\(.*?\)/g, '')
     .replace(/[^a-z0-9]/g, '')
     .trim();
+  if (title.includes('hikkasurf')) return 'hirisurfschool';
   return title || (p.id || '');
 }
 
@@ -231,10 +252,10 @@ function getDemoProjects(){
       "featuredOrder": 1
     },
     {
-      "title": "Hiri Surf School (Hiriketiya)",
+      "title": "Hiri Surf School",
       "category": "Tourism & Beach Academy",
       "url": "https://hirisurfschool.com/",
-      "description": "Premier surf school and tropical resort booking platform in Hiriketiya, Sri Lanka with custom booking workflows.",
+      "description": "Premier surf school and tropical resort booking platform in Hiriketiya, Sri Lanka with custom booking workflows and lesson schedules.",
       "bg": "#0284c7",
       "featured": true,
       "featuredOrder": 2
@@ -358,6 +379,13 @@ function getDemoProjects(){
       "url": "https://kanchu12345.github.io/VITES/",
       "description": "High-availability cloud computing and microservices management console.",
       "bg": "#0f172a"
+    },
+    {
+      "title": "Suresh Senanayake Physics",
+      "category": "Education & Academic Tuition",
+      "url": "https://sureshwithphysics.com/",
+      "description": "Premier A/L & O/L Physics tuition platform in Gampaha by Suresh Senanayake with bilingual theory modules, syllabus past papers, and student enrollments.",
+      "bg": "#0f172a"
     }
   ];
 }
@@ -411,10 +439,11 @@ async function loadProjects(){
   const unique = [];
 
   merged.forEach(p => {
-    const slug = normalizeProjectSlug(p);
+    const reconciled = reconcileProject(p);
+    const slug = normalizeProjectSlug(reconciled);
     if (slug && !seen.has(slug)) {
       seen.add(slug);
-      unique.push(p);
+      unique.push(reconciled);
     }
   });
 
@@ -716,7 +745,7 @@ async function loadSettings(){
 const DEFAULT_PACKAGES = [
   {
     "id": "pkg-starter",
-    "name": "Starter Essential",
+    "name": "Starter",
     "price": "Rs. 5,000/-",
     "priceNum": 5000,
     "tag": "Budget Hero",
@@ -725,14 +754,14 @@ const DEFAULT_PACKAGES = [
     "sectionDesc": "High quality, affordable web solutions tailored for Sri Lankan startups, small businesses & personal sites.",
     "featured": false,
     "popular": false,
-    "description": "Essential low-cost package for personal sites, small shops & instant online presence.",
+    "description": "For small businesses & single-page ventures.",
     "features": [
-      "3 Pages Included",
-      "Mobile & Android Friendly UI",
-      "Direct WhatsApp Chat & Call Button",
-      "Social Media Links & Share Icons",
-      "Header Banner & Fast Loading Speed",
-      "🎁 100% Free Cloud Hosting (Zero Monthly Fees)"
+      "Up to 3 custom pages",
+      "100% Mobile responsive design",
+      "WhatsApp direct click-to-chat",
+      "Contact & inquiry form",
+      "SEO ready architecture",
+      "🎁 Free hosting + SSL (GitHub Pages & Cloudflare)"
     ],
     "addon": "📄 Need more pages? Add extra pages for just Rs. 1,500/- per page!",
     "cta": "Choose Starter 5K",
@@ -740,7 +769,7 @@ const DEFAULT_PACKAGES = [
   },
   {
     "id": "pkg-standard",
-    "name": "Standard Business",
+    "name": "Standard ⭐",
     "price": "Rs. 10,000/-",
     "priceNum": 10000,
     "tag": "Best Value",
@@ -749,71 +778,50 @@ const DEFAULT_PACKAGES = [
     "sectionDesc": "High quality, affordable web solutions tailored for Sri Lankan startups, small businesses & personal sites.",
     "featured": true,
     "popular": true,
-    "description": "Solid 5-page business website with self-manageable admin panel & local SEO.",
+    "description": "For growing businesses that need real customer inquiries.",
     "features": [
-      "5 Pages Included",
-      "Self-Manageable Admin Panel Access",
-      "Contact Form & Google Maps Location Pin",
-      "Mobile Responsive Layout & Animations",
-      "Basic SEO & Social Media Icons",
-      "1 Month Free Support",
-      "🎁 100% Free Cloud Hosting (Zero Monthly Fees)"
+      "Up to 5 custom high-converting pages",
+      "100% Mobile & tablet responsive",
+      "WhatsApp lead generation integration",
+      "Google Maps business location",
+      "Secure contact form with email notifications",
+      "Multi-language (Sinhala / English / Tamil)",
+      "Complete on-page SEO setup & indexing",
+      "🎁 Free hosting + SSL (GitHub Pages & Cloudflare)",
+      "Simple admin panel for easy content edits",
+      "3-minute tutorial video guide"
     ],
     "addon": "Add extra pages for Rs. 1,500/- per page",
     "cta": "Choose Standard 10K",
     "order": 2
   },
   {
-    "id": "pkg-advanced",
-    "name": "Advanced Growth",
+    "id": "pkg-professional",
+    "name": "Professional",
     "price": "Rs. 15,000/-",
     "priceNum": 15000,
-    "tag": "Growth",
-    "topic": "low-cost",
-    "sectionTitle": "💡 Low-Cost Web Design Packages",
-    "sectionDesc": "High quality, affordable web solutions tailored for Sri Lankan startups, small businesses & personal sites.",
-    "featured": false,
-    "popular": false,
-    "description": "Custom UI design built for high conversions, lead generation & ad campaigns.",
-    "features": [
-      "7 Pages Included",
-      "Custom Conversion UI Design System",
-      "Full Control Admin Control Panel",
-      "Speed Optimization (95+ Mobile Score)",
-      "Meta Pixel & WhatsApp Lead Capture",
-      "Interactive Contact & Inquiry Forms",
-      "Free Basic SEO & Analytics Setup",
-      "🚀 High-Speed Cloud Server Deployment"
-    ],
-    "addon": "Priority 2-Month Support included",
-    "cta": "Choose Advanced 15K",
-    "order": 3
-  },
-  {
-    "id": "pkg-professional",
-    "name": "Corporate Professional",
-    "price": "Rs. 20,000/-",
-    "priceNum": 20000,
     "tag": "Most Popular",
     "topic": "low-cost",
     "sectionTitle": "💡 Low-Cost Web Design Packages",
     "sectionDesc": "High quality, affordable web solutions tailored for Sri Lankan startups, small businesses & personal sites.",
     "featured": true,
     "popular": true,
-    "description": "Corporate-level web presence with advanced security, Google Analytics & SSL.",
+    "description": "For established businesses wanting a competitive edge.",
     "features": [
-      "10 Pages Included",
-      "Premium Corporate Design & Micro-Animations",
-      "Google Analytics 4 & Meta Setup",
-      "Free SSL Certificate & Security Shield",
-      "Full Google Local SEO Optimization",
-      "Customer Lead Generation Strategy",
-      "3 Months Dedicated Priority Support",
-      "🚀 High-Speed Cloud Server Deployment"
+      "Up to 8 custom pages",
+      "Everything in Standard plus:",
+      "Custom corporate UI & branded animations",
+      "Advanced SEO & keyword architecture",
+      "99+ PageSpeed Core Web Vitals tuning",
+      "Social media & Meta Ads integration",
+      "Admin panel + content publishing system",
+      "3-minute tutorial video guide",
+      "Priority direct developer support",
+      "🚀 High-concurrency cloud infrastructure"
     ],
     "addon": "Complete Brand & Digital Asset Alignment",
-    "cta": "Choose Professional 20K",
-    "order": 4
+    "cta": "Choose Professional 15K",
+    "order": 3
   },
   {
     "id": "pkg-starter-01",
@@ -2358,6 +2366,17 @@ function calculateFullEstimate() {
   const grandTotal = base + extraPagesTotal + addonsTotal;
   animateTotalDisplay(grandTotal);
 
+  // Update Sticky Running Total Bar & Live Formula
+  const curr = window.getActiveCurrency ? window.getActiveCurrency() : 'LKR';
+  const formulaBase = document.getElementById('calcFormulaBase');
+  const formulaPages = document.getElementById('calcFormulaPages');
+  const formulaAddons = document.getElementById('calcFormulaAddons');
+  const stickyTotal = document.getElementById('calcStickyTotalDisplay');
+  if (formulaBase) formulaBase.textContent = window.formatCurrency ? window.formatCurrency(base, curr) : ('Rs. ' + base.toLocaleString() + '/-');
+  if (formulaPages) formulaPages.textContent = window.formatCurrency ? window.formatCurrency(extraPagesTotal, curr) : ('Rs. ' + extraPagesTotal.toLocaleString() + '/-');
+  if (formulaAddons) formulaAddons.textContent = window.formatCurrency ? window.formatCurrency(addonsTotal, curr) : ('Rs. ' + addonsTotal.toLocaleString() + '/-');
+  if (stickyTotal) stickyTotal.textContent = window.formatCurrency ? window.formatCurrency(grandTotal, curr) : ('Rs. ' + grandTotal.toLocaleString() + '/-');
+
   // Render Itemized Breakdown List
   const listEl = document.getElementById('calcItemizedList');
   if (listEl) {
@@ -2420,6 +2439,26 @@ function calculateFullEstimate() {
     }
   }
 }
+
+function toggleMoreAddons() {
+  const moreEl = document.getElementById('calcMoreAddons');
+  const btnText = document.getElementById('calcToggleAddonsText');
+  const btnIcon = document.getElementById('calcToggleAddonsIcon');
+  if (!moreEl) return;
+  const isHidden = moreEl.style.display === 'none' || !moreEl.classList.contains('show');
+  if (isHidden) {
+    moreEl.style.display = 'flex';
+    moreEl.classList.add('show');
+    if (btnText) btnText.textContent = 'Show Fewer Add-Ons';
+    if (btnIcon) btnIcon.textContent = '−';
+  } else {
+    moreEl.style.display = 'none';
+    moreEl.classList.remove('show');
+    if (btnText) btnText.textContent = 'Show 3 More Optional Add-Ons';
+    if (btnIcon) btnIcon.textContent = '+';
+  }
+}
+window.toggleMoreAddons = toggleMoreAddons;
 
 function dispatchFullWhatsAppQuote() {
   const tierEl = document.getElementById('calcTier');

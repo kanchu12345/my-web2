@@ -1,5 +1,74 @@
 [
   {
+    "cluster_id": "learn-coding-and-web-development-in-sinhala-for-beginners",
+    "cluster_title": "Learn Coding and Web Development in Sinhala for Beginners",
+    "target_keywords": [
+      {
+        "phrase": "learn coding sinhala",
+        "language": "en",
+        "intent": "commercial",
+        "est_difficulty": "medium"
+      },
+      {
+        "phrase": "web design charges in sri lanka",
+        "language": "en",
+        "intent": "commercial",
+        "est_difficulty": "low"
+      },
+      {
+        "phrase": "website hadana sinhala",
+        "language": "si",
+        "intent": "informational",
+        "est_difficulty": "low"
+      },
+      {
+        "phrase": "best web designers colombo",
+        "language": "en",
+        "intent": "commercial",
+        "est_difficulty": "medium"
+      },
+      {
+        "phrase": "learn coding sinhala free",
+        "language": "si",
+        "intent": "informational",
+        "est_difficulty": "low"
+      },
+      {
+        "phrase": "payhere payment gateway integration sri lanka",
+        "language": "en",
+        "intent": "informational",
+        "est_difficulty": "medium"
+      }
+    ],
+    "pillar_page": {
+      "title": "Learn Coding and Web Development in Sinhala for Beginners | Infinite Creative 2026",
+      "meta_description": "Explore complete guides on learn coding sinhala, responsive mobile-first architecture, local SEO for Sri Lankan cities, and PayHere checkout.",
+      "h1": "Comprehensive Guide: Learn Coding and Web Development in Sinhala for Beginners",
+      "outline": [
+        "Understanding the Sri Lankan Digital Market & Mobile Demographics",
+        "Core Web Vitals & Sub-Second Loading for Local Cellular Networks",
+        "Securing Payments with PayHere, Cards and Digital Wallets",
+        "Actionable Local SEO Strategies for Colombo, Kandy and Galle"
+      ]
+    },
+    "supporting_lessons": [
+      "html-semantic-structure",
+      "css-flexbox-basics",
+      "js-arrays-methods"
+    ],
+    "internal_link_targets": [
+      "/tutorials.html",
+      "/blogs.html",
+      "/course-viewer.html"
+    ],
+    "schema_jsonld": {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "name": "Learn Coding and Web Development in Sinhala for Beginners",
+      "inLanguage": "en"
+    }
+  },
+  {
     "seo": {
       "title": "Master CSS Flexbox Alignment | Web Design Sri Lanka",
       "meta_description": "Learn modern CSS Flexbox alignment rules with interactive code examples, common mistakes & production layouts.",

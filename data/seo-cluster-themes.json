@@ -1,0 +1,52 @@
+[
+  {
+    "theme": "E-Commerce Website Development and PayHere Integration Sri Lanka",
+    "primary_target": "ecommerce website sri lanka",
+    "tracks": [
+      "JavaScript",
+      "SQL",
+      "React"
+    ],
+    "last_used": null
+  },
+  {
+    "theme": "Responsive Mobile-First Frontend Engineering with CSS and JavaScript",
+    "primary_target": "responsive web design sri lanka",
+    "tracks": [
+      "CSS",
+      "HTML",
+      "React"
+    ],
+    "last_used": null
+  },
+  {
+    "theme": "Python Backend and Database Management for Sri Lankan Tech Startups",
+    "primary_target": "python web development sri lanka",
+    "tracks": [
+      "Python",
+      "SQL",
+      "Git"
+    ],
+    "last_used": null
+  },
+  {
+    "theme": "Affordable Professional Web Design Services in Sri Lanka",
+    "primary_target": "web design sri lanka",
+    "tracks": [
+      "HTML",
+      "CSS",
+      "JavaScript"
+    ],
+    "last_used": "2026-09-23T23:32:40Z"
+  },
+  {
+    "theme": "Learn Coding and Web Development in Sinhala for Beginners",
+    "primary_target": "learn coding sinhala",
+    "tracks": [
+      "HTML",
+      "JavaScript",
+      "Python"
+    ],
+    "last_used": "2026-09-23T23:32:46Z"
+  }
+]
