@@ -160,5 +160,14 @@
     "bg": "#0f172a",
     "featured": false,
     "featuredOrder": 18
+  },
+  {
+    "title": "Suresh Senanayake Physics",
+    "category": "Education & Academic Tuition",
+    "url": "https://sureshwithphysics.com/",
+    "description": "Premier A/L & O/L Physics tuition platform in Gampaha by Suresh Senanayake with bilingual theory modules, syllabus past papers, and student enrollments.",
+    "bg": "#0f172a",
+    "featured": false,
+    "featuredOrder": 19
   }
 ]
