@@ -65,6 +65,8 @@
     var isServices = isPageActive('service');
     var isPortfolio = isPageActive('portfolio') || isPageActive('project');
     var isPackages = isPageActive('package') || isPageActive('pricing');
+    var isBlogs = isPageActive('blog') || isPageActive('article');
+    var isTutorials = isPageActive('tutorial') || isPageActive('course');
     var isAbout = isPageActive('about');
     var isContact = isPageActive('contact');
 
@@ -80,6 +82,8 @@
         '<li><a href="' + PREFIX + 'services.html" class="' + (isServices ? 'active' : '') + '">Services</a></li>' +
         '<li><a href="' + PREFIX + 'portfolio.html" class="' + (isPortfolio ? 'active' : '') + '">Projects</a></li>' +
         '<li><a href="' + PREFIX + 'packages.html" class="' + (isPackages ? 'active' : '') + '">Pricing</a></li>' +
+        '<li><a href="' + PREFIX + 'blogs.html" class="' + (isBlogs ? 'active' : '') + '">Blogs</a></li>' +
+        '<li><a href="' + PREFIX + 'tutorials.html" class="' + (isTutorials ? 'active' : '') + '">Tutorials</a></li>' +
         '<li><a href="' + PREFIX + 'about.html" class="' + (isAbout ? 'active' : '') + '">About</a></li>' +
         '<li><a href="' + PREFIX + 'contact.html" class="' + (isContact ? 'active' : '') + '">Contact</a></li>' +
       '</ul>' +
@@ -96,6 +100,8 @@
       '<a href="' + PREFIX + 'services.html" class="mm-link ' + (isServices ? 'active' : '') + '">Services</a>' +
       '<a href="' + PREFIX + 'portfolio.html" class="mm-link ' + (isPortfolio ? 'active' : '') + '">Projects</a>' +
       '<a href="' + PREFIX + 'packages.html" class="mm-link ' + (isPackages ? 'active' : '') + '">Pricing</a>' +
+      '<a href="' + PREFIX + 'blogs.html" class="mm-link ' + (isBlogs ? 'active' : '') + '">Blogs</a>' +
+      '<a href="' + PREFIX + 'tutorials.html" class="mm-link ' + (isTutorials ? 'active' : '') + '">Tutorials</a>' +
       '<a href="' + PREFIX + 'about.html" class="mm-link ' + (isAbout ? 'active' : '') + '">About</a>' +
       '<a href="' + PREFIX + 'contact.html" class="mm-link ' + (isContact ? 'active' : '') + '">Contact</a>' +
       '<a href="https://wa.me/94789714912?text=Hello%20Infinite%20Creative!%20I%20would%20like%20to%20get%20a%20free%20quote%20for%20my%20business%20website." class="mm-link mm-cta" target="_blank" style="background:#04AA6D; color:#fff; font-weight:800; display:flex; align-items:center; justify-content:center; gap:8px;">' +
