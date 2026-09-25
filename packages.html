@@ -497,10 +497,21 @@
   <section class="section" id="packages" aria-label="Web Design & Digital Marketing Packages" style="padding-top:20px">
     <div class="section-inner">
       <!-- Currency Switcher Toggle -->
-      <div class="currency-toggle-bar" style="display:flex; justify-content:center; align-items:center; gap:10px; margin: 0 auto 28px; padding: 6px 14px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); border-radius: 50px; width: fit-content;">
+      <div class="currency-toggle-bar" style="display:flex; justify-content:center; align-items:center; gap:10px; margin: 0 auto 20px; padding: 6px 14px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); border-radius: 50px; width: fit-content;">
         <span style="font-size: 13px; font-weight: 700; color: #cbd5e1; padding-left: 4px; display:inline-flex; align-items:center; gap:5px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#cbd5e1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M14.8 9A2 2 0 0 0 13 8h-2a2 2 0 0 0 0 4h2a2 2 0 0 1 0 4h-2a2 2 0 0 1-1.8-1"/><path d="M12 6v2m0 8v2"/></svg> Currency:</span>
         <button type="button" class="currency-switch-btn active" data-curr="LKR" onclick="switchGlobalCurrency('LKR')" style="background:#04AA6D; color:#fff; border:none; padding:6px 18px; border-radius:20px; font-size:13px; font-weight:800; cursor:pointer; transition:all 0.2s;">LKR (රු.)</button>
         <button type="button" class="currency-switch-btn" data-curr="USD" onclick="switchGlobalCurrency('USD')" style="background:transparent; color:#94a3b8; border:none; padding:6px 18px; border-radius:20px; font-size:13px; font-weight:700; cursor:pointer; transition:all 0.2s;">USD ($)</button>
+      </div>
+
+      <!-- Interactive Category Filter (Easy & Simple for Clients) -->
+      <div class="pkg-category-filter-bar" id="pkgFilterBar">
+        <button type="button" class="pkg-filter-pill active" data-topic="all" onclick="filterPackageCategory('all', this)">✨ All Packages</button>
+        <button type="button" class="pkg-filter-pill" data-topic="low-cost" onclick="filterPackageCategory('low-cost', this)">💡 Low-Cost / Starter</button>
+        <button type="button" class="pkg-filter-pill" data-topic="industry" onclick="filterPackageCategory('industry', this)">🏖️ Villas, Hotels & Clinics</button>
+        <button type="button" class="pkg-filter-pill" data-topic="ecommerce" onclick="filterPackageCategory('ecommerce', this)">🛒 E-Commerce & Funnels</button>
+        <button type="button" class="pkg-filter-pill" data-topic="corporate" onclick="filterPackageCategory('corporate', this)">🏢 Corporate Business</button>
+        <button type="button" class="pkg-filter-pill" data-topic="services" onclick="filterPackageCategory('services', this)">🛠️ Care & SEO Retainers</button>
+        <button type="button" class="pkg-filter-pill" data-topic="marketing" onclick="filterPackageCategory('marketing', this)">📢 Meta Ad Boost</button>
       </div>
 
       <div class="packages-grid" id="packagesGrid">
@@ -539,9 +550,24 @@
               <select id="calcTier" class="calc-select-custom" onchange="calculateFullEstimate()">
                 <optgroup label="💡 Low-Cost Web Design Packages">
                   <option value="5000" data-name="Starter Essential (Rs. 5,000)">Starter Essential (3 Pages) — Rs. 5,000</option>
+                  <option value="8000" data-name="1-Page Express Landing Page (Rs. 8,000)">High-Converting 1-Page Landing Page — Rs. 8,000</option>
                   <option value="10000" selected data-name="Standard Business (Rs. 10,000)">Standard Business (5 Pages + Admin) — Rs. 10,000</option>
                   <option value="15000" data-name="Advanced Growth (Rs. 15,000)">Advanced Growth (7 Pages Custom UI) — Rs. 15,000</option>
                   <option value="20000" data-name="Corporate Professional (Rs. 20,000)">Corporate Professional (10 Pages) — Rs. 20,000</option>
+                </optgroup>
+                <optgroup label="🏖️ Hotel, Villa & Industry Solutions">
+                  <option value="25000" data-name="Villa & Boutique Hotel (Rs. 25,000)">Villa & Boutique Hotel Showcase — Rs. 25,000</option>
+                  <option value="55000" data-name="Hotel & Tour Booking (Rs. 55,000)">Hotel & Tour Booking Platform — Rs. 55,000</option>
+                  <option value="18000" data-name="Restaurant QR Menu (Rs. 18,000)">Restaurant QR Menu & Dine-In — Rs. 18,000</option>
+                  <option value="38000" data-name="Online Food Ordering (Rs. 38,000)">Online Food Ordering & Delivery — Rs. 38,000</option>
+                  <option value="22000" data-name="Medical & Dental Clinic (Rs. 22,000)">Medical Clinic & Dental Practice — Rs. 22,000</option>
+                  <option value="28000" data-name="Tuition & Academy Portal (Rs. 28,000)">Tuition & Training Academy — Rs. 28,000</option>
+                </optgroup>
+                <optgroup label="🛒 E-Commerce & Online Stores">
+                  <option value="18000" data-name="1-Product Viral Funnel (Rs. 18,000)">1-Product Viral Sales Funnel — Rs. 18,000</option>
+                  <option value="60000" data-name="Full E-Commerce Store (Rs. 60,000)">Full E-Commerce Store (PayHere + Invoices) — Rs. 60,000</option>
+                  <option value="75000" data-name="Retail Online Superstore (Rs. 75,000)">Retail Online Superstore (Up to 500 Items) — Rs. 75,000</option>
+                  <option value="180000" data-name="Product Catalogue Solution (Rs. 180,000)">Product Catalogue Solution — Rs. 180,000</option>
                 </optgroup>
                 <optgroup label="🏢 Corporate & Enterprise Web Portals">
                   <option value="45000" data-name="Starter Corporate (Rs. 45,000)">Starter Corporate (6 Pages) — Rs. 45,000</option>
@@ -549,9 +575,9 @@
                   <option value="99000" data-name="Gold Enterprise (Rs. 99,000)">Gold Enterprise Portal (15 Pages + PayHere) — Rs. 99,000</option>
                   <option value="125000" data-name="Platinum Powerhouse (Rs. 125,000)">Platinum Powerhouse (25 Pages) — Rs. 125,000</option>
                 </optgroup>
-                <optgroup label="🛒 E-Commerce & Online Store">
-                  <option value="60000" data-name="Full E-Commerce Store (Rs. 60,000)">Full E-Commerce Store (PayHere + Invoices) — Rs. 60,000</option>
-                  <option value="180000" data-name="Product Catalogue Solution (Rs. 180,000)">Product Catalogue Solution — Rs. 180,000</option>
+                <optgroup label="🛠️ Website Care & Monthly SEO Retainers">
+                  <option value="3500" data-name="Essential Website Care (Rs. 3,500/mo)">Essential Website Care Retainer — Rs. 3,500/mo</option>
+                  <option value="8500" data-name="Growth SEO Retainer (Rs. 8,500/mo)">Growth SEO & Ranking Retainer — Rs. 8,500/mo</option>
                 </optgroup>
                 <optgroup label="📱 Mobile App Development">
                   <option value="75000" data-name="Basic Mobile App (Rs. 75,000)">Basic Mobile App (Flutter iOS & Android) — Rs. 75,000</option>
