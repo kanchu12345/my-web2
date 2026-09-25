@@ -31,14 +31,14 @@
   <meta name="twitter:image" content="https://infiniteweb.dev/images/logo.png">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/webp" href="images/logo-100w.webp">
-  <link rel="icon" type="image/png" href="images/logo.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="images/favicon-192x192.png">
+  <link rel="icon" type="image/svg+xml" href="images/infinite-logo.svg">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0a0f1d">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <link rel="apple-touch-icon" href="images/logo-200w.webp">
-  <link rel="apple-touch-icon" href="images/logo.png">
 
   <!-- Google Fonts & Stylesheets -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -60,9 +60,11 @@
     button { cursor: pointer; border: none; background: none; font: inherit; }
     .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(10, 15, 29, 0.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.08); height: 72px; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; }
     .nav-inner { max-width: 1200px; width: 100%; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
-    .nav-brand, .nav-logo { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1.25rem; letter-spacing: -0.02em; color: #ffffff; text-decoration: none; }
-    .nav-brand strong { font-family: var(--font-disp); font-size: 1.3rem; letter-spacing: 0.1em; color: #fff; }
-    .nav-brand small { display: block; font-size: 0.65rem; letter-spacing: 0.25em; color: #04AA6D; text-transform: uppercase; font-weight: 700; margin-top: -2px; }
+    .nav-brand, .nav-logo { display: inline-flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1.25rem; letter-spacing: -0.02em; color: #ffffff; text-decoration: none; }
+    .logo-emblem-wrap { position: relative; width: 54px; height: 38px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .logo-emblem-img { width: 100%; height: 100%; object-fit: contain; display: block; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5)) drop-shadow(0 0 10px rgba(56,189,248,0.4)); }
+    .nav-brand strong { font-family: var(--font-disp); font-size: 1.25rem; letter-spacing: 0.12em; color: #fff; text-transform: uppercase; background: linear-gradient(135deg, #ffffff 60%, #38bdf8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .nav-brand small { display: block; font-size: 0.65rem; letter-spacing: 0.28em; color: #04AA6D; text-transform: uppercase; font-weight: 700; margin-top: 1px; }
     .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
     .nav-link, .nav-links a { color: #cbd5e1; font-size: 0.95rem; font-weight: 600; text-decoration: none; transition: color 0.2s; }
     .nav-link.active, .nav-links a.active, .nav-link:hover, .nav-links a:hover { color: #04AA6D; }
@@ -228,7 +230,9 @@
   <!-- ══ 01 NAVIGATION ══════════════════════════════ -->
   <nav class="nav" id="mainNav" role="navigation" aria-label="Main Navigation">
     <a href="index.html" class="nav-logo" aria-label="Infinite Creative Home">
-      <img src="images/logo-100w.webp" srcset="images/logo-100w.webp 100w, images/logo-200w.webp 200w" sizes="48px" alt="Infinite Design Logo" width="48" height="48" loading="eager" fetchpriority="high" decoding="async">
+      <div class="logo-emblem-wrap">
+        <img src="images/infinite-emblem.webp" srcset="images/infinite-emblem.webp 1x, images/infinite-emblem@2x.webp 2x" alt="Infinite Creative 3D Emblem" class="logo-emblem-img" width="54" height="38" loading="eager" fetchpriority="high" decoding="async">
+      </div>
       <div class="nav-brand"><strong>INFINITE</strong><small>Creative Web Design</small></div>
     </a>
     <ul class="nav-links">
@@ -269,17 +273,9 @@
     
     <!-- Signature Brand Interaction: Interactive Infinity Emblem -->
     <div class="infinity-brand-container reveal" role="img" aria-label="Infinite Creative interactive brand emblem" tabindex="0">
-      <svg class="infinity-brand-icon" viewBox="0 0 100 50" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <defs>
-          <linearGradient id="infinityGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#04AA6D" />
-            <stop offset="50%" stop-color="#38bdf8" />
-            <stop offset="100%" stop-color="#04AA6D" />
-          </linearGradient>
-        </defs>
-        <path class="infinity-path-bg" d="M 50,25 C 35,10 15,10 15,25 C 15,40 35,40 50,25 C 65,10 85,10 85,25 C 85,40 65,40 50,25 Z" />
-        <path class="infinity-path-glow" d="M 50,25 C 35,10 15,10 15,25 C 15,40 35,40 50,25 C 65,10 85,10 85,25 C 85,40 65,40 50,25 Z" />
-      </svg>
+      <div class="logo-emblem-wrap" style="width:42px;height:29px;">
+        <img src="images/infinite-emblem.webp" srcset="images/infinite-emblem.webp 1x, images/infinite-emblem@2x.webp 2x" alt="Infinite 3D Emblem" class="logo-emblem-img" width="42" height="29" loading="eager">
+      </div>
       <span class="infinity-brand-tag">Crafted With Infinite Precision</span>
     </div>
 
@@ -1512,11 +1508,15 @@
       <!-- Col 1: Studio Info -->
       <div class="footer-col footer-about">
         <div class="footer-logo-wrap">
-          <img src="images/logo-100w.webp" srcset="images/logo-100w.webp 100w, images/logo-200w.webp 200w" sizes="46px" alt="Infinite Creative Web Design Logo" width="46" height="46" loading="lazy" decoding="async">
-          <div>
-            <div style="font-family:var(--font-disp,Space Grotesk,sans-serif);font-size:16px;font-weight:700;letter-spacing:.15em;color:#fff;">INFINITE</div>
-            <div style="font-size:10px;letter-spacing:.3em;color:#04AA6D;text-transform:uppercase;font-weight:700;">Creative Web Design</div>
-          </div>
+          <a href="index.html" class="footer-logo-link" aria-label="Infinite Creative Home">
+            <div class="logo-emblem-wrap">
+              <img src="images/infinite-emblem.webp" srcset="images/infinite-emblem.webp 1x, images/infinite-emblem@2x.webp 2x" alt="Infinite Creative 3D Emblem" class="logo-emblem-img" width="48" height="33" loading="lazy" decoding="async">
+            </div>
+            <div class="footer-brand-title">
+              <span class="footer-brand-name">INFINITE</span>
+              <span class="footer-brand-sub">Creative Web Design</span>
+            </div>
+          </a>
         </div>
         <p class="footer-desc">
           High-performance, mobile-first websites and custom software solutions designed for Sri Lankan businesses. 19+ verified live client projects with sub-second speeds.
