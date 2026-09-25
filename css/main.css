@@ -2274,25 +2274,47 @@ html, body {
 .hero-pill-badge {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  background: rgba(4, 170, 109, 0.12);
+  gap: 10px;
+  background: rgba(4, 170, 109, 0.1);
   border: 1px solid rgba(4, 170, 109, 0.35);
   border-radius: 50px;
-  padding: 8px 20px;
+  padding: 6px 18px 6px 12px;
   margin-bottom: 24px;
   font-size: 0.82rem;
   font-weight: 800;
   color: #04AA6D;
   text-transform: uppercase;
   letter-spacing: 0.08em;
+  transition: all 0.3s ease;
 }
-
+.hero-pill-badge:hover {
+  background: rgba(4, 170, 109, 0.18);
+  border-color: rgba(4, 170, 109, 0.6);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(4, 170, 109, 0.25);
+}
+.hero-badge-emblem-wrap {
+  width: 28px;
+  height: 19px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.45));
+}
+.hero-badge-emblem-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
 .hero-pill-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
   background: #04AA6D;
   box-shadow: 0 0 10px #04AA6D;
+  flex-shrink: 0;
 }
 
 .hero-business-title {

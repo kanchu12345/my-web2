@@ -71,8 +71,10 @@
     .nav-actions { display: flex; align-items: center; gap: 16px; }
     .nav-cta, .btn-nav-cta { background: #04AA6D; color: #ffffff !important; font-weight: 800; border-radius: 10px; padding: 10px 22px; display: inline-flex; align-items: center; gap: 8px; font-size: 0.88rem; letter-spacing: 0.04em; text-decoration: none; }
     .hero-business { padding: 120px 20px 56px; max-width: 1180px; margin: 0 auto; text-align: center; position: relative; }
-    .hero-pill-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(4, 170, 109, 0.12); border: 1px solid rgba(4, 170, 109, 0.35); border-radius: 50px; padding: 8px 20px; margin-bottom: 24px; font-size: 0.82rem; font-weight: 800; color: #04AA6D; text-transform: uppercase; letter-spacing: 0.08em; }
-    .hero-pill-dot { width: 8px; height: 8px; border-radius: 50%; background: #04AA6D; box-shadow: 0 0 10px #04AA6D; }
+    .hero-pill-badge { display: inline-flex; align-items: center; gap: 10px; background: rgba(4, 170, 109, 0.1); border: 1px solid rgba(4, 170, 109, 0.35); border-radius: 50px; padding: 6px 18px 6px 12px; margin-bottom: 24px; font-size: 0.82rem; font-weight: 800; color: #04AA6D; text-transform: uppercase; letter-spacing: 0.08em; transition: all 0.3s ease; }
+    .hero-badge-emblem-wrap { width: 28px; height: 19px; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.45)); }
+    .hero-badge-emblem-img { width: 100%; height: 100%; object-fit: contain; display: block; }
+    .hero-pill-dot { width: 8px; height: 8px; border-radius: 50%; background: #04AA6D; box-shadow: 0 0 10px #04AA6D; flex-shrink: 0; }
     .hero-business-title { font-size: clamp(2.4rem, 5.5vw, 4rem); font-weight: 900; line-height: 1.12; letter-spacing: -0.03em; color: #ffffff; max-width: 960px; margin: 0 auto 24px; }
     .hero-business-title .accent-gradient { background: linear-gradient(135deg, #04AA6D 0%, #38bdf8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     .hero-business-subhead { font-size: clamp(1.08rem, 2.2vw, 1.28rem); color: #cbd5e1; line-height: 1.65; max-width: 720px; margin: 0 auto 40px; font-weight: 400; }
@@ -271,15 +273,10 @@
   <!-- ══ 02 HERO (BUSINESS-VALUE FOCUSED) ═════════ -->
   <header class="hero-business" id="hero">
     
-    <!-- Signature Brand Interaction: Interactive Infinity Emblem -->
-    <div class="infinity-brand-container reveal" role="img" aria-label="Infinite Creative interactive brand emblem" tabindex="0">
-      <div class="logo-emblem-wrap" style="width:42px;height:29px;">
-        <img src="images/infinite-emblem.webp" srcset="images/infinite-emblem.webp 1x, images/infinite-emblem@2x.webp 2x" alt="Infinite 3D Emblem" class="logo-emblem-img" width="42" height="29" loading="eager">
-      </div>
-      <span class="infinity-brand-tag">Crafted With Infinite Precision</span>
-    </div>
-
     <div class="hero-pill-badge reveal">
+      <div class="hero-badge-emblem-wrap">
+        <img src="images/infinite-emblem.webp" srcset="images/infinite-emblem.webp 1x, images/infinite-emblem@2x.webp 2x" alt="Infinite 3D Emblem" class="hero-badge-emblem-img" width="28" height="19" loading="eager">
+      </div>
       <span class="hero-pill-dot"></span>
       <span>Sri Lanka's Trusted Web Design Studio</span>
     </div>
