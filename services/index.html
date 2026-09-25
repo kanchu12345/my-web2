@@ -8,7 +8,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Our Services | Infinite Creative Web Design</title>
   <meta name="description" content="High-converting web design, e-commerce platforms, mobile app development, SEO Sri Lanka, logo branding, and social media Meta ad boost packages.">
-  <link rel="icon" type="image/png" href="images/logo.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon-32x32.png">
+  <link rel="icon" type="image/svg+xml" href="../images/infinite-logo.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
@@ -37,8 +38,10 @@
 
   <!-- NAVIGATION -->
   <nav class="nav" id="mainNav" role="navigation">
-    <a href="index.html" class="nav-logo">
-      <img src="../images/logo-100w.webp" srcset="../images/logo-100w.webp 100w, ../images/logo-200w.webp 200w" sizes="48px" alt="Infinite Design Logo" width="48" height="48" loading="eager" fetchpriority="high" decoding="async">
+        <a href="../index.html" class="nav-logo" aria-label="Infinite Creative Home">
+      <div class="logo-emblem-wrap">
+        <img src="../images/infinite-emblem.webp" srcset="../images/infinite-emblem.webp 1x, ../images/infinite-emblem@2x.webp 2x" alt="Infinite Creative 3D Emblem" class="logo-emblem-img" width="54" height="38" loading="eager" fetchpriority="high" decoding="async">
+      </div>
       <div class="nav-brand"><strong>INFINITE</strong><small>Creative Web Design</small></div>
     </a>
     <ul class="nav-links">
@@ -225,13 +228,17 @@
   <footer class="footer" id="contact" role="contentinfo">
     <div class="footer-main">
       <div class="footer-col footer-about">
-        <div class="footer-logo-wrap">
-          <img src="../images/logo-100w.webp" srcset="../images/logo-100w.webp 100w, ../images/logo-200w.webp 200w" sizes="50px" alt="Infinite Design" width="50" height="50" loading="lazy" decoding="async">
-          <div>
-            <div style="font-family:var(--font-disp, 'Plus Jakarta Sans', sans-serif);font-size:16px;font-weight:700;letter-spacing:.15em;color:#fff;">INFINITE</div>
-            <div style="font-size:10px;letter-spacing:.3em;color:#04AA6D;text-transform:uppercase;">Creative Web Design</div>
+              <div class="footer-logo-wrap">
+        <a href="../index.html" class="footer-logo-link" aria-label="Infinite Creative Home">
+          <div class="logo-emblem-wrap">
+            <img src="../images/infinite-emblem.webp" srcset="../images/infinite-emblem.webp 1x, ../images/infinite-emblem@2x.webp 2x" alt="Infinite Creative 3D Emblem" class="logo-emblem-img" width="48" height="33" loading="lazy" decoding="async">
           </div>
-        </div>
+          <div class="footer-brand-title">
+            <span class="footer-brand-name">INFINITE</span>
+            <span class="footer-brand-sub">Creative Web Design</span>
+          </div>
+        </a>
+      </div>
         <p class="footer-desc">Modern web design, automated digital systems, and custom online solutions engineered for maximum speed and conversions.</p>
         <div class="footer-socials">
           <a href="https://web.facebook.com/profile.php?id=100082101311247" target="_blank" class="social-link" rel="noopener" aria-label="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
