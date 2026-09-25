@@ -46,88 +46,99 @@
     return current.indexOf(pageName) !== -1;
   }
 
-  // 2. Render Canonical Header
+  // 2. Render Canonical Header (Matches index.html 1:1)
   function renderHeader() {
     var isHome = isPageActive('home');
+    var existingNav = document.querySelector('nav.nav');
+
+    // On homepage with complete emblem nav already rendered, protect it from re-rendering
+    if (isHome && existingNav && existingNav.querySelector('.logo-emblem-wrap')) {
+      if (!document.querySelector('.floating-whatsapp')) {
+        var waBtn = '<a href="https://wa.me/94789714912?text=Hello%20Infinite%20Creative!%20I%20would%20like%20to%20inquire%20about%20a%20website%20for%20my%20business." class="floating-whatsapp" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">' +
+          '<svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2z"/></svg>' +
+        '</a>';
+        document.body.insertAdjacentHTML('beforeend', waBtn);
+      }
+      return;
+    }
+
     var isServices = isPageActive('service');
     var isPortfolio = isPageActive('portfolio') || isPageActive('project');
-    var isPackages = isPageActive('package');
-    var isBlogs = isPageActive('blog') || isPageActive('article');
-    var isTutorials = isPageActive('tutorial') || isPageActive('course');
+    var isPackages = isPageActive('package') || isPageActive('pricing');
     var isAbout = isPageActive('about');
     var isContact = isPageActive('contact');
 
-    var navHTML = '<nav class="nav" role="navigation" aria-label="Main Navigation">' +
-      '<div class="nav-inner">' +
-        '<a href="' + PREFIX + 'index.html" class="nav-logo" aria-label="Infinite Creative Web Design Home">' +
-          '<div class="logo-emblem-wrap">' +
-            '<img src="' + PREFIX + 'images/infinite-emblem.webp" srcset="' + PREFIX + 'images/infinite-emblem.webp 1x, ' + PREFIX + 'images/infinite-emblem@2x.webp 2x" alt="Infinite Creative 3D Emblem" class="logo-emblem-img" width="54" height="38" fetchpriority="high">' +
-          '</div>' +
-          '<div class="nav-brand">' +
-            '<strong>INFINITE</strong>' +
-            '<small>Creative Web Design</small>' +
-          '</div>' +
+    var navHTML = '<nav class="nav" id="mainNav" role="navigation" aria-label="Main Navigation">' +
+      '<a href="' + PREFIX + 'index.html" class="nav-logo" aria-label="Infinite Creative Home">' +
+        '<div class="logo-emblem-wrap">' +
+          '<img src="' + PREFIX + 'images/infinite-emblem.webp" srcset="' + PREFIX + 'images/infinite-emblem.webp 1x, ' + PREFIX + 'images/infinite-emblem@2x.webp 2x" alt="Infinite Creative 3D Emblem" class="logo-emblem-img" width="54" height="38" loading="eager" fetchpriority="high" decoding="async">' +
+        '</div>' +
+        '<div class="nav-brand"><strong>INFINITE</strong><small>Creative Web Design</small></div>' +
+      '</a>' +
+      '<ul class="nav-links">' +
+        '<li><a href="' + PREFIX + 'index.html" class="' + (isHome ? 'active' : '') + '">Home</a></li>' +
+        '<li><a href="' + PREFIX + 'services.html" class="' + (isServices ? 'active' : '') + '">Services</a></li>' +
+        '<li><a href="' + PREFIX + 'portfolio.html" class="' + (isPortfolio ? 'active' : '') + '">Projects</a></li>' +
+        '<li><a href="' + PREFIX + 'packages.html" class="' + (isPackages ? 'active' : '') + '">Pricing</a></li>' +
+        '<li><a href="' + PREFIX + 'about.html" class="' + (isAbout ? 'active' : '') + '">About</a></li>' +
+        '<li><a href="' + PREFIX + 'contact.html" class="' + (isContact ? 'active' : '') + '">Contact</a></li>' +
+      '</ul>' +
+      '<div class="nav-actions">' +
+        '<a href="https://wa.me/94789714912?text=Hello%20Infinite%20Creative!%20I%20would%20like%20to%20get%20a%20free%20quote%20for%20my%20business%20website." class="nav-cta" target="_blank" rel="noopener" style="background:#04AA6D; color:#fff; font-weight:800; border-radius:10px; padding:10px 22px; display:inline-flex; align-items:center; gap:8px;" aria-label="Get a Quote on WhatsApp">' +
+          '<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>' +
+          'GET A QUOTE' +
         '</a>' +
-        '<div class="nav-links" role="menubar">' +
-          '<a href="' + PREFIX + 'index.html" class="nav-link ' + (isHome ? 'active' : '') + '" role="menuitem">Home</a>' +
-          '<a href="' + PREFIX + 'services.html" class="nav-link ' + (isServices ? 'active' : '') + '" role="menuitem">Services</a>' +
-          '<a href="' + PREFIX + 'portfolio.html" class="nav-link ' + (isPortfolio ? 'active' : '') + '" role="menuitem">Projects</a>' +
-          '<a href="' + PREFIX + 'packages.html" class="nav-link ' + (isPackages ? 'active' : '') + '" role="menuitem">Pricing</a>' +
-          '<a href="' + PREFIX + 'blogs.html" class="nav-link ' + (isBlogs ? 'active' : '') + '" role="menuitem">AI Tech & Blog</a>' +
-          '<a href="' + PREFIX + 'tutorials.html" class="nav-link ' + (isTutorials ? 'active' : '') + '" role="menuitem">Academy</a>' +
-          '<a href="' + PREFIX + 'about.html" class="nav-link ' + (isAbout ? 'active' : '') + '" role="menuitem">About</a>' +
-          '<a href="' + PREFIX + 'contact.html" class="nav-link ' + (isContact ? 'active' : '') + '" role="menuitem">Contact</a>' +
-        '</div>' +
-        '<div class="nav-actions">' +
-          '<a href="https://wa.me/94789714912?text=Hello%20Infinite%20Creative!%20I%20would%20like%20to%20get%20a%20free%20quote%20for%20my%20business%20website." ' +
-             'target="_blank" rel="noopener noreferrer" class="btn-nav-cta" aria-label="Get a Free Quote on WhatsApp">' +
-            '<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="margin-right:6px;"><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>' +
-            '<span>Free Quote</span>' +
-          '</a>' +
-          '<button class="nav-toggle" id="navToggleBtn" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="siteMobileMenu">' +
-            '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>' +
-          '</button>' +
-        '</div>' +
       '</div>' +
+      '<button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileMenu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>' +
     '</nav>' +
-    '<div class="mobile-menu" id="siteMobileMenu" aria-hidden="true">' +
+    '<div class="mobile-menu glass" id="mobileMenu" aria-hidden="true">' +
       '<a href="' + PREFIX + 'index.html" class="mm-link ' + (isHome ? 'active' : '') + '">Home</a>' +
       '<a href="' + PREFIX + 'services.html" class="mm-link ' + (isServices ? 'active' : '') + '">Services</a>' +
-      '<a href="' + PREFIX + 'portfolio.html" class="mm-link ' + (isPortfolio ? 'active' : '') + '">Projects & Portfolio (18+ Live)</a>' +
-      '<a href="' + PREFIX + 'packages.html" class="mm-link ' + (isPackages ? 'active' : '') + '">Packages & Pricing</a>' +
-      '<a href="' + PREFIX + 'blogs.html" class="mm-link ' + (isBlogs ? 'active' : '') + '">AI Tech & Blogs</a>' +
-      '<a href="' + PREFIX + 'tutorials.html" class="mm-link ' + (isTutorials ? 'active' : '') + '">Developer Academy</a>' +
-      '<a href="' + PREFIX + 'about.html" class="mm-link ' + (isAbout ? 'active' : '') + '">About Us</a>' +
-      '<a href="' + PREFIX + 'contact.html" class="mm-link ' + (isContact ? 'active' : '') + '">Contact Us</a>' +
-      '<a href="https://wa.me/94789714912?text=Hello%20Infinite%20Creative!%20I%20would%20like%20to%20get%20a%20free%20quote%20for%20my%20business%20website." ' +
-         'target="_blank" rel="noopener noreferrer" class="mm-link mm-cta" style="background:#04AA6D;color:#fff;font-weight:800;text-align:center;margin-top:12px;border-radius:8px;padding:12px;display:flex;align-items:center;justify-content:center;gap:8px;">' +
+      '<a href="' + PREFIX + 'portfolio.html" class="mm-link ' + (isPortfolio ? 'active' : '') + '">Projects</a>' +
+      '<a href="' + PREFIX + 'packages.html" class="mm-link ' + (isPackages ? 'active' : '') + '">Pricing</a>' +
+      '<a href="' + PREFIX + 'about.html" class="mm-link ' + (isAbout ? 'active' : '') + '">About</a>' +
+      '<a href="' + PREFIX + 'contact.html" class="mm-link ' + (isContact ? 'active' : '') + '">Contact</a>' +
+      '<a href="https://wa.me/94789714912?text=Hello%20Infinite%20Creative!%20I%20would%20like%20to%20get%20a%20free%20quote%20for%20my%20business%20website." class="mm-link mm-cta" target="_blank" style="background:#04AA6D; color:#fff; font-weight:800; display:flex; align-items:center; justify-content:center; gap:8px;">' +
         '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>' +
-        '<span>Chat on WhatsApp</span>' +
+        '<span>Get a Free Quote</span>' +
       '</a>' +
     '</div>';
 
-    var container = document.getElementById('site-header-container');
+    var container = document.getElementById('site-header-container') || document.getElementById('siteHeaderContainer');
     if (container) {
       container.innerHTML = navHTML;
     } else {
-      var existingNav = document.querySelector('nav.nav');
+      var oldMobile = document.getElementById('mobileMenu') || document.querySelector('.mobile-menu');
+      if (oldMobile) oldMobile.remove();
       if (existingNav) {
         existingNav.outerHTML = navHTML;
-        var oldMobile = document.querySelector('.mobile-menu');
-        if (oldMobile && oldMobile.id !== 'siteMobileMenu') oldMobile.remove();
       } else {
         document.body.insertAdjacentHTML('afterbegin', navHTML);
       }
     }
 
-    var toggleBtn = document.getElementById('navToggleBtn');
-    var mobileMenu = document.getElementById('siteMobileMenu');
+    var toggleBtn = document.getElementById('navToggle');
+    var mobileMenu = document.getElementById('mobileMenu');
     if (toggleBtn && mobileMenu) {
-      toggleBtn.addEventListener('click', function () {
+      toggleBtn.onclick = function () {
         var isOpen = mobileMenu.classList.toggle('open');
         toggleBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
         mobileMenu.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+      };
+      mobileMenu.querySelectorAll('.mm-link').forEach(function(a) {
+        a.onclick = function() {
+          mobileMenu.classList.remove('open');
+          toggleBtn.setAttribute('aria-expanded', 'false');
+          mobileMenu.setAttribute('aria-hidden', 'true');
+        };
       });
+    }
+
+    if (!document.querySelector('.floating-whatsapp')) {
+      var waBtn = '<a href="https://wa.me/94789714912?text=Hello%20Infinite%20Creative!%20I%20would%20like%20to%20inquire%20about%20a%20website%20for%20my%20business." class="floating-whatsapp" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">' +
+        '<svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2z"/></svg>' +
+      '</a>';
+      document.body.insertAdjacentHTML('beforeend', waBtn);
     }
   }
 
