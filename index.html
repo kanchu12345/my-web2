@@ -85,12 +85,12 @@
     @media (max-width: 900px) { .nav-links { display: none; } .trust-bar-wrapper { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 600px) { .trust-bar-wrapper { grid-template-columns: 1fr; } .hero-business { padding-top: 100px; } }
   </style>
-  <link rel="preload" href="css/main.css?v=2026" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="css/main.css?v=2026"></noscript>
-  <link rel="preload" href="css/additions.css?v=2026" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="css/additions.css?v=2026"></noscript>
+  <link rel="preload" href="css/main.css?v=2026.5" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="css/main.css?v=2026.5"></noscript>
+  <link rel="preload" href="css/additions.css?v=2026.5" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="css/additions.css?v=2026.5"></noscript>
 
-  <!-- Google Analytics (GA4) loaded conditionally via js/components.js upon explicit cookie consent -->
+  <!-- Google Analytics (GA4) loaded conditionally via js/components.js?v=25 upon explicit cookie consent -->
 
   <!-- Schema.org JSON-LD -->
   <script type="application/ld+json">
@@ -344,6 +344,168 @@
       </div>
     </div>
   </header>
+
+  <!-- ══ 03.5 ALL WEBSITE PAGES & PORTALS (AUTO-SWAPPING SEPARATE CARDS) ══ -->
+  <section class="section pages-showcase-section" id="pages-showcase" style="padding: 40px 20px 50px; background: rgba(13, 21, 39, 0.4); border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05);">
+    <div class="section-inner" style="max-width: 1240px; margin: 0 auto;">
+      <div class="section-head-center reveal" style="text-align: center; margin-bottom: 28px;">
+        <div class="section-eyebrow" style="color: #04AA6D; font-weight: 800; font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase;">EXPLORE INFINITE WEB DESIGN</div>
+        <h2 class="section-title-lg" style="font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 900; color: #fff; margin-bottom: 10px;">
+          All Website Portals & <span style="background: linear-gradient(135deg, #04AA6D, #38bdf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Dedicated Pages</span>
+        </h2>
+        <p class="section-subtitle-lg" style="color: #cbd5e1; max-width: 720px; margin: 0 auto; font-size: 1.05rem;">
+          Navigate to any section of our studio directly. Explore live projects, view transparent pricing, read tech blogs, or learn modern web design.
+        </p>
+      </div>
+
+      <!-- Auto-Swapping Pages Carousel -->
+      <div class="pages-carousel-wrapper" id="pagesCarouselWrapper">
+        <button class="pages-carousel-arrow prev" id="pagesPrevBtn" aria-label="Previous Page" onclick="pagesCarouselPrev()">‹</button>
+        <div class="pages-carousel-viewport" id="pagesViewport">
+          <div class="pages-carousel-track" id="pagesTrack">
+
+            <!-- Card 1: Services Page -->
+            <div class="page-showcase-card" onclick="window.location.href='services.html'">
+              <div class="psc-top">
+                <span class="psc-badge" style="background: rgba(4,170,109,0.15); color: #04AA6D; border: 1px solid rgba(4,170,109,0.35);">⚡ Full-Spectrum Digital</span>
+                <span class="psc-tag">PAGE 01</span>
+              </div>
+              <h3 class="psc-title">Services Overview</h3>
+              <p class="psc-desc">Custom web engineering, e-commerce stores, PayHere IPG payment integration, speed optimization, and mobile app design.</p>
+              <ul class="psc-features">
+                <li>✓ High-Converting UI/UX Design</li>
+                <li>✓ PayHere & Local Bank Gateways</li>
+                <li>✓ SEO Ready Structure</li>
+              </ul>
+              <a href="services.html" class="psc-btn" onclick="event.stopPropagation();">
+                <span>Explore Services</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+
+            <!-- Card 2: Projects & Portfolio Page -->
+            <div class="page-showcase-card" onclick="window.location.href='portfolio.html'">
+              <div class="psc-top">
+                <span class="psc-badge" style="background: rgba(56,189,248,0.15); color: #38bdf8; border: 1px solid rgba(56,189,248,0.35);">🏆 19+ Verified Projects</span>
+                <span class="psc-tag">PAGE 02</span>
+              </div>
+              <h3 class="psc-title">Portfolio & Projects</h3>
+              <p class="psc-desc">Explore verified live client websites delivered for hotels, restaurants, clinics, retail shops, and corporate businesses across Sri Lanka.</p>
+              <ul class="psc-features">
+                <li>✓ Live Demo Previews</li>
+                <li>✓ Sub-second Load Times</li>
+                <li>✓ Mobile-First Optimization</li>
+              </ul>
+              <a href="portfolio.html" class="psc-btn" onclick="event.stopPropagation();">
+                <span>View All Projects</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+
+            <!-- Card 3: Packages & Pricing Page -->
+            <div class="page-showcase-card" onclick="window.location.href='packages.html'">
+              <div class="psc-top">
+                <span class="psc-badge" style="background: rgba(250,204,21,0.15); color: #facc15; border: 1px solid rgba(250,204,21,0.35);">💎 Transparent Rates</span>
+                <span class="psc-tag">PAGE 03</span>
+              </div>
+              <h3 class="psc-title">Pricing & Packages</h3>
+              <p class="psc-desc">Detailed breakdown of 40+ web packages from Rs. 5,000/- with interactive dual currency calculator (LKR / USD) and zero renewal traps.</p>
+              <ul class="psc-features">
+                <li>✓ Free Lifetime Cloud Hosting</li>
+                <li>✓ Interactive Cost Calculator</li>
+                <li>✓ Zero Hidden Monthly Fees</li>
+              </ul>
+              <a href="packages.html" class="psc-btn" onclick="event.stopPropagation();">
+                <span>Browse Packages</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+
+            <!-- Card 4: AI Tech & Blogs Page -->
+            <div class="page-showcase-card" onclick="window.location.href='blogs.html'">
+              <div class="psc-top">
+                <span class="psc-badge" style="background: rgba(168,85,247,0.15); color: #c084fc; border: 1px solid rgba(168,85,247,0.35);">🧠 AI Tech Insights</span>
+                <span class="psc-tag">PAGE 04</span>
+              </div>
+              <h3 class="psc-title">Blogs & Industry News</h3>
+              <p class="psc-desc">In-depth technology articles on AI-assisted coding, SEO algorithms, mobile responsiveness, digital marketing, and web standards in Sri Lanka.</p>
+              <ul class="psc-features">
+                <li>✓ Daily Curated Tech News</li>
+                <li>✓ Practical Business Guides</li>
+                <li>✓ Google Search Ranking Tips</li>
+              </ul>
+              <a href="blogs.html" class="psc-btn" onclick="event.stopPropagation();">
+                <span>Read Articles</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+
+            <!-- Card 5: Developer Academy & Tutorials -->
+            <div class="page-showcase-card" onclick="window.location.href='tutorials.html'">
+              <div class="psc-top">
+                <span class="psc-badge" style="background: rgba(34,197,94,0.15); color: #4ade80; border: 1px solid rgba(34,197,94,0.35);">🎓 Developer Academy</span>
+                <span class="psc-tag">PAGE 05</span>
+              </div>
+              <h3 class="psc-title">Coding Tutorials</h3>
+              <p class="psc-desc">Free interactive developer academy covering HTML5, CSS3, JavaScript, web accessibility, and performance optimization for aspiring developers.</p>
+              <ul class="psc-features">
+                <li>✓ Hands-On Code Samples</li>
+                <li>✓ Trilingual Language Switch</li>
+                <li>✓ Modern Best Practices</li>
+              </ul>
+              <a href="tutorials.html" class="psc-btn" onclick="event.stopPropagation();">
+                <span>Start Learning</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+
+            <!-- Card 6: About Our Agency -->
+            <div class="page-showcase-card" onclick="window.location.href='about.html'">
+              <div class="psc-top">
+                <span class="psc-badge" style="background: rgba(244,63,94,0.15); color: #fb7185; border: 1px solid rgba(244,63,94,0.35);">🛡️ Trusted Agency</span>
+                <span class="psc-tag">PAGE 06</span>
+              </div>
+              <h3 class="psc-title">About Our Agency</h3>
+              <p class="psc-desc">Learn about Infinite Creative Web Design — our Tangalle engineering studio, design philosophies, verified guarantees, and client success stories.</p>
+              <ul class="psc-features">
+                <li>✓ 100% Sri Lankan Owned</li>
+                <li>✓ Direct Developer Contact</li>
+                <li>✓ BestWeb.lk Rubric Certified</li>
+              </ul>
+              <a href="about.html" class="psc-btn" onclick="event.stopPropagation();">
+                <span>Meet Our Team</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+
+            <!-- Card 7: Contact & Free Quote -->
+            <div class="page-showcase-card" onclick="window.location.href='contact.html'">
+              <div class="psc-top">
+                <span class="psc-badge" style="background: rgba(4,170,109,0.2); color: #04AA6D; border: 1px solid rgba(4,170,109,0.4);">💬 Instant WhatsApp</span>
+                <span class="psc-tag">PAGE 07</span>
+              </div>
+              <h3 class="psc-title">Contact & Consultation</h3>
+              <p class="psc-desc">Reach out for custom website inquiries, quote estimations, or project consultations. We are available 7 days a week from 8:00 AM to 10:00 PM.</p>
+              <ul class="psc-features">
+                <li>✓ Instant WhatsApp Response</li>
+                <li>✓ Direct Phone: +94 78 971 4912</li>
+                <li>✓ Interactive Google Map Embed</li>
+              </ul>
+              <a href="contact.html" class="psc-btn" onclick="event.stopPropagation();">
+                <span>Get Free Quote</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+
+          </div>
+        </div>
+        <button class="pages-carousel-arrow next" id="pagesNextBtn" aria-label="Next Page" onclick="pagesCarouselNext()">›</button>
+      </div>
+
+      <!-- Carousel Pagination Dots -->
+      <div class="pages-carousel-dots" id="pagesDots"></div>
+    </div>
+  </section>
 
   <!-- ══ 04 FEATURED PROJECTS (PORTFOLIO AS THE STAR) ══ -->
   <section class="section" id="selected-work" aria-label="Featured Client Projects" style="padding-top:40px;">
@@ -1872,8 +2034,8 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=17" defer></script>
-  <script src="js/components.js" defer></script>
+  <script src="js/main.js?v=25" defer></script>
+  <script src="js/components.js?v=25" defer></script>
   <script src="js/chatbot.js" defer></script>
   <script src="js/quiz.js" defer></script>
   <script>

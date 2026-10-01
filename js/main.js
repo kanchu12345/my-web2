@@ -2804,6 +2804,7 @@ document.addEventListener('DOMContentLoaded', () => {
     calculateFullEstimate();
   }
   initPricingCarousel();
+  initPagesCarousel();
   initFaqAccordion();
   initSmoothScroll();
   loadProjects();
@@ -3008,6 +3009,136 @@ function initPricingCarousel() {
         window.carouselNext();
       } else if (touchEndX - touchStartX > 50) {
         window.carouselPrev();
+      }
+    }, { passive: true });
+  }
+
+  window.addEventListener('resize', () => {
+    renderDots();
+    updateSlider();
+  });
+
+  renderDots();
+  updateSlider();
+  startTimer();
+}
+
+
+/* ── Auto-Swapping Pages Showcase Carousel Engine ───────────────── */
+function initPagesCarousel() {
+  const track = document.getElementById('pagesTrack');
+  const viewport = document.getElementById('pagesViewport');
+  const dotsContainer = document.getElementById('pagesDots');
+  if (!track || !viewport) return;
+
+  const cards = track.querySelectorAll('.page-showcase-card');
+  if (!cards.length) return;
+
+  let currentIndex = 0;
+  let autoTimer = null;
+  let isHovered = false;
+
+  function getCardsPerView() {
+    if (window.innerWidth <= 680) return 1;
+    if (window.innerWidth <= 1024) return 2;
+    return 3;
+  }
+
+  function getMaxIndex() {
+    return Math.max(0, cards.length - getCardsPerView());
+  }
+
+  function renderDots() {
+    if (!dotsContainer) return;
+    dotsContainer.innerHTML = '';
+    const totalDots = getMaxIndex() + 1;
+    for (let i = 0; i < totalDots; i++) {
+      const dot = document.createElement('div');
+      dot.className = 'page-dot' + (i === currentIndex ? ' active' : '');
+      dot.setAttribute('aria-label', 'Go to page card ' + (i + 1));
+      dot.onclick = () => {
+        currentIndex = i;
+        updateSlider();
+        resetTimer();
+      };
+      dotsContainer.appendChild(dot);
+    }
+  }
+
+  function updateSlider() {
+    const maxIdx = getMaxIndex();
+    if (currentIndex > maxIdx) currentIndex = 0;
+    if (currentIndex < 0) currentIndex = maxIdx;
+
+    const firstCard = cards[0];
+    const cardWidth = firstCard.getBoundingClientRect().width;
+    const gap = 24;
+    const shift = currentIndex * (cardWidth + gap);
+
+    track.style.transform = 'translateX(-' + shift + 'px)';
+
+    if (dotsContainer) {
+      const dots = dotsContainer.querySelectorAll('.page-dot');
+      dots.forEach((d, idx) => {
+        d.classList.toggle('active', idx === currentIndex);
+      });
+    }
+  }
+
+  window.pagesCarouselNext = function() {
+    const maxIdx = getMaxIndex();
+    currentIndex = (currentIndex >= maxIdx) ? 0 : currentIndex + 1;
+    updateSlider();
+    resetTimer();
+  };
+
+  window.pagesCarouselPrev = function() {
+    const maxIdx = getMaxIndex();
+    currentIndex = (currentIndex <= 0) ? maxIdx : currentIndex - 1;
+    updateSlider();
+    resetTimer();
+  };
+
+  function startTimer() {
+    stopTimer();
+    autoTimer = setInterval(() => {
+      if (!isHovered) {
+        const maxIdx = getMaxIndex();
+        currentIndex = (currentIndex >= maxIdx) ? 0 : currentIndex + 1;
+        updateSlider();
+      }
+    }, 3800);
+  }
+
+  function stopTimer() {
+    if (autoTimer) {
+      clearInterval(autoTimer);
+      autoTimer = null;
+    }
+  }
+
+  function resetTimer() {
+    startTimer();
+  }
+
+  const wrapper = document.getElementById('pagesCarouselWrapper');
+  if (wrapper) {
+    wrapper.addEventListener('mouseenter', () => { isHovered = true; });
+    wrapper.addEventListener('mouseleave', () => { isHovered = false; });
+    
+    let touchStartX = 0;
+    let touchEndX = 0;
+    wrapper.addEventListener('touchstart', e => {
+      touchStartX = e.changedTouches[0].screenX;
+      isHovered = true;
+    }, { passive: true });
+    wrapper.addEventListener('touchend', e => {
+      touchEndX = e.changedTouches[0].screenX;
+      isHovered = false;
+      if (touchStartX - touchEndX > 45) {
+        window.pagesCarouselNext();
+      } else if (touchEndX - touchStartX > 45) {
+        window.pagesCarouselPrev();
       }
     }, { passive: true });
   }
