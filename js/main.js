@@ -48,26 +48,40 @@ setTimeout(triggerSafeReveal, 500);
   onScroll();
 
   // Mobile toggle
-  const toggle=document.getElementById('navToggle');
-  const menu=document.getElementById('mobileMenu');
-  if(toggle&&menu){
-    toggle.addEventListener('click',function(){
-      const open=menu.classList.toggle('open');
-      toggle.setAttribute('aria-expanded',open);
-      menu.setAttribute('aria-hidden',!open);
+  const toggle = document.getElementById('navToggle');
+  const menu = document.getElementById('mobileMenu');
+  if (toggle && menu) {
+    toggle.addEventListener('click', function(e) {
+      e.stopPropagation();
+      const open = menu.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      menu.setAttribute('aria-hidden', open ? 'false' : 'true');
     });
-    menu.querySelectorAll('.mm-link').forEach(function(a){
-      a.addEventListener('click',function(){
-        menu.classList.remove('open');
-        toggle.setAttribute('aria-expanded','false');
-        menu.setAttribute('aria-hidden','true');
+    menu.querySelectorAll('.mm-link').forEach(function(a) {
+      a.addEventListener('click', function(e) {
+        const href = a.getAttribute('href');
+        if (href && !href.startsWith('#')) {
+          // Page navigation link: allow standard navigation without interrupting touch on Android
+          setTimeout(function() {
+            menu.classList.remove('open');
+            toggle.setAttribute('aria-expanded', 'false');
+            menu.setAttribute('aria-hidden', 'true');
+          }, 350);
+          return;
+        }
+        // In-page anchor hash link
+        setTimeout(function() {
+          menu.classList.remove('open');
+          toggle.setAttribute('aria-expanded', 'false');
+          menu.setAttribute('aria-hidden', 'true');
+        }, 150);
       });
     });
-    document.addEventListener('click',function(e){
-      if(!toggle.contains(e.target)&&!menu.contains(e.target)){
+    document.addEventListener('click', function(e) {
+      if (menu.classList.contains('open') && !toggle.contains(e.target) && !menu.contains(e.target)) {
         menu.classList.remove('open');
-        toggle.setAttribute('aria-expanded','false');
-        menu.setAttribute('aria-hidden','true');
+        toggle.setAttribute('aria-expanded', 'false');
+        menu.setAttribute('aria-hidden', 'true');
       }
     });
   }
@@ -2784,6 +2798,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (document.getElementById('calcTier')) {
     calculateFullEstimate();
   }
+  initPricingCarousel();
   initFaqAccordion();
   initSmoothScroll();
   loadProjects();
@@ -2847,4 +2862,157 @@ function initSmoothScroll() {
       }
     });
   });
+}
+
+
+/* ── Auto-Swapping Pricing Carousel Engine ─────────────────────── */
+function initPricingCarousel() {
+  const track = document.getElementById('pricingTrack');
+  const viewport = document.getElementById('pricingViewport');
+  const dotsContainer = document.getElementById('pricingDots');
+  if (!track || !viewport) return;
+
+  const cards = track.querySelectorAll('.package-card');
+  if (!cards.length) return;
+
+  let currentIndex = 0;
+  let autoTimer = null;
+  let isHovered = false;
+
+  function getCardsPerView() {
+    if (window.innerWidth <= 680) return 1;
+    if (window.innerWidth <= 1024) return 2;
+    return 3;
+  }
+
+  function getMaxIndex() {
+    return Math.max(0, cards.length - getCardsPerView());
+  }
+
+  function renderDots() {
+    if (!dotsContainer) return;
+    dotsContainer.innerHTML = '';
+    const totalDots = getMaxIndex() + 1;
+    for (let i = 0; i < totalDots; i++) {
+      const dot = document.createElement('div');
+      dot.className = 'pricing-dot' + (i === currentIndex ? ' active' : '');
+      dot.setAttribute('aria-label', 'Go to package ' + (i + 1));
+      dot.onclick = () => {
+        currentIndex = i;
+        updateSlider();
+        resetTimer();
+      };
+      dotsContainer.appendChild(dot);
+    }
+  }
+
+  function updateSlider() {
+    const maxIdx = getMaxIndex();
+    if (currentIndex > maxIdx) currentIndex = 0;
+    if (currentIndex < 0) currentIndex = maxIdx;
+
+    const firstCard = cards[0];
+    const cardWidth = firstCard.getBoundingClientRect().width;
+    const gap = 24;
+    const shift = currentIndex * (cardWidth + gap);
+
+    track.style.transform = 'translateX(-' + shift + 'px)';
+
+    if (dotsContainer) {
+      const dots = dotsContainer.querySelectorAll('.pricing-dot');
+      dots.forEach((d, idx) => {
+        d.classList.toggle('active', idx === currentIndex);
+      });
+    }
+  }
+
+  window.carouselNext = function() {
+    const maxIdx = getMaxIndex();
+    currentIndex = (currentIndex >= maxIdx) ? 0 : currentIndex + 1;
+    updateSlider();
+    resetTimer();
+  };
+
+  window.carouselPrev = function() {
+    const maxIdx = getMaxIndex();
+    currentIndex = (currentIndex <= 0) ? maxIdx : currentIndex - 1;
+    updateSlider();
+    resetTimer();
+  };
+
+  window.jumpCarouselCategory = function(catKey, btnEl) {
+    if (btnEl) {
+      document.querySelectorAll('.pricing-tab-btn').forEach(b => b.classList.remove('active'));
+      btnEl.classList.add('active');
+    }
+    if (catKey === 'all') {
+      currentIndex = 0;
+    } else {
+      let targetIdx = -1;
+      cards.forEach((c, idx) => {
+        if (targetIdx === -1 && c.getAttribute('data-category') === catKey) {
+          targetIdx = idx;
+        }
+      });
+      if (targetIdx !== -1) {
+        currentIndex = Math.min(targetIdx, getMaxIndex());
+      }
+    }
+    updateSlider();
+    resetTimer();
+  };
+
+  function startTimer() {
+    stopTimer();
+    autoTimer = setInterval(() => {
+      if (!isHovered) {
+        const maxIdx = getMaxIndex();
+        currentIndex = (currentIndex >= maxIdx) ? 0 : currentIndex + 1;
+        updateSlider();
+      }
+    }, 4500);
+  }
+
+  function stopTimer() {
+    if (autoTimer) {
+      clearInterval(autoTimer);
+      autoTimer = null;
+    }
+  }
+
+  function resetTimer() {
+    startTimer();
+  }
+
+  const wrapper = document.getElementById('pricingCarouselWrapper');
+  if (wrapper) {
+    wrapper.addEventListener('mouseenter', () => { isHovered = true; });
+    wrapper.addEventListener('mouseleave', () => { isHovered = false; });
+    
+    // Touch swipe support for mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
+    wrapper.addEventListener('touchstart', e => {
+      touchStartX = e.changedTouches[0].screenX;
+      isHovered = true;
+    }, { passive: true });
+    wrapper.addEventListener('touchend', e => {
+      touchEndX = e.changedTouches[0].screenX;
+      isHovered = false;
+      if (touchStartX - touchEndX > 50) {
+        window.carouselNext();
+      } else if (touchEndX - touchStartX > 50) {
+        window.carouselPrev();
+      }
+    }, { passive: true });
+  }
+
+  window.addEventListener('resize', () => {
+    renderDots();
+    updateSlider();
+  });
+
+  renderDots();
+  updateSlider();
+  startTimer();
 }

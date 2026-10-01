@@ -126,17 +126,37 @@
     var toggleBtn = document.getElementById('navToggle');
     var mobileMenu = document.getElementById('mobileMenu');
     if (toggleBtn && mobileMenu) {
-      toggleBtn.onclick = function () {
+      toggleBtn.onclick = function (e) {
+        if (e) e.stopPropagation();
         var isOpen = mobileMenu.classList.toggle('open');
         toggleBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
         mobileMenu.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
       };
       mobileMenu.querySelectorAll('.mm-link').forEach(function(a) {
-        a.onclick = function() {
+        a.onclick = function(e) {
+          var href = a.getAttribute('href');
+          if (href && !href.startsWith('#')) {
+            // Page navigation link: allow standard navigation without interrupting touch on Android
+            setTimeout(function() {
+              mobileMenu.classList.remove('open');
+              toggleBtn.setAttribute('aria-expanded', 'false');
+              mobileMenu.setAttribute('aria-hidden', 'true');
+            }, 350);
+            return;
+          }
+          setTimeout(function() {
+            mobileMenu.classList.remove('open');
+            toggleBtn.setAttribute('aria-expanded', 'false');
+            mobileMenu.setAttribute('aria-hidden', 'true');
+          }, 150);
+        };
+      });
+      document.addEventListener('click', function(e) {
+        if (mobileMenu.classList.contains('open') && !toggleBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
           mobileMenu.classList.remove('open');
           toggleBtn.setAttribute('aria-expanded', 'false');
           mobileMenu.setAttribute('aria-hidden', 'true');
-        };
+        }
       });
     }
 
