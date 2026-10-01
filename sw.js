@@ -3,7 +3,7 @@
    Version: 3.0.0 (Network-First Instant Updates)
    ══════════════════════════════════════════════════════════════ */
 
-const CACHE_NAME = 'infiniteweb-cache-v5';
+const CACHE_NAME = 'infiniteweb-cache-v6';
 
 // Install Event: Activate immediately without waiting
 self.addEventListener('install', (event) => {

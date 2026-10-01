@@ -136,8 +136,18 @@
         mobileMenu.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
       }
 
-      toggleBtn.onclick = toggleMenu;
-      toggleBtn.addEventListener('touchstart', toggleMenu, { passive: false });
+      var _cTouchFired = false;
+      toggleBtn.addEventListener('touchstart', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        _cTouchFired = true;
+        toggleMenu(e);
+        setTimeout(function() { _cTouchFired = false; }, 500);
+      }, { passive: false });
+      toggleBtn.onclick = function(e) {
+        if (_cTouchFired) { _cTouchFired = false; return; }
+        toggleMenu(e);
+      };
 
       mobileMenu.querySelectorAll('.mm-link').forEach(function(a) {
         a.onclick = function(e) {

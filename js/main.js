@@ -61,8 +61,18 @@ setTimeout(triggerSafeReveal, 500);
       menu.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
     }
 
-    toggle.addEventListener('click', toggleMobileMenu);
-    toggle.addEventListener('touchstart', toggleMobileMenu, { passive: false });
+    var _navTouchFired = false;
+    toggle.addEventListener('touchstart', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      _navTouchFired = true;
+      toggleMobileMenu(e);
+      setTimeout(function() { _navTouchFired = false; }, 500);
+    }, { passive: false });
+    toggle.addEventListener('click', function(e) {
+      if (_navTouchFired) { _navTouchFired = false; return; }
+      toggleMobileMenu(e);
+    });
 
     menu.querySelectorAll('.mm-link').forEach(function(a) {
       function handleLink(e) {
