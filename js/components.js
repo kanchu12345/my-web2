@@ -126,12 +126,19 @@
     var toggleBtn = document.getElementById('navToggle');
     var mobileMenu = document.getElementById('mobileMenu');
     if (toggleBtn && mobileMenu) {
-      toggleBtn.onclick = function (e) {
-        if (e) e.stopPropagation();
+      function toggleMenu(e) {
+        if (e) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
         var isOpen = mobileMenu.classList.toggle('open');
         toggleBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
         mobileMenu.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
-      };
+      }
+
+      toggleBtn.onclick = toggleMenu;
+      toggleBtn.addEventListener('touchstart', toggleMenu, { passive: false });
+
       mobileMenu.querySelectorAll('.mm-link').forEach(function(a) {
         a.onclick = function(e) {
           var href = a.getAttribute('href');
@@ -151,9 +158,10 @@
             mobileMenu.classList.remove('open');
             toggleBtn.setAttribute('aria-expanded', 'false');
             mobileMenu.setAttribute('aria-hidden', 'true');
-          }, 150);
+          }, 120);
         };
       });
+
       document.addEventListener('click', function(e) {
         if (mobileMenu.classList.contains('open') && !toggleBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
           mobileMenu.classList.remove('open');
@@ -161,6 +169,14 @@
           mobileMenu.setAttribute('aria-hidden', 'true');
         }
       });
+
+      document.addEventListener('touchstart', function(e) {
+        if (mobileMenu.classList.contains('open') && !toggleBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
+          mobileMenu.classList.remove('open');
+          toggleBtn.setAttribute('aria-expanded', 'false');
+          mobileMenu.setAttribute('aria-hidden', 'true');
+        }
+      }, { passive: true });
     }
 
     if (!document.querySelector('.floating-whatsapp')) {

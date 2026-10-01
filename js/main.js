@@ -51,37 +51,43 @@ setTimeout(triggerSafeReveal, 500);
   const toggle = document.getElementById('navToggle');
   const menu = document.getElementById('mobileMenu');
   if (toggle && menu) {
-    toggle.addEventListener('click', function(e) {
-      e.stopPropagation();
-      const open = menu.classList.toggle('open');
-      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-      menu.setAttribute('aria-hidden', open ? 'false' : 'true');
-    });
+    function toggleMobileMenu(e) {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      const isOpen = menu.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      menu.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+    }
+
+    toggle.addEventListener('click', toggleMobileMenu);
+    toggle.addEventListener('touchstart', toggleMobileMenu, { passive: false });
+
     menu.querySelectorAll('.mm-link').forEach(function(a) {
-      a.addEventListener('click', function(e) {
+      function handleLink(e) {
         const href = a.getAttribute('href');
         if (!href) return;
-        // WhatsApp or external links: let native browser open new tab
         if (href.startsWith('http') || href.startsWith('//') || a.getAttribute('target') === '_blank') {
           return;
         }
-        // Internal page navigation: explicitly redirect to guarantee 100% reliability on all mobile browsers
         if (!href.startsWith('#')) {
-          e.preventDefault();
+          if (e) e.preventDefault();
           menu.classList.remove('open');
           toggle.setAttribute('aria-expanded', 'false');
           menu.setAttribute('aria-hidden', 'true');
           window.location.href = href;
           return;
         }
-        // In-page anchor hash link: close menu and allow smooth scroll
         setTimeout(function() {
           menu.classList.remove('open');
           toggle.setAttribute('aria-expanded', 'false');
           menu.setAttribute('aria-hidden', 'true');
-        }, 150);
-      });
+        }, 120);
+      }
+      a.addEventListener('click', handleLink);
     });
+
     document.addEventListener('click', function(e) {
       if (menu.classList.contains('open') && !toggle.contains(e.target) && !menu.contains(e.target)) {
         menu.classList.remove('open');
@@ -89,6 +95,14 @@ setTimeout(triggerSafeReveal, 500);
         menu.setAttribute('aria-hidden', 'true');
       }
     });
+
+    document.addEventListener('touchstart', function(e) {
+      if (menu.classList.contains('open') && !toggle.contains(e.target) && !menu.contains(e.target)) {
+        menu.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        menu.setAttribute('aria-hidden', 'true');
+      }
+    }, { passive: true });
   }
 })();
 

@@ -82,7 +82,10 @@
     .btn-hero-quote { background: #04AA6D; color: #ffffff !important; font-weight: 800; font-size: 1.05rem; padding: 16px 36px; border-radius: 12px; box-shadow: 0 8px 28px rgba(4, 170, 109, 0.45); text-decoration: none; display: inline-flex; align-items: center; gap: 10px; }
     .btn-hero-work { background: rgba(255, 255, 255, 0.05); color: #ffffff !important; border: 1.5px solid rgba(255, 255, 255, 0.25); font-weight: 700; font-size: 1.05rem; padding: 16px 34px; border-radius: 12px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
     .trust-bar-wrapper { background: #0a0f1d; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 18px; padding: 24px 32px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4); max-width: 1100px; margin: 0 auto; }
-    @media (max-width: 900px) { .nav-links { display: none; } .trust-bar-wrapper { grid-template-columns: repeat(2, 1fr); } }
+        .nav-toggle { display: none; min-width: 44px; min-height: 44px; padding: 10px; border: 1px solid rgba(255, 255, 255, 0.25); border-radius: 10px; color: #fff; background: rgba(255, 255, 255, 0.08); cursor: pointer; align-items: center; justify-content: center; touch-action: manipulation; }
+    .mobile-menu { position: fixed !important; top: 72px !important; left: 12px !important; right: 12px !important; max-width: 480px !important; max-height: calc(100vh - 84px) !important; overflow-y: auto !important; -webkit-overflow-scrolling: touch !important; margin: 0 auto !important; z-index: 99999 !important; background: #0d1527 !important; border: 1.5px solid rgba(4, 170, 109, 0.5) !important; border-radius: 18px !important; padding: 16px 14px !important; display: none !important; flex-direction: column !important; gap: 6px !important; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.95), 0 0 35px rgba(4, 170, 109, 0.25) !important; }
+    .mobile-menu.open { display: flex !important; }
+    @media (max-width: 900px) { .nav-links, .nav-actions { display: none !important; } .nav-toggle { display: flex !important; } .trust-bar-wrapper { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 600px) { .trust-bar-wrapper { grid-template-columns: 1fr; } .hero-business { padding-top: 100px; } }
   </style>
   <link rel="preload" href="css/main.css?v=2026.5" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -253,7 +256,7 @@
         GET A QUOTE
       </a>
     </div>
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileMenu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileMenu"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
   </nav>
 
   <div class="mobile-menu glass" id="mobileMenu" aria-hidden="true">
