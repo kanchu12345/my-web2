@@ -60,16 +60,21 @@ setTimeout(triggerSafeReveal, 500);
     menu.querySelectorAll('.mm-link').forEach(function(a) {
       a.addEventListener('click', function(e) {
         const href = a.getAttribute('href');
-        if (href && !href.startsWith('#')) {
-          // Page navigation link: allow standard navigation without interrupting touch on Android
-          setTimeout(function() {
-            menu.classList.remove('open');
-            toggle.setAttribute('aria-expanded', 'false');
-            menu.setAttribute('aria-hidden', 'true');
-          }, 350);
+        if (!href) return;
+        // WhatsApp or external links: let native browser open new tab
+        if (href.startsWith('http') || href.startsWith('//') || a.getAttribute('target') === '_blank') {
           return;
         }
-        // In-page anchor hash link
+        // Internal page navigation: explicitly redirect to guarantee 100% reliability on all mobile browsers
+        if (!href.startsWith('#')) {
+          e.preventDefault();
+          menu.classList.remove('open');
+          toggle.setAttribute('aria-expanded', 'false');
+          menu.setAttribute('aria-hidden', 'true');
+          window.location.href = href;
+          return;
+        }
+        // In-page anchor hash link: close menu and allow smooth scroll
         setTimeout(function() {
           menu.classList.remove('open');
           toggle.setAttribute('aria-expanded', 'false');

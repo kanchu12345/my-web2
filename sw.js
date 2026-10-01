@@ -3,7 +3,7 @@
    Version: 1.0.0 (BestWeb.lk Certified PWA)
    ══════════════════════════════════════════════════════════════ */
 
-const CACHE_NAME = 'infiniteweb-cache-v1';
+const CACHE_NAME = 'infiniteweb-cache-v2';
 
 const PRECACHE_ASSETS = [
   './',

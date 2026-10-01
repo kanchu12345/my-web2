@@ -7,6 +7,9 @@
   left: 14px;
   right: 14px;
   max-width: 480px;
+  max-height: calc(100vh - 90px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   margin: 0 auto;
   z-index: 1002;
   background: #0d1527 !important;

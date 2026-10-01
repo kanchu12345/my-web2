@@ -135,13 +135,16 @@
       mobileMenu.querySelectorAll('.mm-link').forEach(function(a) {
         a.onclick = function(e) {
           var href = a.getAttribute('href');
-          if (href && !href.startsWith('#')) {
-            // Page navigation link: allow standard navigation without interrupting touch on Android
-            setTimeout(function() {
-              mobileMenu.classList.remove('open');
-              toggleBtn.setAttribute('aria-expanded', 'false');
-              mobileMenu.setAttribute('aria-hidden', 'true');
-            }, 350);
+          if (!href) return;
+          if (href.startsWith('http') || href.startsWith('//') || a.getAttribute('target') === '_blank') {
+            return;
+          }
+          if (!href.startsWith('#')) {
+            if (e) e.preventDefault();
+            mobileMenu.classList.remove('open');
+            toggleBtn.setAttribute('aria-expanded', 'false');
+            mobileMenu.setAttribute('aria-hidden', 'true');
+            window.location.href = href;
             return;
           }
           setTimeout(function() {
