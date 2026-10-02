@@ -1,3 +1,17 @@
+
+/* ── Safe Reveal & Instant Visibility ──────────────── */
+function triggerSafeReveal() {
+  document.querySelectorAll('.reveal').forEach(function(el) {
+    el.classList.add('visible');
+    el.style.opacity = '1';
+    el.style.transform = 'none';
+  });
+}
+document.addEventListener('DOMContentLoaded', triggerSafeReveal);
+window.addEventListener('load', triggerSafeReveal);
+setTimeout(triggerSafeReveal, 100);
+setTimeout(triggerSafeReveal, 500);
+
 /* ═══════════════════════════════════════════════════
    main.js — Portfolio animations, nav, Firebase data
 ═══════════════════════════════════════════════════ */
@@ -32,31 +46,8 @@
   };
   window.addEventListener('scroll',onScroll,{passive:true});
   onScroll();
-
-  // Mobile toggle
-  const toggle=document.getElementById('navToggle');
-  const menu=document.getElementById('mobileMenu');
-  if(toggle&&menu){
-    toggle.addEventListener('click',function(){
-      const open=menu.classList.toggle('open');
-      toggle.setAttribute('aria-expanded',open);
-      menu.setAttribute('aria-hidden',!open);
-    });
-    menu.querySelectorAll('.mm-link').forEach(function(a){
-      a.addEventListener('click',function(){
-        menu.classList.remove('open');
-        toggle.setAttribute('aria-expanded','false');
-        menu.setAttribute('aria-hidden','true');
-      });
-    });
-    document.addEventListener('click',function(e){
-      if(!toggle.contains(e.target)&&!menu.contains(e.target)){
-        menu.classList.remove('open');
-        toggle.setAttribute('aria-expanded','false');
-        menu.setAttribute('aria-hidden','true');
-      }
-    });
-  }
+  // NOTE: Mobile hamburger toggle is handled exclusively by components.js
+  // to prevent duplicate event listeners causing double-toggle on Android.
 })();
 
 /* ── Scroll reveal ──────────────────────────────── */
@@ -102,69 +93,586 @@ function showToast(msg){
   setTimeout(()=>t.classList.remove('show'),3500);
 }
 
-/* ── Load projects from Firebase ───────────────── */
-async function loadProjects(){
-  const grid=document.getElementById('projGrid');
-  if(!grid)return;
-  try{
-    const {db,collection,getDocs}=await import('./firebase-config.js');
-    const snap=await getDocs(collection(db,'projects'));
-    if(snap.empty){renderFallbackProjects(grid);return;}
-    grid.innerHTML='';
-    snap.forEach(function(d){
-      const p={id:d.id,...d.data()};
-      grid.appendChild(makeCard(p));
-    });
-  }catch(e){
-    renderFallbackProjects(grid);
+/* ── Unified Project Card Generator ───────────────── */
+function makeProjectCard(p){
+  const card = document.createElement('a');
+  card.href = p.url || '#';
+  if (p.url) {
+    card.target = '_blank';
+    card.rel = 'noopener';
   }
-}
+  card.className = 'browser-mockup-card reveal';
 
-function makeCard(p){
-  const card=document.createElement('div');
-  card.className='proj-card';
-  card.innerHTML=`
-    <img class="proj-img" src="${p.image||''}" alt="${p.title||'Project'}" loading="lazy">
-    <div class="proj-overlay">
-      <div class="proj-title">${p.title||''}</div>
-      <div class="proj-tag">${p.category||''}</div>
-    </div>`;
-  card.addEventListener('click',function(){openModal(p);});
+  const safeImage = (p.image || '').replace(/["'<>]/g, '');
+  const previewSrc = safeImage || (p.url ? 'https://s0.wp.com/mshots/v1/' + encodeURIComponent(p.url) + '?w=800&h=500' : '');
+  
+  const cleanDomain = (p.url || 'infiniteweb.dev').replace(/^https?:\/\//, '').replace(/^www\./, '').split('/')[0];
+
+  const badgeHtml = p.featured
+    ? `<div class="mockup-live-badge" style="color:#facc15; border-color:rgba(250,204,21,0.4);">
+        <span>⭐</span>
+        <span>Featured</span>
+      </div>`
+    : `<div class="mockup-live-badge">
+        <span class="mockup-live-dot"></span>
+        <span>Live & Active</span>
+      </div>`;
+
+  card.innerHTML = `
+    <div class="mockup-chrome">
+      <div class="mockup-dots">
+        <span class="mockup-dot red"></span>
+        <span class="mockup-dot yellow"></span>
+        <span class="mockup-dot green"></span>
+      </div>
+      <div class="mockup-url-pill">
+        <span class="mockup-chrome-lock"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+        <span>${cleanDomain}</span>
+      </div>
+      <div style="color:#94a3b8; font-size:12px;">↗</div>
+    </div>
+    <div class="mockup-img-wrap">
+      <img src="${previewSrc}" alt="${p.title || 'Project'} Website Preview" width="800" height="500" loading="lazy" decoding="async" onerror="this.style.display='none'">
+      ${badgeHtml}
+    </div>
+    <div class="mockup-body">
+      <h3 class="mockup-title">${p.title}</h3>
+      <div class="mockup-tags">
+        <span class="mockup-tag">${p.category || 'Business Website'}</span>
+        <span class="mockup-tag" style="color:#04AA6D; border-color:rgba(4,170,109,0.25);">Mobile First</span>
+      </div>
+      <p class="mockup-desc">${p.description || 'Modern, fast, mobile-friendly website designed for Sri Lankan businesses.'}</p>
+      <div class="mockup-cta-link">
+        <span>View Project</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </div>
+    </div>
+  `;
   return card;
 }
 
-function renderFallbackProjects(grid){
-  const demos=[
-    { title: 'Versells Lanka', category: 'Corporate', url: 'https://versellslanka.com' },
-    { title: 'Centennial Leo Club', category: 'Non-Profit', url: 'https://richmondleos.org' },
-    { title: 'Lanka Sunrays', category: 'E-commerce', url: 'https://lankasunrays.lk' },
-    { title: 'Shanthi Weda Madhura', category: 'Healthcare', url: 'https://shanthiwedamadura.com' },
-    { title: 'Nations Trust Holdings', category: 'Finance', url: 'https://nationstrustholdingslondon.com' },
-    { title: 'Enlyt Partners', category: 'Consulting', url: 'https://enlytpartners.com' },
-    { title: 'GPS Lanka Travels', category: 'Travel', url: 'https://gpslankatravels.com' },
-    { title: 'Tropica Flavours', category: 'FMCG', url: 'https://tropicaflavours.com' },
-    { title: 'VITES Secure Auth', category: 'Web App', url: 'https://kanchu12345.github.io/VITES/vites-secure-auth-2026.html' }
-  ];
-  grid.innerHTML='';
-  demos.forEach(function(p){
-    const card=document.createElement('a');
-    card.href=p.url;
-    card.target='_blank';
-    card.className='proj-card proj-placeholder';
-    card.style.textDecoration='none';
-    card.innerHTML=`
-      <div style="width:100%; height:100%; position:relative; overflow:hidden;">
-        <img src="https://s0.wp.com/mshots/v1/${encodeURIComponent(p.url)}?w=600&h=450" alt="${p.title}" style="width:100%; height:100%; object-fit:cover; transition:transform 0.5s;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="this.style.display='none'">
-        <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(255,255,255,0.95) 0%, transparent 60%); padding:20px; display:flex; flex-direction:column; justify-content:flex-end;">
-          <span style="font-weight:700; color:var(--white); font-size:16px; margin-bottom:4px;">${p.title}</span>
-          <span style="font-size:10px; color:var(--blue); letter-spacing:0.1em; text-transform:uppercase; font-weight:600;">${p.category}</span>
-        </div>
-        <div style="position:absolute; top:16px; right:16px; background:var(--bg); border:1px solid var(--glass-b); border-radius:50%; width:36px; height:36px; display:flex; align-items:center; justify-content:center; color:var(--blue); box-shadow:var(--shadow);">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-        </div>
-      </div>`;
-    grid.appendChild(card);
+function normalizeProjectSlug(p) {
+  if (!p) return '';
+  // 1. If URL present, extract domain and clean path
+  let urlStr = (p.url || '').trim().toLowerCase();
+  if (urlStr) {
+    urlStr = urlStr.replace(/^https?:\/\//, '').replace(/^www\./, '');
+    urlStr = urlStr.split(/[?#]/)[0]; // strip query & hash
+    urlStr = urlStr.replace(/\/+$/, ''); // strip trailing slash
+    if (urlStr.length > 3) return urlStr;
+  }
+  // 2. Normalize title (remove parenthetical location suffix, special chars)
+  const title = (p.title || '').toLowerCase()
+    .replace(/\(.*?\)/g, '')
+    .replace(/[^a-z0-9]/g, '')
+    .trim();
+  return title || (p.id || '');
+}
+
+function renderProjectsList(grid, projects){
+  if (!grid) return;
+  grid.innerHTML = '';
+  const sorted = [...projects].sort((a, b) => {
+    const aFeat = !!a.featured;
+    const bFeat = !!b.featured;
+    if (aFeat && !bFeat) return -1;
+    if (!aFeat && bFeat) return 1;
+    if (aFeat && bFeat) {
+      const aOrd = Number(a.featuredOrder) || 99;
+      const bOrd = Number(b.featuredOrder) || 99;
+      if (aOrd !== bOrd) return aOrd - bOrd;
+    }
+    const aTime = a.createdAt?.seconds || (a._source === 'firestore' ? 9999999999 : 0);
+    const bTime = b.createdAt?.seconds || (b._source === 'firestore' ? 9999999999 : 0);
+    return bTime - aTime;
   });
+
+  const pName = window.location.pathname.toLowerCase();
+  const isPortfolioPage = pName.includes('portfolio') || pName.includes('projects');
+  const displayList = isPortfolioPage ? sorted : sorted.slice(0, 6);
+
+  displayList.forEach(p => {
+    grid.appendChild(makeProjectCard(p));
+  });
+}
+
+function getDemoProjects(){
+  return [
+    {
+      "title": "Zap Ceylon",
+      "category": "Conglomerate & Global Trade",
+      "url": "https://kanchu12345.github.io/ZAP-CEYLON-/",
+      "description": "Premier diversified Sri Lankan conglomerate portal spanning global trade, Ceylon gems & spices, construction, finance, and digital innovation.",
+      "bg": "#0f172a",
+      "featured": true,
+      "featuredOrder": 1
+    },
+    {
+      "title": "Hiri Surf School (Hiriketiya)",
+      "category": "Tourism & Beach Academy",
+      "url": "https://hirisurfschool.com/",
+      "description": "Premier surf school and tropical resort booking platform in Hiriketiya, Sri Lanka with custom booking workflows.",
+      "bg": "#0284c7",
+      "featured": true,
+      "featuredOrder": 2
+    },
+    {
+      "title": "VeloCharts",
+      "category": "FinTech & Market Analytics",
+      "url": "https://velocharts.com/?v=2",
+      "description": "Next-generation financial market charting platform, real-time crypto & stock analytics, and automated trading algorithms.",
+      "bg": "#042f2e",
+      "featured": true,
+      "featuredOrder": 3
+    },
+    {
+      "title": "Hela Invest",
+      "category": "Finance & Investment Advisory",
+      "url": "https://helainvest.com/",
+      "description": "Premier Sri Lankan investment advisory portal, wealth growth management, and financial project funding platform.",
+      "bg": "#1e1b4b",
+      "featured": true,
+      "featuredOrder": 4
+    },
+    {
+      "title": "Tourio LK",
+      "category": "Travel & Destination Booking",
+      "url": "https://tourio.lk/",
+      "description": "Comprehensive Sri Lanka travel booking platform, custom vacation packages, hotel stays, and curated adventure tours.",
+      "bg": "#042f2e",
+      "featured": true,
+      "featuredOrder": 5
+    },
+    {
+      "title": "Many To One AMS",
+      "category": "Corporate Association Platform",
+      "url": "https://manytooneams.com/",
+      "description": "Enterprise Association Management Software (AMS) platform engineered for non-profit organizations and member institutions.",
+      "bg": "#0f172a",
+      "featured": true,
+      "featuredOrder": 6
+    },
+    {
+      "title": "Shanthi Weda Madhura",
+      "category": "Ayurveda & Luxury Wellness",
+      "url": "https://shanthiwedamadura.com",
+      "description": "Traditional Sri Lankan Ayurvedic hospital, medicinal wellness retreats, and international patient booking.",
+      "bg": "#064e3b"
+    },
+    {
+      "title": "Versells Lanka",
+      "category": "Corporate Web App",
+      "url": "https://versellslanka.com",
+      "description": "Enterprise agricultural technology & electric fencing engineering portal with interactive quote generator.",
+      "bg": "#0b1329"
+    },
+    {
+      "title": "Perx Lanka",
+      "category": "Corporate & Engineering Solutions",
+      "url": "http://perxlanka.com/",
+      "description": "Specialized industrial engineering, equipment supply, and corporate enterprise solutions in Sri Lanka.",
+      "bg": "#1e3a8a"
+    },
+    {
+      "title": "Lanka Sunrays",
+      "category": "E-commerce & Export",
+      "url": "https://lankasunrays.lk",
+      "description": "Solar water pumping solutions & solar engineering store with PayHere checkout and export catalog.",
+      "bg": "#1c1917"
+    },
+    {
+      "title": "Centennial Leo Club",
+      "category": "Non-Profit Community",
+      "url": "https://richmondleos.org",
+      "description": "Official community platform for youth leadership, projects, and district news for Richmond College Leos.",
+      "bg": "#172554"
+    },
+    {
+      "title": "Nations Trust Holdings",
+      "category": "Finance & UK Investment",
+      "url": "https://nationstrustholdingslondon.com",
+      "description": "Global migration consultancy, UK wealth management, and overseas education advisory portal.",
+      "bg": "#1e1b4b"
+    },
+    {
+      "title": "Enlyt Partners",
+      "category": "Strategic Consulting",
+      "url": "https://enlytpartners.com",
+      "description": "Executive leadership consulting, organizational excellence, and business transformation architecture.",
+      "bg": "#0f172a"
+    },
+    {
+      "title": "GPS Lanka Travels",
+      "category": "Travel & Tourism",
+      "url": "https://gpslankatravels.com",
+      "description": "Bespoke Sri Lanka island tours, wildlife safari itineraries, and instant private chauffeur booking.",
+      "bg": "#042f2e"
+    },
+    {
+      "title": "Tropica Flavours",
+      "category": "FMCG & Brand",
+      "url": "https://tropicaflavours.com",
+      "description": "Pure Ceylon spice exports, certified organic vanilla, and worldwide wholesale distributor network.",
+      "bg": "#312e81"
+    },
+    {
+      "title": "DD Lanka Tours",
+      "category": "Destination Travel",
+      "url": "https://ddlankatours.lk/",
+      "description": "Cultural heritage round-tours, luxury hotel reservations, and custom Sri Lanka vacation packages.",
+      "bg": "#14532d"
+    },
+    {
+      "title": "VITES Secure Auth 2026",
+      "category": "Cybersecurity Web App",
+      "url": "https://kanchu12345.github.io/VITES/vites-secure-auth-2026.html",
+      "description": "Advanced cryptographic biometric and OTP authentication portal with 256-bit security.",
+      "bg": "#1e293b"
+    },
+    {
+      "title": "VITES Cloud Platform",
+      "category": "Cloud Infrastructure",
+      "url": "https://kanchu12345.github.io/VITES/",
+      "description": "High-availability cloud computing and microservices management console.",
+      "bg": "#0f172a"
+    }
+  ];
+}
+
+/* ── Load projects from Firebase & Baseline JSON (Single Source of Truth) ────── */
+async function loadProjects(){
+  const grids = document.querySelectorAll('#projGrid, #featuredProjectsGrid');
+  if (grids.length === 0) return;
+  const prefix = rootPath();
+
+  let fbProjects = [];
+  let jsonProjects = [];
+  let localProjects = [];
+
+  // 1. Fetch from Firestore (3s timeout)
+  try {
+    const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 3000));
+    const fetchPromise = (async () => {
+      const { db, collection, getDocs } = await import(prefix + 'js/firebase-config.js');
+      return await getDocs(collection(db, 'projects'));
+    })();
+    const snap = await Promise.race([fetchPromise, timeoutPromise]);
+    if (snap && !snap.empty) {
+      snap.forEach(function(d){
+        fbProjects.push({ id: d.id, ...d.data(), _source: 'firestore' });
+      });
+    }
+  } catch(e){
+    console.warn('Projects firestore notice:', e.message);
+  }
+
+  // 2. Fetch baseline data/projects.json
+  try {
+    const res = await fetch(prefix + 'data/projects.json?v=' + Date.now());
+    const data = await res.json();
+    if (Array.isArray(data) && data.length > 0) {
+      jsonProjects = data.map((p, i) => ({ id: 'json_' + i, ...p, _source: 'json' }));
+    }
+  } catch(e){
+    jsonProjects = getDemoProjects().map((p, i) => ({ id: 'demo_' + i, ...p, _source: 'json' }));
+  }
+
+  // 3. Check localStorage for any offline admin saved projects
+  try {
+    localProjects = JSON.parse(localStorage.getItem('infinite_custom_projects') || '[]');
+  } catch(e){}
+
+  // Combine: Firestore first (takes precedence), then local, then baseline JSON
+  const merged = [...fbProjects, ...localProjects, ...jsonProjects];
+  const seen = new Set();
+  const unique = [];
+
+  merged.forEach(p => {
+    const slug = normalizeProjectSlug(p);
+    if (slug && !seen.has(slug)) {
+      seen.add(slug);
+      unique.push(p);
+    }
+  });
+
+  grids.forEach(grid => {
+    const isFeaturedOnly = grid.id === 'featuredProjectsGrid' || (!window.location.pathname.includes('portfolio') && !window.location.pathname.includes('projects'));
+    const sorted = [...unique].sort((a, b) => {
+      const aFeat = !!a.featured;
+      const bFeat = !!b.featured;
+      if (aFeat && !bFeat) return -1;
+      if (!aFeat && bFeat) return 1;
+      if (aFeat && bFeat) {
+        const aOrd = Number(a.featuredOrder) || 99;
+        const bOrd = Number(b.featuredOrder) || 99;
+        if (aOrd !== bOrd) return aOrd - bOrd;
+      }
+      const aTime = a.createdAt?.seconds || (a._source === 'firestore' ? 9999999999 : 0);
+      const bTime = b.createdAt?.seconds || (b._source === 'firestore' ? 9999999999 : 0);
+      return bTime - aTime;
+    });
+    const toRender = isFeaturedOnly ? sorted.slice(0, 6) : sorted;
+    renderProjectsList(grid, toRender);
+  });
+}
+
+/* ── Blog System: Reads from data/blogs.json (auto-updated by GitHub Actions) */
+
+// Cache blogs.json for the session
+let _blogsCache = null;
+
+/* Helper: get relative path to root */
+function rootPath() {
+  const p = window.location.pathname;
+  if (p.includes('/admin/')) return '../';
+  // If in clean URL subdirectory (/projects/, /blogs/, /tutorials/, etc.)
+  const parts = p.split('/').filter(Boolean);
+  if (parts.length > 0 && !parts[parts.length - 1].includes('.')) {
+    return '../';
+  }
+  return '';
+}
+
+async function getBlogsData() {
+  if (_blogsCache) return _blogsCache;
+  const prefix = rootPath();
+
+  // 1. Try Firestore blogs collection with 3s timeout
+  try {
+    const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 3000));
+    const fetchPromise = (async () => {
+      const {db, collection, getDocs}=await import(prefix + 'js/firebase-config.js');
+      const snap = await getDocs(collection(db, 'blogs'));
+      if (snap && !snap.empty) {
+        const articles = [];
+        snap.forEach(d => {
+          const item = { id: d.id, ...d.data() };
+          if (item.status !== 'draft') {
+            articles.push(item);
+          }
+        });
+        return { articles };
+      }
+      return null;
+    })();
+    const fsData = await Promise.race([fetchPromise, timeoutPromise]);
+    if (fsData && fsData.articles && fsData.articles.length > 0) {
+      _blogsCache = fsData;
+      return _blogsCache;
+    }
+  } catch(err) {
+    // Firestore timed out or errored, fallback to JSON
+  }
+
+  // 2. Fetch data/blogs.json with 3s timeout
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 3000);
+    const res = await fetch(prefix + 'data/blogs.json?v=' + Date.now(), { signal: controller.signal });
+    clearTimeout(timeoutId);
+    if (!res.ok) throw new Error('blogs.json not available');
+    const rawData = await res.json();
+    const rawArticles = rawData.articles || (Array.isArray(rawData) ? rawData : []);
+    const publicArticles = rawArticles.filter(a => a.status !== 'draft');
+    _blogsCache = { ...rawData, articles: publicArticles };
+    return _blogsCache;
+  } catch(e) {
+    // 3. Guaranteed hardcoded fallback (never infinite loading)
+    return {
+      articles: [
+        { id:'fb1', title:'The Future of Corporate Web Design in 2026', category:'Web Design', date:'May 2026', description:'Explore the latest trends in enterprise web development, focusing on performance, glassmorphism, and user experience.', image:'images/blog_1.png', body_html:'<p style="font-size:18px;line-height:1.8;color:rgba(255,255,255,0.8);">In 2026, enterprise web design is all about performance-first glassmorphism, AI-driven personalization, and immersive motion design. Infinite Creative Web Design leads the way in delivering these cutting-edge experiences to clients across Sri Lanka and internationally.</p>' },
+        { id:'fb2', title:'How to Rebrand Without Losing Your Audience', category:'Brand Strategy', date:'Apr 2026', description:'A step-by-step guide to launching a new brand identity while maintaining customer loyalty and trust.', image:'images/blog_2.png', body_html:'<p style="font-size:18px;line-height:1.8;color:rgba(255,255,255,0.8);">Rebranding is one of the most high-stakes moves a company can make. Our 5-step framework — audit, define values, test, communicate, and phase rollout — has helped over 40 international brands rebrand successfully without losing a single loyal client.</p>' },
+        { id:'fb3', title:'Why We Choose Laravel for Enterprise Apps', category:'Technology', date:'Mar 2026', description:'Discover the security, scalability, and performance benefits of using Laravel for large-scale enterprise applications.', image:'images/blog_3.png', body_html:'<p style="font-size:18px;line-height:1.8;color:rgba(255,255,255,0.8);">Laravel stands out for enterprise projects due to its built-in security (CSRF, XSS, SQL injection protection), Eloquent ORM, robust queue system, and Sanctum API authentication. At Infinite Creative Web Design, it is our framework of choice for all enterprise-grade backends.</p>' }
+      ]
+    };
+  }
+}
+
+/* Helper: get relative path to article.html or custom article url */
+function articlePath(item) {
+  if (typeof item === 'object' && item !== null) {
+    if (item.url) {
+      if (item.url.startsWith('http://') || item.url.startsWith('https://')) return item.url;
+      return rootPath() + item.url.replace(/^\.?\//, '');
+    }
+    return rootPath() + 'article.html?id=' + (item.id || '');
+  }
+  return rootPath() + 'article.html?id=' + item;
+}
+
+async function loadBlogs() {
+  const grid = document.getElementById('blogGrid');
+  if (!grid) return;
+  grid.innerHTML = '<div style="color:rgba(255,255,255,0.4);text-align:center;padding:40px;grid-column:1/-1;">Loading articles...</div>';
+  try {
+    const data = await getBlogsData();
+    const articles = (data.articles || []).slice(0, 6);
+    if (articles.length === 0) throw new Error('empty');
+    renderBlogs(articles.map(a => ({...a, url: articlePath(a)})), grid);
+  } catch(e) {
+    grid.innerHTML = '<div style="color:rgba(255,255,255,0.4);text-align:center;padding:40px;grid-column:1/-1;">Articles loading soon...</div>';
+  }
+}
+
+async function loadAllBlogs() {
+  const container = document.getElementById('blogGridAll');
+  if (!container) return;
+  container.innerHTML = '<div class="blog-loading-msg">Loading articles...</div>';
+  
+  try {
+    const data = await getBlogsData();
+    const articles = data.articles || [];
+    if (articles.length === 0) throw new Error('empty');
+
+    // Group articles by category
+    const categorized = {};
+    articles.forEach(a => {
+      const cat = a.category || 'Uncategorized';
+      if (!categorized[cat]) categorized[cat] = [];
+      categorized[cat].push({...a, url: articlePath(a)});
+    });
+
+    const filterBar = document.getElementById('topicFilterBar');
+    if (filterBar) {
+      filterBar.innerHTML = '';
+      
+      const allBtn = document.createElement('button');
+      allBtn.className = 'topic-filter-btn active';
+      allBtn.textContent = 'All Topics';
+      allBtn.onclick = () => filterTopics('All Topics');
+      filterBar.appendChild(allBtn);
+
+      for (const cat in categorized) {
+        const btn = document.createElement('button');
+        btn.className = 'topic-filter-btn';
+        btn.textContent = cat;
+        btn.onclick = () => filterTopics(cat);
+        filterBar.appendChild(btn);
+      }
+    }
+
+    function filterTopics(selectedCat) {
+      if (filterBar) {
+        Array.from(filterBar.children).forEach(btn => {
+          if (btn.textContent === selectedCat) {
+            btn.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+          }
+        });
+      }
+      Array.from(container.children).forEach(block => {
+        if (selectedCat === 'All Topics' || block.dataset.category === selectedCat) {
+          block.style.display = 'block';
+        } else {
+          block.style.display = 'none';
+        }
+      });
+    }
+
+    // Remove the global grid class from the main wrapper to stack categories vertically
+    container.className = '';
+    container.innerHTML = '';
+
+    const themeColors = ['#04AA6D', '#f39c12', '#9b59b6', '#e74c3c', '#3498db', '#1abc9c', '#e67e22', '#FAD0C4'];
+    let colorIndex = 0;
+
+    for (const cat in categorized) {
+      const catBlock = document.createElement('div');
+      catBlock.className = 'blog-category-block';
+      catBlock.dataset.category = cat;
+
+      const catHeader = document.createElement('h2');
+      catHeader.className = 'blog-category-header';
+      catHeader.textContent = cat;
+      
+      const themeColor = themeColors[colorIndex % themeColors.length];
+      catHeader.style.borderBottomColor = themeColor;
+      colorIndex++;
+
+      const catGrid = document.createElement('div');
+      catGrid.className = 'blog-grid-all';
+
+      catBlock.appendChild(catHeader);
+      catBlock.appendChild(catGrid);
+
+      renderBlogs(categorized[cat], catGrid);
+      container.appendChild(catBlock);
+    }
+  } catch(e) {
+    container.innerHTML = '<div class="blog-loading-msg">No articles available yet. Check back soon.</div>';
+    container.className = 'blog-grid-all';
+  }
+}
+
+function renderBlogs(blogs, grid) {
+  grid.innerHTML = '';
+  blogs.forEach(b => {
+    const imgSrc = b.image && b.image.startsWith('http') ? b.image : (rootPath() + b.image);
+    grid.innerHTML += `
+      <a href="${b.url}" class="blog-card glass-hover" style="display:flex;flex-direction:column;background:#282A35;border-radius:16px;overflow:hidden;text-decoration:none;border:1px solid rgba(255,255,255,0.05);transition:transform 0.3s,box-shadow 0.3s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 20px 40px rgba(0,0,0,0.4)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <div style="height:200px;background:#1e1f26;position:relative;overflow:hidden;">
+          <img src="${imgSrc}" alt="${b.title}" width="400" height="200" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'">
+          <div style="position:absolute;top:12px;right:12px;background:rgba(4,170,109,0.9);color:#fff;font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:4px 10px;border-radius:20px;">${b.source || 'Curated'}</div>
+        </div>
+        <div style="padding:24px;flex:1;display:flex;flex-direction:column;">
+          <div style="font-size:10px;color:#04AA6D;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;margin-bottom:10px;">${b.category} • ${b.date}</div>
+          <h3 style="font-family:var(--font-disp);font-size:18px;font-weight:700;color:#fff;margin-bottom:12px;line-height:1.4;flex:1;">${b.title}</h3>
+          <p style="font-size:13px;color:rgba(255,255,255,0.6);line-height:1.6;margin-bottom:16px;">${(b.description||'').slice(0,160)}...</p>
+          <div style="font-size:11px;color:#04AA6D;font-weight:600;letter-spacing:0.05em;">Read Article →</div>
+        </div>
+      </a>
+    `;
+  });
+}
+
+/* ── Native Article Reader ───────────────────────── */
+async function loadArticle() {
+  const container = document.getElementById('articleContent');
+  if (!container) return;
+
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id');
+  if (!id) {
+    container.innerHTML = '<div style="color:rgba(255,255,255,0.5);text-align:center;padding:60px;">No article specified.</div>';
+    return;
+  }
+
+  container.innerHTML = '<div style="color:rgba(255,255,255,0.4);text-align:center;padding:60px;">Loading article...</div>';
+
+  try {
+    const data = await getBlogsData();
+    const article = (data.articles || []).find(a => String(a.id) === String(id));
+
+    if (!article) {
+      container.innerHTML = '<div style="color:rgba(255,255,255,0.5);text-align:center;padding:60px;">Article not found or has expired (articles are auto-removed after 30 days).</div>';
+      return;
+    }
+
+    document.title = article.title + ' | Infinite Creative Web Design';
+
+    const imgSrc = article.image && article.image.startsWith('http') ? article.image : (rootPath() + article.image);
+
+    container.innerHTML = `
+      <a href="blogs.html" style="display:inline-flex;align-items:center;gap:8px;color:#04AA6D;font-size:14px;font-weight:600;text-decoration:none;margin-bottom:32px;letter-spacing:0.05em;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">
+        ← Back to all articles
+      </a>
+      <div style="margin-bottom:40px;">
+        <div style="font-size:12px;color:#04AA6D;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;margin-bottom:16px;">${article.category} • ${article.date} ${article.source ? '• <span style="color:var(--grey);">via ' + article.source + '</span>' : ''}</div>
+        <h1 style="font-family:var(--font-disp);font-size:clamp(32px,5vw,48px);font-weight:800;color:var(--white);line-height:1.2;margin-bottom:0;letter-spacing:-0.02em;">${article.title}</h1>
+      </div>
+      ${article.image ? `<img src="${imgSrc}" alt="${article.title}" width="1024" height="512" loading="eager" decoding="async" fetchpriority="high" style="width:100%;max-height:500px;object-fit:cover;border-radius:16px;margin-bottom:48px;box-shadow:0 12px 30px rgba(0,0,0,0.08);" onerror="this.style.display='none'">` : ''}
+      <div class="article-body">
+        ${article.body_html || '<p>' + (article.description || '') + '</p>'}
+      </div>
+      <div style="margin-top:56px;padding-top:40px;border-top:1px solid rgba(0,0,0,0.08);display:flex;justify-content:space-between;align-items:center;flex-wrap:gap;">
+        <a href="blogs.html" style="display:inline-flex;align-items:center;gap:8px;color:#04AA6D;font-size:14px;font-weight:600;text-decoration:none;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">← More Articles</a>
+        <a href="contact.html" style="display:inline-flex;align-items:center;gap:8px;background:#04AA6D;color:#fff;font-size:13px;font-weight:700;text-decoration:none;padding:12px 24px;border-radius:30px;letter-spacing:0.05em;box-shadow:0 8px 20px rgba(4,170,109,0.2);" onmouseover="this.style.background='#038a57'" onmouseout="this.style.background='#04AA6D'">Work With Us →</a>
+      </div>
+    `;
+  } catch(e) {
+    container.innerHTML = '<div style="color:rgba(255,255,255,0.5);text-align:center;padding:60px;">Error loading article. Please try again.</div>';
+  }
 }
 
 /* ── Load About/Contact from Firebase settings ──── */
@@ -181,12 +689,2424 @@ async function loadSettings(){
   }catch(e){}
 }
 
+/* ── Packages & Pricing System ─────────────────── */
+const DEFAULT_PACKAGES = [
+  {
+    "id": "pkg-starter",
+    "name": "Starter Essential",
+    "price": "Rs. 5,000/-",
+    "priceNum": 5000,
+    "tag": "Budget Hero",
+    "topic": "low-cost",
+    "sectionTitle": "💡 Low-Cost Web Design Packages",
+    "sectionDesc": "High quality, affordable web solutions tailored for Sri Lankan startups, small businesses & personal sites.",
+    "featured": false,
+    "popular": false,
+    "description": "Essential low-cost package for personal sites, small shops & instant online presence.",
+    "features": [
+      "3 Pages Included",
+      "Mobile & Android Friendly UI",
+      "Direct WhatsApp Chat & Call Button",
+      "Social Media Links & Share Icons",
+      "Header Banner & Fast Loading Speed",
+      "🎁 100% Free Cloud Hosting (Zero Monthly Fees)"
+    ],
+    "addon": "📄 Need more pages? Add extra pages for just Rs. 1,500/- per page!",
+    "cta": "Choose Starter 5K",
+    "order": 1
+  },
+  {
+    "id": "pkg-standard",
+    "name": "Standard Business",
+    "price": "Rs. 10,000/-",
+    "priceNum": 10000,
+    "tag": "Best Value",
+    "topic": "low-cost",
+    "sectionTitle": "💡 Low-Cost Web Design Packages",
+    "sectionDesc": "High quality, affordable web solutions tailored for Sri Lankan startups, small businesses & personal sites.",
+    "featured": true,
+    "popular": true,
+    "description": "Solid 5-page business website with self-manageable admin panel & local SEO.",
+    "features": [
+      "5 Pages Included",
+      "Self-Manageable Admin Panel Access",
+      "Contact Form & Google Maps Location Pin",
+      "Mobile Responsive Layout & Animations",
+      "Basic SEO & Social Media Icons",
+      "1 Month Free Support",
+      "🎁 100% Free Cloud Hosting (Zero Monthly Fees)"
+    ],
+    "addon": "Add extra pages for Rs. 1,500/- per page",
+    "cta": "Choose Standard 10K",
+    "order": 2
+  },
+  {
+    "id": "pkg-advanced",
+    "name": "Advanced Growth",
+    "price": "Rs. 15,000/-",
+    "priceNum": 15000,
+    "tag": "Growth",
+    "topic": "low-cost",
+    "sectionTitle": "💡 Low-Cost Web Design Packages",
+    "sectionDesc": "High quality, affordable web solutions tailored for Sri Lankan startups, small businesses & personal sites.",
+    "featured": false,
+    "popular": false,
+    "description": "Custom UI design built for high conversions, lead generation & ad campaigns.",
+    "features": [
+      "7 Pages Included",
+      "Custom Conversion UI Design System",
+      "Full Control Admin Control Panel",
+      "Speed Optimization (95+ Mobile Score)",
+      "Meta Pixel & WhatsApp Lead Capture",
+      "Interactive Contact & Inquiry Forms",
+      "Free Basic SEO & Analytics Setup",
+      "🚀 High-Speed Cloud Server Deployment"
+    ],
+    "addon": "Priority 2-Month Support included",
+    "cta": "Choose Advanced 15K",
+    "order": 3
+  },
+  {
+    "id": "pkg-professional",
+    "name": "Corporate Professional",
+    "price": "Rs. 20,000/-",
+    "priceNum": 20000,
+    "tag": "Most Popular",
+    "topic": "low-cost",
+    "sectionTitle": "💡 Low-Cost Web Design Packages",
+    "sectionDesc": "High quality, affordable web solutions tailored for Sri Lankan startups, small businesses & personal sites.",
+    "featured": true,
+    "popular": true,
+    "description": "Corporate-level web presence with advanced security, Google Analytics & SSL.",
+    "features": [
+      "10 Pages Included",
+      "Premium Corporate Design & Micro-Animations",
+      "Google Analytics 4 & Meta Setup",
+      "Free SSL Certificate & Security Shield",
+      "Full Google Local SEO Optimization",
+      "Customer Lead Generation Strategy",
+      "3 Months Dedicated Priority Support",
+      "🚀 High-Speed Cloud Server Deployment"
+    ],
+    "addon": "Complete Brand & Digital Asset Alignment",
+    "cta": "Choose Professional 20K",
+    "order": 4
+  },
+  {
+    "id": "pkg-starter-01",
+    "name": "Starter 01",
+    "price": "Rs. 30,000/-",
+    "originalPrice": "Rs. 37,500/-",
+    "priceNum": 30000,
+    "tag": "Promo Offer",
+    "topic": "low-cost",
+    "sectionTitle": "💡 Low-Cost Web Design Packages",
+    "sectionDesc": "High quality, affordable web solutions tailored for Sri Lankan startups, small businesses & personal sites.",
+    "featured": false,
+    "popular": false,
+    "description": "High-impact single-page conversion landing page with business email.",
+    "features": [
+      "1-Page High Converting Landing Page",
+      "1 Professional Business Email Account",
+      "Mobile Responsive & Banner Animations",
+      "Google Map Location Setup",
+      "Direct Click-to-Call & WhatsApp Chat",
+      "Free Basic SEO & Social Share Icons",
+      "🚀 High-Speed Cloud Server Deployment"
+    ],
+    "addon": "Fast delivery in 2-3 business days",
+    "cta": "Choose Starter 01",
+    "order": 5
+  },
+  {
+    "id": "pkg-starter-02",
+    "name": "Starter 02",
+    "price": "Rs. 35,000/-",
+    "originalPrice": "Rs. 45,000/-",
+    "priceNum": 35000,
+    "tag": "Promo Offer",
+    "topic": "low-cost",
+    "sectionTitle": "💡 Low-Cost Web Design Packages",
+    "sectionDesc": "High quality, affordable web solutions tailored for Sri Lankan startups, small businesses & personal sites.",
+    "featured": false,
+    "popular": false,
+    "description": "Clean 2-page website for growing services and portfolio showcases with business email.",
+    "features": [
+      "2 Pages Website Architecture",
+      "1 Professional Business Email Account",
+      "Header Slider & Image Carousel",
+      "Mobile Chat System & Direct Calls",
+      "Google Map Location & Free SSL",
+      "Basic SEO & Social Icons",
+      "🚀 High-Speed Cloud Server Deployment"
+    ],
+    "addon": "Priority 1-Month Support",
+    "cta": "Choose Starter 02",
+    "order": 6
+  },
+  {
+    "id": "pkg-starter-03",
+    "name": "Starter 03",
+    "price": "Rs. 40,000/-",
+    "originalPrice": "Rs. 50,000/-",
+    "priceNum": 40000,
+    "tag": "Promo Offer",
+    "topic": "low-cost",
+    "sectionTitle": "💡 Low-Cost Web Design Packages",
+    "sectionDesc": "High quality, affordable web solutions tailored for Sri Lankan startups, small businesses & personal sites.",
+    "featured": false,
+    "popular": false,
+    "description": "Comprehensive 3-page business presentation with dedicated email & admin access.",
+    "features": [
+      "3 Pages Full Website (Home, Services, Contact)",
+      "1 Professional Business Email Account",
+      "Self-Manageable Admin Panel",
+      "Header Slider & Hover Effects",
+      "Google Map & Mobile Chat System",
+      "Free Basic SEO & Speed Boost",
+      "🚀 High-Speed Cloud Server Deployment",
+      "💳 PayHere & Credit/Debit Card Gateway Included",
+      "🗣️ Sinhala + English Dual Language Support Included"
+    ],
+    "addon": "Free Logo & Favicon Styling included",
+    "cta": "Choose Starter 03",
+    "order": 7,
+    "hasAdvancedAddons": true,
+    "addonsList": [
+      {
+        "name": "⚡ 99+ PageSpeed Core Web Vitals Optimization",
+        "price": 3500
+      },
+      {
+        "name": "🔐 Advanced Cyber DDoS Shield & Firewall",
+        "price": 4500
+      },
+      {
+        "name": "🤖 WhatsApp AI Instant Lead Auto-Responder Bot",
+        "price": 6000
+      },
+      {
+        "name": "🎨 Custom Brand Logo & Stationery Vector Suite",
+        "price": 5000
+      }
+    ]
+  },
+  {
+    "id": "pkg-business-pro",
+    "name": "Business Pro",
+    "price": "Rs. 40,000/-",
+    "priceNum": 40000,
+    "tag": "Enterprise Low-Cost",
+    "topic": "low-cost",
+    "sectionTitle": "💡 Low-Cost Web Design Packages",
+    "sectionDesc": "High quality, affordable web solutions tailored for Sri Lankan startups, small businesses & personal sites.",
+    "featured": false,
+    "popular": false,
+    "description": "Top-tier custom engineering tailored specifically for startup leaders.",
+    "features": [
+      "12 Custom Pages Included",
+      "Bespoke Custom UI/UX Engineering",
+      "Core Web Vitals 99+ Speed Optimization",
+      "Custom Micro-Interactions & Animations",
+      "Full SEO & Conversion Suite",
+      "Advanced Role-Based Admin Panel",
+      "Automated Daily Cloud Backups & SSL",
+      "6 Months Extended Dedicated Support",
+      "💳 PayHere & Credit/Debit Card Gateway Included",
+      "📍 Google Maps Location & Local SEO Setup Included",
+      "🗣️ Sinhala + English Dual Language Support Included"
+    ],
+    "addon": "Free Minor Updates for 6 Months",
+    "cta": "Choose Business Pro",
+    "order": 8,
+    "hasAdvancedAddons": true,
+    "addonsList": [
+      {
+        "name": "⚡ 99+ PageSpeed Core Web Vitals Optimization",
+        "price": 3500
+      },
+      {
+        "name": "🔐 Advanced Cyber DDoS Shield & Firewall",
+        "price": 4500
+      },
+      {
+        "name": "🤖 WhatsApp AI Instant Lead Auto-Responder Bot",
+        "price": 6000
+      },
+      {
+        "name": "🎨 Custom Brand Logo & Stationery Vector Suite",
+        "price": 5000
+      }
+    ]
+  },
+  {
+    "id": "pkg-starter-corp",
+    "name": "Starter Corporate",
+    "price": "Rs. 45,000/-",
+    "originalPrice": "Rs. 57,500/-",
+    "priceNum": 45000,
+    "tag": "Corporate Special",
+    "topic": "corporate",
+    "sectionTitle": "🏢 Standard Corporate Packages",
+    "sectionDesc": "Established business & company website packages with custom UI, business emails & admin control.",
+    "featured": false,
+    "popular": false,
+    "description": "6-page corporate presentation built for modern companies, consultants and agencies.",
+    "features": [
+      "6 Custom Pages Included",
+      "1 Professional Business Email Account",
+      "Self-Manageable Admin Control Panel",
+      "Header Slider & Banner Animations",
+      "Contact & Quotation Request Forms",
+      "Google Map Location & Free SSL",
+      "Standard Google SEO Setup",
+      "1 Month Free Maintenance & Support",
+      "💳 PayHere & Credit/Debit Card Gateway Included",
+      "🗣️ Sinhala + English Dual Language Support Included"
+    ],
+    "addon": "Add extra pages for Rs. 1,500/- per page",
+    "cta": "Choose Starter Corp",
+    "order": 9,
+    "hasAdvancedAddons": true,
+    "addonsList": [
+      {
+        "name": "⚡ 99+ PageSpeed Core Web Vitals Optimization",
+        "price": 3500
+      },
+      {
+        "name": "🔐 Advanced Cyber DDoS Shield & Firewall",
+        "price": 4500
+      },
+      {
+        "name": "🤖 WhatsApp AI Instant Lead Auto-Responder Bot",
+        "price": 6000
+      },
+      {
+        "name": "🎨 Custom Brand Logo & Stationery Vector Suite",
+        "price": 5000
+      }
+    ]
+  },
+  {
+    "id": "pkg-silver-corp",
+    "name": "Silver Corporate",
+    "price": "Rs. 60,000/-",
+    "originalPrice": "Rs. 75,000/-",
+    "priceNum": 60000,
+    "tag": "Most Popular",
+    "topic": "corporate",
+    "sectionTitle": "🏢 Standard Corporate Packages",
+    "sectionDesc": "Established business & company website packages with custom UI, business emails & admin control.",
+    "featured": true,
+    "popular": true,
+    "description": "10-page complete business website with 3 business email accounts & rich UI features.",
+    "features": [
+      "10 Custom Pages Included",
+      "3 Professional Business Email Accounts",
+      "Header Slider, Layer Slider & Parallax Effects",
+      "Mobile Chat System & Direct Click-to-Call",
+      "Google Map Location & QR Code Setup",
+      "Full SEO & Google Search Console Setup",
+      "Customer Generation Strategy Pro",
+      "2 Months Free Priority Maintenance",
+      "💳 PayHere & Credit/Debit Card Gateway Included",
+      "🗣️ Sinhala + English Dual Language Support Included"
+    ],
+    "addon": "Dual Language Support (Sinhala + English) available",
+    "cta": "Choose Silver Corp",
+    "order": 10,
+    "hasAdvancedAddons": true,
+    "addonsList": [
+      {
+        "name": "⚡ 99+ PageSpeed Core Web Vitals Optimization",
+        "price": 3500
+      },
+      {
+        "name": "🔐 Advanced Cyber DDoS Shield & Firewall",
+        "price": 4500
+      },
+      {
+        "name": "🤖 WhatsApp AI Instant Lead Auto-Responder Bot",
+        "price": 6000
+      },
+      {
+        "name": "🎨 Custom Brand Logo & Stationery Vector Suite",
+        "price": 5000
+      }
+    ]
+  },
+  {
+    "id": "pkg-gold-corp",
+    "name": "Gold Enterprise Portal",
+    "price": "Rs. 99,000/-",
+    "originalPrice": "Rs. 125,000/-",
+    "priceNum": 99000,
+    "tag": "High Impact",
+    "topic": "corporate",
+    "sectionTitle": "🏢 Standard Corporate Packages",
+    "sectionDesc": "Established business & company website packages with custom UI, business emails & admin control.",
+    "featured": false,
+    "popular": false,
+    "description": "15-page full corporate portal with 5 business emails & advanced interactive sliders.",
+    "features": [
+      "15 Custom Pages Included",
+      "5 Professional Business Email Accounts",
+      "Multilayer Slider & Animated Image Carousel",
+      "Mega Menu, Hover & Scroll Micro-Interactions",
+      "Advanced Speed & Caching Layer",
+      "Full Control Dynamic Admin Dashboard",
+      "Meta Pixel & GA4 Analytics Setup",
+      "PayHere / Online Card Gateway Ready",
+      "3 Months Dedicated VIP Support",
+      "📍 Google Maps Location & Local SEO Setup Included",
+      "🗣️ Sinhala + English Dual Language Support Included"
+    ],
+    "addon": "Includes PayHere / Online Card Gateway option",
+    "cta": "Choose Gold Corp",
+    "order": 11,
+    "hasAdvancedAddons": true,
+    "addonsList": [
+      {
+        "name": "⚡ 99+ PageSpeed Core Web Vitals Optimization",
+        "price": 3500
+      },
+      {
+        "name": "🔐 Advanced Cyber DDoS Shield & Firewall",
+        "price": 4500
+      },
+      {
+        "name": "🤖 WhatsApp AI Instant Lead Auto-Responder Bot",
+        "price": 6000
+      },
+      {
+        "name": "🎨 Custom Brand Logo & Stationery Vector Suite",
+        "price": 5000
+      }
+    ]
+  },
+  {
+    "id": "pkg-platinum-corp",
+    "name": "Platinum Powerhouse",
+    "price": "Rs. 125,000/-",
+    "originalPrice": "Rs. 160,000/-",
+    "priceNum": 125000,
+    "tag": "Enterprise",
+    "topic": "corporate",
+    "sectionTitle": "🏢 Standard Corporate Packages",
+    "sectionDesc": "Established business & company website packages with custom UI, business emails & admin control.",
+    "featured": false,
+    "popular": false,
+    "description": "25-page enterprise powerhouse with 10 business emails & DDoS security shield.",
+    "features": [
+      "25 Custom Pages Included",
+      "10 Professional Business Email Accounts",
+      "Layer Slider, Mega Menu & Video Backgrounds",
+      "DDoS Shield & Cyber Guard Security",
+      "Full SEO & Rich Snippets Optimization",
+      "Blog / News Publishing Automation",
+      "Custom Admin Panel for Team Multi-Users",
+      "6 Months Comprehensive Priority Support",
+      "💳 PayHere & Credit/Debit Card Gateway Included",
+      "📍 Google Maps Location & Local SEO Setup Included",
+      "🗣️ Sinhala + English Dual Language Support Included"
+    ],
+    "addon": "VIP Account Manager Support included",
+    "cta": "Choose Platinum Powerhouse",
+    "order": 12,
+    "hasAdvancedAddons": true,
+    "addonsList": [
+      {
+        "name": "⚡ 99+ PageSpeed Core Web Vitals Optimization",
+        "price": 3500
+      },
+      {
+        "name": "🔐 Advanced Cyber DDoS Shield & Firewall",
+        "price": 4500
+      },
+      {
+        "name": "🤖 WhatsApp AI Instant Lead Auto-Responder Bot",
+        "price": 6000
+      },
+      {
+        "name": "🎨 Custom Brand Logo & Stationery Vector Suite",
+        "price": 5000
+      }
+    ]
+  },
+  {
+    "id": "pkg-premium-global",
+    "name": "Premium Global",
+    "price": "Rs. 160,000/-",
+    "originalPrice": "Rs. 200,000/-",
+    "priceNum": 160000,
+    "tag": "International",
+    "topic": "international",
+    "sectionTitle": "🌍 International & Premium Web Design Packages",
+    "sectionDesc": "Built for export brands, multinational firms & global operations targeting international search markets.",
+    "featured": false,
+    "popular": false,
+    "description": "30-page international corporate web system with licensed stock photos and SEO content writing.",
+    "features": [
+      "30 Custom Web Pages",
+      "10 Business Email Accounts",
+      "News & Blog Publishing System",
+      "Envato Stock Photos with Premium License ($33 Value)",
+      "SEO-Friendly Content Writing Included",
+      "Mega Menu, Video Backgrounds & Parallax Effects",
+      "Global Multi-Region CDN Deployment",
+      "1 Year Dedicated Maintenance & Care",
+      "💳 PayHere & Credit/Debit Card Gateway Included",
+      "📍 Google Maps Location & Local SEO Setup Included",
+      "🗣️ Sinhala + English Dual Language Support Included"
+    ],
+    "addon": "Additional page: Rs. 8,000/- per page",
+    "cta": "Choose Premium Global",
+    "order": 13,
+    "hasAdvancedAddons": true,
+    "addonsList": [
+      {
+        "name": "⚡ 99+ PageSpeed Core Web Vitals Optimization",
+        "price": 3500
+      },
+      {
+        "name": "🔐 Advanced Cyber DDoS Shield & Firewall",
+        "price": 4500
+      },
+      {
+        "name": "🤖 WhatsApp AI Instant Lead Auto-Responder Bot",
+        "price": 6000
+      },
+      {
+        "name": "🎨 Custom Brand Logo & Stationery Vector Suite",
+        "price": 5000
+      }
+    ]
+  },
+  {
+    "id": "pkg-premium-modern",
+    "name": "Premium Modern",
+    "price": "Rs. 200,000/-",
+    "originalPrice": "Rs. 250,000/-",
+    "priceNum": 200000,
+    "tag": "Next-Gen 3D",
+    "topic": "international",
+    "sectionTitle": "🌍 International & Premium Web Design Packages",
+    "sectionDesc": "Built for export brands, multinational firms & global operations targeting international search markets.",
+    "featured": true,
+    "popular": false,
+    "description": "35-page flagship modern design with micro-interactions, 3D elements & premium design plugins.",
+    "features": [
+      "35 Custom Web Pages",
+      "15 Business Email Accounts",
+      "Next-Gen 3D Elements & Micro-Interactions",
+      "Uses Premium Design Plugins & Libraries",
+      "Envato Licensed Stock Photography",
+      "AI Search Engine Optimization (AEO/GEO)",
+      "SEO Content Writing Included",
+      "1 Year Dedicated VIP Concierge Support",
+      "💳 PayHere & Credit/Debit Card Gateway Included",
+      "📍 Google Maps Location & Local SEO Setup Included",
+      "🗣️ Sinhala + English Dual Language Support Included"
+    ],
+    "addon": "Additional page: Rs. 8,000/- per page",
+    "cta": "Choose Premium Modern",
+    "order": 14,
+    "hasAdvancedAddons": true,
+    "addonsList": [
+      {
+        "name": "⚡ 99+ PageSpeed Core Web Vitals Optimization",
+        "price": 3500
+      },
+      {
+        "name": "🔐 Advanced Cyber DDoS Shield & Firewall",
+        "price": 4500
+      },
+      {
+        "name": "🤖 WhatsApp AI Instant Lead Auto-Responder Bot",
+        "price": 6000
+      },
+      {
+        "name": "🎨 Custom Brand Logo & Stationery Vector Suite",
+        "price": 5000
+      }
+    ]
+  },
+  {
+    "id": "pkg-premium-international",
+    "name": "Premium International",
+    "price": "Rs. 250,000/-",
+    "originalPrice": "Rs. 300,000/-",
+    "priceNum": 250000,
+    "tag": "Global Elite",
+    "topic": "international",
+    "sectionTitle": "🌍 International & Premium Web Design Packages",
+    "sectionDesc": "Built for export brands, multinational firms & global operations targeting international search markets.",
+    "featured": false,
+    "popular": false,
+    "description": "40-page global enterprise solution designed to capture international search traffic in US, UK, EU & Asia.",
+    "features": [
+      "40 Custom Web Pages",
+      "20 Business Email Accounts",
+      "Multi-Currency & Multi-Language Readiness",
+      "Full Global SEO Target Configuration",
+      "Licensed Stock Photography & Video Assets",
+      "Enterprise Security & Cyber Shield Guard",
+      "Dedicated Senior Account Manager",
+      "🚀 High-Performance Edge Server Deployment",
+      "💳 PayHere & Credit/Debit Card Gateway Included",
+      "📍 Google Maps Location & Local SEO Setup Included",
+      "🗣️ Sinhala + English Dual Language Support Included"
+    ],
+    "addon": "Additional page: Rs. 8,000/- per page",
+    "cta": "Choose Premium International",
+    "order": 15,
+    "hasAdvancedAddons": true,
+    "addonsList": [
+      {
+        "name": "⚡ 99+ PageSpeed Core Web Vitals Optimization",
+        "price": 3500
+      },
+      {
+        "name": "🔐 Advanced Cyber DDoS Shield & Firewall",
+        "price": 4500
+      },
+      {
+        "name": "🤖 WhatsApp AI Instant Lead Auto-Responder Bot",
+        "price": 6000
+      },
+      {
+        "name": "🎨 Custom Brand Logo & Stationery Vector Suite",
+        "price": 5000
+      }
+    ]
+  },
+  {
+    "id": "pkg-product-catalogue",
+    "name": "Product Catalogue Solution",
+    "price": "Rs. 180,000/-",
+    "priceNum": 180000,
+    "tag": "Wholesale & Trade",
+    "topic": "ecommerce",
+    "sectionTitle": "🛒 E-Commerce & Product Catalogue Solutions",
+    "sectionDesc": "Complete online store & catalogue platforms ready for PayHere, Visa, Mastercard & Koko installment payments.",
+    "featured": false,
+    "popular": false,
+    "description": "Showcase unlimited product categories and receive direct wholesale & retail inquiries.",
+    "features": [
+      "Unlimited Product Catalogue Display",
+      "Direct WhatsApp & Email Quote Inquiries",
+      "Category Filtering & Instant Search",
+      "Admin Inventory & Product Management",
+      "5 Business Email Accounts",
+      "Google Merchant / Product Schema SEO",
+      "🚀 High-Speed Cloud Server Deployment",
+      "💳 PayHere & Credit/Debit Card Gateway Included",
+      "📍 Google Maps Location & Local SEO Setup Included",
+      "🗣️ Sinhala + English Dual Language Support Included"
+    ],
+    "addon": "Conditions Apply",
+    "cta": "Choose Product Catalogue",
+    "order": 16,
+    "hasAdvancedAddons": true,
+    "addonsList": [
+      {
+        "name": "⚡ 99+ PageSpeed Core Web Vitals Optimization",
+        "price": 3500
+      },
+      {
+        "name": "🔐 Advanced Cyber DDoS Shield & Firewall",
+        "price": 4500
+      },
+      {
+        "name": "🤖 WhatsApp AI Instant Lead Auto-Responder Bot",
+        "price": 6000
+      },
+      {
+        "name": "🎨 Custom Brand Logo & Stationery Vector Suite",
+        "price": 5000
+      }
+    ]
+  },
+  {
+    "id": "pkg-ecommerce-full",
+    "name": "Full E-Commerce Platform",
+    "price": "Start from Rs. 60,000/-",
+    "priceNum": 60000,
+    "tag": "Enterprise Store",
+    "topic": "ecommerce",
+    "sectionTitle": "🛒 E-Commerce & Product Catalogue Solutions",
+    "sectionDesc": "Complete online store & catalogue platforms ready for PayHere, Visa, Mastercard & Koko installment payments.",
+    "featured": true,
+    "popular": false,
+    "description": "Complete online store with shopping carts, PayHere card checkout, and order tracking.",
+    "features": [
+      "Complete Shopping Cart & Checkout System",
+      "PayHere / Master / Visa / Koko Online Payments",
+      "Order Management & Customer Invoicing",
+      "Automated WhatsApp & Email Order Alerts",
+      "Stock & Inventory Management Panel",
+      "Coupon Codes, Discounts & Flash Sales",
+      "6 Months Dedicated E-Commerce Support",
+      "🚀 High-Security Cloud Server with SSL & DDoS Guard",
+      "📍 Google Maps Location & Local SEO Setup Included",
+      "🗣️ Sinhala + English Dual Language Support Included"
+    ],
+    "addon": "Conditions Apply",
+    "cta": "Choose Full E-Commerce",
+    "order": 17,
+    "hasAdvancedAddons": true,
+    "addonsList": [
+      {
+        "name": "⚡ 99+ PageSpeed Core Web Vitals Optimization",
+        "price": 3500
+      },
+      {
+        "name": "🔐 Advanced Cyber DDoS Shield & Firewall",
+        "price": 4500
+      },
+      {
+        "name": "🤖 WhatsApp AI Instant Lead Auto-Responder Bot",
+        "price": 6000
+      },
+      {
+        "name": "🎨 Custom Brand Logo & Stationery Vector Suite",
+        "price": 5000
+      }
+    ]
+  },
+  {
+    "id": "pkg-service-email",
+    "name": "Business Email Hosting",
+    "price": "Rs. 5,000/year",
+    "priceNum": 5000,
+    "tag": "Digital Service",
+    "topic": "services",
+    "sectionTitle": "🛠️ Specialized Digital Services & Business Add-Ons",
+    "sectionDesc": "Standalone digital solutions to upgrade your brand reputation, search rank, email & maintenance.",
+    "featured": false,
+    "popular": false,
+    "description": "Professional @yourdomain.com business email hosting with webmail and anti-spam protection.",
+    "features": [
+      "Professional @yourdomain.com Email Addresses",
+      "Webmail Access on Android & Mobile",
+      "IMAP / POP3 / SMTP Support (Outlook & Mobile Sync)",
+      "Advanced Spam & Virus Protection",
+      "99.9% Server Uptime Guarantee",
+      "Free Migration from Old Email Host",
+      "💳 PayHere & Credit/Debit Card Gateway Included",
+      "📍 Google Maps Location & Local SEO Setup Included",
+      "🗣️ Sinhala + English Dual Language Support Included"
+    ],
+    "addon": "Per 5 Accounts setup",
+    "cta": "Get Email Hosting",
+    "order": 18,
+    "hasAdvancedAddons": true,
+    "addonsList": [
+      {
+        "name": "⚡ 99+ PageSpeed Core Web Vitals Optimization",
+        "price": 3500
+      },
+      {
+        "name": "🔐 Advanced Cyber DDoS Shield & Firewall",
+        "price": 4500
+      },
+      {
+        "name": "🤖 WhatsApp AI Instant Lead Auto-Responder Bot",
+        "price": 6000
+      },
+      {
+        "name": "🎨 Custom Brand Logo & Stationery Vector Suite",
+        "price": 5000
+      }
+    ]
+  },
+  {
+    "id": "pkg-service-seo",
+    "name": "SEO & Google Dominance",
+    "price": "Rs. 25,000/-",
+    "priceNum": 25000,
+    "tag": "Digital Service",
+    "topic": "services",
+    "sectionTitle": "🛠️ Specialized Digital Services & Business Add-Ons",
+    "sectionDesc": "Standalone digital solutions to upgrade your brand reputation, search rank, email & maintenance.",
+    "featured": true,
+    "popular": true,
+    "description": "Complete search engine optimization package to rank your website on Google Page #1.",
+    "features": [
+      "Keyword Research for Sri Lanka & Global Markets",
+      "On-Page Technical SEO Audit & Fixes",
+      "Google Search Console & Sitemap Submission",
+      "Google Analytics 4 Tracking Setup",
+      "Schema.org Rich Snippets JSON-LD",
+      "Speed Optimization (90+ Core Web Vitals)",
+      "💳 PayHere & Credit/Debit Card Gateway Included",
+      "📍 Google Maps Location & Local SEO Setup Included",
+      "🗣️ Sinhala + English Dual Language Support Included"
+    ],
+    "addon": "Monthly SEO Growth Reports provided",
+    "cta": "Boost Google Ranking",
+    "order": 19,
+    "hasAdvancedAddons": true,
+    "addonsList": [
+      {
+        "name": "⚡ 99+ PageSpeed Core Web Vitals Optimization",
+        "price": 3500
+      },
+      {
+        "name": "🔐 Advanced Cyber DDoS Shield & Firewall",
+        "price": 4500
+      },
+      {
+        "name": "🤖 WhatsApp AI Instant Lead Auto-Responder Bot",
+        "price": 6000
+      },
+      {
+        "name": "🎨 Custom Brand Logo & Stationery Vector Suite",
+        "price": 5000
+      }
+    ]
+  },
+  {
+    "id": "pkg-service-gmb",
+    "name": "Google Business Profile & Local SEO",
+    "price": "Rs. 15,000/-",
+    "priceNum": 15000,
+    "tag": "Digital Service",
+    "topic": "services",
+    "sectionTitle": "🛠️ Specialized Digital Services & Business Add-Ons",
+    "sectionDesc": "Standalone digital solutions to upgrade your brand reputation, search rank, email & maintenance.",
+    "featured": false,
+    "popular": false,
+    "description": "Claim, verify and optimize your Google Maps profile to attract nearby customers.",
+    "features": [
+      "Google Business Profile Claiming & Verification",
+      "Google Maps Location Pin Setup",
+      "Business Information & Hours Optimization",
+      "5-Star Review Generation Strategy",
+      "Product / Service Catalogue Upload",
+      "Local Citation & NAP Consistency",
+      "💳 PayHere & Credit/Debit Card Gateway Included",
+      "🗣️ Sinhala + English Dual Language Support Included"
+    ],
+    "addon": "Increases local phone calls & walk-ins",
+    "cta": "Setup Google Maps",
+    "order": 20,
+    "hasAdvancedAddons": true,
+    "addonsList": [
+      {
+        "name": "⚡ 99+ PageSpeed Core Web Vitals Optimization",
+        "price": 3500
+      },
+      {
+        "name": "🔐 Advanced Cyber DDoS Shield & Firewall",
+        "price": 4500
+      },
+      {
+        "name": "🤖 WhatsApp AI Instant Lead Auto-Responder Bot",
+        "price": 6000
+      },
+      {
+        "name": "🎨 Custom Brand Logo & Stationery Vector Suite",
+        "price": 5000
+      }
+    ]
+  },
+  {
+    "id": "pkg-service-maintenance",
+    "name": "Website Maintenance & Care",
+    "price": "Rs. 12,000/year",
+    "priceNum": 12000,
+    "tag": "Digital Service",
+    "topic": "services",
+    "sectionTitle": "🛠️ Specialized Digital Services & Business Add-Ons",
+    "sectionDesc": "Standalone digital solutions to upgrade your brand reputation, search rank, email & maintenance.",
+    "featured": false,
+    "popular": false,
+    "description": "Hassle-free annual website maintenance, updates, backups and security monitoring.",
+    "features": [
+      "Monthly Content Updates & Edits",
+      "Automated Daily / Weekly Cloud Backups",
+      "Security Scanning & Malware Protection",
+      "Plugin & Core Engine Updates",
+      "Uptime & Speed Monitoring",
+      "Priority Technical Support",
+      "💳 PayHere & Credit/Debit Card Gateway Included",
+      "📍 Google Maps Location & Local SEO Setup Included",
+      "🗣️ Sinhala + English Dual Language Support Included"
+    ],
+    "addon": "Zero downtime guarantee",
+    "cta": "Get Maintenance Care",
+    "order": 21,
+    "hasAdvancedAddons": true,
+    "addonsList": [
+      {
+        "name": "⚡ 99+ PageSpeed Core Web Vitals Optimization",
+        "price": 3500
+      },
+      {
+        "name": "🔐 Advanced Cyber DDoS Shield & Firewall",
+        "price": 4500
+      },
+      {
+        "name": "🤖 WhatsApp AI Instant Lead Auto-Responder Bot",
+        "price": 6000
+      },
+      {
+        "name": "🎨 Custom Brand Logo & Stationery Vector Suite",
+        "price": 5000
+      }
+    ]
+  },
+  {
+    "id": "pkg-service-logo",
+    "name": "Brand Logo & Identity Suite",
+    "price": "Rs. 10,000/-",
+    "priceNum": 10000,
+    "tag": "Digital Service",
+    "topic": "services",
+    "sectionTitle": "🛠️ Specialized Digital Services & Business Add-Ons",
+    "sectionDesc": "Standalone digital solutions to upgrade your brand reputation, search rank, email & maintenance.",
+    "featured": false,
+    "popular": false,
+    "description": "High-resolution vector logo design and brand assets for your company.",
+    "features": [
+      "3 Custom Logo Design Concepts",
+      "High-Resolution Vector Source Files (AI, EPS, SVG, PNG)",
+      "Transparent Background PNG Variations",
+      "Favicon & Web Icon Suite",
+      "Social Media Profile & Cover Banners",
+      "Brand Color Palette & Typography Guidelines",
+      "💳 PayHere & Credit/Debit Card Gateway Included",
+      "📍 Google Maps Location & Local SEO Setup Included",
+      "🗣️ Sinhala + English Dual Language Support Included"
+    ],
+    "addon": "100% Original Vector Artwork",
+    "cta": "Get Custom Logo",
+    "order": 22,
+    "hasAdvancedAddons": true,
+    "addonsList": [
+      {
+        "name": "⚡ 99+ PageSpeed Core Web Vitals Optimization",
+        "price": 3500
+      },
+      {
+        "name": "🔐 Advanced Cyber DDoS Shield & Firewall",
+        "price": 4500
+      },
+      {
+        "name": "🤖 WhatsApp AI Instant Lead Auto-Responder Bot",
+        "price": 6000
+      },
+      {
+        "name": "🎨 Custom Brand Logo & Stationery Vector Suite",
+        "price": 5000
+      }
+    ]
+  },
+  {
+    "id": "pkg-boost-mini",
+    "name": "Mini Trial Boost",
+    "price": "Rs. 2,500/-",
+    "priceNum": 2500,
+    "tag": "Trial",
+    "topic": "marketing",
+    "sectionTitle": "📢 Social Media & Digital Marketing Boost Packages",
+    "sectionDesc": "Targeted Meta (Facebook & Instagram) ad campaign packages engineered for maximum reach, lead generation & sales inquiries in Sri Lanka.",
+    "featured": false,
+    "popular": false,
+    "description": "Quick post test & basic engagement campaign for small announcements.",
+    "features": [
+      "Estimated Reach: 2,500 – 5,000 People",
+      "Goal: Quick Post Test, Initial Page Likes & Basic Engagement",
+      "Targeting: City / Town Level Selection",
+      "Targeting: Custom Age & Gender Selection",
+      "Meta Ad Setup & Account Optimization",
+      "Campaign Performance Summary Report"
+    ],
+    "addon": "Ideal for testing new products or quick promotional announcements.",
+    "cta": "Choose Mini 2.5K",
+    "order": 1
+  },
+  {
+    "id": "pkg-boost-starter",
+    "name": "Starter Reach Boost",
+    "price": "Rs. 4,000/-",
+    "priceNum": 4000,
+    "tag": "Local Reach",
+    "topic": "marketing",
+    "sectionTitle": "📢 Social Media & Digital Marketing Boost Packages",
+    "sectionDesc": "Targeted Meta (Facebook & Instagram) ad campaign packages engineered for maximum reach, lead generation & sales inquiries in Sri Lanka.",
+    "featured": false,
+    "popular": false,
+    "description": "Local brand awareness, post engagement & targeted page growth.",
+    "features": [
+      "Estimated Reach: 6,000 – 12,000 People",
+      "Goal: Local Brand Awareness, Post Engagement & Page Growth",
+      "Targeting: Location, Age & Basic Interest Targeting",
+      "WhatsApp & Messenger Direct Lead Button Setup",
+      "Targeted Audience Placement (FB & IG Feeds)",
+      "Dedicated Ad Campaign Monitoring"
+    ],
+    "addon": "Great for local stores, restaurants & service providers.",
+    "cta": "Choose Starter 4K",
+    "order": 2
+  },
+  {
+    "id": "pkg-boost-growth",
+    "name": "Growth Boost",
+    "price": "Rs. 6,500/-",
+    "priceNum": 6500,
+    "tag": "Most Recommended",
+    "topic": "marketing",
+    "sectionTitle": "📢 Social Media & Digital Marketing Boost Packages",
+    "sectionDesc": "Targeted Meta (Facebook & Instagram) ad campaign packages engineered for maximum reach, lead generation & sales inquiries in Sri Lanka.",
+    "featured": true,
+    "popular": true,
+    "description": "Direct WhatsApp inquiries, customer calls & high-quality sales leads.",
+    "features": [
+      "Estimated Reach: 15,000 – 30,000 People",
+      "Goal: Direct WhatsApp Inquiries, Customer Calls & Quality Leads",
+      "Targeting: Precise Interest & Buyer Behavior Targeting",
+      "High-Converting Ad Copywriting & Creative Design",
+      "Direct Call & WhatsApp Lead Funnel Setup",
+      "A/B Split Testing for Lowest Cost Per Lead",
+      "Real-time Lead Tracking & Weekly Analytics"
+    ],
+    "addon": "Best value for driving daily sales & customer inquiries.",
+    "cta": "Choose Growth 6.5K",
+    "order": 3
+  },
+  {
+    "id": "pkg-boost-power",
+    "name": "Power Scale Boost",
+    "price": "Rs. 11,500/-",
+    "priceNum": 11500,
+    "tag": "High Scale",
+    "topic": "marketing",
+    "sectionTitle": "📢 Social Media & Digital Marketing Boost Packages",
+    "sectionDesc": "Targeted Meta (Facebook & Instagram) ad campaign packages engineered for maximum reach, lead generation & sales inquiries in Sri Lanka.",
+    "featured": false,
+    "popular": false,
+    "description": "High lead volume, sales inquiries & direct website traffic clicks.",
+    "features": [
+      "Estimated Reach: 35,000 – 70,000+ People",
+      "Goal: High Lead Volume, Sales Inquiries & Web Clicks",
+      "Targeting: Advanced Multi-Audience & High-Intent Customers",
+      "Video & Carousel Multi-Ad Creative Setup",
+      "Website Traffic & E-Commerce Purchase Optimization",
+      "Demographic & Competitor Interest Layering",
+      "Weekly Performance Tuning & Budget Scaling"
+    ],
+    "addon": "Designed for expanding businesses looking for high volume leads.",
+    "cta": "Choose Power 11.5K",
+    "order": 4
+  },
+  {
+    "id": "pkg-boost-pro",
+    "name": "Pro Business Scale",
+    "price": "Rs. 21,500/-",
+    "priceNum": 21500,
+    "tag": "Pro Enterprise",
+    "topic": "marketing",
+    "sectionTitle": "📢 Social Media & Digital Marketing Boost Packages",
+    "sectionDesc": "Targeted Meta (Facebook & Instagram) ad campaign packages engineered for maximum reach, lead generation & sales inquiries in Sri Lanka.",
+    "featured": true,
+    "popular": true,
+    "description": "Nationwide brand visibility, maximum message leads & higher conversion rates.",
+    "features": [
+      "Estimated Reach: 75,000 – 150,000+ People",
+      "Goal: Nationwide Visibility, Max Message Leads & High Conversion",
+      "Multi-Ad Campaign Setup (3+ Custom Ad Concepts)",
+      "Targeting: Custom Audiences & Retargeting Campaigns",
+      "Meta Pixel Event Tracking & Lead Form Integration",
+      "Custom Messenger / WhatsApp Instant Automated Bot Setup",
+      "Dedicated Marketing Strategist & Weekly ROI Reports"
+    ],
+    "addon": "Ideal for corporate brands, e-commerce stores & islandwide services.",
+    "cta": "Choose Pro 21.5K",
+    "order": 5
+  },
+  {
+    "id": "pkg-boost-ultimate",
+    "name": "Ultimate Enterprise",
+    "price": "Rs. 36,500/-",
+    "priceNum": 36500,
+    "tag": "Massive Scale",
+    "topic": "marketing",
+    "sectionTitle": "📢 Social Media & Digital Marketing Boost Packages",
+    "sectionDesc": "Targeted Meta (Facebook & Instagram) ad campaign packages engineered for maximum reach, lead generation & sales inquiries in Sri Lanka.",
+    "featured": false,
+    "popular": false,
+    "description": "Continuous high-scale sales funnel & massive market reach across Sri Lanka & global.",
+    "features": [
+      "Estimated Reach: 150,000 – 300,000+ People",
+      "Goal: Continuous High-Scale Sales Funnel & Massive Market Reach",
+      "Full Multi-Platform Campaign Suite (FB, IG, Web & Google)",
+      "Lookalike Audiences & Advanced Retargeting Funnel",
+      "High-Converting Video Ads & Complete Brand Asset Suite",
+      "Sales Conversion Pixel & Full Funnel Attribution Tracking",
+      "24/7 Priority Campaign Management & Continuous ROI Tuning"
+    ],
+    "addon": "Maximum scale package for dominant market leaders.",
+    "cta": "Choose Ultimate 36.5K",
+    "order": 6
+  },
+  {
+    "id": "pkg-app-basic",
+    "name": "Basic Mobile App",
+    "price": "Rs. 75,000/-",
+    "priceNum": 75000,
+    "tag": "Mobile App",
+    "topic": "mobile-apps",
+    "sectionTitle": "📱 Mobile App Development Packages",
+    "sectionDesc": "Cross-platform Flutter mobile applications for iOS & Android play store deployment.",
+    "featured": false,
+    "popular": false,
+    "description": "Essential mobile application for businesses, catalogs & appointment bookings.",
+    "features": [
+      "Cross-Platform iOS & Android App",
+      "Flutter Architecture & Clean UI",
+      "Push Notifications Integration",
+      "WhatsApp Direct Chat & Inquiries",
+      "Google Play Store & App Store Publishing Assistance",
+      "💳 PayHere & Credit/Debit Card Gateway Included",
+      "📍 Google Maps Location & Local SEO Setup Included",
+      "🗣️ Sinhala + English Dual Language Support Included"
+    ],
+    "addon": "Ideal for service catalogs & customer portals.",
+    "cta": "Choose Basic App",
+    "order": 17.5,
+    "hasAdvancedAddons": true,
+    "addonsList": [
+      {
+        "name": "⚡ 99+ PageSpeed Core Web Vitals Optimization",
+        "price": 3500
+      },
+      {
+        "name": "🔐 Advanced Cyber DDoS Shield & Firewall",
+        "price": 4500
+      },
+      {
+        "name": "🤖 WhatsApp AI Instant Lead Auto-Responder Bot",
+        "price": 6000
+      },
+      {
+        "name": "🎨 Custom Brand Logo & Stationery Vector Suite",
+        "price": 5000
+      }
+    ]
+  },
+  {
+    "id": "pkg-app-pro",
+    "name": "Custom Enterprise App",
+    "price": "Rs. 150,000/-",
+    "priceNum": 150000,
+    "tag": "Enterprise App",
+    "topic": "mobile-apps",
+    "sectionTitle": "📱 Mobile App Development Packages",
+    "sectionDesc": "Cross-platform Flutter mobile applications for iOS & Android play store deployment.",
+    "featured": true,
+    "popular": true,
+    "description": "Advanced custom mobile app for taxi booking, food delivery, e-commerce & live tracking.",
+    "features": [
+      "Full Taxi / Delivery / E-Commerce System",
+      "Live GPS Location Tracking & Maps",
+      "PayHere & Card Gateway Payment Integration",
+      "Customer & Driver / Merchant Admin Panels",
+      "Automated Push Notifications & Order Alerts",
+      "6 Months Dedicated Mobile Maintenance Support",
+      "📍 Google Maps Location & Local SEO Setup Included",
+      "🗣️ Sinhala + English Dual Language Support Included"
+    ],
+    "addon": "Full custom backend & database included.",
+    "cta": "Choose Enterprise App",
+    "order": 17.8,
+    "hasAdvancedAddons": true,
+    "addonsList": [
+      {
+        "name": "⚡ 99+ PageSpeed Core Web Vitals Optimization",
+        "price": 3500
+      },
+      {
+        "name": "🔐 Advanced Cyber DDoS Shield & Firewall",
+        "price": 4500
+      },
+      {
+        "name": "🤖 WhatsApp AI Instant Lead Auto-Responder Bot",
+        "price": 6000
+      },
+      {
+        "name": "🎨 Custom Brand Logo & Stationery Vector Suite",
+        "price": 5000
+      }
+    ]
+  },
+  {
+    "id": "pkg-lead-landing-page",
+    "name": "High-Converting 1-Page Landing Page",
+    "price": "Rs. 8,000/-",
+    "priceNum": 8000,
+    "tag": "⚡ 24h Express",
+    "topic": "low-cost",
+    "sectionTitle": "💡 Low-Cost Web Design Packages",
+    "sectionDesc": "High quality, affordable web solutions tailored for Sri Lankan startups, small businesses & personal sites.",
+    "featured": true,
+    "popular": true,
+    "description": "High-impact 1-page sales funnel designed to turn Meta & TikTok ad traffic into direct WhatsApp sales leads.",
+    "features": [
+      "Single High-Converting Long-Form Landing Page",
+      "Sticky WhatsApp Chat & Call-Now Buttons",
+      "Fast Lead Capture Form with Instant Telegram / Email Alerts",
+      "Hero Product Showcase & Customer Testimonials Grid",
+      "Google Analytics 4 & Meta Pixel Pre-Configured",
+      "⚡ Express 24 to 48 Hours Guaranteed Delivery",
+      "🎁 100% Free Cloud Hosting (Zero Monthly Fees)"
+    ],
+    "addon": "Perfect for Facebook, Instagram & TikTok Ad Campaigns",
+    "cta": "Choose Landing Page",
+    "order": 2.5
+  },
+  {
+    "id": "pkg-tourism-villa",
+    "name": "Villa & Boutique Hotel Showcase",
+    "price": "Rs. 25,000/-",
+    "priceNum": 25000,
+    "tag": "Villas & Resorts",
+    "topic": "industry",
+    "sectionTitle": "🏖️ Industry-Specific Solutions",
+    "sectionDesc": "Tailored websites with direct WhatsApp reservations, Google Maps pins, and booking engines for Sri Lankan businesses.",
+    "featured": true,
+    "popular": true,
+    "description": "Tailored presentation for Sri Lankan villas, guest houses, surf camps & boutique resort hotels.",
+    "features": [
+      "6 Custom Rooms & Experience Showcase Pages",
+      "Room & Suite Photo Galleries with 360 View Support",
+      "Direct WhatsApp & Instant Room Inquiry Form",
+      "TripAdvisor, Booking.com & Airbnb Reviews Widget",
+      "Google Maps Location Pin & Nearby Tourist Guide",
+      "Dual Language Support (English + German / French / Sinhala)",
+      "High-Speed CDN for Instant Overseas Tourist Browsing"
+    ],
+    "addon": "Includes Free High-Res Photo Optimization",
+    "cta": "Choose Villa Package",
+    "order": 20
+  },
+  {
+    "id": "pkg-hotel-booking-engine",
+    "name": "Hotel & Tour Booking Platform",
+    "price": "Rs. 55,000/-",
+    "priceNum": 55000,
+    "tag": "Full Booking Engine",
+    "topic": "industry",
+    "sectionTitle": "🏖️ Industry-Specific Solutions",
+    "sectionDesc": "Tailored websites with direct WhatsApp reservations, Google Maps pins, and booking engines for Sri Lankan businesses.",
+    "featured": false,
+    "popular": false,
+    "description": "Complete hotel reservation system with live availability calendar, day tour packages & card payment deposits.",
+    "features": [
+      "Interactive Room Availability Calendar & Date Selector",
+      "Day-by-Day Tour Packages & Excursions Showcase",
+      "PayHere / Stripe International Credit Card Deposit Integration",
+      "Automated Guest Confirmation Voucher PDF Emails",
+      "Multi-Currency Display (USD, EUR, GBP, AUD, LKR)",
+      "Full SEO Configuration for Overseas Travelers",
+      "Self-Manageable Seasonal Rates & Room Blocks"
+    ],
+    "addon": "Zero commission per booking — 100% direct guest revenue",
+    "cta": "Choose Hotel Platform",
+    "order": 21
+  },
+  {
+    "id": "pkg-restaurant-qr-menu",
+    "name": "Restaurant QR Menu & Dine-In",
+    "price": "Rs. 18,000/-",
+    "priceNum": 18000,
+    "tag": "Restaurants & Cafes",
+    "topic": "industry",
+    "sectionTitle": "🏖️ Industry-Specific Solutions",
+    "sectionDesc": "Tailored websites with direct WhatsApp reservations, Google Maps pins, and booking engines for Sri Lankan businesses.",
+    "featured": true,
+    "popular": false,
+    "description": "Touchless digital QR code menu for tables, social media ordering, food photos & live opening hours.",
+    "features": [
+      "Print-Ready Table QR Code Generator for Guests",
+      "Categorized Food & Beverage Digital Menu with Photos",
+      "Instant Price & Out-of-Stock Updates via Admin Phone",
+      "Table Reservation & Private Dining Request Form",
+      "Google Maps Directions, Operating Hours & Parking Info",
+      "Instagram Food Photo Feed & Customer Reviews",
+      "Mobile-First Layout Optimized for 4G/5G Smartphones"
+    ],
+    "addon": "Includes Table Tent QR Code PDF Print Artwork",
+    "cta": "Choose QR Menu",
+    "order": 22
+  },
+  {
+    "id": "pkg-restaurant-delivery-cart",
+    "name": "Online Food Ordering & Delivery System",
+    "price": "Rs. 38,000/-",
+    "priceNum": 38000,
+    "tag": "Zero Commission Delivery",
+    "topic": "industry",
+    "sectionTitle": "🏖️ Industry-Specific Solutions",
+    "sectionDesc": "Tailored websites with direct WhatsApp reservations, Google Maps pins, and booking engines for Sri Lankan businesses.",
+    "featured": false,
+    "popular": true,
+    "description": "Stop paying 20-30% commissions to third-party delivery apps. Take direct orders on WhatsApp & Web.",
+    "features": [
+      "Interactive Food Ordering Cart with Add-ons (e.g. Extra Cheese)",
+      "Direct WhatsApp Order Notification with Customer Delivery GPS",
+      "PayHere Online Card Checkout + Cash on Delivery (COD)",
+      "Custom Delivery Area Radius & Delivery Fee Rules",
+      "Audio Beep Alert for Incoming Orders in Kitchen",
+      "Customer Live Order Status (Preparing / On the Way)",
+      "Automated WhatsApp Receipt & Order Confirmation"
+    ],
+    "addon": "Save thousands on UberEats/PickMe commissions every month",
+    "cta": "Choose Food Ordering",
+    "order": 23
+  },
+  {
+    "id": "pkg-medical-clinic",
+    "name": "Medical Clinic & Dental Practice",
+    "price": "Rs. 22,000/-",
+    "priceNum": 22000,
+    "tag": "Doctors & Clinics",
+    "topic": "industry",
+    "sectionTitle": "🏖️ Industry-Specific Solutions",
+    "sectionDesc": "Tailored websites with direct WhatsApp reservations, Google Maps pins, and booking engines for Sri Lankan businesses.",
+    "featured": false,
+    "popular": false,
+    "description": "Trustworthy, clean medical presentation for private clinics, dental practices, pharmacies & specialist doctors.",
+    "features": [
+      "Doctor Profiles, Qualifications & Specialist Bio Pages",
+      "Patient Online Appointment Booking & Timeslot Picker",
+      "Automated WhatsApp & Email Appointment Confirmations",
+      "Treatment Price List & Insurance Information Section",
+      "Google Maps Location Pin, Parking & Emergency Numbers",
+      "Patient Testimonials & Star Rating Trust Badges",
+      "HIPAA-Conscious Secure Patient Inquiry System"
+    ],
+    "addon": "Includes Google My Business Doctor Map Verification Guide",
+    "cta": "Choose Medical Clinic",
+    "order": 24
+  },
+  {
+    "id": "pkg-tuition-academy",
+    "name": "Tuition & Training Academy Portal",
+    "price": "Rs. 28,000/-",
+    "priceNum": 28000,
+    "tag": "Tuition & Education",
+    "topic": "industry",
+    "sectionTitle": "🏖️ Industry-Specific Solutions",
+    "sectionDesc": "Tailored websites with direct WhatsApp reservations, Google Maps pins, and booking engines for Sri Lankan businesses.",
+    "featured": true,
+    "popular": true,
+    "description": "Built specifically for Sri Lankan A/L, O/L tuition teachers, coaching institutes & vocational training academies.",
+    "features": [
+      "Class Timetable Schedule & Batch Announcement Board",
+      "Online Student Registration & Admission Form",
+      "Course Syllabus & Downloadable PDF Tutes / Past Papers",
+      "PayHere Monthly Class Fee Payment & Bank Slip Uploader",
+      "Private YouTube / Vimeo Lecture Video Embed Protection",
+      "Direct WhatsApp Community & Telegram Group Join Links",
+      "Exam Countdown Timer & Past Paper Archive"
+    ],
+    "addon": "Supports Sinhala, English & Tamil Content",
+    "cta": "Choose Academy Portal",
+    "order": 25
+  },
+  {
+    "id": "pkg-single-product-funnel",
+    "name": "1-Product Viral Sales Funnel",
+    "price": "Rs. 18,000/-",
+    "priceNum": 18000,
+    "tag": "Viral Ads Funnel",
+    "topic": "ecommerce",
+    "sectionTitle": "🛒 E-Commerce & Product Catalogue Solutions",
+    "sectionDesc": "Complete online store & catalogue platforms ready for PayHere, Visa, Mastercard & Koko installment payments.",
+    "featured": true,
+    "popular": true,
+    "description": "Engineered specifically for single trending dropshipping products, cosmetics, electronics, or fashion.",
+    "features": [
+      "Ultra-Fast 1-Page Sticky Checkout Form",
+      "PayHere Card Payment + Koko/Mintpay + Cash on Delivery (COD)",
+      "Product Benefit Highlights, Before/After & Customer Video Demos",
+      "Scarcity Countdown Timer & Limited Stock Warning Badges",
+      "Meta Pixel & TikTok Pixel Conversion API Tracking Pre-installed",
+      "Direct WhatsApp Order Option for Non-Tech Savvy Buyers",
+      "⚡ 48 Hours Guaranteed Setup & Deployment"
+    ],
+    "addon": "Ready to run TikTok & Facebook Ads immediately",
+    "cta": "Choose 1-Product Funnel",
+    "order": 26
+  },
+  {
+    "id": "pkg-multicategory-ecommerce",
+    "name": "Retail Online Superstore",
+    "price": "Rs. 75,000/-",
+    "priceNum": 75000,
+    "tag": "Complete Retail Shop",
+    "topic": "ecommerce",
+    "sectionTitle": "🛒 E-Commerce & Product Catalogue Solutions",
+    "sectionDesc": "Complete online store & catalogue platforms ready for PayHere, Visa, Mastercard & Koko installment payments.",
+    "featured": false,
+    "popular": true,
+    "description": "Full retail eCommerce shop with multi-level categories, stock management, promo coupons & courier integration.",
+    "features": [
+      "Up to 500 Products & Multi-Level Category Hierarchy",
+      "Visa, Mastercard, PayHere, Genie, eZ Cash & COD Checkout",
+      "Pronto / Prompt / Koombiyo Courier Tracking Ready",
+      "Discount Coupon Codes, Flash Sale Banners & Buy-1-Get-1 Bundles",
+      "Customer Accounts, Saved Wishlists & Order History",
+      "Automated Low-Stock Alerts & Inventory PDF Reports",
+      "Full Search Filter by Price, Size, Color & Brand"
+    ],
+    "addon": "Includes 100 Initial Products Uploaded by Our Team",
+    "cta": "Choose Superstore",
+    "order": 27
+  },
+  {
+    "id": "pkg-maintenance-basic",
+    "name": "Essential Website Care Retainer",
+    "price": "Rs. 3,500/mo",
+    "priceNum": 3500,
+    "tag": "Monthly Care",
+    "topic": "services",
+    "sectionTitle": "🛠️ Specialized Digital Services & Business Add-Ons",
+    "sectionDesc": "Monthly maintenance care, Google SEO ranking retainers, and specialized digital services.",
+    "featured": false,
+    "popular": true,
+    "description": "Keep your website fast, 100% online, backed up, and updated every month with peace of mind.",
+    "features": [
+      "Weekly Automated Cloud Backups & Cloudflare Snapshots",
+      "Continuous SSL Certificate & 24/7 Server Uptime Monitoring",
+      "Malware & Security Vulnerability Scanning",
+      "Up to 2 Content / Price / Photo Updates Every Month",
+      "Monthly Health & Uptime Performance Report",
+      "Priority WhatsApp Support for Urgent Requests",
+      "No lock-in contract — cancel anytime"
+    ],
+    "addon": "Peace of mind so you never lose your website data",
+    "cta": "Choose Monthly Care",
+    "order": 28
+  },
+  {
+    "id": "pkg-maintenance-growth",
+    "name": "Growth SEO & Ranking Retainer",
+    "price": "Rs. 8,500/mo",
+    "priceNum": 8500,
+    "tag": "Google SEO Growth",
+    "topic": "services",
+    "sectionTitle": "🛠️ Specialized Digital Services & Business Add-Ons",
+    "sectionDesc": "Monthly maintenance care, Google SEO ranking retainers, and specialized digital services.",
+    "featured": true,
+    "popular": true,
+    "description": "Continuous Google search ranking improvements, new blog articles & monthly traffic reporting.",
+    "features": [
+      "Monthly Google Search Console & Keyword Rank Audit",
+      "2 Optimized SEO Articles Written & Published Monthly",
+      "Google Business Profile & Maps Activity Optimization",
+      "Core Web Vitals Speed Auditing & Image Compression",
+      "Up to 5 Content / Banner / Offer Updates Every Month",
+      "Competitor Search Ranking Keyword Tracking",
+      "Dedicated Account Manager via WhatsApp Phone & Call"
+    ],
+    "addon": "Proven system to get onto Page 1 of Google in Sri Lanka",
+    "cta": "Choose SEO Retainer",
+    "order": 29
+  }
+];
+
+async function loadPackages() {
+  const grid = document.getElementById('packagesGrid');
+  if (!grid) return;
+
+  let pkgs = [];
+  try {
+    const { db, collection, getDocs } = await import('./firebase-config.js');
+    const snap = await getDocs(collection(db, 'packages'));
+    if (!snap.empty) {
+      snap.forEach(d => pkgs.push({ id: d.id, ...d.data() }));
+      pkgs.sort((a, b) => (Number(a.order) || 99) - (Number(b.order) || 99));
+    }
+  } catch (e) {
+    console.log('Using local package data');
+  }
+
+  if (!pkgs || pkgs.length === 0) {
+    const saved = localStorage.getItem('infinite_packages');
+    if (saved) {
+      try { pkgs = JSON.parse(saved); } catch(err) {}
+    }
+  }
+
+  if (!pkgs || pkgs.length === 0) {
+    try {
+      const res = await fetch(rootPath() + 'data/packages.json?v=' + Date.now());
+      if (res.ok) {
+        pkgs = await res.json();
+      }
+    } catch(err) {}
+  }
+
+  if (!pkgs || pkgs.length === 0) {
+    pkgs = DEFAULT_PACKAGES;
+  }
+
+  renderPackages(pkgs, grid);
+}
+
+
+/* ── Multi-Currency Engine (LKR <-> USD) ───────── */
+window.USD_EXCHANGE_RATE = 300; // 300 LKR = 1 USD
+
+window.getActiveCurrency = function() {
+  return localStorage.getItem('infinite_currency') || 'LKR';
+};
+
+window.formatCurrency = function(lkrAmount, curr) {
+  const current = curr || (window.getActiveCurrency ? window.getActiveCurrency() : 'LKR');
+  const num = Number(lkrAmount) || 0;
+  if (current === 'USD') {
+    const usd = Math.max(1, Math.round(num / window.USD_EXCHANGE_RATE));
+    return `$${usd}`;
+  }
+  return `Rs. ${num.toLocaleString()}/-`;
+};
+
+window.switchGlobalCurrency = function(curr) {
+  localStorage.setItem('infinite_currency', curr);
+  document.querySelectorAll('.currency-switch-btn').forEach(btn => {
+    if (btn.getAttribute('data-curr') === curr) {
+      btn.classList.add('active');
+      btn.style.background = '#04AA6D';
+      btn.style.color = '#ffffff';
+      btn.style.fontWeight = '800';
+    } else {
+      btn.classList.remove('active');
+      btn.style.background = 'transparent';
+      btn.style.color = '#94a3b8';
+      btn.style.fontWeight = '700';
+    }
+  });
+
+  // 1. Update 3 hero cards on index.html
+  document.querySelectorAll('[data-lkr-price]').forEach(el => {
+    const lkr = parseInt(el.getAttribute('data-lkr-price'), 10);
+    el.textContent = window.formatCurrency(lkr, curr);
+  });
+
+  // 2. Re-render packages grid if present
+  if (document.getElementById('packagesGrid')) {
+    loadPackages();
+  }
+
+  // 3. Re-calculate instant estimate on packages.html or index.html
+  if (typeof calculateFullEstimate === 'function') {
+    calculateFullEstimate();
+  }
+};
+
+function parseBasePrice(priceStr) {
+  const digits = String(priceStr).replace(/[^0-9]/g, '');
+  return parseInt(digits, 10) || 5000;
+}
+
+
+window.filterPackageCategory = function(topicKey, btnEl) {
+  if (btnEl) {
+    document.querySelectorAll('.pkg-filter-pill').forEach(b => b.classList.remove('active'));
+    btnEl.classList.add('active');
+  }
+  const headers = document.querySelectorAll('.pkg-section-header');
+  const cards = document.querySelectorAll('.pkg-card');
+
+  if (topicKey === 'all') {
+    headers.forEach(h => h.style.display = '');
+    cards.forEach(c => c.style.display = '');
+  } else {
+    headers.forEach(h => {
+      const match = h.getAttribute('data-topic') === topicKey;
+      h.style.display = match ? '' : 'none';
+    });
+    cards.forEach(c => {
+      const match = c.getAttribute('data-topic') === topicKey;
+      c.style.display = match ? '' : 'none';
+    });
+    const targetHeader = document.querySelector(`.pkg-section-header[data-topic="${topicKey}"]`);
+    if (targetHeader) {
+      targetHeader.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+};
+
+function renderPackages(list, container) {
+  container.innerHTML = '';
+  const activeCurr = window.getActiveCurrency();
+  
+  // Group packages by topics with explicit Section IDs for smooth scrolling
+  const topics = [
+    { key: 'low-cost', id: 'web-design-packages', title: '💡 Low-Cost & Starter Packages', desc: 'High quality, affordable web solutions starting from Rs. 5,000/- tailored for Sri Lankan startups, small shops & personal portfolios.' },
+    { key: 'industry', id: 'industry-packages', title: '🏖️ Industry-Specific Solutions (Hotels, Villas, Food & Clinics)', desc: 'Bespoke systems engineered for Sri Lankan Villas, Boutique Hotels, Restaurant QR Menus, Doctors & Tuition Academies.' },
+    { key: 'ecommerce', id: 'ecommerce-packages', title: '🛒 E-Commerce Stores & 1-Product Sales Funnels', desc: 'Single-product viral ad funnels and full multi-category retail online shops with PayHere, Visa, Mastercard & COD.' },
+    { key: 'corporate', id: 'corporate-packages', title: '🏢 Standard Corporate & Business Portals', desc: 'Established business & company website packages with custom UI, business emails & admin control.' },
+    { key: 'services', id: 'digital-services-packages', title: '🛠️ Website Care, Security & SEO Ranking Retainers', desc: 'Monthly peace-of-mind maintenance, automated cloud backups, and active Google Page 1 SEO retainers.' },
+    { key: 'international', id: 'international-packages', title: '🌍 International & Export Web Portals', desc: 'Built for export brands, multinational firms & global operations targeting international search markets.' },
+    { key: 'mobile-apps', id: 'mobile-apps-packages', title: '📱 Cross-Platform Mobile Applications', desc: 'Flutter mobile applications for iOS & Android app store deployment.' },
+    { key: 'marketing', id: 'digital-marketing-packages', title: '📢 Social Media & Meta Ads Boost Packages', desc: 'Targeted Meta (Facebook & Instagram) ad campaign packages engineered for maximum reach & direct WhatsApp inquiries.' }
+  ];
+
+  topics.forEach(t => {
+    const items = list.filter(p => p.topic === t.key || p.category === t.key);
+    if (!items || items.length === 0) return;
+
+    const secHeader = document.createElement('div');
+    secHeader.className = 'pkg-section-header reveal';
+    secHeader.setAttribute('data-topic', t.key);
+    secHeader.id = t.id || (t.key + '-packages');
+    secHeader.style.cssText = 'grid-column: 1 / -1; margin-top: 36px; margin-bottom: 20px; text-align: left; background: #ffffff !important; padding: 20px 24px; border-radius: 14px; border: 1px solid #e2e8f0; border-left: 5px solid #04AA6D; box-shadow: 0 4px 16px rgba(0,0,0,0.04);';
+    secHeader.innerHTML = `
+      <h2 style="font-family:'Space Grotesk', sans-serif; font-size: 1.6rem; font-weight: 800; color: #0f172a !important; margin-bottom: 6px; display:flex; align-items:center; gap:10px;">${t.title}</h2>
+      <p style="color: #475569 !important; font-size: 0.95rem; margin: 0; font-weight: 500; line-height:1.5;">${t.desc}</p>
+    `;
+    container.appendChild(secHeader);
+
+    items.forEach((pkg, index) => {
+      const basePrice = parseBasePrice(pkg.price);
+      const formattedPrice = window.formatCurrency(basePrice, activeCurr);
+      const formattedOrig = pkg.originalPrice ? window.formatCurrency(parseBasePrice(pkg.originalPrice), activeCurr) : '';
+
+      const card = document.createElement('div');
+      card.className = `pkg-card ${pkg.featured ? 'featured' : ''} reveal reveal-delay-${(index % 4) + 1}`;
+      card.setAttribute('data-topic', t.key);
+      card.id = `pkg_card_${pkg.id || index}`;
+      
+      // Sleek Compact International Standard Card Height
+      card.style.cssText = 'background: #ffffff !important; border: 1px solid #e2e8f0 !important; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; position: relative; box-shadow: 0 8px 24px rgba(0,0,0,0.06); color: #0f172a !important; min-height: 380px; box-sizing: border-box;';
+
+      const allFeats = pkg.features || [];
+      const topFeats = allFeats.slice(0, 3);
+      const moreFeats = allFeats.slice(3);
+
+      const topFeatsHtml = topFeats.map(feat => `
+        <li class="pkg-feature-item" style="display:flex; align-items:flex-start; gap:8px; font-size:0.88rem; color:#0f172a !important; line-height:1.4; font-weight:700; margin-bottom:8px;">
+          <svg style="flex-shrink:0; margin-top:2px;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#04AA6D" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>${feat}</span>
+        </li>
+      `).join('');
+
+      const moreFeatsHtml = moreFeats.map(feat => `
+        <li class="pkg-feature-item" style="display:flex; align-items:flex-start; gap:8px; font-size:0.85rem; color:#334155 !important; line-height:1.4; font-weight:600; margin-bottom:8px;">
+          <svg style="flex-shrink:0; margin-top:2px;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>${feat}</span>
+        </li>
+      `).join('');
+
+      const moreContainerId = `more_feats_${pkg.id || index}`;
+
+      card.innerHTML = `
+        <div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+            <span style="font-size:10px; font-weight:800; color:#04AA6D; background:rgba(4,170,109,0.12); padding:3px 10px; border-radius:20px; text-transform:uppercase; letter-spacing:0.05em;">${pkg.tag || 'Popular'}</span>
+            ${pkg.featured ? '<span style="font-size:14px;">⭐</span>' : ''}
+          </div>
+          
+          <h3 style="font-family:'Space Grotesk', sans-serif; font-size:1.35rem; font-weight:800; color:#0f172a !important; margin:0 0 4px;">${pkg.name}</h3>
+          
+          <div style="margin-bottom:12px;">
+            <span style="font-size:1.6rem; font-weight:900; color:#04AA6D;">${formattedPrice}</span>
+            ${formattedOrig ? `<span style="font-size:0.85rem; color:#94a3b8; text-decoration:line-through; margin-left:6px;">${formattedOrig}</span>` : ''}
+          </div>
+
+          <p style="font-size:0.82rem; color:#475569 !important; margin:0 0 14px; line-height:1.4; font-weight:500;">${pkg.description || ''}</p>
+
+          <ul style="list-style:none; padding:0; margin:0 0 10px;">
+            ${topFeatsHtml}
+          </ul>
+
+          ${moreFeats.length > 0 ? `
+            <div id="${moreContainerId}" style="display:none; padding-top:8px; border-top:1px dashed #e2e8f0; margin-bottom:10px;">
+              <ul style="list-style:none; padding:0; margin:0;">
+                ${moreFeatsHtml}
+              </ul>
+            </div>
+            <button onclick="togglePkgMore('${moreContainerId}', this)" style="background:none; border:none; color:#0284c7; font-weight:800; font-size:0.78rem; cursor:pointer; padding:0; margin-bottom:14px; display:inline-flex; align-items:center; gap:4px;">
+              <span>See More Details</span> <span>▼</span>
+            </button>
+          ` : ''}
+        </div>
+
+        <div style="margin-top:auto; padding-top:12px;">
+          <a href="https://wa.me/94789714912?text=${encodeURIComponent('Hello! I want to order ' + pkg.name + ' (' + formattedPrice + ')')}" target="_blank" rel="noopener" style="display:block; text-align:center; background:#04AA6D; color:#ffffff !important; font-weight:800; padding:10px 16px; border-radius:8px; text-decoration:none; box-shadow:0 4px 14px rgba(4,170,109,0.3); font-size:0.88rem;">
+            ${pkg.cta || 'Choose Package'} &rarr;
+          </a>
+        </div>
+      `;
+
+      container.appendChild(card);
+    });
+  });
+}
+
+function updatePkgTotal(pkgId, basePrice, pkgName) {
+  const cbs = document.querySelectorAll(`.pkg-addon-cb[data-pkg-id="${pkgId}"]:checked`);
+  let addonTotal = 0;
+  cbs.forEach(cb => addonTotal += parseInt(cb.dataset.price, 10));
+  const total = basePrice + addonTotal;
+  const disp = document.getElementById(`price_display_${pkgId}`);
+  if (disp) {
+    disp.textContent = 'Rs. ' + total.toLocaleString() + '/-';
+  }
+}
+
+function orderPackageWhatsApp(pkgId, basePrice, pkgName) {
+  const cbs = document.querySelectorAll(`.pkg-addon-cb[data-pkg-id="${pkgId}"]:checked`);
+  let addonTotal = 0;
+  const selectedAddons = [];
+  cbs.forEach(cb => {
+    const p = parseInt(cb.dataset.price, 10);
+    addonTotal += p;
+    selectedAddons.push(`• ${cb.dataset.name} (+Rs. ${p.toLocaleString()})`);
+  });
+
+  const total = basePrice + addonTotal;
+  
+  let msg = `👋 Hello Infinite Creative Web Design!\n\n`;
+  msg += `📦 *Selected Package:* ${pkgName} (Base: Rs. ${basePrice.toLocaleString()}/-)\n`;
+  
+  if (selectedAddons.length > 0) {
+    msg += `\n✨ *Selected Add-ons:*\n${selectedAddons.join('\n')}\n`;
+  } else {
+    msg += `\n✨ *Add-ons:* Standard Included Features\n`;
+  }
+
+  msg += `\n💰 *Total Investment:* Rs. ${total.toLocaleString()}/-\n`;
+  msg += `🚀 I would like to get started with this package. Please let me know how to proceed!`;
+
+  const waUrl = `https://wa.me/94789714912?text=${encodeURIComponent(msg)}`;
+  window.open(waUrl, '_blank');
+}
+
 /* ── Init ───────────────────────────────────────── */
-document.addEventListener('DOMContentLoaded',function(){
+document.addEventListener('DOMContentLoaded', function() {
   loadProjects();
+  loadPackages();
+  loadBlogs();
+  loadAllBlogs();
+  loadArticle();
   loadSettings();
-  // link CSS additions
-  const lnk=document.createElement('link');
-  lnk.rel='stylesheet';lnk.href='css/additions.css';
+  const lnk = document.createElement('link');
+  lnk.rel = 'stylesheet';
+  lnk.href = rootPath() + 'css/additions.css';
   document.head.appendChild(lnk);
 });
+
+/* ── Footer Background Typing ───────────────────── */
+(function initFooterBgTyping() {
+  const footer = document.querySelector('.footer');
+  if (!footer) return;
+  const footerMain = footer.querySelector('.footer-main');
+  if(footerMain) {
+    footerMain.style.position = 'relative';
+    footerMain.style.zIndex = '1';
+  }
+  const footerBottom = footer.querySelector('.footer-bottom');
+  if(footerBottom) {
+    footerBottom.style.position = 'relative';
+    footerBottom.style.zIndex = '1';
+  }
+
+  let bgContainer = document.getElementById('footerCodeBgContainer');
+  if(!bgContainer) {
+    bgContainer = document.createElement('div');
+    bgContainer.id = 'footerCodeBgContainer';
+    bgContainer.style.position = 'absolute';
+    bgContainer.style.inset = '0';
+    bgContainer.style.opacity = '0.12';
+    bgContainer.style.fontFamily = "'Courier New', monospace";
+    bgContainer.style.fontSize = '13px';
+    bgContainer.style.lineHeight = '1.6';
+    bgContainer.style.color = '#04AA6D';
+    bgContainer.style.overflow = 'hidden';
+    bgContainer.style.pointerEvents = 'none';
+    bgContainer.style.zIndex = '0';
+    bgContainer.style.padding = '30px';
+    bgContainer.style.display = 'flex';
+    bgContainer.style.gap = '40px';
+    
+    for(let i=1; i<=3; i++) {
+      let col = document.createElement('div');
+      col.id = 'footerCodeBg' + i;
+      col.style.flex = '1';
+      col.style.whiteSpace = 'pre-wrap';
+      col.style.wordBreak = 'break-word';
+      bgContainer.appendChild(col);
+    }
+    footer.insertBefore(bgContainer, footer.firstChild);
+  }
+
+  const bgs = [
+    document.getElementById('footerCodeBg1'),
+    document.getElementById('footerCodeBg2'),
+    document.getElementById('footerCodeBg3')
+  ];
+  if(!bgs[0]) return;
+  
+  const snippets = [
+    "function initSys() {\n  console.log('Booting Infinity Engine...');\n  return loadModules();\n}",
+    "const db = connect(process.env.DB_URL);\nawait db.sync();",
+    "class InfiniteDesign extends CreativeAgency {\n  constructor() {\n    super({ premium: true, talent: 'top-3%' });\n  }\n}",
+    "SELECT id, project_name FROM portfolio WHERE status = 'published' ORDER BY date DESC;",
+    "import { useState, useEffect } from 'react';\nexport default function App() {\n  return <MainLayout />;\n}",
+    "Route::get('/api/v1/projects', [ProjectController::class, 'index'])->middleware('api');",
+    "if (quality >= 100) {\n  deployToProduction();\n} else {\n  refactor();\n}",
+    "body {\n  margin: 0;\n  padding: 0;\n  background: #282A35;\n  font-family: var(--font-sans);\n}"
+  ];
+  
+  function createTyper(bgEl) {
+    let fullText = '';
+    let idx = 0;
+    let timer = null;
+    
+    function typeWriter() {
+      // Always keep generating new code — never run out
+      if (idx >= fullText.length - 100) {
+        fullText += snippets[Math.floor(Math.random() * snippets.length)] + "\n\n";
+      }
+      
+      bgEl.textContent = fullText.substring(0, idx+1) + "_";
+      idx += Math.floor(Math.random() * 8) + 2; 
+      
+      // Scroll old lines out so text doesn't grow forever
+      if (fullText.length > 2500 && idx > 2000) {
+        let cutIndex = fullText.indexOf('\n\n', 250);
+        if (cutIndex !== -1) {
+          fullText = fullText.substring(cutIndex + 2);
+          idx -= (cutIndex + 2);
+        }
+      }
+      timer = setTimeout(typeWriter, Math.random() * 50 + 10);
+    }
+    
+    function start() { if(!timer) typeWriter(); }
+    function stop()  { clearTimeout(timer); timer = null; }
+    
+    // Start when footer scrolls into view, stop when it leaves, restart when it comes back
+    const io = new IntersectionObserver(function(entries){
+      entries[0].isIntersecting ? start() : stop();
+    }, { threshold: 0.05 });
+    io.observe(bgEl);
+  }
+  
+  bgs.forEach(bg => { if(bg) createTyper(bg); });
+})();
+
+/* ── Terminal Mission Typing ────────────────────── */
+(function initMissionTerminal(){
+  const el = document.getElementById('missionTextEl');
+  if(!el) return;
+  
+  const text = "> INITIALIZING CORE VISION...\n\n> Our eyes are fixed on the future, where we aim to stand as the #1 digital partner on the planet.\n> We understand that the road to being a world-first company is paved with challenges and hard work.\n> That is why we fight for excellence in every detail, ensuring our clients receive nothing but the best.\n> We combine a warrior's work ethic with a designer's soul to create truly world-class experiences.\n\n> Partner with us now, and let's ascend to the global stage together through sheer determination.";
+  
+  let idx = 0;
+  let started = false;
+  
+  function typeMission() {
+    if(idx < text.length) {
+      el.textContent = text.substring(0, idx+1) + "█";
+      idx += Math.floor(Math.random() * 3) + 1; // Type 1-3 chars for varied organic speed
+      setTimeout(typeMission, Math.random() * 30 + 10);
+    } else {
+      el.textContent = text;
+      // Blinking cursor at the end
+      setInterval(() => {
+        el.textContent = el.textContent.endsWith("█") ? text : text + "█";
+      }, 500);
+    }
+  }
+  
+  const io = new IntersectionObserver(function(entries){
+    if(entries[0].isIntersecting && !started){
+      started = true;
+      setTimeout(typeMission, 500); // 500ms delay before starting
+      io.disconnect();
+    }
+  }, { threshold: 0.5 });
+  io.observe(el);
+})();
+
+/* ── FAQ Accordion Toggle ───────────────────────── */
+(function initFaq(){
+  document.addEventListener('click', function(e){
+    const btn = e.target.closest('.faq-question');
+    if (!btn) return;
+    const item = btn.closest('.faq-item');
+    if (!item) return;
+    const wasActive = item.classList.contains('active');
+    
+    // Close other FAQs in the same container if desired, or toggle
+    const container = item.closest('.faq-wrap');
+    if (container) {
+      container.querySelectorAll('.faq-item').forEach(el => el.classList.remove('active'));
+    }
+    if (!wasActive) {
+      item.classList.add('active');
+    }
+  });
+})();
+
+
+
+function togglePkgMore(id, btn) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  if (el.style.display === 'none' || !el.style.display) {
+    el.style.display = 'block';
+    btn.innerHTML = '<span>Show Less</span> <span>▲</span>';
+  } else {
+    el.style.display = 'none';
+    btn.innerHTML = '<span>See More Details</span> <span>▼</span>';
+  }
+}
+
+
+let _calcCurrentTotal = 13500;
+let _calcAnimFrame = null;
+
+function animateTotalDisplay(target) {
+  const displayEl = document.getElementById('calcTotalDisplay');
+  if (!displayEl) return;
+  const curr = window.getActiveCurrency ? window.getActiveCurrency() : 'LKR';
+
+  const start = _calcCurrentTotal;
+  const diff = target - start;
+  if (diff === 0) {
+    displayEl.textContent = window.formatCurrency(target, curr);
+    return;
+  }
+
+  const duration = 280;
+  const startTime = performance.now();
+
+  if (_calcAnimFrame) cancelAnimationFrame(_calcAnimFrame);
+
+  function step(now) {
+    const elapsed = now - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const ease = progress * (2 - progress);
+    const current = Math.round(start + diff * ease);
+
+    displayEl.textContent = window.formatCurrency(current, curr);
+
+    if (progress < 1) {
+      _calcAnimFrame = requestAnimationFrame(step);
+    } else {
+      _calcCurrentTotal = target;
+      displayEl.textContent = window.formatCurrency(target, curr);
+    }
+  }
+
+  _calcAnimFrame = requestAnimationFrame(step);
+}
+
+function calculateFullEstimate() {
+  const tierEl = document.getElementById('calcTier');
+  if (!tierEl) return;
+  const base = parseInt(tierEl.value, 10) || 5000;
+  const tierOption = tierEl.options[tierEl.selectedIndex];
+  const tierName = tierOption ? tierOption.getAttribute('data-name') : 'Standard Business';
+  
+  const extraPagesEl = document.getElementById('calcExtraPages');
+  const extraPagesCount = parseInt(extraPagesEl ? extraPagesEl.value : 0, 10) || 0;
+  const extraPagesTotal = extraPagesCount * 1500;
+
+  // Update Addon card active visual states
+  let addonsTotal = 0;
+  const selectedAddons = [];
+
+  document.querySelectorAll('.calc-addon-card').forEach(card => {
+    const cb = card.querySelector('.calc-addon-check');
+    if (!cb) return;
+    if (cb.checked) {
+      card.classList.add('active');
+      const p = parseInt(cb.dataset.price, 10) || 0;
+      addonsTotal += p;
+      selectedAddons.push({ name: cb.dataset.name, price: p });
+    } else {
+      card.classList.remove('active');
+    }
+  });
+
+  const grandTotal = base + extraPagesTotal + addonsTotal;
+  animateTotalDisplay(grandTotal);
+
+  // Render Itemized Breakdown List
+  const listEl = document.getElementById('calcItemizedList');
+  if (listEl) {
+    const curr = window.getActiveCurrency ? window.getActiveCurrency() : 'LKR';
+    let itemsHtml = `
+      <div class="calc-itemized-row">
+        <span class="calc-itemized-name">📦 ${tierName}</span>
+        <span class="calc-itemized-val">${window.formatCurrency(base, curr)}</span>
+      </div>
+    `;
+
+    if (extraPagesCount > 0) {
+      itemsHtml += `
+        <div class="calc-itemized-row">
+          <span class="calc-itemized-name">📄 +${extraPagesCount} Extra Custom Page(s)</span>
+          <span class="calc-itemized-val">+${window.formatCurrency(extraPagesTotal, curr)}</span>
+        </div>
+      `;
+    }
+
+    const isFreeHosting = base <= 10000;
+    itemsHtml += `
+      <div class="calc-itemized-row">
+        <span class="calc-itemized-name">${isFreeHosting ? '🎁 Free Fast Cloud Hosting' : '🚀 Enterprise Cloud Infrastructure'}</span>
+        <span class="calc-itemized-val free">FREE INCLUDED (Rs. 0 / $0)</span>
+      </div>
+    `;
+
+    selectedAddons.forEach(item => {
+      itemsHtml += `
+        <div class="calc-itemized-row">
+          <span class="calc-itemized-name">✨ ${item.name}</span>
+          <span class="calc-itemized-val">+${window.formatCurrency(item.price, curr)}</span>
+        </div>
+      `;
+    });
+
+    listEl.innerHTML = itemsHtml;
+  }
+
+  // Dynamic Hosting Indicator Badge
+  const hostingBadge = document.getElementById('calcHostingBadge');
+  if (hostingBadge) {
+    if (base <= 10000) {
+      hostingBadge.innerHTML = `
+        <span class="calc-hosting-icon">🎁</span>
+        <div>
+          <strong class="calc-hosting-title">100% Free Fast Cloud Hosting Included</strong>
+          <span class="calc-hosting-desc">Free high-speed cloud edge hosting on GitHub Pages & Cloudflare with SSL for Starter & Standard tiers. Zero monthly server maintenance fees.</span>
+        </div>
+      `;
+    } else {
+      hostingBadge.innerHTML = `
+        <span class="calc-hosting-icon">🚀</span>
+        <div>
+          <strong class="calc-hosting-title" style="color:#38bdf8;">Enterprise High-Performance Cloud Included</strong>
+          <span class="calc-hosting-desc">High-concurrency traffic routing & zero-downtime SSD cloud infrastructure.</span>
+        </div>
+      `;
+    }
+  }
+}
+
+function dispatchFullWhatsAppQuote() {
+  const tierEl = document.getElementById('calcTier');
+  if (!tierEl) return;
+  const tierOption = tierEl.options[tierEl.selectedIndex];
+  const tierName = tierOption ? tierOption.getAttribute('data-name') : 'Standard Business';
+  const base = parseInt(tierEl.value, 10) || 5000;
+  
+  const extraPagesEl = document.getElementById('calcExtraPages');
+  const extraPagesCount = parseInt(extraPagesEl ? extraPagesEl.value : 0, 10) || 0;
+  const extraPagesTotal = extraPagesCount * 1500;
+
+  const curr = window.getActiveCurrency ? window.getActiveCurrency() : 'LKR';
+  const addons = [];
+  if (extraPagesCount > 0) {
+    addons.push('• +' + extraPagesCount + ' Extra Custom Pages (+' + window.formatCurrency(extraPagesTotal, curr) + ')');
+  }
+
+  let addonsTotal = 0;
+  document.querySelectorAll('.calc-addon-check:checked').forEach(cb => {
+    const p = parseInt(cb.dataset.price, 10);
+    addonsTotal += p;
+    addons.push('• ' + cb.dataset.name + ' (+' + window.formatCurrency(p, curr) + ')');
+  });
+
+  const grandTotal = base + extraPagesTotal + addonsTotal;
+  const formattedGrandTotal = window.formatCurrency(grandTotal, curr);
+
+  let msg = '👋 Hello Infinite Creative Web Design!\n\n';
+  msg += '📦 *Selected Website Tier:* ' + tierName + ' (Base: ' + window.formatCurrency(base, curr) + ')\n';
+  
+  if (base <= 10000) {
+    msg += '🎁 *Cloud Hosting:* Free High-Speed Cloud Edge Hosting on GitHub Pages & Cloudflare (Included)\n';
+  } else {
+    msg += '🚀 *Cloud Server:* Enterprise High-Speed Cloud Deployment Included\n';
+  }
+  
+  if (addons.length > 0) {
+    msg += '\n✨ *Selected Power Add-ons:*\n' + addons.join('\n') + '\n';
+  } else {
+    msg += '\n✨ *Add-ons:* Standard Included Features\n';
+  }
+
+  msg += '\n💰 *Calculated Total Investment:* ' + formattedGrandTotal + (curr === 'USD' ? ' (~Rs. ' + grandTotal.toLocaleString() + '/-)' : '') + '\n';
+  msg += '🚀 I would like to lock in this package quote. Please let me know how we can get started!';
+
+  const waUrl = 'https://wa.me/94789714912?text=' + encodeURIComponent(msg);
+  window.open(waUrl, '_blank');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (window.getActiveCurrency) {
+    const savedCurr = window.getActiveCurrency();
+    window.switchGlobalCurrency(savedCurr);
+  }
+  if (document.getElementById('calcTier')) {
+    calculateFullEstimate();
+  }
+  initPricingCarousel();
+  initPagesCarousel();
+  initFaqAccordion();
+  initSmoothScroll();
+  loadProjects();
+  loadBlogs();
+  loadAllBlogs();
+  loadArticle();
+  loadSettings();
+});
+
+/* ── Accessible Interactive FAQ Accordion ──────────────────────── */
+function initFaqAccordion() {
+  const items = document.querySelectorAll('.faq-item');
+  if (!items.length) return;
+
+  items.forEach(item => {
+    const btn = item.querySelector('.faq-question-btn');
+    if (!btn) return;
+
+    btn.addEventListener('click', () => {
+      const isAlreadyActive = item.classList.contains('active');
+
+      // Close all items
+      items.forEach(i => {
+        i.classList.remove('active');
+        const b = i.querySelector('.faq-question-btn');
+        if (b) b.setAttribute('aria-expanded', 'false');
+      });
+
+      // Toggle current item
+      if (!isAlreadyActive) {
+        item.classList.add('active');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+
+    // Keyboard support: Enter / Space
+    btn.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        btn.click();
+      }
+    });
+  });
+}
+
+/* ── Smooth Scroll Helper for CTAs ─────────────────────────────── */
+function initSmoothScroll() {
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const targetId = this.getAttribute('href');
+      if (targetId === '#' || !targetId.startsWith('#')) return;
+      const targetEl = document.querySelector(targetId);
+      if (targetEl) {
+        e.preventDefault();
+        const navOffset = 80;
+        const targetPos = targetEl.getBoundingClientRect().top + window.pageYOffset - navOffset;
+        window.scrollTo({
+          top: targetPos,
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+}
+
+
+/* ── Auto-Swapping Pricing Carousel Engine ─────────────────────── */
+function initPricingCarousel() {
+  const track = document.getElementById('pricingTrack');
+  const viewport = document.getElementById('pricingViewport');
+  const dotsContainer = document.getElementById('pricingDots');
+  if (!track || !viewport) return;
+
+  const cards = track.querySelectorAll('.package-card');
+  if (!cards.length) return;
+
+  let currentIndex = 0;
+  let autoTimer = null;
+  let isHovered = false;
+
+  function getCardsPerView() {
+    if (window.innerWidth <= 680) return 1;
+    if (window.innerWidth <= 1024) return 2;
+    return 3;
+  }
+
+  function getMaxIndex() {
+    return Math.max(0, cards.length - getCardsPerView());
+  }
+
+  function renderDots() {
+    if (!dotsContainer) return;
+    dotsContainer.innerHTML = '';
+    const totalDots = getMaxIndex() + 1;
+    for (let i = 0; i < totalDots; i++) {
+      const dot = document.createElement('div');
+      dot.className = 'pricing-dot' + (i === currentIndex ? ' active' : '');
+      dot.setAttribute('aria-label', 'Go to package ' + (i + 1));
+      dot.onclick = () => {
+        currentIndex = i;
+        updateSlider();
+        resetTimer();
+      };
+      dotsContainer.appendChild(dot);
+    }
+  }
+
+  function updateSlider() {
+    const maxIdx = getMaxIndex();
+    if (currentIndex > maxIdx) currentIndex = 0;
+    if (currentIndex < 0) currentIndex = maxIdx;
+
+    const firstCard = cards[0];
+    const cardWidth = firstCard.getBoundingClientRect().width;
+    const gap = 24;
+    const shift = currentIndex * (cardWidth + gap);
+
+    track.style.transform = 'translateX(-' + shift + 'px)';
+
+    if (dotsContainer) {
+      const dots = dotsContainer.querySelectorAll('.pricing-dot');
+      dots.forEach((d, idx) => {
+        d.classList.toggle('active', idx === currentIndex);
+      });
+    }
+  }
+
+  window.carouselNext = function() {
+    const maxIdx = getMaxIndex();
+    currentIndex = (currentIndex >= maxIdx) ? 0 : currentIndex + 1;
+    updateSlider();
+    resetTimer();
+  };
+
+  window.carouselPrev = function() {
+    const maxIdx = getMaxIndex();
+    currentIndex = (currentIndex <= 0) ? maxIdx : currentIndex - 1;
+    updateSlider();
+    resetTimer();
+  };
+
+  window.jumpCarouselCategory = function(catKey, btnEl) {
+    if (btnEl) {
+      document.querySelectorAll('.pricing-tab-btn').forEach(b => b.classList.remove('active'));
+      btnEl.classList.add('active');
+    }
+    if (catKey === 'all') {
+      currentIndex = 0;
+    } else {
+      let targetIdx = -1;
+      cards.forEach((c, idx) => {
+        if (targetIdx === -1 && c.getAttribute('data-category') === catKey) {
+          targetIdx = idx;
+        }
+      });
+      if (targetIdx !== -1) {
+        currentIndex = Math.min(targetIdx, getMaxIndex());
+      }
+    }
+    updateSlider();
+    resetTimer();
+  };
+
+  function startTimer() {
+    stopTimer();
+    autoTimer = setInterval(() => {
+      if (!isHovered) {
+        const maxIdx = getMaxIndex();
+        currentIndex = (currentIndex >= maxIdx) ? 0 : currentIndex + 1;
+        updateSlider();
+      }
+    }, 4500);
+  }
+
+  function stopTimer() {
+    if (autoTimer) {
+      clearInterval(autoTimer);
+      autoTimer = null;
+    }
+  }
+
+  function resetTimer() {
+    startTimer();
+  }
+
+  const wrapper = document.getElementById('pricingCarouselWrapper');
+  if (wrapper) {
+    wrapper.addEventListener('mouseenter', () => { isHovered = true; });
+    wrapper.addEventListener('mouseleave', () => { isHovered = false; });
+    
+    // Touch swipe support for mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
+    wrapper.addEventListener('touchstart', e => {
+      touchStartX = e.changedTouches[0].screenX;
+      isHovered = true;
+    }, { passive: true });
+    wrapper.addEventListener('touchend', e => {
+      touchEndX = e.changedTouches[0].screenX;
+      isHovered = false;
+      if (touchStartX - touchEndX > 50) {
+        window.carouselNext();
+      } else if (touchEndX - touchStartX > 50) {
+        window.carouselPrev();
+      }
+    }, { passive: true });
+  }
+
+  window.addEventListener('resize', () => {
+    renderDots();
+    updateSlider();
+  });
+
+  renderDots();
+  updateSlider();
+  startTimer();
+}
+
+
+/* ── Auto-Swapping Pages Showcase Carousel Engine ───────────────── */
+function initPagesCarousel() {
+  const track = document.getElementById('pagesTrack');
+  const viewport = document.getElementById('pagesViewport');
+  const dotsContainer = document.getElementById('pagesDots');
+  if (!track || !viewport) return;
+
+  const cards = track.querySelectorAll('.page-showcase-card');
+  if (!cards.length) return;
+
+  let currentIndex = 0;
+  let autoTimer = null;
+  let isHovered = false;
+
+  function getCardsPerView() {
+    if (window.innerWidth <= 680) return 1;
+    if (window.innerWidth <= 1024) return 2;
+    return 3;
+  }
+
+  function getMaxIndex() {
+    return Math.max(0, cards.length - getCardsPerView());
+  }
+
+  function renderDots() {
+    if (!dotsContainer) return;
+    dotsContainer.innerHTML = '';
+    const totalDots = getMaxIndex() + 1;
+    for (let i = 0; i < totalDots; i++) {
+      const dot = document.createElement('div');
+      dot.className = 'page-dot' + (i === currentIndex ? ' active' : '');
+      dot.setAttribute('aria-label', 'Go to page card ' + (i + 1));
+      dot.onclick = () => {
+        currentIndex = i;
+        updateSlider();
+        resetTimer();
+      };
+      dotsContainer.appendChild(dot);
+    }
+  }
+
+  function updateSlider() {
+    const maxIdx = getMaxIndex();
+    if (currentIndex > maxIdx) currentIndex = 0;
+    if (currentIndex < 0) currentIndex = maxIdx;
+
+    const firstCard = cards[0];
+    const cardWidth = firstCard.getBoundingClientRect().width;
+    const gap = 24;
+    const shift = currentIndex * (cardWidth + gap);
+
+    track.style.transform = 'translateX(-' + shift + 'px)';
+
+    if (dotsContainer) {
+      const dots = dotsContainer.querySelectorAll('.page-dot');
+      dots.forEach((d, idx) => {
+        d.classList.toggle('active', idx === currentIndex);
+      });
+    }
+  }
+
+  window.pagesCarouselNext = function() {
+    const maxIdx = getMaxIndex();
+    currentIndex = (currentIndex >= maxIdx) ? 0 : currentIndex + 1;
+    updateSlider();
+    resetTimer();
+  };
+
+  window.pagesCarouselPrev = function() {
+    const maxIdx = getMaxIndex();
+    currentIndex = (currentIndex <= 0) ? maxIdx : currentIndex - 1;
+    updateSlider();
+    resetTimer();
+  };
+
+  function startTimer() {
+    stopTimer();
+    autoTimer = setInterval(() => {
+      if (!isHovered) {
+        const maxIdx = getMaxIndex();
+        currentIndex = (currentIndex >= maxIdx) ? 0 : currentIndex + 1;
+        updateSlider();
+      }
+    }, 3800);
+  }
+
+  function stopTimer() {
+    if (autoTimer) {
+      clearInterval(autoTimer);
+      autoTimer = null;
+    }
+  }
+
+  function resetTimer() {
+    startTimer();
+  }
+
+  const wrapper = document.getElementById('pagesCarouselWrapper');
+  if (wrapper) {
+    wrapper.addEventListener('mouseenter', () => { isHovered = true; });
+    wrapper.addEventListener('mouseleave', () => { isHovered = false; });
+    
+    let touchStartX = 0;
+    let touchEndX = 0;
+    wrapper.addEventListener('touchstart', e => {
+      touchStartX = e.changedTouches[0].screenX;
+      isHovered = true;
+    }, { passive: true });
+    wrapper.addEventListener('touchend', e => {
+      touchEndX = e.changedTouches[0].screenX;
+      isHovered = false;
+      if (touchStartX - touchEndX > 45) {
+        window.pagesCarouselNext();
+      } else if (touchEndX - touchStartX > 45) {
+        window.pagesCarouselPrev();
+      }
+    }, { passive: true });
+  }
+
+  window.addEventListener('resize', () => {
+    renderDots();
+    updateSlider();
+  });
+
+  renderDots();
+  updateSlider();
+  startTimer();
+}

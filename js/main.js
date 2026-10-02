@@ -46,74 +46,8 @@ setTimeout(triggerSafeReveal, 500);
   };
   window.addEventListener('scroll',onScroll,{passive:true});
   onScroll();
-
-  // Mobile toggle
-  const toggle = document.getElementById('navToggle');
-  const menu = document.getElementById('mobileMenu');
-  if (toggle && menu) {
-    function toggleMobileMenu(e) {
-      if (e) {
-        e.preventDefault();
-        e.stopPropagation();
-      }
-      const isOpen = menu.classList.toggle('open');
-      toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-      menu.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
-    }
-
-    var _navTouchFired = false;
-    toggle.addEventListener('touchstart', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      _navTouchFired = true;
-      toggleMobileMenu(e);
-      setTimeout(function() { _navTouchFired = false; }, 500);
-    }, { passive: false });
-    toggle.addEventListener('click', function(e) {
-      if (_navTouchFired) { _navTouchFired = false; return; }
-      toggleMobileMenu(e);
-    });
-
-    menu.querySelectorAll('.mm-link').forEach(function(a) {
-      function handleLink(e) {
-        const href = a.getAttribute('href');
-        if (!href) return;
-        if (href.startsWith('http') || href.startsWith('//') || a.getAttribute('target') === '_blank') {
-          return;
-        }
-        if (!href.startsWith('#')) {
-          if (e) e.preventDefault();
-          menu.classList.remove('open');
-          toggle.setAttribute('aria-expanded', 'false');
-          menu.setAttribute('aria-hidden', 'true');
-          window.location.href = href;
-          return;
-        }
-        setTimeout(function() {
-          menu.classList.remove('open');
-          toggle.setAttribute('aria-expanded', 'false');
-          menu.setAttribute('aria-hidden', 'true');
-        }, 120);
-      }
-      a.addEventListener('click', handleLink);
-    });
-
-    document.addEventListener('click', function(e) {
-      if (menu.classList.contains('open') && !toggle.contains(e.target) && !menu.contains(e.target)) {
-        menu.classList.remove('open');
-        toggle.setAttribute('aria-expanded', 'false');
-        menu.setAttribute('aria-hidden', 'true');
-      }
-    });
-
-    document.addEventListener('touchstart', function(e) {
-      if (menu.classList.contains('open') && !toggle.contains(e.target) && !menu.contains(e.target)) {
-        menu.classList.remove('open');
-        toggle.setAttribute('aria-expanded', 'false');
-        menu.setAttribute('aria-hidden', 'true');
-      }
-    }, { passive: true });
-  }
+  // NOTE: Mobile hamburger toggle is handled exclusively by components.js
+  // to prevent duplicate event listeners causing double-toggle on Android.
 })();
 
 /* ── Scroll reveal ──────────────────────────────── */
