@@ -2767,17 +2767,173 @@ function togglePkgMore(id, btn) {
 
 
 var _calcCurrentTotal = 13500;
+// ════ PRICING CALCULATOR INTERACTIVE LOGIC (CLIENT-FRIENDLY & 0 DEFAULT) ════
+const CALC_PACKAGES_DATA = {
+  web: [
+    { value: 5000, name: "Starter Website", desc: "3 Responsive Pages • 100% Mobile Ready", badge: "Personal", priceDisplay: "Rs. 5,000" },
+    { value: 10000, name: "Standard Website ⭐", desc: "Up to 5 Pages + Admin Panel", badge: "Most Popular", priceDisplay: "Rs. 10,000" },
+    { value: 15000, name: "Advanced Growth", desc: "Up to 8 Pages • Modern UI & Meta Pixel", badge: "Growth", priceDisplay: "Rs. 15,000" },
+    { value: 20000, name: "Professional Corporate", desc: "Up to 12 Pages Corporate • Full SEO & GA4", badge: "Corporate", priceDisplay: "Rs. 20,000" },
+    { value: 40000, name: "Business Pro 🚀", desc: "Custom Architecture • 6 Mo SLA Support", badge: "High-Traffic", priceDisplay: "Rs. 40,000" },
+    { value: 60000, name: "E-Commerce Online Store 🛒", desc: "Unlimited Listings • PayHere Gateway", badge: "Store", priceDisplay: "From Rs. 60,000" }
+  ],
+  social: [
+    { value: 8500, name: "🔥 All-in-One Social Kit", desc: "FB + IG + Google Maps + WhatsApp Pro", badge: "Best Value", priceDisplay: "Rs. 8,500" },
+    { value: 2500, name: "Facebook Business Page", desc: "Page Setup, Cover Art & WhatsApp CTA", badge: "Social", priceDisplay: "Rs. 2,500" },
+    { value: 2500, name: "Instagram Business Profile", desc: "Bio, Direct Links & 4 Story Highlights", badge: "Social", priceDisplay: "Rs. 2,500" },
+    { value: 3500, name: "Google Maps & Business", desc: "Location Pin & Local Search Ranking", badge: "Google", priceDisplay: "Rs. 3,500" },
+    { value: 2500, name: "TikTok for Business", desc: "Business Profile Setup & Bio Links", badge: "TikTok", priceDisplay: "Rs. 2,500" },
+    { value: 3500, name: "YouTube Channel & Art", desc: "Channel Setup, SEO Tags & Banner Art", badge: "YouTube", priceDisplay: "Rs. 3,500" },
+    { value: 3000, name: "LinkedIn Company Page", desc: "B2B Corporate Setup & Brand Banner", badge: "B2B", priceDisplay: "Rs. 3,000" },
+    { value: 2000, name: "WhatsApp Business Pro", desc: "Catalog Setup, Greeting & Quick Replies", badge: "WhatsApp", priceDisplay: "Rs. 2,000" }
+  ],
+  boost: [
+    { value: 3500, name: "Mini 3-Day Test Boost", desc: "Targeted Views & Initial Reach Test", badge: "3 Days", priceDisplay: "Rs. 3,500" },
+    { value: 5000, name: "5-Day Starter Reach", desc: "Audience Location & Brand Awareness", badge: "5 Days", priceDisplay: "Rs. 5,000" },
+    { value: 8000, name: "7-Day Growth & Leads ⭐", desc: "Direct WhatsApp Inquiries & Hot Leads", badge: "Top Choice", priceDisplay: "Rs. 8,000" },
+    { value: 12000, name: "10-Day Power Sales", desc: "High Volume Inquiries & Product Sales", badge: "10 Days", priceDisplay: "Rs. 12,000" },
+    { value: 20000, name: "14-Day Pro Scale", desc: "A/B Testing, Retargeting & Pixel Setup", badge: "14 Days", priceDisplay: "Rs. 20,000" },
+    { value: 38000, name: "30-Day Monthly Accelerator", desc: "Full Month Continuous Scaling & Orders", badge: "30 Days", priceDisplay: "Rs. 38,000" }
+  ],
+  industry: [
+    { value: 8000, name: "1-Page Express Landing Page", desc: "High-Converting Sales Funnel for Ads", badge: "Funnel", priceDisplay: "Rs. 8,000" },
+    { value: 25000, name: "Villa & Resort Showcase 🏖️", desc: "Room Photos, 360 & Direct Bookings", badge: "Villa", priceDisplay: "Rs. 25,000" },
+    { value: 55000, name: "Hotel Booking Platform ✈️", desc: "Room Calendar & PayHere Card Deposit", badge: "Hotel", priceDisplay: "Rs. 55,000" },
+    { value: 18000, name: "Restaurant QR Photo Menu 🍕", desc: "Table QR Codes & Digital Food Menu", badge: "Restaurant", priceDisplay: "Rs. 18,000" },
+    { value: 38000, name: "Food Delivery System 🛵", desc: "Online Cart & WhatsApp Delivery GPS", badge: "Delivery", priceDisplay: "Rs. 38,000" },
+    { value: 22000, name: "Medical & Dental Clinic 🏥", desc: "Doctor Profiles & Patient Appointments", badge: "Medical", priceDisplay: "Rs. 22,000" },
+    { value: 28000, name: "Tuition Academy Portal 🎓", desc: "Timetables, PDFs & Online Slip Uploader", badge: "Tuition", priceDisplay: "Rs. 28,000" },
+    { value: 3500, name: "Monthly Website Care 🛠️", desc: "Weekly Backups, Security & 24/7 Uptime", badge: "Care", priceDisplay: "Rs. 3,500/mo" }
+  ]
+};
+
+var _activeCalcCategory = 'web';
+var _selectedCalcPkg = null;
 var _calcAnimFrame = null;
+var _calcCurrentTotal = 0;
+
+function renderCalcCategoryCards(catKey) {
+  _activeCalcCategory = catKey || 'web';
+  const container = document.getElementById('calcCardsGrid');
+  const selectEl = document.getElementById('calcTier');
+  if (!container) return;
+
+  const curr = (typeof window.getActiveCurrency === 'function') ? window.getActiveCurrency() : 'LKR';
+
+  // Update active tab styling
+  document.querySelectorAll('.calc-cat-tab').forEach(tab => {
+    if (tab.getAttribute('data-cat') === _activeCalcCategory) {
+      tab.classList.add('active');
+    } else {
+      tab.classList.remove('active');
+    }
+  });
+
+  const items = CALC_PACKAGES_DATA[_activeCalcCategory] || [];
+  let cardsHtml = '';
+  let selectOptionsHtml = '<option value="0" data-name="No Package Selected">-- Or choose from dropdown (Rs. 0) --</option>';
+
+  items.forEach((item, index) => {
+    const isSelected = _selectedCalcPkg && _selectedCalcPkg.value === item.value && _selectedCalcPkg.name === item.name;
+    const activeClass = isSelected ? 'active' : '';
+    const checkText = isSelected ? '✓' : '';
+
+    let formattedPrice = (typeof window.formatCurrency === 'function') ? window.formatCurrency(item.value, curr) : item.priceDisplay;
+    if (item.value === 60000 && item.badge === 'Store') {
+      formattedPrice = 'From ' + formattedPrice;
+    } else if (item.value === 3500 && item.badge === 'Care') {
+      formattedPrice = formattedPrice + '/mo';
+    }
+
+    cardsHtml += `
+      <div class="calc-tier-card ${activeClass}" onclick="selectCalcCard('${_activeCalcCategory}', ${index})">
+        <div class="calc-tier-card-top">
+          <span class="calc-tier-card-name">${item.name}</span>
+          <div class="calc-tier-card-check">${checkText}</div>
+        </div>
+        <div class="calc-tier-card-desc">${item.desc}</div>
+        <div class="calc-tier-card-bottom">
+          <span class="calc-tier-card-price">${formattedPrice}</span>
+          <span class="calc-tier-badge">${item.badge}</span>
+        </div>
+      </div>
+    `;
+
+    const optSelected = isSelected ? 'selected' : '';
+    selectOptionsHtml += `<option value="${item.value}" data-name="${item.name}" ${optSelected}>${item.name} — ${formattedPrice}</option>`;
+  });
+
+  container.innerHTML = cardsHtml;
+
+  if (selectEl) {
+    selectEl.innerHTML = selectOptionsHtml;
+    if (_selectedCalcPkg) {
+      selectEl.value = _selectedCalcPkg.value;
+    } else {
+      selectEl.value = "0";
+    }
+  }
+}
+
+function switchCalcCategory(catKey, btnEl) {
+  renderCalcCategoryCards(catKey);
+}
+
+function selectCalcCard(catKey, index) {
+  const item = CALC_PACKAGES_DATA[catKey] ? CALC_PACKAGES_DATA[catKey][index] : null;
+  if (!item) return;
+
+  if (_selectedCalcPkg && _selectedCalcPkg.value === item.value && _selectedCalcPkg.name === item.name) {
+    _selectedCalcPkg = null;
+  } else {
+    _selectedCalcPkg = item;
+  }
+
+  renderCalcCategoryCards(catKey);
+  calculateFullEstimate();
+}
+
+function onCalcSelectChange(selectEl) {
+  const val = parseInt(selectEl.value, 10) || 0;
+  if (val === 0) {
+    _selectedCalcPkg = null;
+  } else {
+    const opt = selectEl.options[selectEl.selectedIndex];
+    const optName = opt ? opt.getAttribute('data-name') : '';
+    const allItems = [
+      ...CALC_PACKAGES_DATA.web,
+      ...CALC_PACKAGES_DATA.social,
+      ...CALC_PACKAGES_DATA.boost,
+      ...CALC_PACKAGES_DATA.industry
+    ];
+    const found = allItems.find(i => i.value === val && (optName ? i.name === optName : true));
+    if (found) {
+      _selectedCalcPkg = found;
+    } else {
+      _selectedCalcPkg = { value: val, name: optName || 'Selected Package', priceDisplay: 'Rs. ' + val.toLocaleString() };
+    }
+  }
+  renderCalcCategoryCards(_activeCalcCategory);
+  calculateFullEstimate();
+}
+
+function clearCalcPackage() {
+  _selectedCalcPkg = null;
+  renderCalcCategoryCards(_activeCalcCategory);
+  calculateFullEstimate();
+}
 
 function animateTotalDisplay(target) {
   const displayEl = document.getElementById('calcTotalDisplay');
   if (!displayEl) return;
-  const curr = window.getActiveCurrency ? window.getActiveCurrency() : 'LKR';
 
+  const curr = (typeof window.getActiveCurrency === 'function') ? window.getActiveCurrency() : 'LKR';
+  const fmt = (v) => (typeof window.formatCurrency === 'function' ? window.formatCurrency(v, curr) : ('Rs. ' + Number(v).toLocaleString() + '/-'));
+  
   const start = _calcCurrentTotal;
   const diff = target - start;
   if (diff === 0) {
-    displayEl.textContent = window.formatCurrency(target, curr);
+    displayEl.textContent = fmt(target);
     return;
   }
 
@@ -2792,13 +2948,13 @@ function animateTotalDisplay(target) {
     const ease = progress * (2 - progress);
     const current = Math.round(start + diff * ease);
 
-    displayEl.textContent = window.formatCurrency(current, curr);
+    displayEl.textContent = fmt(current);
 
     if (progress < 1) {
       _calcAnimFrame = requestAnimationFrame(step);
     } else {
       _calcCurrentTotal = target;
-      displayEl.textContent = window.formatCurrency(target, curr);
+      displayEl.textContent = fmt(target);
     }
   }
 
@@ -2807,16 +2963,13 @@ function animateTotalDisplay(target) {
 
 function calculateFullEstimate() {
   const tierEl = document.getElementById('calcTier');
-  if (!tierEl) return;
-  const base = parseInt(tierEl.value, 10) || 5000;
-  const tierOption = tierEl.options[tierEl.selectedIndex];
-  const tierName = tierOption ? tierOption.getAttribute('data-name') : 'Standard Business';
+  const base = _selectedCalcPkg ? _selectedCalcPkg.value : (parseInt(tierEl?.value, 10) || 0);
+  const tierName = _selectedCalcPkg ? _selectedCalcPkg.name : (tierEl?.options[tierEl?.selectedIndex]?.getAttribute('data-name') || 'No Package Selected');
   
   const extraPagesEl = document.getElementById('calcExtraPages');
   const extraPagesCount = parseInt(extraPagesEl ? extraPagesEl.value : 0, 10) || 0;
   const extraPagesTotal = extraPagesCount * 1500;
 
-  // Update Addon card active visual states
   let addonsTotal = 0;
   const selectedAddons = [];
 
@@ -2839,52 +2992,76 @@ function calculateFullEstimate() {
   // Render Itemized Breakdown List
   const listEl = document.getElementById('calcItemizedList');
   if (listEl) {
-    const curr = window.getActiveCurrency ? window.getActiveCurrency() : 'LKR';
-    let itemsHtml = `
-      <div class="calc-itemized-row">
-        <span class="calc-itemized-name">📦 ${tierName}</span>
-        <span class="calc-itemized-val">${window.formatCurrency(base, curr)}</span>
-      </div>
-    `;
+    const curr = (typeof window.getActiveCurrency === 'function') ? window.getActiveCurrency() : 'LKR';
+    const fmt = (v) => (typeof window.formatCurrency === 'function' ? window.formatCurrency(v, curr) : ('Rs. ' + Number(v).toLocaleString() + '/-'));
 
-    if (extraPagesCount > 0) {
-      itemsHtml += `
-        <div class="calc-itemized-row">
-          <span class="calc-itemized-name">📄 +${extraPagesCount} Extra Custom Page(s)</span>
-          <span class="calc-itemized-val">+${window.formatCurrency(extraPagesTotal, curr)}</span>
+    if (grandTotal === 0) {
+      listEl.innerHTML = `
+        <div class="calc-itemized-empty">
+          <strong>✨ No Package Selected (Rs. 0)</strong>
+          Tap any service card above to view your instant itemized quote.
         </div>
       `;
+    } else {
+      let itemsHtml = '';
+      if (base > 0) {
+        itemsHtml += `
+          <div class="calc-itemized-row">
+            <span class="calc-itemized-name">📦 ${tierName}</span>
+            <span class="calc-itemized-val">${fmt(base)}</span>
+          </div>
+        `;
+      }
+
+      if (extraPagesCount > 0) {
+        itemsHtml += `
+          <div class="calc-itemized-row">
+            <span class="calc-itemized-name">📄 +${extraPagesCount} Extra Custom Page(s)</span>
+            <span class="calc-itemized-val">+${fmt(extraPagesTotal)}</span>
+          </div>
+        `;
+      }
+
+      if (base > 0) {
+        const isFreeHosting = base <= 10000;
+        itemsHtml += `
+          <div class="calc-itemized-row">
+            <span class="calc-itemized-name">${isFreeHosting ? '🎁 Free Fast Cloud Hosting' : '🚀 Enterprise Cloud Infrastructure'}</span>
+            <span class="calc-itemized-val free">FREE INCLUDED (Rs. 0 / $0)</span>
+          </div>
+        `;
+      }
+
+      selectedAddons.forEach(item => {
+        itemsHtml += `
+          <div class="calc-itemized-row">
+            <span class="calc-itemized-name">✨ ${item.name}</span>
+            <span class="calc-itemized-val">+${fmt(item.price)}</span>
+          </div>
+        `;
+      });
+
+      listEl.innerHTML = itemsHtml;
     }
-
-    const isFreeHosting = base <= 10000;
-    itemsHtml += `
-      <div class="calc-itemized-row">
-        <span class="calc-itemized-name">${isFreeHosting ? '🎁 Free Fast Cloud Hosting' : '🚀 Enterprise Cloud Infrastructure'}</span>
-        <span class="calc-itemized-val free">FREE INCLUDED (Rs. 0 / $0)</span>
-      </div>
-    `;
-
-    selectedAddons.forEach(item => {
-      itemsHtml += `
-        <div class="calc-itemized-row">
-          <span class="calc-itemized-name">✨ ${item.name}</span>
-          <span class="calc-itemized-val">+${window.formatCurrency(item.price, curr)}</span>
-        </div>
-      `;
-    });
-
-    listEl.innerHTML = itemsHtml;
   }
 
   // Dynamic Hosting Indicator Badge
   const hostingBadge = document.getElementById('calcHostingBadge');
   if (hostingBadge) {
-    if (base <= 10000) {
+    if (base === 0) {
+      hostingBadge.innerHTML = `
+        <span class="calc-hosting-icon">🎁</span>
+        <div>
+          <strong class="calc-hosting-title">Free Fast Cloud Hosting Included</strong>
+          <span class="calc-hosting-desc">Starter & Standard website tiers include 100% free cloud edge hosting on GitHub Pages & Cloudflare with SSL. Zero monthly server fees.</span>
+        </div>
+      `;
+    } else if (base <= 10000) {
       hostingBadge.innerHTML = `
         <span class="calc-hosting-icon">🎁</span>
         <div>
           <strong class="calc-hosting-title">100% Free Fast Cloud Hosting Included</strong>
-          <span class="calc-hosting-desc">Free high-speed cloud edge hosting on GitHub Pages & Cloudflare with SSL for Starter & Standard tiers. Zero monthly server maintenance fees.</span>
+          <span class="calc-hosting-desc">Zero monthly server fees for Starter & Standard tiers with Cloudflare CDN & SSL.</span>
         </div>
       `;
     } else {
@@ -2901,44 +3078,50 @@ function calculateFullEstimate() {
 
 function dispatchFullWhatsAppQuote() {
   const tierEl = document.getElementById('calcTier');
-  if (!tierEl) return;
-  const tierOption = tierEl.options[tierEl.selectedIndex];
-  const tierName = tierOption ? tierOption.getAttribute('data-name') : 'Standard Business';
-  const base = parseInt(tierEl.value, 10) || 5000;
+  const base = _selectedCalcPkg ? _selectedCalcPkg.value : (parseInt(tierEl?.value, 10) || 0);
+  const tierName = _selectedCalcPkg ? _selectedCalcPkg.name : (tierEl?.options[tierEl?.selectedIndex]?.getAttribute('data-name') || 'Custom Inquiry');
   
   const extraPagesEl = document.getElementById('calcExtraPages');
   const extraPagesCount = parseInt(extraPagesEl ? extraPagesEl.value : 0, 10) || 0;
   const extraPagesTotal = extraPagesCount * 1500;
 
-  const curr = window.getActiveCurrency ? window.getActiveCurrency() : 'LKR';
+  const curr = (typeof window.getActiveCurrency === 'function') ? window.getActiveCurrency() : 'LKR';
+  const fmt = (v) => (typeof window.formatCurrency === 'function' ? window.formatCurrency(v, curr) : ('Rs. ' + Number(v).toLocaleString() + '/-'));
+
   const addons = [];
   if (extraPagesCount > 0) {
-    addons.push('• +' + extraPagesCount + ' Extra Custom Pages (+' + window.formatCurrency(extraPagesTotal, curr) + ')');
+    addons.push('• +' + extraPagesCount + ' Extra Custom Pages (+' + fmt(extraPagesTotal) + ')');
   }
 
   let addonsTotal = 0;
   document.querySelectorAll('.calc-addon-check:checked').forEach(cb => {
-    const p = parseInt(cb.dataset.price, 10);
+    const p = parseInt(cb.dataset.price, 10) || 0;
     addonsTotal += p;
-    addons.push('• ' + cb.dataset.name + ' (+' + window.formatCurrency(p, curr) + ')');
+    addons.push('• ' + cb.dataset.name + ' (+' + fmt(p) + ')');
   });
 
   const grandTotal = base + extraPagesTotal + addonsTotal;
-  const formattedGrandTotal = window.formatCurrency(grandTotal, curr);
+  const formattedGrandTotal = fmt(grandTotal);
+
+  if (base === 0 && grandTotal === 0) {
+    const waUrl = 'https://wa.me/94789714912?text=' + encodeURIComponent('👋 Hello Infinite Creative! I am exploring your packages on your website and would like to inquire about a custom quote for my project.');
+    window.open(waUrl, '_blank');
+    return;
+  }
 
   let msg = '👋 Hello Infinite Creative Web Design!\n\n';
-  msg += '📦 *Selected Website Tier:* ' + tierName + ' (Base: ' + window.formatCurrency(base, curr) + ')\n';
+  msg += '📦 *Selected Package / Service:* ' + tierName + ' (Base: ' + fmt(base) + ')\n';
   
-  if (base <= 10000) {
-    msg += '🎁 *Cloud Hosting:* Free High-Speed Cloud Edge Hosting on GitHub Pages & Cloudflare (Included)\n';
-  } else {
-    msg += '🚀 *Cloud Server:* Enterprise High-Speed Cloud Deployment Included\n';
+  if (base > 0) {
+    if (base <= 10000) {
+      msg += '🎁 *Cloud Hosting:* 100% Free Fast Cloud Hosting Included (Rs. 0/-)\n';
+    } else {
+      msg += '🚀 *Cloud Server:* Enterprise High-Speed Cloud Deployment Included\n';
+    }
   }
   
   if (addons.length > 0) {
     msg += '\n✨ *Selected Power Add-ons:*\n' + addons.join('\n') + '\n';
-  } else {
-    msg += '\n✨ *Add-ons:* Standard Included Features\n';
   }
 
   msg += '\n💰 *Calculated Total Investment:* ' + formattedGrandTotal + (curr === 'USD' ? ' (~Rs. ' + grandTotal.toLocaleString() + '/-)' : '') + '\n';
@@ -2948,10 +3131,21 @@ function dispatchFullWhatsAppQuote() {
   window.open(waUrl, '_blank');
 }
 
+// Global exports for HTML event handlers
+window.switchCalcCategory = switchCalcCategory;
+window.selectCalcCard = selectCalcCard;
+window.onCalcSelectChange = onCalcSelectChange;
+window.clearCalcPackage = clearCalcPackage;
+window.calculateFullEstimate = calculateFullEstimate;
+window.dispatchFullWhatsAppQuote = dispatchFullWhatsAppQuote;
+
 document.addEventListener('DOMContentLoaded', () => {
   if (window.getActiveCurrency) {
     const savedCurr = window.getActiveCurrency();
     window.switchGlobalCurrency(savedCurr);
+  }
+  if (document.getElementById('calcCardsGrid')) {
+    renderCalcCategoryCards('web');
   }
   if (document.getElementById('calcTier')) {
     calculateFullEstimate();

@@ -538,61 +538,39 @@
         <!-- Left Column: Step 1, Step 2 & Hosting Guarantee -->
         <div class="calc-column">
           
-          <!-- Step 1: Base Tier -->
+                    <!-- Step 1: Base Tier -->
           <div class="calc-step-card">
             <div class="calc-step-header">
               <span class="calc-step-badge">Step 1</span>
               <div>
                 <div class="calc-step-title">Select Service & Package Tier</div>
-                <div class="calc-step-subtitle">Choose your core website framework and starting scope</div>
+                <div class="calc-step-subtitle">Choose a category and tap a package card below</div>
               </div>
             </div>
+
+            <!-- Service Category Filter Tabs -->
+            <div class="calc-cat-tabs" id="calcCatTabs">
+              <button type="button" class="calc-cat-tab active" data-cat="web" onclick="switchCalcCategory('web', this)">🌐 Web Design</button>
+              <button type="button" class="calc-cat-tab" data-cat="social" onclick="switchCalcCategory('social', this)">📱 Social Media Setup</button>
+              <button type="button" class="calc-cat-tab" data-cat="boost" onclick="switchCalcCategory('boost', this)">📢 Meta Ad Boost</button>
+              <button type="button" class="calc-cat-tab" data-cat="industry" onclick="switchCalcCategory('industry', this)">🏖️ More Solutions</button>
+            </div>
+
+            <!-- Quick Reset / Unselect -->
+            <div class="calc-reset-row">
+              <span style="font-size:0.75rem; color:#64748b;">Tap any card to select or unselect</span>
+              <button type="button" class="calc-reset-btn" onclick="clearCalcPackage()">✕ Reset to Rs. 0</button>
+            </div>
+
+            <!-- Interactive Visual Cards Grid -->
+            <div class="calc-cards-grid" id="calcCardsGrid">
+              <!-- Dynamically populated by JS -->
+            </div>
+
+            <!-- Synchronized Dropdown (Filtered to Category) -->
             <div class="calc-select-wrapper">
-              <select id="calcTier" class="calc-select-custom" onchange="calculateFullEstimate()">
-                <optgroup label="💡 Professional Web Design Packages">
-                  <option value="5000" data-name="Starter (Rs. 5,000)">Starter (3 Pages Mobile Friendly) — Rs. 5,000</option>
-                  <option value="10000" selected data-name="Standard (Rs. 10,000)">Standard (Up to 5 Pages + Admin) — Rs. 10,000</option>
-                  <option value="15000" data-name="Advanced (Rs. 15,000)">Advanced (Up to 8 Pages Modern UI) — Rs. 15,000</option>
-                  <option value="20000" data-name="Professional (Rs. 20,000)">Professional (Up to 12 Pages Corporate) — Rs. 20,000</option>
-                  <option value="40000" data-name="Business Pro (Rs. 40,000)">Business Pro (Bespoke Multi-Page) — Rs. 40,000</option>
-                  <option value="60000" data-name="E-Commerce Stores (Rs. 60,000)">E-Commerce Stores (PayHere + Invoices) — From Rs. 60,000</option>
-                </optgroup>
-                <optgroup label="📱 Social Media Account Creation & Branding">
-                  <option value="8500" data-name="All-in-One Social Kit (Rs. 8,500)">🔥 All-in-One Social Kit (FB + IG + Maps + WA) — Rs. 8,500</option>
-                  <option value="2500" data-name="Facebook Business Page (Rs. 2,500)">Facebook Business Page Setup & Cover — Rs. 2,500</option>
-                  <option value="2500" data-name="Instagram Business Profile (Rs. 2,500)">Instagram Business Profile Setup — Rs. 2,500</option>
-                  <option value="3500" data-name="Google Business Profile & Map (Rs. 3,500)">Google Maps Location & Business Profile — Rs. 3,500</option>
-                  <option value="2500" data-name="TikTok Business Profile (Rs. 2,500)">TikTok for Business Setup — Rs. 2,500</option>
-                  <option value="3500" data-name="YouTube Channel & Art (Rs. 3,500)">YouTube Channel & Custom Art — Rs. 3,500</option>
-                  <option value="3000" data-name="LinkedIn Company Page (Rs. 3,000)">LinkedIn Company Page Setup — Rs. 3,000</option>
-                  <option value="2000" data-name="WhatsApp Business Pro (Rs. 2,000)">WhatsApp Business Pro & Catalog — Rs. 2,000</option>
-                </optgroup>
-                <optgroup label="📢 Social Media & Meta Ads Boost Packages (Fixed Rs. 2K Fee)">
-                  <option value="3500" data-name="Mini 3-Day Test Boost (Rs. 3,500)">Mini 3-Day Test Boost (Rs. 1.5K Ad + Rs. 2K Fee) — Rs. 3,500</option>
-                  <option value="5000" data-name="5-Day Starter Reach Boost (Rs. 5,000)">5-Day Starter Reach (Rs. 3K Ad + Rs. 2K Fee) — Rs. 5,000</option>
-                  <option value="8000" data-name="7-Day Growth & Lead Boost (Rs. 8,000)">7-Day Growth & Leads ⭐ (Rs. 6K Ad + Rs. 2K Fee) — Rs. 8,000</option>
-                  <option value="12000" data-name="10-Day Power Sales Boost (Rs. 12,000)">10-Day Power Sales (Rs. 10K Ad + Rs. 2K Fee) — Rs. 12,000</option>
-                  <option value="20000" data-name="14-Day Pro Business Scale (Rs. 20,000)">14-Day Pro Scale (Rs. 18K Ad + Rs. 2K Fee) — Rs. 20,000</option>
-                  <option value="38000" data-name="30-Day Monthly Brand Accelerator (Rs. 38,000)">30-Day Monthly Accelerator (Rs. 36K Ad + Rs. 2K Fee) — Rs. 38,000</option>
-                </optgroup>
-                <optgroup label="🏖️ Hotel, Villa & Industry Solutions">
-                  <option value="25000" data-name="Villa & Boutique Hotel (Rs. 25,000)">Villa & Boutique Hotel Showcase — Rs. 25,000</option>
-                  <option value="55000" data-name="Hotel & Tour Booking (Rs. 55,000)">Hotel & Tour Booking Platform — Rs. 55,000</option>
-                  <option value="18000" data-name="Restaurant QR Menu (Rs. 18,000)">Restaurant QR Menu & Dine-In — Rs. 18,000</option>
-                  <option value="38000" data-name="Online Food Ordering (Rs. 38,000)">Online Food Ordering & Delivery — Rs. 38,000</option>
-                  <option value="22000" data-name="Medical & Dental Clinic (Rs. 22,000)">Medical Clinic & Dental Practice — Rs. 22,000</option>
-                  <option value="28000" data-name="Tuition & Academy Portal (Rs. 28,000)">Tuition & Training Academy — Rs. 28,000</option>
-                </optgroup>
-                <optgroup label="🏢 Corporate & Enterprise Web Portals">
-                  <option value="45000" data-name="Starter Corporate (Rs. 45,000)">Starter Corporate (6 Pages) — Rs. 45,000</option>
-                  <option value="60000" data-name="Silver Corporate (Rs. 60,000)">Silver Corporate (10 Pages + 3 Emails + SEO) — Rs. 60,000</option>
-                  <option value="99000" data-name="Gold Enterprise (Rs. 99,000)">Gold Enterprise Portal (15 Pages + PayHere) — Rs. 99,000</option>
-                  <option value="125000" data-name="Platinum Powerhouse (Rs. 125,000)">Platinum Powerhouse (25 Pages) — Rs. 125,000</option>
-                </optgroup>
-                <optgroup label="🛠️ Website Care & Monthly SEO Retainers">
-                  <option value="3500" data-name="Essential Website Care (Rs. 3,500/mo)">Essential Website Care Retainer — Rs. 3,500/mo</option>
-                  <option value="8500" data-name="Growth SEO Retainer (Rs. 8,500/mo)">Growth SEO & Ranking Retainer — Rs. 8,500/mo</option>
-                </optgroup>
+              <select id="calcTier" class="calc-select-custom" onchange="onCalcSelectChange(this)">
+                <option value="0" data-name="No Package Selected" selected>-- Or select from dropdown (Rs. 0) --</option>
               </select>
               <div class="calc-select-arrow">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
@@ -651,8 +629,8 @@
             <div class="calc-addons-stack">
               
               <!-- Addon 1 -->
-              <label class="calc-addon-card active">
-                <input type="checkbox" class="calc-addon-check" data-name="99+ PageSpeed Core Web Vitals Optimization" data-price="3500" onchange="calculateFullEstimate()" checked>
+              <label class="calc-addon-card">
+                <input type="checkbox" class="calc-addon-check" data-name="99+ PageSpeed Core Web Vitals Optimization" data-price="3500" onchange="calculateFullEstimate()">
                 <div class="calc-addon-checkbox">
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
                 </div>
@@ -746,7 +724,7 @@
         <div class="calc-total-section">
           <div>
             <div class="calc-total-label">Calculated Total Investment</div>
-            <div id="calcTotalDisplay" class="calc-total-value">Rs. 13,500/-</div>
+            <div id="calcTotalDisplay" class="calc-total-value">Rs. 0/-</div>
             <div class="calc-trust-checklist">
               <div class="calc-trust-item"><span>✔</span> Fast Turnaround</div>
               <div class="calc-trust-item"><span>✔</span> 100% Mobile Responsive</div>
@@ -882,188 +860,7 @@
 </footer>
 
   <script src="../js/main.js?v=2026.10" defer></script>
-<script>
-    let _calcAnimFrame = null;
-    let _calcCurrentTotal = 13500;
 
-    function animateTotalDisplay(target) {
-      const displayEl = document.getElementById('calcTotalDisplay');
-      if (!displayEl) return;
-
-      const start = _calcCurrentTotal;
-      const diff = target - start;
-      if (diff === 0) {
-        displayEl.textContent = 'Rs. ' + target.toLocaleString() + '/-';
-        return;
-      }
-
-      const duration = 280;
-      const startTime = performance.now();
-
-      if (_calcAnimFrame) cancelAnimationFrame(_calcAnimFrame);
-
-      function step(now) {
-        const elapsed = now - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        const ease = progress * (2 - progress);
-        const current = Math.round(start + diff * ease);
-
-        displayEl.textContent = 'Rs. ' + current.toLocaleString() + '/-';
-
-        if (progress < 1) {
-          _calcAnimFrame = requestAnimationFrame(step);
-        } else {
-          _calcCurrentTotal = target;
-          displayEl.textContent = 'Rs. ' + target.toLocaleString() + '/-';
-        }
-      }
-
-      _calcAnimFrame = requestAnimationFrame(step);
-    }
-
-    function calculateFullEstimate() {
-      const tierEl = document.getElementById('calcTier');
-      if (!tierEl) return;
-      const base = parseInt(tierEl.value, 10) || 5000;
-      const tierOption = tierEl.options[tierEl.selectedIndex];
-      const tierName = tierOption ? tierOption.getAttribute('data-name') : 'Standard Business';
-      
-      const extraPagesCount = parseInt(document.getElementById('calcExtraPages').value, 10) || 0;
-      const extraPagesTotal = extraPagesCount * 1500;
-
-      // Update Addon card active visual states
-      let addonsTotal = 0;
-      const selectedAddons = [];
-
-      document.querySelectorAll('.calc-addon-card').forEach(card => {
-        const cb = card.querySelector('.calc-addon-check');
-        if (!cb) return;
-        if (cb.checked) {
-          card.classList.add('active');
-          const p = parseInt(cb.dataset.price, 10) || 0;
-          addonsTotal += p;
-          selectedAddons.push({ name: cb.dataset.name, price: p });
-        } else {
-          card.classList.remove('active');
-        }
-      });
-
-      const grandTotal = base + extraPagesTotal + addonsTotal;
-      animateTotalDisplay(grandTotal);
-
-      // Render Itemized Breakdown List
-      const listEl = document.getElementById('calcItemizedList');
-      if (listEl) {
-        let itemsHtml = `
-          <div class="calc-itemized-row">
-            <span class="calc-itemized-name">📦 ${tierName}</span>
-            <span class="calc-itemized-val">Rs. ${base.toLocaleString()}/-</span>
-          </div>
-        `;
-
-        if (extraPagesCount > 0) {
-          itemsHtml += `
-            <div class="calc-itemized-row">
-              <span class="calc-itemized-name">📄 +${extraPagesCount} Extra Custom Page(s)</span>
-              <span class="calc-itemized-val">+Rs. ${extraPagesTotal.toLocaleString()}/-</span>
-            </div>
-          `;
-        }
-
-        const isFreeHosting = base <= 10000;
-        itemsHtml += `
-          <div class="calc-itemized-row">
-            <span class="calc-itemized-name">${isFreeHosting ? '🎁 Free Fast Cloud Hosting' : '🚀 Enterprise Cloud Infrastructure'}</span>
-            <span class="calc-itemized-val free">FREE INCLUDED (Rs. 0/-)</span>
-          </div>
-        `;
-
-        selectedAddons.forEach(item => {
-          itemsHtml += `
-            <div class="calc-itemized-row">
-              <span class="calc-itemized-name">✨ ${item.name}</span>
-              <span class="calc-itemized-val">+Rs. ${item.price.toLocaleString()}/-</span>
-            </div>
-          `;
-        });
-
-        listEl.innerHTML = itemsHtml;
-      }
-
-      // Dynamic Hosting Indicator Badge
-      const hostingBadge = document.getElementById('calcHostingBadge');
-      if (hostingBadge) {
-        if (base <= 10000) {
-          hostingBadge.innerHTML = `
-            <span class="calc-hosting-icon">🎁</span>
-            <div>
-              <strong class="calc-hosting-title">100% Free Fast Cloud Hosting Included</strong>
-              <span class="calc-hosting-desc">Zero monthly server fees for Starter & Standard tiers.</span>
-            </div>
-          `;
-        } else {
-          hostingBadge.innerHTML = `
-            <span class="calc-hosting-icon">🚀</span>
-            <div>
-              <strong class="calc-hosting-title" style="color:#38bdf8;">Enterprise High-Performance Cloud Included</strong>
-              <span class="calc-hosting-desc">High-concurrency traffic routing & zero-downtime SSD cloud infrastructure.</span>
-            </div>
-          `;
-        }
-      }
-    }
-
-    function dispatchFullWhatsAppQuote() {
-      const tierEl = document.getElementById('calcTier');
-      const tierOption = tierEl.options[tierEl.selectedIndex];
-      const tierName = tierOption ? tierOption.getAttribute('data-name') : 'Standard Business';
-      const base = parseInt(tierEl.value, 10) || 5000;
-      
-      const extraPagesCount = parseInt(document.getElementById('calcExtraPages').value, 10) || 0;
-      const extraPagesTotal = extraPagesCount * 1500;
-
-      const addons = [];
-      if (extraPagesCount > 0) {
-        addons.push('• +' + extraPagesCount + ' Extra Custom Pages (+Rs. ' + extraPagesTotal.toLocaleString() + '/-)');
-      }
-
-      let addonsTotal = 0;
-      document.querySelectorAll('.calc-addon-check:checked').forEach(cb => {
-        const p = parseInt(cb.dataset.price, 10);
-        addonsTotal += p;
-        addons.push('• ' + cb.dataset.name + ' (+Rs. ' + p.toLocaleString() + '/-)');
-      });
-
-      const grandTotal = base + extraPagesTotal + addonsTotal;
-
-      let msg = '👋 Hello Infinite Creative Web Design!\n\n';
-      msg += '📦 *Selected Website Tier:* ' + tierName + ' (Base: Rs. ' + base.toLocaleString() + '/-)\n';
-      
-      if (base <= 10000) {
-        msg += '🎁 *Cloud Hosting:* 100% Free Fast Cloud Hosting Included (Rs. 0/-)\n';
-      } else {
-        msg += '🚀 *Cloud Server:* Enterprise High-Speed Cloud Deployment Included\n';
-      }
-      
-      if (addons.length > 0) {
-        msg += '\n✨ *Selected Power Add-ons:*\n' + addons.join('\n') + '\n';
-      } else {
-        msg += '\n✨ *Add-ons:* Standard Included Features\n';
-      }
-
-      msg += '\n💰 *Calculated Total Investment:* Rs. ' + grandTotal.toLocaleString() + '/-\n';
-      msg += '🚀 I would like to lock in this package quote. Please let me know how we can get started!';
-
-      const waUrl = 'https://wa.me/94789714912?text=' + encodeURIComponent(msg);
-      window.open(waUrl, '_blank');
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-      if (document.getElementById('calcTier')) {
-        calculateFullEstimate();
-      }
-    });
-  </script>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {

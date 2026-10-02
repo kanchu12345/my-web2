@@ -1897,6 +1897,192 @@ html, body {
   margin-top: 2px;
 }
 
+/* Step 1 Interactive Category Tabs */
+.calc-cat-tabs {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+  margin-bottom: 12px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.calc-cat-tabs::-webkit-scrollbar {
+  display: none;
+}
+.calc-cat-tab {
+  background: rgba(15, 23, 42, 0.7);
+  border: 1.5px solid rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.calc-cat-tab:hover {
+  border-color: rgba(4, 170, 109, 0.5);
+  color: #ffffff;
+  background: rgba(4, 170, 109, 0.08);
+}
+.calc-cat-tab.active {
+  background: linear-gradient(135deg, rgba(4, 170, 109, 0.25), rgba(5, 150, 105, 0.35));
+  border-color: #04AA6D;
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(4, 170, 109, 0.25);
+}
+
+/* Step 1 Visual Option Cards Grid */
+.calc-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-bottom: 12px;
+}
+@media (max-width: 540px) {
+  .calc-cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.calc-tier-card {
+  background: #080c16;
+  border: 1.5px solid #1e293b;
+  border-radius: 12px;
+  padding: 12px 14px;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 80px;
+  user-select: none;
+  text-align: left;
+}
+.calc-tier-card:hover {
+  border-color: rgba(4, 170, 109, 0.5);
+  background: rgba(4, 170, 109, 0.04);
+  transform: translateY(-2px);
+}
+.calc-tier-card.active {
+  border-color: #04AA6D;
+  background: rgba(4, 170, 109, 0.12);
+  box-shadow: 0 4px 18px rgba(4, 170, 109, 0.22);
+}
+.calc-tier-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+.calc-tier-card-name {
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.25;
+}
+.calc-tier-card.active .calc-tier-card-name {
+  color: #04AA6D;
+}
+.calc-tier-card-check {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1.5px solid #334155;
+  background: #0f172a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s;
+  color: transparent;
+  font-size: 11px;
+  font-weight: 900;
+}
+.calc-tier-card.active .calc-tier-card-check {
+  background: #04AA6D;
+  border-color: #04AA6D;
+  color: #ffffff;
+}
+.calc-tier-card-desc {
+  font-size: 0.76rem;
+  color: #94a3b8;
+  margin-top: 4px;
+  line-height: 1.35;
+}
+.calc-tier-card-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+.calc-tier-card-price {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: #38bdf8;
+}
+.calc-tier-card.active .calc-tier-card-price {
+  color: #04AA6D;
+}
+.calc-tier-badge {
+  font-size: 0.68rem;
+  font-weight: 800;
+  background: rgba(4, 170, 109, 0.2);
+  color: #04AA6D;
+  padding: 2px 7px;
+  border-radius: 6px;
+  letter-spacing: 0.02em;
+}
+
+/* Reset / Clear Button */
+.calc-reset-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2px;
+  margin-bottom: 10px;
+}
+.calc-reset-btn {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-size: 0.78rem;
+  cursor: pointer;
+  padding: 3px 6px;
+  border-radius: 6px;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.calc-reset-btn:hover {
+  color: #f87171;
+  background: rgba(239, 68, 68, 0.08);
+}
+
+/* Itemized Empty State */
+.calc-itemized-empty {
+  padding: 20px;
+  text-align: center;
+  color: #94a3b8;
+  font-size: 0.88rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  margin: 6px 0;
+  line-height: 1.5;
+}
+.calc-itemized-empty strong {
+  color: #ffffff;
+  display: block;
+  margin-bottom: 4px;
+}
+
 .calc-select-wrapper {
   position: relative;
   width: 100%;
