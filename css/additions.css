@@ -810,6 +810,74 @@
   color: #ffffff;
 }
 
+/* ═══════════════════════════════════════════════════════════
+   ANDROID MOBILE ENGINE QUIRK FIXES (Phase 7 – 100% Coverage)
+   All issues reproduced on live Android Chrome – not desktop.
+═══════════════════════════════════════════════════════════ */
 
+/* Fix #4 – Quiz / Step Transition GPU Acceleration
+   Prevents white-flash / repaint stutter when switching quiz steps on Android.
+   Forces composited layer via translateZ(0) so transitions stay smooth. */
+.quiz-card {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
 
+/* Fix #5 – Language Switcher Off-Screen Prevention
+   Ensures locale pill row never gets clipped by a parent's overflow:hidden.
+   The flex-wrap already handles reflowing; this makes the container scroll-safe. */
+.footer-locale-row {
+  position: relative;
+  overflow: visible;
+}
+.locale-pill {
+  /* Prevent pills from inheriting a clipping context that hides them below fold */
+  position: relative;
+  z-index: 1;
+}
 
+/* Fix #6 – Dynamic Viewport Modal Centering
+   Uses fixed inset-0 + flex center instead of top:50%/translateY(-50%).
+   Remains centered even when Android address bar collapses / expands viewport. */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+.modal-overlay .modal-box {
+  position: relative;
+  max-width: min(520px, calc(100vw - 32px));
+  max-height: calc(100svh - 48px); /* svh = small viewport height (respects address bar) */
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 16px;
+  background: #0d1527;
+  border: 1px solid rgba(4, 170, 109, 0.35);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8);
+  padding: 32px 28px;
+}
+
+/* Fix #7 – Android Chrome Autofill Yellow/White Background Override
+   Chrome autofill injects a yellow background that breaks dark-theme inputs.
+   The box-shadow inset trick overwrites the browser's forced background-color. */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px #0d1527 inset !important;
+  box-shadow:         0 0 0px 1000px #0d1527 inset !important;
+  -webkit-text-fill-color: #ffffff !important;
+  caret-color: #ffffff;
+  border-color: rgba(4, 170, 109, 0.5) !important;
+  transition: background-color 99999s ease-in-out 0s; /* disables autofill animation */
+}

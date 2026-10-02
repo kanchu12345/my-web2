@@ -28,7 +28,10 @@
 
 /* ═══════════════════════════════════════ RESET */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;font-size:16px;-webkit-font-smoothing:antialiased;}
+/* Fix #1 – Android tap highlight: removes the default translucent blue overlay on tap */
+*{-webkit-tap-highlight-color:transparent;}
+/* Fix #3 – Android Text Autosizing: prevents WebKit from arbitrarily enlarging font sizes */
+html{scroll-behavior:smooth;font-size:16px;-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%;text-size-adjust:100%;}
 body{background:var(--bg);color:var(--white);font-family:var(--font-sans);overflow-x:hidden;line-height:1.6;}
 img{max-width:100%;height:auto;display:block;}
 a{color:inherit;text-decoration:none;}
