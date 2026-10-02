@@ -47,6 +47,7 @@
   }
 
   // ── Shared hamburger listener (called for ALL pages including homepage early-return) ──
+  // ── Shared hamburger listener (called for ALL pages including homepage early-return) ──
   function attachHamburgerListeners() {
     var toggleBtn = document.getElementById('navToggle');
     var mobileMenu = document.getElementById('mobileMenu');
@@ -55,25 +56,23 @@
     if (toggleBtn.dataset.hamburgInit) return;
     toggleBtn.dataset.hamburgInit = '1';
 
+    var lastTrigger = 0;
     function toggleMenu(e) {
-      if (e) { e.preventDefault(); e.stopPropagation(); }
+      var now = Date.now();
+      if (now - lastTrigger < 300) return;
+      lastTrigger = now;
+
+      if (e) {
+        if (e.cancelable) e.preventDefault();
+        e.stopPropagation();
+      }
       var isOpen = mobileMenu.classList.toggle('open');
       toggleBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
       mobileMenu.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
     }
 
-    var _cTouchFired = false;
-    toggleBtn.addEventListener('touchstart', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      _cTouchFired = true;
-      toggleMenu(e);
-      setTimeout(function() { _cTouchFired = false; }, 500);
-    }, { passive: false });
-    toggleBtn.onclick = function(e) {
-      if (_cTouchFired) { _cTouchFired = false; return; }
-      toggleMenu(e);
-    };
+    toggleBtn.addEventListener('click', toggleMenu);
+    toggleBtn.addEventListener('touchend', toggleMenu, { passive: false });
 
     mobileMenu.querySelectorAll('.mm-link').forEach(function(a) {
       a.onclick = function(e) {
@@ -96,20 +95,25 @@
       };
     });
 
-    document.addEventListener('click', function(e) {
-      if (mobileMenu.classList.contains('open') && !toggleBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
-        mobileMenu.classList.remove('open');
-        toggleBtn.setAttribute('aria-expanded', 'false');
-        mobileMenu.setAttribute('aria-hidden', 'true');
+    function closeIfOutside(e) {
+      if (Date.now() - lastTrigger < 350) return;
+      if (!mobileMenu.classList.contains('open')) return;
+
+      var target = e.target;
+      if (toggleBtn === target || toggleBtn.contains(target) || (target.closest && target.closest('#navToggle'))) {
+        return;
       }
-    });
-    document.addEventListener('touchstart', function(e) {
-      if (mobileMenu.classList.contains('open') && !toggleBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
-        mobileMenu.classList.remove('open');
-        toggleBtn.setAttribute('aria-expanded', 'false');
-        mobileMenu.setAttribute('aria-hidden', 'true');
+      if (mobileMenu === target || mobileMenu.contains(target)) {
+        return;
       }
-    }, { passive: true });
+
+      mobileMenu.classList.remove('open');
+      toggleBtn.setAttribute('aria-expanded', 'false');
+      mobileMenu.setAttribute('aria-hidden', 'true');
+    }
+
+    document.addEventListener('click', closeIfOutside);
+    document.addEventListener('touchend', closeIfOutside, { passive: true });
   }
 
   // 2. Render Canonical Header (Matches index.html 1:1)

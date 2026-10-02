@@ -93,7 +93,7 @@
   <link rel="preload" href="css/additions.css?v=2026.5" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="css/additions.css?v=2026.5"></noscript>
 
-  <!-- Google Analytics (GA4) loaded conditionally via js/components.js?v=25 upon explicit cookie consent -->
+  <!-- Google Analytics (GA4) loaded conditionally via js/components.js?v=2026.10 upon explicit cookie consent -->
 
   <!-- Schema.org JSON-LD -->
   <script type="application/ld+json">
@@ -2037,23 +2037,24 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=25" defer></script>
-  <script src="js/components.js?v=25" defer></script>
+  <script src="js/main.js?v=2026.10" defer></script>
+  <script src="js/components.js?v=2026.10" defer></script>
   <script src="js/chatbot.js" defer></script>
   <script src="js/quiz.js" defer></script>
   <script>
-    let _calcAnimFrame = null;
-    let _calcCurrentTotal = 13500;
+    var _calcAnimFrame = null;
+    var _calcCurrentTotal = 13500;
 
     function animateTotalDisplay(target) {
       const displayEl = document.getElementById('calcTotalDisplay');
       if (!displayEl) return;
 
       const curr = window.getActiveCurrency ? window.getActiveCurrency() : 'LKR';
+      const fmt = (v, c) => typeof window.formatCurrency === 'function' ? window.formatCurrency(v, c) : ('Rs. ' + Number(v).toLocaleString() + '/-');
       const start = _calcCurrentTotal;
       const diff = target - start;
       if (diff === 0) {
-        displayEl.textContent = window.formatCurrency(target, curr);
+        displayEl.textContent = fmt(target, curr);
         return;
       }
 
@@ -2068,13 +2069,13 @@
         const ease = progress * (2 - progress);
         const current = Math.round(start + diff * ease);
 
-        displayEl.textContent = window.formatCurrency(current, curr);
+        displayEl.textContent = fmt(current, curr);
 
         if (progress < 1) {
           _calcAnimFrame = requestAnimationFrame(step);
         } else {
           _calcCurrentTotal = target;
-          displayEl.textContent = window.formatCurrency(target, curr);
+          displayEl.textContent = fmt(target, curr);
         }
       }
 

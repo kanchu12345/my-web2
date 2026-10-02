@@ -2571,8 +2571,8 @@ function togglePkgMore(id, btn) {
 }
 
 
-let _calcCurrentTotal = 13500;
-let _calcAnimFrame = null;
+var _calcCurrentTotal = 13500;
+var _calcAnimFrame = null;
 
 function animateTotalDisplay(target) {
   const displayEl = document.getElementById('calcTotalDisplay');
