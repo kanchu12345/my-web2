@@ -97,129 +97,271 @@
 
   <!-- Schema.org JSON-LD -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "LocalBusiness",
-        "@id": "https://infiniteweb.dev/#business",
-        "name": "Infinite Creative Web Design",
-        "image": "https://infiniteweb.dev/images/logo.png",
-        "url": "https://infiniteweb.dev/",
-        "telephone": "+94789714912",
-        "email": "infinitedesign768@gmail.com",
-        "priceRange": "Rs. 5,000 - Rs. 60,000",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Tangalle",
-          "addressRegion": "Southern Province",
-          "addressCountry": "LK"
-        },
-        "geo": {
-          "@type": "GeoCoordinates",
-          "latitude": 6.0244,
-          "longitude": 80.7941
-        },
-        "openingHoursSpecification": {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
-          "opens": "08:00",
-          "closes": "22:00"
-        },
-        "areaServed": [
-          {"@type": "Country", "name": "Sri Lanka"},
-          {"@type": "City", "name": "Colombo"},
-          {"@type": "City", "name": "Kandy"},
-          {"@type": "City", "name": "Galle"},
-          {"@type": "City", "name": "Negombo"},
-          {"@type": "City", "name": "Jaffna"},
-          {"@type": "City", "name": "Matara"},
-          {"@type": "City", "name": "Tangalle"}
-        ],
-        "hasOfferCatalog": {
-          "@type": "OfferCatalog",
-          "name": "Web Design & Digital Services Sri Lanka",
-          "itemListElement": [
-            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Web Design & Development"}},
-            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "E-Commerce & PayHere Integration"}},
-            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Mobile-First UI/UX Design"}},
-            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "SEO Ready Search Engine Setup"}},
-            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Lifetime Free Cloud Hosting"}}
-          ]
-        }
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "LocalBusiness",
+      "@id": "https://infiniteweb.dev/#business",
+      "name": "Infinite Creative Web Design",
+      "image": "https://infiniteweb.dev/images/logo.png",
+      "url": "https://infiniteweb.dev/",
+      "telephone": "+94789714912",
+      "email": "infinitedesign768@gmail.com",
+      "priceRange": "Rs. 5,000 - Rs. 60,000",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Tangalle",
+        "addressRegion": "Southern Province",
+        "addressCountry": "LK"
       },
-      {
-        "@type": "FAQPage",
-        "@id": "https://infiniteweb.dev/#faq",
-        "mainEntity": [
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 6.0244,
+        "longitude": 80.7941
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday"
+        ],
+        "opens": "08:00",
+        "closes": "22:00"
+      },
+      "areaServed": [
+        {
+          "@type": "Country",
+          "name": "Sri Lanka"
+        },
+        {
+          "@type": "City",
+          "name": "Colombo"
+        },
+        {
+          "@type": "City",
+          "name": "Kandy"
+        },
+        {
+          "@type": "City",
+          "name": "Galle"
+        },
+        {
+          "@type": "City",
+          "name": "Negombo"
+        },
+        {
+          "@type": "City",
+          "name": "Jaffna"
+        },
+        {
+          "@type": "City",
+          "name": "Matara"
+        },
+        {
+          "@type": "City",
+          "name": "Tangalle"
+        }
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Web Design & Digital Services Sri Lanka",
+        "itemListElement": [
           {
-            "@type": "Question",
-            "name": "How much does a website cost in Sri Lanka?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "At Infinite Creative Web Design, our professional packages start at Rs. 5,000 for a single-page business presence, Rs. 10,000 for standard business sites (5 pages), and Rs. 25,000 - 35,000 for full dynamic e-commerce solutions with PayHere integration. We deliver transparent quotes with zero hidden renewal traps."
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Web Design & Development"
             }
           },
           {
-            "@type": "Question",
-            "name": "What is included in the Rs. 5,000 Standard Business package?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Our Rs. 5,000 package provides a modern, mobile-first design, interactive WhatsApp quote button, Google Maps location embed, contact inquiries, Core Web Vitals optimization, and 100% Free Lifetime Cloud Hosting on GitHub Pages & Cloudflare with SSL."
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "E-Commerce & PayHere Integration"
             }
           },
           {
-            "@type": "Question",
-            "name": "How long does it take to deliver my website?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Most standard business websites are completed and launched within 3 to 5 business days. Once you provide your company logo, business details, and contact numbers, our team works rapidly to get you live."
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Mobile-First UI/UX Design"
             }
           },
           {
-            "@type": "Question",
-            "name": "How does Free Fast Cloud Hosting work?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "We deploy your static frontend directly onto global enterprise cloud infrastructure (GitHub Pages & Cloudflare Edge CDN) with free SSL encryption. This means zero monthly server hosting fees for your business while guaranteeing sub-second load times."
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "SEO Ready Search Engine Setup"
             }
           },
           {
-            "@type": "Question",
-            "name": "Can I connect my own custom .LK or .COM domain name?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes. You can connect your existing .lk, .com, .org, or any other top-level domain. If you do not have one yet, we assist you in registering your domain through the LK Domain Registry or global registrars and configure all DNS records at no extra setup charge."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Can I accept Visa, Mastercard, and local payments with PayHere?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes! We integrate PayHere, WebXPay, Commercial Bank IPG, Sampath Bank IPG, and local mobile wallets (Genie, Frimi, eZ Cash) so your customers can pay online smoothly. Funds deposit directly into your Sri Lankan corporate bank account."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Will my website appear on Google search in Sri Lanka?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes. Every website we build is SEO Ready from day one. We implement clean semantic markup, fast loading speeds (Core Web Vitals optimized), mobile responsiveness, and submit your XML sitemap directly to Google Search Console for rapid indexing."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Can my website support Sinhala, English, and Tamil?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes. We routinely build bilingual and trilingual websites so your business can communicate effectively with customers across Sri Lanka in Sinhala, English, and Tamil."
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Lifetime Free Cloud Hosting"
             }
           }
         ]
-      }
-    ]
-  }
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5.0",
+        "bestRating": "5",
+        "worstRating": "1",
+        "ratingCount": "7",
+        "reviewCount": "7"
+      },
+      "review": [
+        {
+          "@type": "Review",
+          "author": {
+            "@type": "Person",
+            "name": "Amuka Dumuka"
+          },
+          "datePublished": "2026-05-26",
+          "reviewBody": "ලස්සනට Design කරල හදල දෙනව website එක. වැඩ Quality, Full support එක දෙනව වැඩෙන් පස්සෙත්. බය නැතුව වැඩක් බාරදෙන්න පුලුවන්. Recommended!",
+          "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": "5",
+            "bestRating": "5"
+          }
+        },
+        {
+          "@type": "Review",
+          "author": {
+            "@type": "Organization",
+            "name": "EnLyt Partners"
+          },
+          "datePublished": "2026-01-30",
+          "reviewBody": "Great designs. Full responsive and lightweight websites. light speed loading. Fair charges with cooperation. I recommend this service.",
+          "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": "5",
+            "bestRating": "5"
+          }
+        },
+        {
+          "@type": "Review",
+          "author": {
+            "@type": "Person",
+            "name": "Damitha Dananjaya"
+          },
+          "datePublished": "2026-03-08",
+          "reviewBody": "A few days ago I built a website with this company. It is very good and beautiful. The work was done beautifully. Thank you very much.",
+          "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": "5",
+            "bestRating": "5"
+          }
+        },
+        {
+          "@type": "Review",
+          "author": {
+            "@type": "Person",
+            "name": "Shantha Kumara"
+          },
+          "datePublished": "2026-01-04",
+          "reviewBody": "Great designs. Full responsive and lightweight websites. light speed loading. Fair charges with cooperation. I recommend this service.",
+          "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": "5",
+            "bestRating": "5"
+          }
+        },
+        {
+          "@type": "Review",
+          "author": {
+            "@type": "Organization",
+            "name": "Suraweera Farm"
+          },
+          "datePublished": "2025-10-22",
+          "reviewBody": "Excellent.good job .Highly recommended",
+          "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": "5",
+            "bestRating": "5"
+          }
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://infiniteweb.dev/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How much does a website cost in Sri Lanka?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "At Infinite Creative Web Design, our professional packages start at Rs. 5,000 for a single-page business presence, Rs. 10,000 for standard business sites (5 pages), and Rs. 25,000 - 35,000 for full dynamic e-commerce solutions with PayHere integration. We deliver transparent quotes with zero hidden renewal traps."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is included in the Rs. 5,000 Standard Business package?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Our Rs. 5,000 package provides a modern, mobile-first design, interactive WhatsApp quote button, Google Maps location embed, contact inquiries, Core Web Vitals optimization, and 100% Free Lifetime Cloud Hosting on GitHub Pages & Cloudflare with SSL."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How long does it take to deliver my website?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Most standard business websites are completed and launched within 3 to 5 business days. Once you provide your company logo, business details, and contact numbers, our team works rapidly to get you live."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does Free Fast Cloud Hosting work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We deploy your static frontend directly onto global enterprise cloud infrastructure (GitHub Pages & Cloudflare Edge CDN) with free SSL encryption. This means zero monthly server hosting fees for your business while guaranteeing sub-second load times."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I connect my own custom .LK or .COM domain name?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. You can connect your existing .lk, .com, .org, or any other top-level domain. If you do not have one yet, we assist you in registering your domain through the LK Domain Registry or global registrars and configure all DNS records at no extra setup charge."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I accept Visa, Mastercard, and local payments with PayHere?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes! We integrate PayHere, WebXPay, Commercial Bank IPG, Sampath Bank IPG, and local mobile wallets (Genie, Frimi, eZ Cash) so your customers can pay online smoothly. Funds deposit directly into your Sri Lankan corporate bank account."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Will my website appear on Google search in Sri Lanka?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Every website we build is SEO Ready from day one. We implement clean semantic markup, fast loading speeds (Core Web Vitals optimized), mobile responsiveness, and submit your XML sitemap directly to Google Search Console for rapid indexing."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can my website support Sinhala, English, and Tamil?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. We routinely build bilingual and trilingual websites so your business can communicate effectively with customers across Sri Lanka in Sinhala, English, and Tamil."
+          }
+        }
+      ]
+    }
+  ]
+}
   </script>
 </head>
 <body>
@@ -574,7 +716,7 @@
             <div style="color:#94a3b8; font-size:12px;">↗</div>
           </div>
           <div class="mockup-img-wrap">
-            <img src="https://s0.wp.com/mshots/v1/https%3A%2F%2Ftropicaflavours.com?w=800&h=500" alt="Tropica Flavours Website Preview" width="800" height="500" loading="lazy" decoding="async">
+            <img src="images/projects/tropica-flavours.svg" alt="Tropica Flavours Website Preview" width="800" height="500" loading="lazy" decoding="async">
             <div class="mockup-live-badge">
               <span class="mockup-live-dot"></span>
               <span>Live Website</span>
@@ -1637,116 +1779,215 @@
     </div>
   </section>
 
-  <!-- ══ 09 TESTIMONIALS (REAL SOCIAL PROOF & VERIFIED CLIENT PROJECTS) ═══ -->
-  <section class="section" id="testimonials" aria-label="Client Testimonials" style="padding-top:20px;">
+    <!-- ══ 09 TESTIMONIALS (VERIFIED GOOGLE & FACEBOOK REVIEWS) ═══ -->
+  <section class="section" id="testimonials" aria-label="Client Testimonials & Reviews" style="padding-top:20px; padding-bottom:60px;">
     <div class="section-inner">
       <div class="section-head-center reveal">
-        <div class="section-eyebrow">REAL CLIENT REVIEWS</div>
-        <h2 class="section-title-lg">What Our Clients Say</h2>
-        <p class="section-subtitle-lg">
-          Real feedback from verified business owners who trusted Infinite Creative to build their website.
+        <div class="section-eyebrow" style="color:#04AA6D; font-weight:800; letter-spacing:0.12em;">VERIFIED SOCIAL PROOF • පාරිභෝගික සමාලෝචන</div>
+        <h2 class="section-title-lg" style="font-size:clamp(2rem, 4vw, 2.8rem); font-weight:900; margin-top:8px; margin-bottom:12px;">
+          What Our Clients Say on <span style="color:#38bdf8;">Google</span> &amp; <span style="color:#1877f2;">Facebook</span>
+        </h2>
+        <p class="section-subtitle-lg" style="max-width:720px; margin:0 auto 36px; color:#cbd5e1; font-size:1.05rem; line-height:1.6;">
+          Real, authentic 5-star recommendations from Sri Lankan business owners, exporters, and entrepreneurs who trusted Infinite Creative to build their website.
         </p>
       </div>
 
+      <!-- Trust Summary Badges Row -->
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:20px; margin-bottom:40px;" class="reveal">
+        <!-- Google Reviews Badge -->
+        <a href="https://www.google.com/search?q=infinite+creative+web+design#mpd=~5225900606547776917/customers/reviews" target="_blank" rel="noopener" style="background:#131b2e; border:1.5px solid rgba(66,133,244,0.4); border-radius:18px; padding:24px; display:flex; align-items:center; gap:18px; text-decoration:none; transition:all 0.3s ease; box-shadow:0 10px 30px rgba(0,0,0,0.3);" onmouseover="this.style.borderColor='#4285f4'; this.style.transform='translateY(-4px)';" onmouseout="this.style.borderColor='rgba(66,133,244,0.4)'; this.style.transform='translateY(0)';">
+          <div style="width:52px; height:52px; border-radius:14px; background:rgba(66,133,244,0.12); border:1px solid rgba(66,133,244,0.3); display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+            <svg width="28" height="28" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
+          </div>
+          <div style="flex:1;">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="font-size:1.3rem; font-weight:900; color:#fff;">5.0</span>
+              <div style="color:#facc15; font-size:1.1rem; letter-spacing:1px;">★★★★★</div>
+            </div>
+            <div style="font-size:0.85rem; color:#94a3b8; font-weight:600; margin-top:2px;">Google Business Profile</div>
+            <div style="font-size:0.8rem; color:#38bdf8; font-weight:700; margin-top:4px;">Read Google Reviews ↗</div>
+          </div>
+        </a>
+
+        <!-- Facebook Recommendations Badge -->
+        <a href="https://web.facebook.com/profile.php?id=100082101311247&sk=reviews" target="_blank" rel="noopener" style="background:#131b2e; border:1.5px solid rgba(24,119,242,0.4); border-radius:18px; padding:24px; display:flex; align-items:center; gap:18px; text-decoration:none; transition:all 0.3s ease; box-shadow:0 10px 30px rgba(0,0,0,0.3);" onmouseover="this.style.borderColor='#1877f2'; this.style.transform='translateY(-4px)';" onmouseout="this.style.borderColor='rgba(24,119,242,0.4)'; this.style.transform='translateY(0)';">
+          <div style="width:52px; height:52px; border-radius:14px; background:rgba(24,119,242,0.12); border:1px solid rgba(24,119,242,0.3); display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="#1877f2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </div>
+          <div style="flex:1;">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="font-size:1.3rem; font-weight:900; color:#fff;">100%</span>
+              <span style="background:rgba(4,170,109,0.2); color:#04AA6D; font-size:0.75rem; font-weight:800; padding:2px 8px; border-radius:20px; border:1px solid rgba(4,170,109,0.4);">RECOMMENDED</span>
+            </div>
+            <div style="font-size:0.85rem; color:#94a3b8; font-weight:600; margin-top:2px;">7+ Verified Recommendations</div>
+            <div style="font-size:0.8rem; color:#1877f2; font-weight:700; margin-top:4px;">Read Facebook Reviews ↗</div>
+          </div>
+        </a>
+
+        <!-- Leave a Review CTA Box -->
+        <div style="background:linear-gradient(135deg, rgba(4,170,109,0.12) 0%, rgba(19,27,46,0.9) 100%); border:1.5px dashed rgba(4,170,109,0.5); border-radius:18px; padding:20px 24px; display:flex; flex-direction:column; justify-content:center; gap:10px;">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span style="font-size:1.2rem;">💬</span>
+            <span style="font-size:0.95rem; font-weight:800; color:#fff;">Worked With Us?</span>
+          </div>
+          <p style="font-size:0.82rem; color:#cbd5e1; line-height:1.4; margin:0;">Share your experience and help fellow Sri Lankan businesses grow online.</p>
+          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:4px;">
+            <a href="https://www.google.com/search?q=infinite+creative+web+design#mpd=~5225900606547776917/customers/reviews" target="_blank" rel="noopener" style="background:#04AA6D; color:#fff; font-size:0.78rem; font-weight:800; padding:6px 14px; border-radius:8px; text-decoration:none; display:inline-flex; align-items:center; gap:4px;">⭐ Review on Google</a>
+            <a href="https://web.facebook.com/profile.php?id=100082101311247&sk=reviews" target="_blank" rel="noopener" style="background:rgba(24,119,242,0.2); border:1px solid #1877f2; color:#fff; font-size:0.78rem; font-weight:800; padding:6px 12px; border-radius:8px; text-decoration:none; display:inline-flex; align-items:center; gap:4px;">👍 Facebook</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Real Verified Reviews Grid -->
       <div class="testimonials-grid">
         
-        <!-- Testimonial 1: Versells Lanka -->
-        <div class="testimonial-card reveal">
-          <div class="testimonial-stars" aria-label="5 out of 5 stars">
-            <svg class="star-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="star-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="star-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="star-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="star-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-          </div>
-          <p class="testimonial-quote">
-            "Infinite Creative transformed our machinery catalog into a lightning-fast digital showroom. Our client inquiries from manufacturing plants across Gampaha and Colombo doubled within the first month. The PayHere integration works flawlessly."
-          </p>
-          <div class="testimonial-author-wrap">
-            <div>
-              <div class="testimonial-author-name">Eng. Samantha Perera</div>
-              <div class="testimonial-author-company">Managing Director • Versells Lanka</div>
-              <div class="testimonial-verified-badge">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-                <span>Verified Client Project</span>
+        <!-- Review 1: Amuka Dumuka (Facebook Sinhala Review) -->
+        <div class="testimonial-card reveal" style="background:#131b2e; border:1px solid rgba(255,255,255,0.1); border-radius:18px; padding:28px; display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
+              <div class="testimonial-stars" aria-label="5 out of 5 stars" style="margin-bottom:0;">
+                <span style="color:#facc15; font-size:1.1rem; letter-spacing:2px;">★★★★★</span>
               </div>
+              <span style="display:inline-flex; align-items:center; gap:4px; font-size:0.75rem; font-weight:800; color:#1877f2; background:rgba(24,119,242,0.12); border:1px solid rgba(24,119,242,0.3); padding:3px 10px; border-radius:20px;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="#1877f2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                Facebook Recommendation
+              </span>
             </div>
-            <a href="https://versellslanka.com" target="_blank" rel="noopener" class="testimonial-link">Live Site ↗</a>
+            <p class="testimonial-quote" style="color:#f1f5f9; font-size:0.96rem; line-height:1.7; font-style:normal; margin-bottom:20px;">
+              "ලස්සනට Design කරල හදල දෙනව website එක ✅ වැඩ Quality ✌️, Full support එක දෙනව වැඩෙන් පස්සෙත් ❤️ බය නැතුව වැඩක් බාරදෙන්න පුලුවන් 🤝 Recommended ✅"
+            </p>
+          </div>
+          <div class="testimonial-author-wrap" style="border-top:1px solid rgba(255,255,255,0.08); padding-top:16px; display:flex; align-items:center; justify-content:space-between;">
+            <div>
+              <div class="testimonial-author-name" style="font-weight:800; color:#fff; font-size:0.95rem;">Amuka Dumuka</div>
+              <div class="testimonial-author-company" style="font-size:0.8rem; color:#94a3b8;">Verified Client Review • May 26</div>
+            </div>
+            <a href="https://web.facebook.com/profile.php?id=100082101311247&sk=reviews" target="_blank" rel="noopener" class="testimonial-link" style="color:#04AA6D; font-size:0.8rem; font-weight:700; text-decoration:none;">View on FB ↗</a>
           </div>
         </div>
 
-        <!-- Testimonial 2: Tropica Flavours -->
-        <div class="testimonial-card reveal">
-          <div class="testimonial-stars" aria-label="5 out of 5 stars">
-            <svg class="star-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="star-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="star-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="star-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="star-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-          </div>
-          <p class="testimonial-quote">
-            "As an exporter of Ceylon cinnamon and vanilla, international speed and credibility were paramount. Infinite Web delivered a 98+ PageSpeed score that impresses buyers in Europe and the US. Outstanding craftsmanship!"
-          </p>
-          <div class="testimonial-author-wrap">
-            <div>
-              <div class="testimonial-author-name">Duminda Wickramasinghe</div>
-              <div class="testimonial-author-company">Export Director • Tropica Flavours</div>
-              <div class="testimonial-verified-badge">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-                <span>Verified Client Project</span>
+        <!-- Review 2: EnLyt Partners (Facebook Review) -->
+        <div class="testimonial-card reveal" style="background:#131b2e; border:1px solid rgba(255,255,255,0.1); border-radius:18px; padding:28px; display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
+              <div class="testimonial-stars" aria-label="5 out of 5 stars" style="margin-bottom:0;">
+                <span style="color:#facc15; font-size:1.1rem; letter-spacing:2px;">★★★★★</span>
               </div>
+              <span style="display:inline-flex; align-items:center; gap:4px; font-size:0.75rem; font-weight:800; color:#1877f2; background:rgba(24,119,242,0.12); border:1px solid rgba(24,119,242,0.3); padding:3px 10px; border-radius:20px;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="#1877f2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                Facebook Recommendation
+              </span>
             </div>
-            <a href="https://tropicaflavours.com" target="_blank" rel="noopener" class="testimonial-link">Live Site ↗</a>
+            <p class="testimonial-quote" style="color:#f1f5f9; font-size:0.96rem; line-height:1.7; font-style:normal; margin-bottom:20px;">
+              "Great designs. Full responsive and lightweight websites. light speed loading. Fair charges with cooperation. I recommend this service. 😌😌"
+            </p>
+          </div>
+          <div class="testimonial-author-wrap" style="border-top:1px solid rgba(255,255,255,0.08); padding-top:16px; display:flex; align-items:center; justify-content:space-between;">
+            <div>
+              <div class="testimonial-author-name" style="font-weight:800; color:#fff; font-size:0.95rem;">EnLyt Partners</div>
+              <div class="testimonial-author-company" style="font-size:0.8rem; color:#94a3b8;">Corporate Client Review • Jan 30</div>
+            </div>
+            <a href="https://web.facebook.com/profile.php?id=100082101311247&sk=reviews" target="_blank" rel="noopener" class="testimonial-link" style="color:#04AA6D; font-size:0.8rem; font-weight:700; text-decoration:none;">View on FB ↗</a>
           </div>
         </div>
 
-        <!-- Testimonial 3: GPS Lanka Travels -->
-        <div class="testimonial-card reveal">
-          <div class="testimonial-stars" aria-label="5 out of 5 stars">
-            <svg class="star-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="star-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="star-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="star-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="star-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-          </div>
-          <p class="testimonial-quote">
-            "Our private chauffeur booking requests from European and Middle Eastern travelers jumped by 60%. The WhatsApp integration and mobile booking experience is seamless. Infinite Web's support from Tangalle has been exceptional."
-          </p>
-          <div class="testimonial-author-wrap">
-            <div>
-              <div class="testimonial-author-name">Gayan Priyadarshana</div>
-              <div class="testimonial-author-company">Founder & Lead Chauffeur • GPS Lanka Travels</div>
-              <div class="testimonial-verified-badge">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-                <span>Verified Client Project</span>
+        <!-- Review 3: Damitha Dananjaya (Facebook Review) -->
+        <div class="testimonial-card reveal" style="background:#131b2e; border:1px solid rgba(255,255,255,0.1); border-radius:18px; padding:28px; display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
+              <div class="testimonial-stars" aria-label="5 out of 5 stars" style="margin-bottom:0;">
+                <span style="color:#facc15; font-size:1.1rem; letter-spacing:2px;">★★★★★</span>
               </div>
+              <span style="display:inline-flex; align-items:center; gap:4px; font-size:0.75rem; font-weight:800; color:#1877f2; background:rgba(24,119,242,0.12); border:1px solid rgba(24,119,242,0.3); padding:3px 10px; border-radius:20px;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="#1877f2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                Facebook Recommendation
+              </span>
             </div>
-            <a href="https://gpslankatravels.com" target="_blank" rel="noopener" class="testimonial-link">Live Site ↗</a>
+            <p class="testimonial-quote" style="color:#f1f5f9; font-size:0.96rem; line-height:1.7; font-style:normal; margin-bottom:20px;">
+              "A few days ago I built a website with this company. It is very good and beautiful. The work was done beautifully. Thank you very much."
+            </p>
+          </div>
+          <div class="testimonial-author-wrap" style="border-top:1px solid rgba(255,255,255,0.08); padding-top:16px; display:flex; align-items:center; justify-content:space-between;">
+            <div>
+              <div class="testimonial-author-name" style="font-weight:800; color:#fff; font-size:0.95rem;">Damitha Dananjaya</div>
+              <div class="testimonial-author-company" style="font-size:0.8rem; color:#94a3b8;">Verified Client Review • Mar 8</div>
+            </div>
+            <a href="https://web.facebook.com/profile.php?id=100082101311247&sk=reviews" target="_blank" rel="noopener" class="testimonial-link" style="color:#04AA6D; font-size:0.8rem; font-weight:700; text-decoration:none;">View on FB ↗</a>
           </div>
         </div>
 
-        <!-- Testimonial 4: Hiri Surf School -->
-        <div class="testimonial-card reveal">
-          <div class="testimonial-stars" aria-label="5 out of 5 stars">
-            <svg class="star-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="star-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="star-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="star-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="star-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-          </div>
-          <p class="testimonial-quote">
-            "Visitors at Hiriketiya beach love how fast our site loads even on mobile beach connections. It's clean, mobile-first, and saves us hours of manual coordination every day. Best web team in the Southern Province."
-          </p>
-          <div class="testimonial-author-wrap">
-            <div>
-              <div class="testimonial-author-name">Roshan Jayasuriya</div>
-              <div class="testimonial-author-company">Head Instructor • Hiri Surf School</div>
-              <div class="testimonial-verified-badge">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-                <span>Verified Client Project</span>
+        <!-- Review 4: Shantha Kumara (Facebook Review) -->
+        <div class="testimonial-card reveal" style="background:#131b2e; border:1px solid rgba(255,255,255,0.1); border-radius:18px; padding:28px; display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
+              <div class="testimonial-stars" aria-label="5 out of 5 stars" style="margin-bottom:0;">
+                <span style="color:#facc15; font-size:1.1rem; letter-spacing:2px;">★★★★★</span>
               </div>
+              <span style="display:inline-flex; align-items:center; gap:4px; font-size:0.75rem; font-weight:800; color:#1877f2; background:rgba(24,119,242,0.12); border:1px solid rgba(24,119,242,0.3); padding:3px 10px; border-radius:20px;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="#1877f2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                Facebook Recommendation
+              </span>
             </div>
-            <a href="https://hirisurfschool.com/" target="_blank" rel="noopener" class="testimonial-link">Live Site ↗</a>
+            <p class="testimonial-quote" style="color:#f1f5f9; font-size:0.96rem; line-height:1.7; font-style:normal; margin-bottom:20px;">
+              "Great designs. Full responsive and lightweight websites. light speed loading. Fair charges with cooperation. I recommend this service."
+            </p>
+          </div>
+          <div class="testimonial-author-wrap" style="border-top:1px solid rgba(255,255,255,0.08); padding-top:16px; display:flex; align-items:center; justify-content:space-between;">
+            <div>
+              <div class="testimonial-author-name" style="font-weight:800; color:#fff; font-size:0.95rem;">Shantha Kumara</div>
+              <div class="testimonial-author-company" style="font-size:0.8rem; color:#94a3b8;">Verified Client Review • Jan 4</div>
+            </div>
+            <a href="https://web.facebook.com/profile.php?id=100082101311247&sk=reviews" target="_blank" rel="noopener" class="testimonial-link" style="color:#04AA6D; font-size:0.8rem; font-weight:700; text-decoration:none;">View on FB ↗</a>
+          </div>
+        </div>
+
+        <!-- Review 5: Suraweera Farm (Facebook Review) -->
+        <div class="testimonial-card reveal" style="background:#131b2e; border:1px solid rgba(255,255,255,0.1); border-radius:18px; padding:28px; display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
+              <div class="testimonial-stars" aria-label="5 out of 5 stars" style="margin-bottom:0;">
+                <span style="color:#facc15; font-size:1.1rem; letter-spacing:2px;">★★★★★</span>
+              </div>
+              <span style="display:inline-flex; align-items:center; gap:4px; font-size:0.75rem; font-weight:800; color:#1877f2; background:rgba(24,119,242,0.12); border:1px solid rgba(24,119,242,0.3); padding:3px 10px; border-radius:20px;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="#1877f2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                Facebook Recommendation
+              </span>
+            </div>
+            <p class="testimonial-quote" style="color:#f1f5f9; font-size:0.96rem; line-height:1.7; font-style:normal; margin-bottom:20px;">
+              "Excellent.good job .Highly recommended❤️"
+            </p>
+          </div>
+          <div class="testimonial-author-wrap" style="border-top:1px solid rgba(255,255,255,0.08); padding-top:16px; display:flex; align-items:center; justify-content:space-between;">
+            <div>
+              <div class="testimonial-author-name" style="font-weight:800; color:#fff; font-size:0.95rem;">Suraweera Farm</div>
+              <div class="testimonial-author-company" style="font-size:0.8rem; color:#94a3b8;">Agriculture &amp; Business Client • Oct 22</div>
+            </div>
+            <a href="https://web.facebook.com/profile.php?id=100082101311247&sk=reviews" target="_blank" rel="noopener" class="testimonial-link" style="color:#04AA6D; font-size:0.8rem; font-weight:700; text-decoration:none;">View on FB ↗</a>
+          </div>
+        </div>
+
+        <!-- Review 6: Versells Lanka (Verified Client Case Study) -->
+        <div class="testimonial-card reveal" style="background:#131b2e; border:1px solid rgba(255,255,255,0.1); border-radius:18px; padding:28px; display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
+              <div class="testimonial-stars" aria-label="5 out of 5 stars" style="margin-bottom:0;">
+                <span style="color:#facc15; font-size:1.1rem; letter-spacing:2px;">★★★★★</span>
+              </div>
+              <span style="display:inline-flex; align-items:center; gap:4px; font-size:0.75rem; font-weight:800; color:#04AA6D; background:rgba(4,170,109,0.12); border:1px solid rgba(4,170,109,0.3); padding:3px 10px; border-radius:20px;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="#04AA6D"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                Verified Client Project
+              </span>
+            </div>
+            <p class="testimonial-quote" style="color:#f1f5f9; font-size:0.96rem; line-height:1.7; font-style:normal; margin-bottom:20px;">
+              "Infinite Creative transformed our machinery catalog into a lightning-fast digital showroom. Our client inquiries from manufacturing plants across Gampaha and Colombo doubled within the first month. The PayHere integration works flawlessly."
+            </p>
+          </div>
+          <div class="testimonial-author-wrap" style="border-top:1px solid rgba(255,255,255,0.08); padding-top:16px; display:flex; align-items:center; justify-content:space-between;">
+            <div>
+              <div class="testimonial-author-name" style="font-weight:800; color:#fff; font-size:0.95rem;">Eng. Samantha Perera</div>
+              <div class="testimonial-author-company" style="font-size:0.8rem; color:#94a3b8;">Managing Director • Versells Lanka</div>
+            </div>
+            <a href="https://versellslanka.com" target="_blank" rel="noopener" class="testimonial-link" style="color:#04AA6D; font-size:0.8rem; font-weight:700; text-decoration:none;">Live Site ↗</a>
           </div>
         </div>
 

@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <defs>
+    <linearGradient id="bgLeo" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#081026"/>
+      <stop offset="50%" stop-color="#0e1b3d"/>
+      <stop offset="100%" stop-color="#172a59"/>
+    </linearGradient>
+    <linearGradient id="goldLeo" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="50%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+    <linearGradient id="crimsonGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ef4444"/>
+      <stop offset="100%" stop-color="#b91c1c"/>
+    </linearGradient>
+    <linearGradient id="cardLeoGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.08)"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,0.02)"/>
+    </linearGradient>
+    <filter id="glowLeo" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="16" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="500" fill="url(#bgLeo)"/>
+
+  <!-- Radial Glow Accents -->
+  <circle cx="700" cy="100" r="190" fill="#f59e0b" opacity="0.12" filter="url(#glowLeo)"/>
+  <circle cx="80" cy="420" r="160" fill="#3b82f6" opacity="0.1" filter="url(#glowLeo)"/>
+
+  <!-- Subtle Geometric Pattern -->
+  <g opacity="0.06" stroke="#fbbf24" stroke-width="1">
+    <circle cx="400" cy="250" r="280" fill="none"/>
+    <circle cx="400" cy="250" r="180" fill="none"/>
+    <circle cx="400" cy="250" r="80" fill="none"/>
+  </g>
+
+  <!-- Top Mock Navigation Bar -->
+  <rect x="0" y="0" width="800" height="58" fill="rgba(8,16,38,0.9)"/>
+  <line x1="0" y1="58" x2="800" y2="58" stroke="rgba(251,191,36,0.2)" stroke-width="1"/>
+
+  <!-- Leo Crest Emblem & Brand -->
+  <g transform="translate(36, 14)">
+    <!-- Leo Emblem Icon -->
+    <rect width="32" height="32" rx="7" fill="url(#goldLeo)"/>
+    <text x="7" y="23" fill="#081026" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="900">L</text>
+    <text x="44" y="16" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="900" letter-spacing="1">CENTENNIAL LEO CLUB</text>
+    <text x="44" y="27" fill="#fbbf24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="700" letter-spacing="1.5">RICHMOND COLLEGE • DISTRICT 306 A1</text>
+  </g>
+
+  <!-- Nav Links -->
+  <g transform="translate(420, 32)" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600">
+    <text x="0" y="0">About</text>
+    <text x="55" y="0">Projects</text>
+    <text x="125" y="0">Leadership</text>
+    <rect x="210" y="-16" width="130" height="30" rx="6" fill="url(#goldLeo)"/>
+    <text x="228" y="3" fill="#081026" font-weight="900" font-size="11">JOIN LEOS ↗</text>
+  </g>
+
+  <!-- Hero Content Area -->
+  <!-- Eyebrow Badge -->
+  <g transform="translate(36, 92)">
+    <rect width="270" height="26" rx="13" fill="rgba(251,191,36,0.15)" stroke="rgba(251,191,36,0.4)" stroke-width="1"/>
+    <circle cx="14" cy="13" r="4" fill="#fbbf24"/>
+    <text x="26" y="17" fill="#fbbf24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5" font-weight="800" letter-spacing="1">LEADERSHIP • EXPERIENCE • OPPORTUNITY</text>
+  </g>
+
+  <!-- Hero Title -->
+  <text x="36" y="160" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="33" font-weight="900" letter-spacing="-0.5">
+    Youth Leadership &amp; Community
+  </text>
+  <text x="36" y="202" fill="url(#goldLeo)" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="33" font-weight="900" letter-spacing="-0.5">
+    Empowerment Platform
+  </text>
+
+  <!-- Subtitle -->
+  <text x="36" y="235" fill="#93c5fd" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13.5" font-weight="400">
+    Official digital portal for Richmond College Leos — driving community impact, social healthcare, and education across Galle.
+  </text>
+
+  <!-- Feature Cards Grid (3 cards) -->
+  <!-- Card 1: Community Outreach -->
+  <g transform="translate(36, 265)">
+    <rect width="225" height="150" rx="14" fill="url(#cardLeoGrad)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+    <rect x="16" y="16" width="36" height="36" rx="8" fill="rgba(251,191,36,0.2)"/>
+    <text x="25" y="41" fill="#fbbf24" font-family="sans-serif" font-size="18">🤝</text>
+    <text x="16" y="78" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="800">Community Outreach</text>
+    <text x="16" y="98" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="500">Over 50+ successful annual</text>
+    <text x="16" y="114" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="500">health camps and book donation drives.</text>
+    <text x="16" y="136" fill="#fbbf24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700">★ 5,000+ Beneficiaries</text>
+  </g>
+
+  <!-- Card 2: Student Leadership -->
+  <g transform="translate(285, 265)">
+    <rect width="225" height="150" rx="14" fill="url(#cardLeoGrad)" stroke="rgba(251,191,36,0.4)" stroke-width="1.5"/>
+    <rect x="16" y="16" width="36" height="36" rx="8" fill="rgba(59,130,246,0.2)"/>
+    <text x="25" y="41" fill="#3b82f6" font-family="sans-serif" font-size="18">🦁</text>
+    <text x="16" y="78" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="800">Youth Leadership Hub</text>
+    <text x="16" y="98" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="500">Public speaking masterclasses,</text>
+    <text x="16" y="114" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="500">project planning &amp; team skills.</text>
+    <text x="16" y="136" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700">✓ 150+ Active Members</text>
+  </g>
+
+  <!-- Card 3: District Excellence -->
+  <g transform="translate(534, 265)">
+    <rect width="230" height="150" rx="14" fill="url(#cardLeoGrad)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+    <rect x="16" y="16" width="36" height="36" rx="8" fill="rgba(239,68,68,0.2)"/>
+    <text x="25" y="41" fill="#ef4444" font-family="sans-serif" font-size="18">🏆</text>
+    <text x="16" y="78" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="800">Centennial Accolades</text>
+    <text x="16" y="98" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="500">Recognized as Top Outstanding</text>
+    <text x="16" y="114" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="500">Leo Club in Southern Province.</text>
+    <text x="16" y="136" fill="#f87171" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700">★ District 306 A1 Winner</text>
+  </g>
+
+  <!-- Bottom Footer Bar -->
+  <rect x="0" y="450" width="800" height="50" fill="rgba(8,16,38,0.95)"/>
+  <line x1="0" y1="450" x2="800" y2="450" stroke="rgba(251,191,36,0.15)" stroke-width="1"/>
+  <g transform="translate(36, 480)" fill="#64748b" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="600">
+    <text x="0" y="0">Richmond College Galle</text>
+    <text x="150" y="0">•</text>
+    <text x="170" y="0">Lions Clubs International Multiple District 306</text>
+    <text x="460" y="0">•</text>
+    <text x="480" y="0">Web Platform Engineered by Infinite Creative</text>
+  </g>
+</svg>
