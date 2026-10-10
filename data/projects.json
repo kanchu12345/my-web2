@@ -1,12 +1,22 @@
 [
   {
+    "title": "Danan Car & Bike Rentals",
+    "category": "Vehicle Rentals & Tourism",
+    "url": "https://danacarbikes.com/",
+    "image": "images/projects/danacarbikes.svg",
+    "description": "Premier car, scooter & van rental platform in Kandy & Peradeniya with verified fleet showcase, AA Ceylon tourist permits, and direct WhatsApp booking.",
+    "bg": "#0f172a",
+    "featured": true,
+    "featuredOrder": 1
+  },
+  {
     "title": "Versells Lanka",
     "category": "Corporate Web App",
     "url": "https://versellslanka.com",
     "description": "Enterprise agricultural technology & electric fencing engineering portal with interactive quote generator and bilingual catalog.",
     "bg": "#0b1329",
     "featured": true,
-    "featuredOrder": 1
+    "featuredOrder": 2
   },
   {
     "title": "Tropica Flavours",
@@ -16,7 +26,7 @@
     "description": "Pure Ceylon spice exports, certified organic vanilla, and worldwide wholesale distributor network with verified export credentials.",
     "bg": "#312e81",
     "featured": true,
-    "featuredOrder": 2
+    "featuredOrder": 3
   },
   {
     "title": "GPS Lanka Travels",
@@ -25,7 +35,7 @@
     "description": "Bespoke Sri Lanka island tours, wildlife safari itineraries, and instant private chauffeur booking with seamless mobile workflows.",
     "bg": "#042f2e",
     "featured": true,
-    "featuredOrder": 3
+    "featuredOrder": 4
   },
   {
     "title": "Centennial Leo Club",
@@ -35,7 +45,7 @@
     "description": "Official community platform for youth leadership, projects, and district news for Richmond College Leos with modern card layouts.",
     "bg": "#172554",
     "featured": true,
-    "featuredOrder": 4
+    "featuredOrder": 5
   },
   {
     "title": "DD Lanka Tours",
@@ -44,7 +54,7 @@
     "description": "Cultural heritage round-tours, luxury hotel reservations, and custom Sri Lanka vacation packages optimized for global tourists.",
     "bg": "#14532d",
     "featured": true,
-    "featuredOrder": 5
+    "featuredOrder": 6
   },
   {
     "title": "Hiri Surf School",
@@ -53,7 +63,7 @@
     "description": "Premier surf school and tropical resort booking platform in Hiriketiya, Sri Lanka with custom booking workflows and lesson schedules.",
     "bg": "#0284c7",
     "featured": true,
-    "featuredOrder": 6
+    "featuredOrder": 7
   },
   {
     "title": "Zap Ceylon",

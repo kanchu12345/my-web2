@@ -3151,6 +3151,7 @@ document.addEventListener('DOMContentLoaded', () => {
     calculateFullEstimate();
   }
   initPricingCarousel();
+  initReviewsCarousel();
   initPagesCarousel();
   initFaqAccordion();
   initSmoothScroll();
@@ -3486,6 +3487,138 @@ function initPagesCarousel() {
         window.pagesCarouselNext();
       } else if (touchEndX - touchStartX > 45) {
         window.pagesCarouselPrev();
+      }
+    }, { passive: true });
+  }
+
+  window.addEventListener('resize', () => {
+    renderDots();
+    updateSlider();
+  });
+
+  renderDots();
+  updateSlider();
+  startTimer();
+}
+
+/* ── Auto-Swapping Reviews Carousel Engine ─────────────────────── */
+function initReviewsCarousel() {
+  const track = document.getElementById('reviewsTrack');
+  const viewport = document.getElementById('reviewsViewport');
+  const dotsContainer = document.getElementById('reviewsDots');
+  if (!track || !viewport) return;
+
+  const cards = Array.from(track.children);
+  if (!cards.length) return;
+
+  let currentIndex = 0;
+  let timer = null;
+  let isHovered = false;
+
+  function getVisibleCount() {
+    if (window.innerWidth <= 640) return 1;
+    if (window.innerWidth <= 1024) return 2;
+    return 3;
+  }
+
+  function getMaxIndex() {
+    const visible = getVisibleCount();
+    return Math.max(0, cards.length - visible);
+  }
+
+  function renderDots() {
+    if (!dotsContainer) return;
+    dotsContainer.innerHTML = '';
+    const maxIdx = getMaxIndex();
+    for (let i = 0; i <= maxIdx; i++) {
+      const dot = document.createElement('button');
+      dot.className = 'carousel-dot' + (i === currentIndex ? ' active' : '');
+      dot.setAttribute('aria-label', 'Go to review slide ' + (i + 1));
+      dot.onclick = () => {
+        currentIndex = i;
+        updateSlider();
+        resetTimer();
+      };
+      dotsContainer.appendChild(dot);
+    }
+  }
+
+  function updateSlider() {
+    const maxIdx = getMaxIndex();
+    if (currentIndex > maxIdx) currentIndex = 0;
+    if (currentIndex < 0) currentIndex = maxIdx;
+
+    const firstCard = cards[0];
+    if (!firstCard) return;
+
+    const cardWidth = firstCard.getBoundingClientRect().width;
+    const style = window.getComputedStyle(track);
+    const gap = parseFloat(style.gap) || 20;
+    const shift = currentIndex * (cardWidth + gap);
+
+    track.style.transform = 'translateX(-' + shift + 'px)';
+
+    if (dotsContainer) {
+      const dots = dotsContainer.querySelectorAll('.carousel-dot');
+      dots.forEach((d, idx) => {
+        d.classList.toggle('active', idx === currentIndex);
+      });
+    }
+  }
+
+  window.reviewsCarouselNext = function() {
+    const maxIdx = getMaxIndex();
+    currentIndex = (currentIndex >= maxIdx) ? 0 : currentIndex + 1;
+    updateSlider();
+    resetTimer();
+  };
+
+  window.reviewsCarouselPrev = function() {
+    const maxIdx = getMaxIndex();
+    currentIndex = (currentIndex <= 0) ? maxIdx : currentIndex - 1;
+    updateSlider();
+    resetTimer();
+  };
+
+  function startTimer() {
+    stopTimer();
+    timer = setInterval(() => {
+      if (!isHovered) {
+        const maxIdx = getMaxIndex();
+        currentIndex = (currentIndex >= maxIdx) ? 0 : currentIndex + 1;
+        updateSlider();
+      }
+    }, 4500);
+  }
+
+  function stopTimer() {
+    if (timer) clearInterval(timer);
+    timer = null;
+  }
+
+  function resetTimer() {
+    stopTimer();
+    startTimer();
+  }
+
+  const wrapper = document.getElementById('reviewsCarouselWrapper');
+  if (wrapper) {
+    wrapper.addEventListener('mouseenter', () => { isHovered = true; });
+    wrapper.addEventListener('mouseleave', () => { isHovered = false; });
+    
+    let touchStartX = 0;
+    let touchEndX = 0;
+    wrapper.addEventListener('touchstart', e => {
+      touchStartX = e.changedTouches[0].screenX;
+      isHovered = true;
+    }, { passive: true });
+    wrapper.addEventListener('touchend', e => {
+      touchEndX = e.changedTouches[0].screenX;
+      isHovered = false;
+      if (touchStartX - touchEndX > 45) {
+        window.reviewsCarouselNext();
+      } else if (touchEndX - touchStartX > 45) {
+        window.reviewsCarouselPrev();
       }
     }, { passive: true });
   }
