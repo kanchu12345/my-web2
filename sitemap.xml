@@ -7,31 +7,31 @@
   <!-- Homepage -->
   <url>
     <loc>https://infiniteweb.dev/</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
-  <!-- Web Design & Digital Marketing Packages -->
+  <!-- Web Design & Digital Marketing Packages (High Commercial Search Intent) -->
   <url>
     <loc>https://infiniteweb.dev/packages.html</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-18</lastmod>
     <changefreq>daily</changefreq>
-    <priority>0.95</priority>
+    <priority>1.0</priority>
   </url>
 
   <!-- Services Overview -->
   <url>
     <loc>https://infiniteweb.dev/services.html</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-18</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
+    <priority>0.95</priority>
   </url>
 
   <!-- Service Details Deep Dive -->
   <url>
     <loc>https://infiniteweb.dev/service-details.html</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -39,15 +39,23 @@
   <!-- Portfolio & Completed Projects -->
   <url>
     <loc>https://infiniteweb.dev/portfolio.html</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-18</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- Projects Directory Root -->
+  <url>
+    <loc>https://infiniteweb.dev/projects/</loc>
+    <lastmod>2026-10-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
   </url>
 
   <!-- About Company & Story -->
   <url>
     <loc>https://infiniteweb.dev/about.html</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
@@ -55,7 +63,7 @@
   <!-- Sri Lanka Tech News & Blog -->
   <url>
     <loc>https://infiniteweb.dev/blogs.html</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.90</priority>
   </url>
@@ -63,7 +71,7 @@
   <!-- Developer Academy & Coding Tutorials -->
   <url>
     <loc>https://infiniteweb.dev/tutorials.html</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.90</priority>
   </url>
@@ -71,59 +79,59 @@
   <!-- Contact & Direct Consultation -->
   <url>
     <loc>https://infiniteweb.dev/contact.html</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-18</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
+    <priority>0.90</priority>
   </url>
 
   <!-- Legal & Technical Compliance -->
   <url>
     <loc>https://infiniteweb.dev/privacy.html</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
   <url>
     <loc>https://infiniteweb.dev/cookie-policy.html</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
   <url>
     <loc>https://infiniteweb.dev/sitemap.html</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-18</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.75</priority>
+    <priority>0.80</priority>
   </url>
 
   <!-- Sinhala Tech & Web Design Articles -->
   <url>
     <loc>https://infiniteweb.dev/article/si-web-design-sri-lanka-2026.html</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.88</priority>
   </url>
   <url>
     <loc>https://infiniteweb.dev/article/si-pagespeed-optimization-mobile-sri-lanka.html</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.88</priority>
   </url>
   <url>
     <loc>https://infiniteweb.dev/article/si-payhere-online-payment-gateway-guide.html</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.88</priority>
   </url>
   <url>
     <loc>https://infiniteweb.dev/article/si-ai-tools-web-development-efficiency.html</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.88</priority>
   </url>
   <url>
     <loc>https://infiniteweb.dev/article/si-lk-domain-registration-guide.html</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.88</priority>
   </url>
@@ -131,13 +139,13 @@
   <!-- Tamil Tech & Web Design Articles -->
   <url>
     <loc>https://infiniteweb.dev/article/ta-web-design-sri-lanka-guide.html</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.88</priority>
   </url>
   <url>
     <loc>https://infiniteweb.dev/article/ta-payhere-online-payment-guide.html</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.88</priority>
   </url>
