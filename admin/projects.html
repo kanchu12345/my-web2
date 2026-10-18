@@ -355,13 +355,18 @@ import { escapeHTML, sanitizeInput, sanitizeURL } from '../js/sanitize.js';
 
     // Auto-Sort: Featured first by featuredOrder ascending, then newest by timestamp
     unique.sort((a, b) => {
+      const aIsDanan = (a.url || '').includes('danacarbikes.com');
+      const bIsDanan = (b.url || '').includes('danacarbikes.com');
+      if (aIsDanan && !bIsDanan) return -1;
+      if (!aIsDanan && bIsDanan) return 1;
+
       const aFeat = !!a.featured;
       const bFeat = !!b.featured;
       if (aFeat && !bFeat) return -1;
       if (!aFeat && bFeat) return 1;
       if (aFeat && bFeat) {
-        const aOrd = Number(a.featuredOrder) || 99;
-        const bOrd = Number(b.featuredOrder) || 99;
+        const aOrd = (a.featuredOrder !== undefined && a.featuredOrder !== null) ? Number(a.featuredOrder) : 99;
+        const bOrd = (b.featuredOrder !== undefined && b.featuredOrder !== null) ? Number(b.featuredOrder) : 99;
         if (aOrd !== bOrd) return aOrd - bOrd;
       }
       const aTime = a.createdAt?.seconds || (a._source === 'firestore' ? 9999999999 : 0);

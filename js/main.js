@@ -104,7 +104,9 @@ function makeProjectCard(p){
   card.className = 'browser-mockup-card reveal';
 
   const safeImage = (p.image || '').replace(/["'<>]/g, '');
-  const previewSrc = safeImage || (p.url ? 'https://s0.wp.com/mshots/v1/' + encodeURIComponent(p.url) + '?w=800&h=500' : '');
+  const prefix = typeof rootPath === 'function' ? rootPath() : '';
+  const resolvedImg = (safeImage && !safeImage.startsWith('http') && !safeImage.startsWith('/') && !safeImage.startsWith('data:')) ? prefix + safeImage : safeImage;
+  const previewSrc = resolvedImg || (p.url ? 'https://s0.wp.com/mshots/v1/' + encodeURIComponent(p.url) + '?w=800&h=500' : '');
   
   const cleanDomain = (p.url || 'infiniteweb.dev').replace(/^https?:\/\//, '').replace(/^www\./, '').split('/')[0];
 
@@ -173,13 +175,18 @@ function renderProjectsList(grid, projects){
   if (!grid) return;
   grid.innerHTML = '';
   const sorted = [...projects].sort((a, b) => {
+    const aIsDanan = (a.url || '').includes('danacarbikes.com');
+    const bIsDanan = (b.url || '').includes('danacarbikes.com');
+    if (aIsDanan && !bIsDanan) return -1;
+    if (!aIsDanan && bIsDanan) return 1;
+
     const aFeat = !!a.featured;
     const bFeat = !!b.featured;
     if (aFeat && !bFeat) return -1;
     if (!aFeat && bFeat) return 1;
     if (aFeat && bFeat) {
-      const aOrd = Number(a.featuredOrder) || 99;
-      const bOrd = Number(b.featuredOrder) || 99;
+      const aOrd = (a.featuredOrder !== undefined && a.featuredOrder !== null) ? Number(a.featuredOrder) : 99;
+      const bOrd = (b.featuredOrder !== undefined && b.featuredOrder !== null) ? Number(b.featuredOrder) : 99;
       if (aOrd !== bOrd) return aOrd - bOrd;
     }
     const aTime = a.createdAt?.seconds || (a._source === 'firestore' ? 9999999999 : 0);
@@ -199,13 +206,23 @@ function renderProjectsList(grid, projects){
 function getDemoProjects(){
   return [
     {
+      "title": "Danan Car & Bike Rentals",
+      "category": "Vehicle Rentals & Tourism",
+      "url": "https://danacarbikes.com/",
+      "image": "images/projects/danacarbikes.webp",
+      "description": "Premier car, scooter & van rental platform in Kandy & Peradeniya with verified fleet showcase, AA Ceylon tourist permits, and direct WhatsApp booking.",
+      "bg": "#0f172a",
+      "featured": true,
+      "featuredOrder": 1
+    },
+    {
       "title": "Zap Ceylon",
       "category": "Conglomerate & Global Trade",
       "url": "https://kanchu12345.github.io/ZAP-CEYLON-/",
       "description": "Premier diversified Sri Lankan conglomerate portal spanning global trade, Ceylon gems & spices, construction, finance, and digital innovation.",
       "bg": "#0f172a",
       "featured": true,
-      "featuredOrder": 1
+      "featuredOrder": 2
     },
     {
       "title": "Hiri Surf School (Hiriketiya)",
@@ -398,13 +415,18 @@ async function loadProjects(){
   grids.forEach(grid => {
     const isFeaturedOnly = grid.id === 'featuredProjectsGrid' || (!window.location.pathname.includes('portfolio') && !window.location.pathname.includes('projects'));
     const sorted = [...unique].sort((a, b) => {
+      const aIsDanan = (a.url || '').includes('danacarbikes.com');
+      const bIsDanan = (b.url || '').includes('danacarbikes.com');
+      if (aIsDanan && !bIsDanan) return -1;
+      if (!aIsDanan && bIsDanan) return 1;
+
       const aFeat = !!a.featured;
       const bFeat = !!b.featured;
       if (aFeat && !bFeat) return -1;
       if (!aFeat && bFeat) return 1;
       if (aFeat && bFeat) {
-        const aOrd = Number(a.featuredOrder) || 99;
-        const bOrd = Number(b.featuredOrder) || 99;
+        const aOrd = (a.featuredOrder !== undefined && a.featuredOrder !== null) ? Number(a.featuredOrder) : 99;
+        const bOrd = (b.featuredOrder !== undefined && b.featuredOrder !== null) ? Number(b.featuredOrder) : 99;
         if (aOrd !== bOrd) return aOrd - bOrd;
       }
       const aTime = a.createdAt?.seconds || (a._source === 'firestore' ? 9999999999 : 0);

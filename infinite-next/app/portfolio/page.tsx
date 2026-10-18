@@ -7,6 +7,7 @@ export const metadata = {
 };
 
 const projects = [
+  { name: "Danan Car & Bike Rentals", url: "https://danacarbikes.com/", category: "Vehicle Rentals", desc: "Premier vehicle rental and tourism fleet booking platform in Kandy & Peradeniya with direct WhatsApp inquiries." },
   { name: "Versells Lanka", url: "https://versellslanka.com", category: "Corporate", desc: "A premium corporate identity and scalable web platform." },
   { name: "Richmond Leos", url: "https://richmondleos.org", category: "Non-Profit", desc: "Dynamic community platform with event management." },
   { name: "Lanka Sunrays", url: "https://lankasunrays.lk", category: "E-commerce", desc: "High-conversion e-commerce storefront for retail." },
