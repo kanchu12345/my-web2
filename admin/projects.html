@@ -355,6 +355,11 @@ import { escapeHTML, sanitizeInput, sanitizeURL } from '../js/sanitize.js';
 
     // Auto-Sort: Featured first by featuredOrder ascending, then newest by timestamp
     unique.sort((a, b) => {
+      const aIsLotus = (a.url || '').includes('lotusceylon.com');
+      const bIsLotus = (b.url || '').includes('lotusceylon.com');
+      if (aIsLotus && !bIsLotus) return -1;
+      if (!aIsLotus && bIsLotus) return 1;
+
       const aIsDanan = (a.url || '').includes('danacarbikes.com');
       const bIsDanan = (b.url || '').includes('danacarbikes.com');
       if (aIsDanan && !bIsDanan) return -1;

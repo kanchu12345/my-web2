@@ -7,6 +7,7 @@ export const metadata = {
 };
 
 const projects = [
+  { name: "Lotus Ceylon Luxury Holidays", url: "https://www.lotusceylon.com/", category: "Luxury Travel DMC", desc: "Premier luxury destination management company (DMC) in Sri Lanka with bespoke tour package showcases and direct booking workflows." },
   { name: "Danan Car & Bike Rentals", url: "https://danacarbikes.com/", category: "Vehicle Rentals", desc: "Premier vehicle rental and tourism fleet booking platform in Kandy & Peradeniya with direct WhatsApp inquiries." },
   { name: "Versells Lanka", url: "https://versellslanka.com", category: "Corporate", desc: "A premium corporate identity and scalable web platform." },
   { name: "Richmond Leos", url: "https://richmondleos.org", category: "Non-Profit", desc: "Dynamic community platform with event management." },

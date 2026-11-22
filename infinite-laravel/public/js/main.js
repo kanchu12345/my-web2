@@ -175,6 +175,11 @@ function renderProjectsList(grid, projects){
   if (!grid) return;
   grid.innerHTML = '';
   const sorted = [...projects].sort((a, b) => {
+    const aIsLotus = (a.url || '').includes('lotusceylon.com');
+    const bIsLotus = (b.url || '').includes('lotusceylon.com');
+    if (aIsLotus && !bIsLotus) return -1;
+    if (!aIsLotus && bIsLotus) return 1;
+
     const aIsDanan = (a.url || '').includes('danacarbikes.com');
     const bIsDanan = (b.url || '').includes('danacarbikes.com');
     if (aIsDanan && !bIsDanan) return -1;
@@ -206,6 +211,16 @@ function renderProjectsList(grid, projects){
 function getDemoProjects(){
   return [
     {
+      "title": "Lotus Ceylon Luxury Holidays",
+      "category": "Luxury Travel & Tours DMC",
+      "url": "https://www.lotusceylon.com/",
+      "image": "images/projects/lotus-ceylon.webp",
+      "description": "Premier luxury destination management company (DMC) in Sri Lanka offering bespoke travel itineraries, wildlife safaris, cultural tours, and direct booking workflows.",
+      "bg": "#16361D",
+      "featured": true,
+      "featuredOrder": 1
+    },
+    {
       "title": "Danan Car & Bike Rentals",
       "category": "Vehicle Rentals & Tourism",
       "url": "https://danacarbikes.com/",
@@ -213,7 +228,7 @@ function getDemoProjects(){
       "description": "Premier car, scooter & van rental platform in Kandy & Peradeniya with verified fleet showcase, AA Ceylon tourist permits, and direct WhatsApp booking.",
       "bg": "#0f172a",
       "featured": true,
-      "featuredOrder": 1
+      "featuredOrder": 2
     },
     {
       "title": "Zap Ceylon",
@@ -415,6 +430,11 @@ async function loadProjects(){
   grids.forEach(grid => {
     const isFeaturedOnly = grid.id === 'featuredProjectsGrid' || (!window.location.pathname.includes('portfolio') && !window.location.pathname.includes('projects'));
     const sorted = [...unique].sort((a, b) => {
+      const aIsLotus = (a.url || '').includes('lotusceylon.com');
+      const bIsLotus = (b.url || '').includes('lotusceylon.com');
+      if (aIsLotus && !bIsLotus) return -1;
+      if (!aIsLotus && bIsLotus) return 1;
+
       const aIsDanan = (a.url || '').includes('danacarbikes.com');
       const bIsDanan = (b.url || '').includes('danacarbikes.com');
       if (aIsDanan && !bIsDanan) return -1;
